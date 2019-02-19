@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Overflow" xml:space="preserve">
+    <value>Overflow Pipe</value>
+  </data>
+  <data name="PSHPDP" xml:space="preserve">
+    <value>PS Discharge Pressure</value>
+  </data>
+  <data name="psDraghead" xml:space="preserve">
+    <value>PS Draghead</value>
+  </data>
+  <data name="psIntermediate" xml:space="preserve">
+    <value>PS Intermediate</value>
+  </data>
+  <data name="psTrunnion" xml:space="preserve">
+    <value>PS Trunnion</value>
+  </data>
+  <data name="PSHPVP" xml:space="preserve">
+    <value>PS Vacuum Pressure</value>
+  </data>
+  <data name="PSWC" xml:space="preserve">
+    <value>PS Wave Compensator</value>
+  </data>
+  <data name="SBHPDP" xml:space="preserve">
+    <value>SB Discharge Pressure</value>
+  </data>
+  <data name="sbDraghead" xml:space="preserve">
+    <value>SB Draghead</value>
+  </data>
+  <data name="sbIntermediate" xml:space="preserve">
+    <value>SB Intermediate</value>
+  </data>
+  <data name="sbTrunnion" xml:space="preserve">
+    <value>SB Trunnion</value>
+  </data>
+  <data name="SBHPVP" xml:space="preserve">
+    <value>SB Vaccum Pressure</value>
+  </data>
+  <data name="SBWC" xml:space="preserve">
+    <value>SB Wave Compensator</value>
+  </data>
+  <data name="PSDP" xml:space="preserve">
+    <value>PS Draghead Differential Pressure</value>
+  </data>
+  <data name="SBDP" xml:space="preserve">
+    <value>SB Draghead Differential Pressure</value>
+  </data>
+  <data name="Overlook" xml:space="preserve">
+    <value>Over Look View</value>
+  </data>
+  <data name="PS" xml:space="preserve">
+    <value>Port</value>
+  </data>
+  <data name="Sidelook" xml:space="preserve">
+    <value>Side Look View</value>
+  </data>
+  <data name="SB" xml:space="preserve">
+    <value>Starboard</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="TildeMark" xml:space="preserve">
+    <value>Tilde Mark</value>
+  </data>
+  <data name="Alet" xml:space="preserve">
+    <value>A let</value>
+  </data>
+  <data name="Blet" xml:space="preserve">
+    <value>B let</value>
+  </data>
+  <data name="SaddleLimited" xml:space="preserve">
+    <value>Saddle Limited</value>
+  </data>
+  <data name="Slack" xml:space="preserve">
+    <value>Slack</value>
+  </data>
+  <data name="SuctionLimited" xml:space="preserve">
+    <value>Suction Limited</value>
+  </data>
+  <data name="UpperLimited" xml:space="preserve">
+    <value>Upper Limited</value>
+  </data>
+  <data name="SoftUpperLimited" xml:space="preserve">
+    <value>Soft Upper Limited</value>
+  </data>
+  <data name="PSPF1" xml:space="preserve">
+    <value>PS Pulling Force 1</value>
+  </data>
+  <data name="PSPF2" xml:space="preserve">
+    <value>PS Pulling Force 2</value>
+  </data>
+  <data name="SBPF1" xml:space="preserve">
+    <value>SB Pulling Force 1</value>
+  </data>
+  <data name="SBPF2" xml:space="preserve">
+    <value>SB Pulling Force 2</value>
+  </data>
+  <data name="hopper" xml:space="preserve">
+    <value>hopper pump</value>
+  </data>
+  <data name="pump" xml:space="preserve">
+    <value>hopper pump</value>
+  </data>
+  <data name="underwater" xml:space="preserve">
+    <value>underwater pump</value>
+  </data>
+  <data name="PSEarth" xml:space="preserve">
+    <value>PS Visro Earth Angle</value>
+  </data>
+  <data name="PSVisor" xml:space="preserve">
+    <value>PS Visor Angle</value>
+  </data>
+  <data name="SBEarth" xml:space="preserve">
+    <value>SB Drag Earth Angle</value>
+  </data>
+  <data name="SBVisor" xml:space="preserve">
+    <value>SB Visor Angle</value>
+  </data>
+  <data name="SoftLowerLimited" xml:space="preserve">
+    <value>Soft Lower Limited</value>
+  </data>
+  <data name="DivingCompensation" xml:space="preserve">
+    <value>Compensator Progress When Diving</value>
+  </data>
+  <data name="DivingDepth" xml:space="preserve">
+    <value>Draghead Depth When Diving</value>
+  </data>
+  <data name="LandingDepth" xml:space="preserve">
+    <value>Draghead Depth When Landing</value>
+  </data>
+  <data name="DesignDepth" xml:space="preserve">
+    <value>Design Depth</value>
+  </data>
+</root>

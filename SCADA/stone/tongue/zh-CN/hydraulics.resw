@@ -1,0 +1,282 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PSDraghead" xml:space="preserve">
+    <value>左耙头</value>
+  </data>
+  <data name="PSIntermediate" xml:space="preserve">
+    <value>左耙中</value>
+  </data>
+  <data name="PSTrunnion" xml:space="preserve">
+    <value>左弯管</value>
+  </data>
+  <data name="ButterflyValves" xml:space="preserve">
+    <value>蝶阀</value>
+  </data>
+  <data name="DoorsLocking" xml:space="preserve">
+    <value>泥门紧锁</value>
+  </data>
+  <data name="SBTrunnion" xml:space="preserve">
+    <value>右弯管</value>
+  </data>
+  <data name="SBIntermediate" xml:space="preserve">
+    <value>右耙中</value>
+  </data>
+  <data name="SBDraghead" xml:space="preserve">
+    <value>右耙头</value>
+  </data>
+  <data name="K" xml:space="preserve">
+    <value>循环冷却</value>
+  </data>
+  <data name="Y" xml:space="preserve">
+    <value>应急</value>
+  </data>
+  <data name="Port" xml:space="preserve">
+    <value>左舷液压系统</value>
+  </data>
+  <data name="Starboard" xml:space="preserve">
+    <value>右舷液压系统</value>
+  </data>
+  <data name="I" xml:space="preserve">
+    <value>右耙唇</value>
+  </data>
+  <data name="J" xml:space="preserve">
+    <value>左耙唇</value>
+  </data>
+  <data name="M" xml:space="preserve">
+    <value>备用</value>
+  </data>
+  <data name="L" xml:space="preserve">
+    <value>马达冲洗</value>
+  </data>
+  <data name="Storage" xml:space="preserve">
+    <value>储油罐</value>
+  </data>
+  <data name="F01" xml:space="preserve">
+    <value>回油滤器F0.01堵塞</value>
+  </data>
+  <data name="F02" xml:space="preserve">
+    <value>回油滤器F0.02堵塞</value>
+  </data>
+  <data name="F10" xml:space="preserve">
+    <value>滤器堵塞</value>
+  </data>
+  <data name="Master" xml:space="preserve">
+    <value>主油温</value>
+  </data>
+  <data name="Visor" xml:space="preserve">
+    <value>油温</value>
+  </data>
+  <data name="BackOil" xml:space="preserve">
+    <value>回油压力</value>
+  </data>
+  <data name="VisorOil" xml:space="preserve">
+    <value>油位</value>
+  </data>
+  <data name="Heater" xml:space="preserve">
+    <value>加热器</value>
+  </data>
+  <data name="BowWinch" xml:space="preserve">
+    <value>艏靠泊绞车压力</value>
+  </data>
+  <data name="SternWinch" xml:space="preserve">
+    <value>艉靠泊绞车压力</value>
+  </data>
+  <data name="BowAnchor" xml:space="preserve">
+    <value>艏靠泊</value>
+  </data>
+  <data name="Barge" xml:space="preserve">
+    <value>装驳</value>
+  </data>
+  <data name="Overflow" xml:space="preserve">
+    <value>溢流桶</value>
+  </data>
+  <data name="PSDoors" xml:space="preserve">
+    <value>左泥门</value>
+  </data>
+  <data name="PSGateValves" xml:space="preserve">
+    <value>左闸阀</value>
+  </data>
+  <data name="SBDoors" xml:space="preserve">
+    <value>右泥门</value>
+  </data>
+  <data name="SBGateValves" xml:space="preserve">
+    <value>右闸阀</value>
+  </data>
+  <data name="ShoreDischarge" xml:space="preserve">
+    <value>艏吹</value>
+  </data>
+  <data name="SternAnchor" xml:space="preserve">
+    <value>艉靠泊</value>
+  </data>
+  <data name="WateringValves" xml:space="preserve">
+    <value>引水闸阀</value>
+  </data>
+  <data name="PSCompensator" xml:space="preserve">
+    <value>左补偿器</value>
+  </data>
+  <data name="SBCompensator" xml:space="preserve">
+    <value>右补偿器</value>
+  </data>
+  <data name="A2C" xml:space="preserve">
+    <value>A泵代替C泵</value>
+  </data>
+  <data name="B2C" xml:space="preserve">
+    <value>B泵代替C泵</value>
+  </data>
+  <data name="C2A" xml:space="preserve">
+    <value>C泵代替A泵</value>
+  </data>
+  <data name="C2B" xml:space="preserve">
+    <value>C泵代替B泵</value>
+  </data>
+  <data name="C2F" xml:space="preserve">
+    <value>C泵代替F泵</value>
+  </data>
+  <data name="D2E" xml:space="preserve">
+    <value>D泵代替E泵</value>
+  </data>
+  <data name="E2D" xml:space="preserve">
+    <value>E泵代替D泵</value>
+  </data>
+  <data name="F2H" xml:space="preserve">
+    <value>F泵代替H泵</value>
+  </data>
+  <data name="H2F" xml:space="preserve">
+    <value>H泵代替F泵</value>
+  </data>
+  <data name="H2G" xml:space="preserve">
+    <value>H泵代替G泵</value>
+  </data>
+  <data name="I2J" xml:space="preserve">
+    <value>I泵代替J泵</value>
+  </data>
+  <data name="J2I" xml:space="preserve">
+    <value>J泵代替I泵</value>
+  </data>
+  <data name="F2C" xml:space="preserve">
+    <value>F泵代替C泵</value>
+  </data>
+  <data name="F2G" xml:space="preserve">
+    <value>F泵代替G泵</value>
+  </data>
+  <data name="G2F" xml:space="preserve">
+    <value>G泵代替F泵</value>
+  </data>
+</root>

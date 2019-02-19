@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="APumpCondition" xml:space="preserve">
+    <value>右舷液压泵A控制条件</value>
+  </data>
+  <data name="BPumpCondition" xml:space="preserve">
+    <value>右舷液压泵B控制条件</value>
+  </data>
+  <data name="CoolantRunning" xml:space="preserve">
+    <value>循环冷却泵运行</value>
+  </data>
+  <data name="CPumpCondition" xml:space="preserve">
+    <value>左舷液压泵C控制条件</value>
+  </data>
+  <data name="DPumpCondition" xml:space="preserve">
+    <value>左舷液压泵D控制条件</value>
+  </data>
+  <data name="EPumpCondition" xml:space="preserve">
+    <value>左舷液压泵E控制条件</value>
+  </data>
+  <data name="FPumpCondition" xml:space="preserve">
+    <value>左舷液压泵F控制条件</value>
+  </data>
+  <data name="GPumpCondition" xml:space="preserve">
+    <value>右舷液压泵G控制条件</value>
+  </data>
+  <data name="HPumpCondition" xml:space="preserve">
+    <value>右舷液压泵H控制条件</value>
+  </data>
+  <data name="IPumpCondition" xml:space="preserve">
+    <value>右耙唇液压泵I控制条件</value>
+  </data>
+  <data name="JPumpCondition" xml:space="preserve">
+    <value>左耙唇液压泵J控制条件</value>
+  </data>
+  <data name="KPumpCondition" xml:space="preserve">
+    <value>循环冷却泵K控制条件</value>
+  </data>
+  <data name="LPumpCondition" xml:space="preserve">
+    <value>马达冲洗泵L控制条件</value>
+  </data>
+  <data name="MPumpCondition" xml:space="preserve">
+    <value>马达冲洗/循环冷却备用泵M控制条件</value>
+  </data>
+  <data name="NoConsolePSStop" xml:space="preserve">
+    <value>疏浚控制台左舷液压泵紧急停止未激活</value>
+  </data>
+  <data name="NoConsoleSBStop" xml:space="preserve">
+    <value>疏浚控制台右舷液压泵紧急停止未激活</value>
+  </data>
+  <data name="NoMasterTankFS01" xml:space="preserve">
+    <value>液压主系统油箱滤器堵塞FS.01报警未激活</value>
+  </data>
+  <data name="NoMasterTankFS02" xml:space="preserve">
+    <value>液压主系统油箱滤器堵塞FS.02报警未激活</value>
+  </data>
+  <data name="NoMasterTankLS1" xml:space="preserve">
+    <value>液压主系统油箱液位低LS.1报警未激活</value>
+  </data>
+  <data name="NoMasterTankLS2" xml:space="preserve">
+    <value>液压主系统油箱液位过低LS.2报警未激活</value>
+  </data>
+  <data name="NoPSWinchGantryStop" xml:space="preserve">
+    <value>左舷绞车/吊架紧急停止未激活</value>
+  </data>
+  <data name="NoSailingStop" xml:space="preserve">
+    <value>航行控制台液压泵紧急停止未激活</value>
+  </data>
+  <data name="NoSBWinchGantryStop" xml:space="preserve">
+    <value>右舷绞车/吊架紧急停止未激活</value>
+  </data>
+  <data name="NoVisorTankFS" xml:space="preserve">
+    <value>耙唇油箱滤器堵塞报警未激活</value>
+  </data>
+  <data name="NoVisorTankLS1" xml:space="preserve">
+    <value>耙唇油箱液位低报警未激活</value>
+  </data>
+  <data name="NoVisorTankLS2" xml:space="preserve">
+    <value>耙唇油箱液位过低报警未激活</value>
+  </data>
+  <data name="OtherMiscCondition" xml:space="preserve">
+    <value>其他液压泵组综合控制条件</value>
+  </data>
+  <data name="PSMiscCondition" xml:space="preserve">
+    <value>左舷液压泵组综合控制条件</value>
+  </data>
+  <data name="SBMiscCondition" xml:space="preserve">
+    <value>右舷液压泵组综合控制条件</value>
+  </data>
+  <data name="SQ1Open" xml:space="preserve">
+    <value>主油箱去右舷液压泵组吸口蝶阀SQ1打开</value>
+  </data>
+  <data name="SQ2Open" xml:space="preserve">
+    <value>主油箱去左舷液压泵组吸口蝶阀SQ2打开</value>
+  </data>
+  <data name="VisorMiscCondition" xml:space="preserve">
+    <value>耙唇液压泵组综合控制条件</value>
+  </data>
+  <data name="YPumpCondition" xml:space="preserve">
+    <value>应急液压泵Y控制条件</value>
+  </data>
+  <data name="SQaOpen" xml:space="preserve">
+    <value>出口阀SQ.A打开</value>
+  </data>
+  <data name="SQbOpen" xml:space="preserve">
+    <value>出口阀SQ.B打开</value>
+  </data>
+  <data name="SQcOpen" xml:space="preserve">
+    <value>出口阀SQ.C打开</value>
+  </data>
+  <data name="SQdOpen" xml:space="preserve">
+    <value>出口阀SQ.D打开</value>
+  </data>
+  <data name="SQeOpen" xml:space="preserve">
+    <value>出口阀SQ.E打开</value>
+  </data>
+  <data name="SQfOpen" xml:space="preserve">
+    <value>出口阀SQ.F打开</value>
+  </data>
+  <data name="SQgOpen" xml:space="preserve">
+    <value>出口阀SQ.G打开</value>
+  </data>
+  <data name="SQhOpen" xml:space="preserve">
+    <value>出口阀SQ.H打开</value>
+  </data>
+  <data name="SQiOpen" xml:space="preserve">
+    <value>出口阀SQ.I打开</value>
+  </data>
+  <data name="SQjOpen" xml:space="preserve">
+    <value>出口阀SQ.J打开</value>
+  </data>
+  <data name="SQkOpen" xml:space="preserve">
+    <value>出口阀SQ.K打开</value>
+  </data>
+  <data name="SQlOpen" xml:space="preserve">
+    <value>出口阀SQ.L打开</value>
+  </data>
+  <data name="SQmOpen" xml:space="preserve">
+    <value>出口阀SQ.M打开</value>
+  </data>
+  <data name="SQyOpen" xml:space="preserve">
+    <value>出口阀SQ.Y打开</value>
+  </data>
+  <data name="NoBroken" xml:space="preserve">
+    <value>无故障反馈</value>
+  </data>
+  <data name="NoRunning" xml:space="preserve">
+    <value>无运行反馈</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>备妥反馈</value>
+  </data>
+  <data name="NoA2C" xml:space="preserve">
+    <value>A泵代替C泵未激活</value>
+  </data>
+  <data name="NoB2C" xml:space="preserve">
+    <value>B泵代替C泵未激活</value>
+  </data>
+  <data name="NoC2A" xml:space="preserve">
+    <value>C泵代替A泵未激活</value>
+  </data>
+  <data name="NoC2B" xml:space="preserve">
+    <value>C泵代替B泵未激活</value>
+  </data>
+  <data name="NoC2F" xml:space="preserve">
+    <value>C泵代替F泵未激活</value>
+  </data>
+  <data name="NoF2C" xml:space="preserve">
+    <value>F泵代替C泵未激活</value>
+  </data>
+  <data name="NoG2F" xml:space="preserve">
+    <value>G泵代替F泵未激活</value>
+  </data>
+  <data name="NoF2H" xml:space="preserve">
+    <value>F泵代替H泵未激活</value>
+  </data>
+  <data name="NoH2F" xml:space="preserve">
+    <value>H泵代替F泵未激活</value>
+  </data>
+  <data name="NoF2G" xml:space="preserve">
+    <value>F泵代替G泵未激活</value>
+  </data>
+  <data name="NoI2J" xml:space="preserve">
+    <value>I泵代替J泵未激活</value>
+  </data>
+  <data name="NoJ2I" xml:space="preserve">
+    <value>J泵代替I泵未激活</value>
+  </data>
+  <data name="SQk1Open" xml:space="preserve">
+    <value>[K1]</value>
+  </data>
+  <data name="SQk2Open" xml:space="preserve">
+    <value>[K2]</value>
+  </data>
+  <data name="Flushing" xml:space="preserve">
+    <value>马达冲洗泵运行</value>
+  </data>
+</root>

@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PSMiscCondition" xml:space="preserve">
+    <value>PS Hydraulic Pumps Control Condition</value>
+  </data>
+  <data name="APumpCondition" xml:space="preserve">
+    <value>SB Hydraulic Pump A Control Condition</value>
+  </data>
+  <data name="BPumpCondition" xml:space="preserve">
+    <value>SB Hydraulic Pump B Control Condition</value>
+  </data>
+  <data name="CPumpCondition" xml:space="preserve">
+    <value>PS Hydraulic Pump C Control Condition</value>
+  </data>
+  <data name="DPumpCondition" xml:space="preserve">
+    <value>PS Hydraulic Pump D Control Condition</value>
+  </data>
+  <data name="EPumpCondition" xml:space="preserve">
+    <value>PS Hydraulic Pump E Control Condition</value>
+  </data>
+  <data name="FPumpCondition" xml:space="preserve">
+    <value>PS Hydraulic Pump F Control Condition</value>
+  </data>
+  <data name="GPumpCondition" xml:space="preserve">
+    <value>SB Hydraulic Pump G Control Condition</value>
+  </data>
+  <data name="HPumpCondition" xml:space="preserve">
+    <value>SB Hydraulic Pump H Control Condition</value>
+  </data>
+  <data name="IPumpCondition" xml:space="preserve">
+    <value>SB Visor Hydraulic Pump I Control Condition</value>
+  </data>
+  <data name="JPumpCondition" xml:space="preserve">
+    <value>PS Visor Hydraulic Pump J Control Condition</value>
+  </data>
+  <data name="KPumpCondition" xml:space="preserve">
+    <value>Coolant Hydraulic Pump K Control Condition</value>
+  </data>
+  <data name="LPumpCondition" xml:space="preserve">
+    <value>Motor Flushing Hydraulic Pump L Control Condition</value>
+  </data>
+  <data name="MPumpCondition" xml:space="preserve">
+    <value>Spare Hydraulic Pump M Control Condition</value>
+  </data>
+  <data name="OtherMiscCondition" xml:space="preserve">
+    <value>Other Hydraulic Pumps Control Condition</value>
+  </data>
+  <data name="SBMiscCondition" xml:space="preserve">
+    <value>SB Hydraulic Pumps Control Condition</value>
+  </data>
+  <data name="VisorMiscCondition" xml:space="preserve">
+    <value>Visor Hydraulic Pumps Control Condition</value>
+  </data>
+  <data name="YPumpCondition" xml:space="preserve">
+    <value>Emergence Hydraulic Pump Y Control Condition</value>
+  </data>
+  <data name="CoolantRunning" xml:space="preserve">
+    <value>Coolant Pump is Running</value>
+  </data>
+  <data name="NoConsolePSStop" xml:space="preserve">
+    <value>Console PS Emergence Stop Button Not Pressed</value>
+  </data>
+  <data name="NoConsoleSBStop" xml:space="preserve">
+    <value>Console SB Emergence Stop Button Not Pressed</value>
+  </data>
+  <data name="NoMasterTankFS01" xml:space="preserve">
+    <value>Master Tank FS.01 not Alert</value>
+  </data>
+  <data name="NoMasterTankFS02" xml:space="preserve">
+    <value>Master Tank FS.02 not Alert</value>
+  </data>
+  <data name="NoMasterTankLS1" xml:space="preserve">
+    <value>Master Tank Level LS.01 not Alert</value>
+  </data>
+  <data name="NoMasterTankLS2" xml:space="preserve">
+    <value>Master Tank Level LS.02 not Alert</value>
+  </data>
+  <data name="NoPSWinchGantryStop" xml:space="preserve">
+    <value>PS Winch/Gantry Emergence Stop Button Not Pressed</value>
+  </data>
+  <data name="NoSailingStop" xml:space="preserve">
+    <value>Sail Console Emergence Stop Button not Pressed</value>
+  </data>
+  <data name="NoSBWinchGantryStop" xml:space="preserve">
+    <value>SB Winch/Gantry Emergence Stop Button Not Pressed</value>
+  </data>
+  <data name="NoVisorTankFS" xml:space="preserve">
+    <value>Visor Tank FS not Alert</value>
+  </data>
+  <data name="NoVisorTankLS1" xml:space="preserve">
+    <value>Visor Tank Level LS.01 not Alert</value>
+  </data>
+  <data name="NoVisorTankLS2" xml:space="preserve">
+    <value>Visor Tank Level LS.02 not Alert</value>
+  </data>
+  <data name="SQ1Open" xml:space="preserve">
+    <value>Master Tank to SB Group Valve SQ1 Open</value>
+  </data>
+  <data name="SQ2Open" xml:space="preserve">
+    <value>Master Tank to PS Group Valve SQ2 Open</value>
+  </data>
+  <data name="NoBroken" xml:space="preserve">
+    <value>No Broken</value>
+  </data>
+  <data name="NoRunning" xml:space="preserve">
+    <value>Not Running</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="SQaOpen" xml:space="preserve">
+    <value>SQ.A Open</value>
+  </data>
+  <data name="SQbOpen" xml:space="preserve">
+    <value>SQ.B Open</value>
+  </data>
+  <data name="SQcOpen" xml:space="preserve">
+    <value>SQ.C Open</value>
+  </data>
+  <data name="SQdOpen" xml:space="preserve">
+    <value>SQ.D Open</value>
+  </data>
+  <data name="SQeOpen" xml:space="preserve">
+    <value>SQ.E Open</value>
+  </data>
+  <data name="SQfOpen" xml:space="preserve">
+    <value>SQ.F Open</value>
+  </data>
+  <data name="SQgOpen" xml:space="preserve">
+    <value>SQ.G Open</value>
+  </data>
+  <data name="SQhOpen" xml:space="preserve">
+    <value>SQ.H Open</value>
+  </data>
+  <data name="SQiOpen" xml:space="preserve">
+    <value>SQ.I Open</value>
+  </data>
+  <data name="SQjOpen" xml:space="preserve">
+    <value>SQ.J Open</value>
+  </data>
+  <data name="SQkOpen" xml:space="preserve">
+    <value>SQ.K Open</value>
+  </data>
+  <data name="SQlOpen" xml:space="preserve">
+    <value>SQ.L Open</value>
+  </data>
+  <data name="SQmOpen" xml:space="preserve">
+    <value>SQ.M Open</value>
+  </data>
+  <data name="SQyOpen" xml:space="preserve">
+    <value>SQ.Y Open</value>
+  </data>
+  <data name="NoA2C" xml:space="preserve">
+    <value>No A Replace C</value>
+  </data>
+  <data name="NoB2C" xml:space="preserve">
+    <value>No B Replace C</value>
+  </data>
+  <data name="NoC2A" xml:space="preserve">
+    <value>No C Replace A</value>
+  </data>
+  <data name="NoC2B" xml:space="preserve">
+    <value>No C Replace B</value>
+  </data>
+  <data name="NoC2F" xml:space="preserve">
+    <value>No C Replace F</value>
+  </data>
+  <data name="NoF2C" xml:space="preserve">
+    <value>No F Replace C</value>
+  </data>
+  <data name="NoG2F" xml:space="preserve">
+    <value>No G Replace F</value>
+  </data>
+  <data name="NoF2H" xml:space="preserve">
+    <value>No F Replace H</value>
+  </data>
+  <data name="NoH2F" xml:space="preserve">
+    <value>No H Replace F</value>
+  </data>
+  <data name="NoF2G" xml:space="preserve">
+    <value>No F Replace G</value>
+  </data>
+  <data name="NoI2J" xml:space="preserve">
+    <value>No I Replace J</value>
+  </data>
+  <data name="NoJ2I" xml:space="preserve">
+    <value>No J Replace I</value>
+  </data>
+  <data name="SQk1Open" xml:space="preserve">
+    <value>[K1]</value>
+  </data>
+  <data name="SQk2Open" xml:space="preserve">
+    <value>[K2]</value>
+  </data>
+  <data name="Flushing" xml:space="preserve">
+    <value>Flushing Pump is Running</value>
+  </data>
+</root>

@@ -1,0 +1,69 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Auxiliary", "Auxiliary\Auxiliary.vcxitems", "{9D38AD51-FEE8-4303-8B0D-833BBCC93B58}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BigBang", "BigBang\BigBang.vcxitems", "{6A826F3B-23F9-432C-86BD-F9D318096966}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PLCIO", "PLCIO\PLCIO.vcxitems", "{A218BF46-1F55-4B99-B000-62F2DE40576C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataAccess", "DataAccess\DataAccess.vcxitems", "{E3EC1920-8383-4717-8D15-46FC7AC41916}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SCADA", "SCADA\SCADA.vcxproj", "{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics", "Graphics\Graphics.vcxitems", "{73BFE193-7352-40AB-99C0-717F6EBEE2D8}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		BigBang\BigBang.vcxitems*{6a826f3b-23f9-432c-86bd-f9d318096966}*SharedItemsImports = 9
+		Graphics\Graphics.vcxitems*{73bfe193-7352-40ab-99c0-717f6ebee2d8}*SharedItemsImports = 9
+		Auxiliary\Auxiliary.vcxitems*{9d38ad51-fee8-4303-8b0d-833bbcc93b58}*SharedItemsImports = 9
+		PLCIO\PLCIO.vcxitems*{a218bf46-1f55-4b99-b000-62f2de40576c}*SharedItemsImports = 9
+		Auxiliary\Auxiliary.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
+		BigBang\BigBang.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
+		DataAccess\DataAccess.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
+		Graphics\Graphics.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
+		PLCIO\PLCIO.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
+		DataAccess\DataAccess.vcxitems*{e3ec1920-8383-4717-8d15-46fc7ac41916}*SharedItemsImports = 9
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM = Debug|ARM
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM = Release|ARM
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Debug|ARM.ActiveCfg = Debug|ARM
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Debug|ARM.Build.0 = Debug|ARM
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Debug|ARM.Deploy.0 = Debug|ARM
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Debug|x64.ActiveCfg = Debug|x64
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Debug|x64.Build.0 = Debug|x64
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Debug|x64.Deploy.0 = Debug|x64
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Debug|x86.ActiveCfg = Debug|Win32
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Debug|x86.Build.0 = Debug|Win32
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Debug|x86.Deploy.0 = Debug|Win32
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Release|Any CPU.ActiveCfg = Release|Win32
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Release|ARM.ActiveCfg = Release|ARM
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Release|ARM.Build.0 = Release|ARM
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Release|ARM.Deploy.0 = Release|ARM
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Release|x64.ActiveCfg = Release|x64
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Release|x64.Build.0 = Release|x64
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Release|x64.Deploy.0 = Release|x64
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Release|x86.ActiveCfg = Release|Win32
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Release|x86.Build.0 = Release|Win32
+		{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}.Release|x86.Deploy.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {039811EA-56CA-4DFB-8CFD-3260FDA82DBA}
+	EndGlobalSection
+EndGlobal

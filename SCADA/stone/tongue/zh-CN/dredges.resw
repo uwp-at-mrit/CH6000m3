@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Overflow" xml:space="preserve">
+    <value>溢流桶行程</value>
+  </data>
+  <data name="PSHPDP" xml:space="preserve">
+    <value>排压</value>
+  </data>
+  <data name="psDraghead" xml:space="preserve">
+    <value>耙头</value>
+  </data>
+  <data name="psIntermediate" xml:space="preserve">
+    <value>耙中</value>
+  </data>
+  <data name="psTrunnion" xml:space="preserve">
+    <value>弯管</value>
+  </data>
+  <data name="PSHPVP" xml:space="preserve">
+    <value>真空</value>
+  </data>
+  <data name="PSWC" xml:space="preserve">
+    <value>波浪补偿器</value>
+  </data>
+  <data name="SBHPDP" xml:space="preserve">
+    <value>排压</value>
+  </data>
+  <data name="sbDraghead" xml:space="preserve">
+    <value>耙头</value>
+  </data>
+  <data name="sbIntermediate" xml:space="preserve">
+    <value>耙中</value>
+  </data>
+  <data name="sbTrunnion" xml:space="preserve">
+    <value>弯管</value>
+  </data>
+  <data name="SBHPVP" xml:space="preserve">
+    <value>真空</value>
+  </data>
+  <data name="SBWC" xml:space="preserve">
+    <value>波浪补偿器</value>
+  </data>
+  <data name="PSDP" xml:space="preserve">
+    <value>左压差</value>
+  </data>
+  <data name="SBDP" xml:space="preserve">
+    <value>右压差</value>
+  </data>
+  <data name="Overlook" xml:space="preserve">
+    <value>俯视图</value>
+  </data>
+  <data name="PS" xml:space="preserve">
+    <value>左舷</value>
+  </data>
+  <data name="Sidelook" xml:space="preserve">
+    <value>侧视图</value>
+  </data>
+  <data name="SB" xml:space="preserve">
+    <value>右舷</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>航速</value>
+  </data>
+  <data name="TildeMark" xml:space="preserve">
+    <value>潮位</value>
+  </data>
+  <data name="Alet" xml:space="preserve">
+    <value>A口</value>
+  </data>
+  <data name="Blet" xml:space="preserve">
+    <value>B口</value>
+  </data>
+  <data name="SaddleLimited" xml:space="preserve">
+    <value>搁墩到位</value>
+  </data>
+  <data name="Slack" xml:space="preserve">
+    <value>钢丝绳松弛</value>
+  </data>
+  <data name="SuctionLimited" xml:space="preserve">
+    <value>吸口到位</value>
+  </data>
+  <data name="UpperLimited" xml:space="preserve">
+    <value>钢丝绳上限</value>
+  </data>
+  <data name="SoftUpperLimited" xml:space="preserve">
+    <value>编码器上限</value>
+  </data>
+  <data name="PSPF1" xml:space="preserve">
+    <value>耙管拉力1</value>
+  </data>
+  <data name="PSPF2" xml:space="preserve">
+    <value>耙管拉力2</value>
+  </data>
+  <data name="SBPF1" xml:space="preserve">
+    <value>耙管拉力1</value>
+  </data>
+  <data name="SBPF2" xml:space="preserve">
+    <value>耙管拉力2</value>
+  </data>
+  <data name="hopper" xml:space="preserve">
+    <value>舱内泵</value>
+  </data>
+  <data name="pump" xml:space="preserve">
+    <value>[泥泵]</value>
+  </data>
+  <data name="underwater" xml:space="preserve">
+    <value>水下泵</value>
+  </data>
+  <data name="PSVisor" xml:space="preserve">
+    <value>左耙唇</value>
+  </data>
+  <data name="SBVisor" xml:space="preserve">
+    <value>右耙唇</value>
+  </data>
+  <data name="PSEarth" xml:space="preserve">
+    <value>左对地</value>
+  </data>
+  <data name="SBEarth" xml:space="preserve">
+    <value>右对地</value>
+  </data>
+  <data name="SoftLowerLimited" xml:space="preserve">
+    <value>编码器下限</value>
+  </data>
+  <data name="DivingCompensation" xml:space="preserve">
+    <value>一键着地补偿器行程设置</value>
+  </data>
+  <data name="DivingDepth" xml:space="preserve">
+    <value>一键着地耙头深度设置</value>
+  </data>
+  <data name="LandingDepth" xml:space="preserve">
+    <value>一键离地耙头深度设置</value>
+  </data>
+  <data name="DesignDepth" xml:space="preserve">
+    <value>设计挖深设置</value>
+  </data>
+</root>

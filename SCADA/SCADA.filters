@@ -1,0 +1,644 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>06266bb5-785b-433a-9fc0-c94a59272319</UniqueIdentifier>
+      <Extensions>bmp;fbx;gif;jpg;jpeg;tga;tiff;tif;png</Extensions>
+    </Filter>
+    <Filter Include="page">
+      <UniqueIdentifier>{7531e696-e7c2-47f3-a1ff-27dddae97b8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="decorator">
+      <UniqueIdentifier>{eecbda96-f292-46b6-8faa-b10211167408}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stone">
+      <UniqueIdentifier>{bbc893c4-006f-43e5-9afa-9d1b40b24eb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stone\tongue">
+      <UniqueIdentifier>{4aed4355-aa89-490e-ac2f-1df7c274121f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stone\tongue\en-US">
+      <UniqueIdentifier>{dda3866b-7c10-438f-a837-b59172a135b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stone\tongue\zh-CN">
+      <UniqueIdentifier>{5a760ac3-79f5-49f7-83c1-00944243d4d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="iotables">
+      <UniqueIdentifier>{f56f01fb-ab2b-409e-af09-3b1dfeadb7a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="page\diagnostics">
+      <UniqueIdentifier>{290031ef-0552-44f5-bb38-b73c1c1a2607}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stone\tongue\en-US\diagnostics">
+      <UniqueIdentifier>{fc0fc9fe-6673-4536-96fb-acb326f8c8fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stone\tongue\zh-CN\diagnostics">
+      <UniqueIdentifier>{dc0a360c-2424-4fac-bce6-7874a096dc7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="schema">
+      <UniqueIdentifier>{2825713d-aae4-492e-b943-113d12c31da5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="widget">
+      <UniqueIdentifier>{fca0f529-e967-4022-8c69-02c436a04cbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="schema\datalet">
+      <UniqueIdentifier>{100a3152-8298-496b-adf9-c7fc74c297ff}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ch6000m3.cxx" />
+    <ClCompile Include="page\hydraulics.cpp">
+      <Filter>page</Filter>
+    </ClCompile>
+    <ClCompile Include="plc.cpp" />
+    <ClCompile Include="page\hopper_doors.cpp">
+      <Filter>page</Filter>
+    </ClCompile>
+    <ClCompile Include="page\draughts.cpp">
+      <Filter>page</Filter>
+    </ClCompile>
+    <ClCompile Include="page\flushs.cpp">
+      <Filter>page</Filter>
+    </ClCompile>
+    <ClCompile Include="splash.cpp" />
+    <ClCompile Include="page\dredges.cpp">
+      <Filter>page</Filter>
+    </ClCompile>
+    <ClCompile Include="page\lubricatings.cpp">
+      <Filter>page</Filter>
+    </ClCompile>
+    <ClCompile Include="page\charges.cpp">
+      <Filter>page</Filter>
+    </ClCompile>
+    <ClCompile Include="page\discharges.cpp">
+      <Filter>page</Filter>
+    </ClCompile>
+    <ClCompile Include="page\glands.cpp">
+      <Filter>page</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\ai_dredges.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\ai_doors.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\di_devices.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\di_doors.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\di_dredges.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\di_hopper_pumps.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\di_pumps.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\di_valves.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\di_water_pumps.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\do_hopper_pumps.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\do_pumps.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\do_devices.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\do_doors.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\do_valves.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\do_water_pumps.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\do_dredges.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="page\diagnostics\water_pump_dx.cpp">
+      <Filter>page\diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="page\diagnostics\hopper_pump_dx.cpp">
+      <Filter>page\diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="page\diagnostics\gland_pump_dx.cpp">
+      <Filter>page\diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="schema\earthwork.cpp">
+      <Filter>schema</Filter>
+    </ClCompile>
+    <ClCompile Include="decorator\ship.cpp">
+      <Filter>decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\di_winches.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="page\diagnostics\dredges_dx.cpp">
+      <Filter>page\diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="page\diagnostics\hydraulic_pump_dx.cpp">
+      <Filter>page\diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\do_winches.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="widget.cpp" />
+    <ClCompile Include="widget\gallery.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="widget\settings.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="iotables\ao_settings.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
+    <ClCompile Include="widget\timestream.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="decorator\headsup.cpp">
+      <Filter>decorator</Filter>
+    </ClCompile>
+    <ClCompile Include="widget\alarms.cpp">
+      <Filter>widget</Filter>
+    </ClCompile>
+    <ClCompile Include="schema\alarm.cpp">
+      <Filter>schema</Filter>
+    </ClCompile>
+    <ClCompile Include="schema\datalet\earthwork_ts.cpp">
+      <Filter>schema\datalet</Filter>
+    </ClCompile>
+    <ClCompile Include="schema\datalet\alarm_tbl.cpp">
+      <Filter>schema\datalet</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="configuration.hpp" />
+    <ClInclude Include="page\hydraulics.hpp">
+      <Filter>page</Filter>
+    </ClInclude>
+    <ClInclude Include="plc.hpp" />
+    <ClInclude Include="page\hopper_doors.hpp">
+      <Filter>page</Filter>
+    </ClInclude>
+    <ClInclude Include="page\draughts.hpp">
+      <Filter>page</Filter>
+    </ClInclude>
+    <ClInclude Include="page\flushs.hpp">
+      <Filter>page</Filter>
+    </ClInclude>
+    <ClInclude Include="splash.hpp" />
+    <ClInclude Include="page\dredges.hpp">
+      <Filter>page</Filter>
+    </ClInclude>
+    <ClInclude Include="page\lubricatings.hpp">
+      <Filter>page</Filter>
+    </ClInclude>
+    <ClInclude Include="page\charges.hpp">
+      <Filter>page</Filter>
+    </ClInclude>
+    <ClInclude Include="page\discharges.hpp">
+      <Filter>page</Filter>
+    </ClInclude>
+    <ClInclude Include="page\glands.hpp">
+      <Filter>page</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\ai_doors.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\ai_dredges.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\ai_hopper_pumps.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\ai_metrics.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\ai_pumps.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\ai_valves.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\ai_water_pumps.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\di_devices.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\di_doors.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\di_dredges.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\di_hopper_pumps.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\di_pumps.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\di_valves.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\di_water_pumps.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\do_devices.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\do_doors.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\do_dredges.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\do_hopper_pumps.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\do_pumps.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\do_valves.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\do_water_pumps.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\ao_gland_pumps.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\macro_keys.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="page\diagnostics\water_pump_dx.hpp">
+      <Filter>page\diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="page\diagnostics\hopper_pump_dx.hpp">
+      <Filter>page\diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="page\diagnostics\gland_pump_dx.hpp">
+      <Filter>page\diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="schema\earthwork.hpp">
+      <Filter>schema</Filter>
+    </ClInclude>
+    <ClInclude Include="decorator\ship.hpp">
+      <Filter>decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\di_winches.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="page\diagnostics\dredges_dx.hpp">
+      <Filter>page\diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="page\diagnostics\hydraulic_pump_dx.hpp">
+      <Filter>page\diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\ai_winches.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\do_winches.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\ao_devices.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="widget.hxx" />
+    <ClInclude Include="widget\gallery.hpp">
+      <Filter>widget</Filter>
+    </ClInclude>
+    <ClInclude Include="widget\settings.hpp">
+      <Filter>widget</Filter>
+    </ClInclude>
+    <ClInclude Include="iotables\ao_settings.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
+    <ClInclude Include="widget\timestream.hpp">
+      <Filter>widget</Filter>
+    </ClInclude>
+    <ClInclude Include="decorator\headsup.hpp">
+      <Filter>decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="decorator\vessel.hpp">
+      <Filter>decorator</Filter>
+    </ClInclude>
+    <ClInclude Include="widget\alarms.hpp">
+      <Filter>widget</Filter>
+    </ClInclude>
+    <ClInclude Include="stone\tongue\alarm.hpp">
+      <Filter>stone\tongue</Filter>
+    </ClInclude>
+    <ClInclude Include="schema\alarm.hpp">
+      <Filter>schema</Filter>
+    </ClInclude>
+    <ClInclude Include="schema\datalet\earthwork_ts.hpp">
+      <Filter>schema\datalet</Filter>
+    </ClInclude>
+    <ClInclude Include="schema\datalet\alarm_tbl.hpp">
+      <Filter>schema\datalet</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SmallTile.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SmallTile.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SmallTile.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SmallTile.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SmallTile.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Wide310x150Logo.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LargeTile.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LargeTile.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LargeTile.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LargeTile.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LargeTile.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-16.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-32.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-48.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-256.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.altform-unplated_targetsize-16.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.altform-unplated_targetsize-32.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.altform-unplated_targetsize-48.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.altform-unplated_targetsize-256.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.scale-125.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.scale-150.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.scale-400.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ch6000m3_TemporaryKey.pfx" />
+    <None Include="ch6000m3.scrbl" />
+    <None Include="Assets\ch6000m3.rkt">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="schema\earthwork.dao.rkt">
+      <Filter>schema</Filter>
+    </None>
+    <None Include="stone\tongue\alarm.resw.rkt">
+      <Filter>stone\tongue</Filter>
+    </None>
+    <None Include="schema\alarm.dao.rkt">
+      <Filter>schema</Filter>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="stone\tongue\en-US\tongue.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\tongue.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\hydraulics.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\hydraulics.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\menu.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\menu.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\hopper_doors.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\hopper_doors.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\draughts.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\draughts.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\flushs.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\flushs.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\gallery.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\gallery.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\dredges.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\dredges.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\lubricatings.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\lubricatings.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\charges.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\charges.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\discharges.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\discharges.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\glands.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\glands.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\diagnostics\water_pump_dx.resw">
+      <Filter>stone\tongue\en-US\diagnostics</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\diagnostics\water_pump_dx.resw">
+      <Filter>stone\tongue\zh-CN\diagnostics</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\diagnostics\hopper_pump_dx.resw">
+      <Filter>stone\tongue\zh-CN\diagnostics</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\diagnostics\hopper_pump_dx.resw">
+      <Filter>stone\tongue\en-US\diagnostics</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\diagnostics\gland_pump_dx.resw">
+      <Filter>stone\tongue\en-US\diagnostics</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\diagnostics\gland_pump_dx.resw">
+      <Filter>stone\tongue\zh-CN\diagnostics</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\diagnostics\dredges_dx.resw">
+      <Filter>stone\tongue\en-US\diagnostics</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\diagnostics\dredges_dx.resw">
+      <Filter>stone\tongue\zh-CN\diagnostics</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\diagnostics\hydraulic_pump_dx.resw">
+      <Filter>stone\tongue\en-US\diagnostics</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\diagnostics\hydraulic_pump_dx.resw">
+      <Filter>stone\tongue\zh-CN\diagnostics</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\widget.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\widget.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\settings.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\settings.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\alarm.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\alarm.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\alarms.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\alarms.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="stone\tongue\alarm.txt">
+      <Filter>stone\tongue</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

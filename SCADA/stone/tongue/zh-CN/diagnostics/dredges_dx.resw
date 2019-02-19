@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="TrunnionGantryCondition" xml:space="preserve">
+    <value>弯管吊架控制条件</value>
+  </data>
+  <data name="PSMiscCondition" xml:space="preserve">
+    <value>左舷绞车及吊架综合控制条件</value>
+  </data>
+  <data name="TrunnionWinchCondition" xml:space="preserve">
+    <value>弯管绞车控制条件</value>
+  </data>
+  <data name="SBMiscCondition" xml:space="preserve">
+    <value>右舷绞车及吊架综合控制条件</value>
+  </data>
+  <data name="AllGantriesInOrOut" xml:space="preserve">
+    <value>所有吊架在舷内或舷外</value>
+  </data>
+  <data name="BackOilPressureOkay" xml:space="preserve">
+    <value>回油压力不少于 3bar (可越控)</value>
+  </data>
+  <data name="ConsoleAllowed" xml:space="preserve">
+    <value>疏浚控制台绞车/吊架工作允许激活</value>
+  </data>
+  <data name="DragheadGantryCondition" xml:space="preserve">
+    <value>耙头吊架控制条件</value>
+  </data>
+  <data name="DragheadWinchCondition" xml:space="preserve">
+    <value>耙头绞车控制条件</value>
+  </data>
+  <data name="IntermediateGantryCondition" xml:space="preserve">
+    <value>耙中吊架控制条件</value>
+  </data>
+  <data name="IntermediateWinchCondition" xml:space="preserve">
+    <value>耙中绞车控制条件</value>
+  </data>
+  <data name="NoConsoleStop" xml:space="preserve">
+    <value>疏浚控制台绞车/吊架紧急停止未激活</value>
+  </data>
+  <data name="NoHeadLifting" xml:space="preserve">
+    <value>疏浚控制台耙头紧急提升未激活</value>
+  </data>
+  <data name="NoIntermediateLifting" xml:space="preserve">
+    <value>疏浚控制台耙中紧急提升未激活</value>
+  </data>
+  <data name="NoSaddle" xml:space="preserve">
+    <value>搁墩到位未激活</value>
+  </data>
+  <data name="NoSceneStop" xml:space="preserve">
+    <value>现场紧急停止未激活</value>
+  </data>
+  <data name="NoSlack" xml:space="preserve">
+    <value>钢丝绳松弛限位未激活</value>
+  </data>
+  <data name="NoSoftUpper" xml:space="preserve">
+    <value>编码器上限位未激活</value>
+  </data>
+  <data name="NoSuction" xml:space="preserve">
+    <value>吸口到位未激活</value>
+  </data>
+  <data name="NoUpper" xml:space="preserve">
+    <value>绞车上限位未激活</value>
+  </data>
+  <data name="NoPushedOut" xml:space="preserve">
+    <value>推出限位未激活</value>
+  </data>
+  <data name="NoPulledIn" xml:space="preserve">
+    <value>收进限位未激活</value>
+  </data>
+  <data name="PSHopperStopped" xml:space="preserve">
+    <value>吸口到位时左泥泵停机</value>
+  </data>
+  <data name="PSNoInflating" xml:space="preserve">
+    <value>左吸口充气阀关闭</value>
+  </data>
+  <data name="PumpsRunning" xml:space="preserve">
+    <value>液压系统有效</value>
+  </data>
+  <data name="SBHopperStopped" xml:space="preserve">
+    <value>吸口到位时右泥泵停机</value>
+  </data>
+  <data name="SBNoInflating" xml:space="preserve">
+    <value>右吸口充气阀关闭</value>
+  </data>
+  <data name="WinchAtTop" xml:space="preserve">
+    <value>耙管绞车在最高位置</value>
+  </data>
+  <data name="LowerPulse" xml:space="preserve">
+    <value>下限脉冲数</value>
+  </data>
+  <data name="CurrentPulse" xml:space="preserve">
+    <value>当前脉冲数</value>
+  </data>
+  <data name="SaddlePulse" xml:space="preserve">
+    <value>搁墩脉冲数</value>
+  </data>
+  <data name="UpperPulse" xml:space="preserve">
+    <value>上限脉冲数</value>
+  </data>
+  <data name="DragheadWinchMetrics" xml:space="preserve">
+    <value>耙头绞车编码器</value>
+  </data>
+  <data name="IntermediateWinchMetrics" xml:space="preserve">
+    <value>耙中绞车编码器</value>
+  </data>
+  <data name="TrunnionWinchMetrics" xml:space="preserve">
+    <value>弯管绞车编码器</value>
+  </data>
+  <data name="A" xml:space="preserve">
+    <value>[A]</value>
+  </data>
+  <data name="B" xml:space="preserve">
+    <value>[B]</value>
+  </data>
+  <data name="C" xml:space="preserve">
+    <value>[C]</value>
+  </data>
+  <data name="Draghead" xml:space="preserve">
+    <value>[耙头]</value>
+  </data>
+  <data name="F" xml:space="preserve">
+    <value>[F]</value>
+  </data>
+  <data name="G" xml:space="preserve">
+    <value>[G]</value>
+  </data>
+  <data name="H" xml:space="preserve">
+    <value>[H]</value>
+  </data>
+  <data name="Intermediate" xml:space="preserve">
+    <value>[耙中]</value>
+  </data>
+  <data name="NoSoftLower" xml:space="preserve">
+    <value>编码器下限位未激活</value>
+  </data>
+  <data name="Trunnion" xml:space="preserve">
+    <value>[弯管]</value>
+  </data>
+  <data name="Pull_Push" xml:space="preserve">
+    <value>收进&amp;推出</value>
+  </data>
+  <data name="WindUp_Out" xml:space="preserve">
+    <value>收缆&amp;放缆</value>
+  </data>
+  <data name="Allowed" xml:space="preserve">
+    <value>允许</value>
+  </data>
+  <data name="Remote" xml:space="preserve">
+    <value>遥控</value>
+  </data>
+  <data name="Scene" xml:space="preserve">
+    <value>现场</value>
+  </data>
+</root>

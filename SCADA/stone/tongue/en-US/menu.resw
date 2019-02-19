@@ -1,0 +1,444 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Start" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Disable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="VirtualClose" xml:space="preserve">
+    <value>Virtual Close</value>
+  </data>
+  <data name="VirtualOpen" xml:space="preserve">
+    <value>Virtual Open</value>
+  </data>
+  <data name="MHeat" xml:space="preserve">
+    <value>Heat Motor Valve</value>
+  </data>
+  <data name="PSALMO" xml:space="preserve">
+    <value>PS ALMO Auto</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="PushOut" xml:space="preserve">
+    <value>Push Out</value>
+  </data>
+  <data name="PullIn" xml:space="preserve">
+    <value>Pull In</value>
+  </data>
+  <data name="Down" xml:space="preserve">
+    <value>Down</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Up</value>
+  </data>
+  <data name="HighSpeed" xml:space="preserve">
+    <value>High Speed</value>
+  </data>
+  <data name="BothHopper" xml:space="preserve">
+    <value>Both Hopper Pump Dredging</value>
+  </data>
+  <data name="BothUnderWater" xml:space="preserve">
+    <value>Both Underwater Pump Dredging</value>
+  </data>
+  <data name="PSHopper" xml:space="preserve">
+    <value>PS Hopper Pump Dredging</value>
+  </data>
+  <data name="PSUnderWater" xml:space="preserve">
+    <value>PS Underwater Pump Dredging</value>
+  </data>
+  <data name="SBHopper" xml:space="preserve">
+    <value>SB Hopper Pump Dredging</value>
+  </data>
+  <data name="SBUnderWater" xml:space="preserve">
+    <value>SB Underwater Pump Dredging</value>
+  </data>
+  <data name="Prepare" xml:space="preserve">
+    <value>Prepare</value>
+  </data>
+  <data name="HPBarge" xml:space="preserve">
+    <value>PS Hopper Pump Dredging and Barging</value>
+  </data>
+  <data name="UWPBarge" xml:space="preserve">
+    <value>PS Underwater Pump Dredging and Barging</value>
+  </data>
+  <data name="BothShoring" xml:space="preserve">
+    <value>Both Shoring</value>
+  </data>
+  <data name="BothRainbowing" xml:space="preserve">
+    <value>Both Rainbowing</value>
+  </data>
+  <data name="PSShoring" xml:space="preserve">
+    <value>PS Shoring</value>
+  </data>
+  <data name="PSRainbowing" xml:space="preserve">
+    <value>PS Rainbowing</value>
+  </data>
+  <data name="SBShoring" xml:space="preserve">
+    <value>SB Shoring</value>
+  </data>
+  <data name="SBRainbowing" xml:space="preserve">
+    <value>SB Rainbowing</value>
+  </data>
+  <data name="Charge" xml:space="preserve">
+    <value>Charge</value>
+  </data>
+  <data name="Discharge" xml:space="preserve">
+    <value>Discharge</value>
+  </data>
+  <data name="Lock" xml:space="preserve">
+    <value>Lock</value>
+  </data>
+  <data name="Unlock" xml:space="preserve">
+    <value>Unlock</value>
+  </data>
+  <data name="AllOut" xml:space="preserve">
+    <value>Wind Out All</value>
+  </data>
+  <data name="AllStop" xml:space="preserve">
+    <value>Stop All</value>
+  </data>
+  <data name="AllUp" xml:space="preserve">
+    <value>Wind Up All</value>
+  </data>
+  <data name="MasterPumps" xml:space="preserve">
+    <value>Master Hydraulics Pump Group</value>
+  </data>
+  <data name="PSPumps" xml:space="preserve">
+    <value>PS Hydraulics Pump Group</value>
+  </data>
+  <data name="SBPumps" xml:space="preserve">
+    <value>SB Hydraulics Pump Group</value>
+  </data>
+  <data name="VisorPumps" xml:space="preserve">
+    <value>Visor Hydraulics Pump Group</value>
+  </data>
+  <data name="PSGantries" xml:space="preserve">
+    <value>PS Gantries</value>
+  </data>
+  <data name="SBGantries" xml:space="preserve">
+    <value>SB Gantries</value>
+  </data>
+  <data name="HDoor12" xml:space="preserve">
+    <value>Hopper Door #1-#4</value>
+  </data>
+  <data name="HDoor35" xml:space="preserve">
+    <value>Hopper Door #5-#10</value>
+  </data>
+  <data name="HDoor67" xml:space="preserve">
+    <value>Hopper Door #11-#14</value>
+  </data>
+  <data name="HDoor17" xml:space="preserve">
+    <value>All Hopper Doors</value>
+  </data>
+  <data name="AutoLock" xml:space="preserve">
+    <value>Auto Lock</value>
+  </data>
+  <data name="MClose" xml:space="preserve">
+    <value>Close Motor Valve</value>
+  </data>
+  <data name="MOpen" xml:space="preserve">
+    <value>Open Motor Valve</value>
+  </data>
+  <data name="MVirtualClose" xml:space="preserve">
+    <value>Virtual Close Motor Valve</value>
+  </data>
+  <data name="MVirtualOpen" xml:space="preserve">
+    <value>Virtual Open Motor Valve</value>
+  </data>
+  <data name="Deflate" xml:space="preserve">
+    <value>Deflate</value>
+  </data>
+  <data name="Inflate" xml:space="preserve">
+    <value>Inflate</value>
+  </data>
+  <data name="Emit" xml:space="preserve">
+    <value>Emit</value>
+  </data>
+  <data name="Fill" xml:space="preserve">
+    <value>Fill</value>
+  </data>
+  <data name="Override" xml:space="preserve">
+    <value>Encoder Override</value>
+  </data>
+  <data name="CloseDoorCheck" xml:space="preserve">
+    <value>Close Door Checking</value>
+  </data>
+  <data name="OpenDoorCheck" xml:space="preserve">
+    <value>Open Door Checking</value>
+  </data>
+  <data name="P2_2" xml:space="preserve">
+    <value>Parallel for double</value>
+  </data>
+  <data name="P2_H" xml:space="preserve">
+    <value>Parallel for Hoppers</value>
+  </data>
+  <data name="PS_2" xml:space="preserve">
+    <value>PS to double</value>
+  </data>
+  <data name="PS_H" xml:space="preserve">
+    <value>PS to Hoppers</value>
+  </data>
+  <data name="PS_PS" xml:space="preserve">
+    <value>PS to PS</value>
+  </data>
+  <data name="PS_SB" xml:space="preserve">
+    <value>PS to SB</value>
+  </data>
+  <data name="S2_2" xml:space="preserve">
+    <value>Sequence for double</value>
+  </data>
+  <data name="S2_H" xml:space="preserve">
+    <value>Sequence for Hoppers</value>
+  </data>
+  <data name="S2_PS" xml:space="preserve">
+    <value>Sequence for PS</value>
+  </data>
+  <data name="S2_SB" xml:space="preserve">
+    <value>Sequence for SB</value>
+  </data>
+  <data name="SB_2" xml:space="preserve">
+    <value>SB to doube</value>
+  </data>
+  <data name="SB_H" xml:space="preserve">
+    <value>SB to Hoppers</value>
+  </data>
+  <data name="SB_PS" xml:space="preserve">
+    <value>SB to PS</value>
+  </data>
+  <data name="SB_SB" xml:space="preserve">
+    <value>SB to SB</value>
+  </data>
+  <data name="I2_2" xml:space="preserve">
+    <value>Indenpendent for double</value>
+  </data>
+  <data name="CloseButterFlyValves" xml:space="preserve">
+    <value>Close All ButterFly Valves</value>
+  </data>
+  <data name="StopButterFlyValves" xml:space="preserve">
+    <value>Stop All ButterFly Valves</value>
+  </data>
+  <data name="LeftShift" xml:space="preserve">
+    <value>Left Shift</value>
+  </data>
+  <data name="RightShift" xml:space="preserve">
+    <value>Right Shift</value>
+  </data>
+  <data name="CloseGateValves" xml:space="preserve">
+    <value>Close All Gate Valves</value>
+  </data>
+  <data name="StopGateValves" xml:space="preserve">
+    <value>Stop All Gate Valves</value>
+  </data>
+  <data name="CResistance" xml:space="preserve">
+    <value>Constant Resistance</value>
+  </data>
+  <data name="Diagnostics" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="BOPOverride" xml:space="preserve">
+    <value>Override</value>
+  </data>
+  <data name="VirtualOut" xml:space="preserve">
+    <value>Virtual Wind Out</value>
+  </data>
+  <data name="VirtualUp" xml:space="preserve">
+    <value>Virtual Wind Up</value>
+  </data>
+  <data name="SBALMO" xml:space="preserve">
+    <value>SB ALMO Auto</value>
+  </data>
+  <data name="Auto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="Block" xml:space="preserve">
+    <value>Block</value>
+  </data>
+  <data name="LowerCheck" xml:space="preserve">
+    <value>Lower Check</value>
+  </data>
+  <data name="UpperCheck" xml:space="preserve">
+    <value>Upper Check</value>
+  </data>
+  <data name="SaddleCheck" xml:space="preserve">
+    <value>Saddle Check</value>
+  </data>
+  <data name="CTension" xml:space="preserve">
+    <value>Constant Tension</value>
+  </data>
+  <data name="WindOut" xml:space="preserve">
+    <value>Wind Out</value>
+  </data>
+  <data name="WindUp" xml:space="preserve">
+    <value>Wind Up</value>
+  </data>
+  <data name="CloseBolt" xml:space="preserve">
+    <value>Close Bolt Cylinder</value>
+  </data>
+  <data name="OpenBolt" xml:space="preserve">
+    <value>Open Bolt Cylinder</value>
+  </data>
+  <data name="Bolt" xml:space="preserve">
+    <value>Bolt</value>
+  </data>
+  <data name="Hold" xml:space="preserve">
+    <value>Hold</value>
+  </data>
+  <data name="Loose" xml:space="preserve">
+    <value>Loose</value>
+  </data>
+  <data name="Unbolt" xml:space="preserve">
+    <value>Unbolt</value>
+  </data>
+  <data name="MoveTo" xml:space="preserve">
+    <value>Move To Target Height</value>
+  </data>
+  <data name="BothPumps" xml:space="preserve">
+    <value>Hydraulics Pump Group</value>
+  </data>
+  <data name="ChargeCondition" xml:space="preserve">
+    <value>Charge Condition</value>
+  </data>
+  <data name="DischargeCondition" xml:space="preserve">
+    <value>Discharge Condition</value>
+  </data>
+  <data name="Pair" xml:space="preserve">
+    <value>Pair</value>
+  </data>
+  <data name="FlushCondition" xml:space="preserve">
+    <value>Flush Condition</value>
+  </data>
+  <data name="LongDrag" xml:space="preserve">
+    <value>Long SB Drag</value>
+  </data>
+</root>
