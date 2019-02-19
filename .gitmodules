@@ -3,13 +3,13 @@
 	url = https://github.com/uwp-at-mrit/BigBang.git
 [submodule "Auxiliary"]
 	path = Auxiliary
-	url = github.com:uwp-at-mrit/Auxiliary.git
+	url = https://github.com/uwp-at-mrit/Auxiliary.git
 [submodule "DataAccess"]
 	path = DataAccess
-	url = github.com:uwp-at-mrit/DataAccess.git
+	url = https://github.com/uwp-at-mrit/DataAccess.git
 [submodule "PLCIO"]
 	path = PLCIO
-	url = github.com:uwp-at-mrit/PLCIO.git
+	url = https://github.com/uwp-at-mrit/PLCIO.git
 [submodule "Graphics"]
 	path = Graphics
-	url = github.com:uwp-at-mrit/Graphics.git
+	url = https://github.com/uwp-at-mrit/Graphics.git
