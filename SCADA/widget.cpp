@@ -57,7 +57,7 @@ public:
 			}
 		}
 
-		this->set_plc_master_mode(PLCMasterMode::_);
+		this->set_plc_master_mode(TCPMode::_);
 	}
 
 public:
@@ -95,7 +95,7 @@ public:
 		this->reflow_buttons(this->brightnesses, this->labels[SS::Brightness]);
 		this->reflow_buttons(this->permissions, this->labels[SS::Permission]);
 
-		this->fill_graphlet_location(this->permissions[PLCMasterMode::Root], nullptr, &button_y);
+		this->fill_graphlet_location(this->permissions[TCPMode::Root], nullptr, &button_y);
 		for (Icon id = _E0(Icon); id < Icon::_; id++) {
 			this->move_to(this->icons[id], width * fx * float(_I(id) + 1), button_y, GraphletAnchor::CB, 0.0F, -tiny_font_size);
 		}
@@ -132,13 +132,13 @@ public:
 		}
 
 		switch (this->device->get_mode()) {
-		case PLCMasterMode::Root:  target = this->permissions[PLCMasterMode::Root]; break;
-		case PLCMasterMode::User:  target = this->permissions[PLCMasterMode::User]; break;
-		case PLCMasterMode::Debug: target = this->permissions[PLCMasterMode::Debug]; break;
+		case TCPMode::Root:  target = this->permissions[TCPMode::Root]; break;
+		case TCPMode::User:  target = this->permissions[TCPMode::User]; break;
+		case TCPMode::Debug: target = this->permissions[TCPMode::Debug]; break;
 		}
 
-		for (PLCMasterMode cmd = _E0(PLCMasterMode); cmd < PLCMasterMode::_; cmd++) {
-			if ((cmd == PLCMasterMode::Root) && (!this->root)) {
+		for (TCPMode cmd = _E0(TCPMode); cmd < TCPMode::_; cmd++) {
+			if ((cmd == TCPMode::Root) && (!this->root)) {
 				this->permissions[cmd]->set_state(ButtonState::Disabled);
 			} else {
 				this->permissions[cmd]->set_state(this->permissions[cmd] == target, ButtonState::Executing, ButtonState::Ready);
@@ -154,7 +154,7 @@ public:
 
 	void on_tap_selected(IGraphlet* g, float local_x, float local_y) override {
 		auto b_btn = dynamic_cast<Credit<Buttonlet, Brightness>*>(g);
-		auto p_btn = dynamic_cast<Credit<Buttonlet, PLCMasterMode>*>(g);
+		auto p_btn = dynamic_cast<Credit<Buttonlet, TCPMode>*>(g);
 		auto icon = dynamic_cast<Credit<Labellet, Icon>*>(g);
 
 		if (b_btn != nullptr) {
@@ -235,18 +235,18 @@ private:
 	}
 
 private:
-	void set_plc_master_mode(PLCMasterMode mode) {
+	void set_plc_master_mode(TCPMode mode) {
 		ApplicationDataContainer^ settings = ApplicationData::Current->LocalSettings;
 
-		if (mode == PLCMasterMode::_) {
+		if (mode == TCPMode::_) {
 			bool set = false;
 			
 			if (settings->Values->HasKey(mode_setting_key)) {
 				Platform::String^ mode_str = settings->Values->Lookup(mode_setting_key)->ToString();
 
-				for (PLCMasterMode m = _E0(PLCMasterMode); m < PLCMasterMode::_; m++) {
+				for (TCPMode m = _E0(TCPMode); m < TCPMode::_; m++) {
 					if (m.ToString()->Equals(mode_str)) {
-						if ((m != PLCMasterMode::Root) || this->root) {
+						if ((m != TCPMode::Root) || this->root) {
 							this->device->set_mode(m);
 							set = true;
 						}
@@ -257,7 +257,7 @@ private:
 			}
 
 			if (!set) {
-				this->set_plc_master_mode(PLCMasterMode::User);
+				this->set_plc_master_mode(TCPMode::User);
 			}
 		} else {
 			this->device->set_mode(mode);
@@ -279,7 +279,7 @@ private:
 
 private: // never delete these graphlets manually.
 	std::map<Brightness, Credit<Buttonlet, Brightness>*> brightnesses;
-	std::map<PLCMasterMode, Credit<Buttonlet, PLCMasterMode>*> permissions;
+	std::map<TCPMode, Credit<Buttonlet, TCPMode>*> permissions;
 	std::map<Icon, Credit<Labellet, Icon>*> icons;
 	std::map<SS, Labellet*> labels;
 };

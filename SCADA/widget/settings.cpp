@@ -208,7 +208,7 @@ public:
 	bool on_key(VirtualKey key, bool wargrey_keyboard) override {
 		bool handled = Planet::on_key(key, wargrey_keyboard);
 
-		if ((!handled) && (this->device->get_mode() != PLCMasterMode::User)) {
+		if ((!handled) && (this->device->get_mode() != TCPMode::User)) {
 			auto editor = dynamic_cast<Dimensionlet*>(this->get_focus_graphlet());
 			
 			if (editor != nullptr) {
