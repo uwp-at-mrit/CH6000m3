@@ -5,7 +5,7 @@
 
 (require syntax/location)
 
-(require "../../../Scripts/catalogue/tongue.rkt")
+(require "../../../../Toolbox/catalogue/tongue.rkt")
 
 (define line-splite
   (lambda [line]
