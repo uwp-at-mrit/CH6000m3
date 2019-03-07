@@ -3,31 +3,39 @@
 ;;; https://docs.microsoft.com/en-us/windows/uwp/controls-and-patterns/tiles-and-notifications-app-assets
 
 (require racket/draw)
-(require images/icons/symbol)
 
-(define rebuer-icon
+(define bitmap-scale
+  (lambda [src.png xscale yscale]
+    (cond [(= xscale yscale 1.0) src.png]
+          [else (let ([width (* (send src.png get-width) xscale)]
+                      [height (* (send src.png get-height) yscale)])
+                  (define scaled.png (make-bitmap width height #:backing-scale (send src.png get-backing-scale)))
+                  (define dc (send scaled.png make-dc))
+                  (send dc set-scale xscale yscale)
+                  (send dc draw-bitmap src.png 0 0)
+                  scaled.png)])))
+
+(define ch6000m3-icon
   (case-lambda
     [(size plate?)
-     (recycle-icon #:height size #:backing-scale 1.0)]
+     (define src.png (read-bitmap (build-path (current-directory) "ch6000m3_icon.png") 'unknown/alpha))
+     (define scale (/ size (send src.png get-width)))
+     (bitmap-scale src.png scale scale)]
     [(width height plate?)
-     (cond [(= width height) (rebuer-icon height plate?)]
-           [else (let* ([src.png (rebuer-icon (min width height) plate?)]
-                        [tile.png (make-bitmap width height #:backing-scale 1.0)])
-                   (define dc (send tile.png make-dc))
-                   (define offset (/ (- width height) 2))
-                   (if (negative? offset)
-                       (send dc draw-bitmap src.png 0 (- offset))
-                       (send dc draw-bitmap src.png offset 0))
-                   tile.png)])]))
+     (cond [(= width height) (ch6000m3-icon height plate?)]
+           [else (let ([src.png (read-bitmap (build-path (current-directory) "ch6000m3_splash.png") 'unknown/alpha)])
+                   (define xscale (/ width (send src.png get-width)))
+                   (define yscale (/ height (send src.png get-height)))
+                   (bitmap-scale src.png xscale yscale))])]))
 
-(define rebuer.icon*
+(define ch6000m3.icon*
   (let ([tiles (make-hash)])
     (lambda [width [height #false] #:plate? [plate? #true]]
       (if (or (not height) (= width height))
           (hash-ref! tiles (cons width plate?)
-                     (thunk (rebuer-icon width plate?)))
+                     (thunk (ch6000m3-icon width plate?)))
           (hash-ref! tiles (list width height plate?)
-                     (thunk (rebuer-icon width height plate?)))))))
+                     (thunk (ch6000m3-icon width height plate?)))))))
 
 (define ~tilename
   (lambda [width height type value plate?]
@@ -76,15 +84,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (define save-tile
   (lambda [path src.png xscale yscale]
-    (define tile.png
-      (cond [(= xscale yscale 1.0) src.png]
-            [else (let ([width (* (send src.png get-width) xscale)]
-                        [height (* (send src.png get-height) yscale)])
-                    (define scaled.png (make-bitmap width height #:backing-scale (send src.png get-backing-scale)))
-                    (define dc (send scaled.png make-dc))
-                    (send dc set-scale xscale yscale)
-                    (send dc draw-bitmap src.png 0 0)
-                    scaled.png)]))
+    (define tile.png (bitmap-scale src.png xscale yscale))
     (send tile.png save-file path 'png)
     (printf "saved ~a~n" path)))
 
@@ -92,7 +92,7 @@
   (lambda [basesize scales description name]
     (displayln description)
     (define maxsize (* basesize (/ (last scales) 100)))
-    (define max.png (rebuer.icon* maxsize #:plate? #true))
+    (define max.png (ch6000m3.icon* maxsize #:plate? #true))
     (for ([scale% (in-list scales)])
       (define size (exact-round (* basesize (/ scale% 100))))
       (define scale%.path
@@ -108,7 +108,7 @@
     (define maxscale (/ (last scales) 100))
     (define mwidth (* base-width maxscale))
     (define mheight (* base-height maxscale))
-    (define max.png (rebuer.icon* mwidth mheight #:plate? #true))
+    (define max.png (ch6000m3.icon* mwidth mheight #:plate? #true))
     (for ([scale% (in-list scales)])
       (define width (exact-round (* base-width (/ scale% 100))))
       (define height (exact-round (* base-height (/ scale% 100))))
@@ -121,7 +121,7 @@
   (lambda [sizes description plate?]
     (displayln description)
     (define maxsize (last sizes))
-    (define max.png (rebuer.icon* maxsize #:plate? plate?))
+    (define max.png (ch6000m3.icon* maxsize #:plate? plate?))
     (for ([targetsize (in-list sizes)])
       (define path (targetsize-list-assets-format targetsize plate?))
       (define downscale (/ targetsize maxsize))

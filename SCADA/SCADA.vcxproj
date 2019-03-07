@@ -207,6 +207,11 @@
     <None Include="stone\tongue\alarm.resw.rkt" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\BadgeLogo.scale-100.png" />
+    <Image Include="Assets\BadgeLogo.scale-125.png" />
+    <Image Include="Assets\BadgeLogo.scale-150.png" />
+    <Image Include="Assets\BadgeLogo.scale-200.png" />
+    <Image Include="Assets\BadgeLogo.scale-400.png" />
     <Image Include="Assets\LargeTile.scale-100.png" />
     <Image Include="Assets\LargeTile.scale-125.png" />
     <Image Include="Assets\LargeTile.scale-150.png" />
