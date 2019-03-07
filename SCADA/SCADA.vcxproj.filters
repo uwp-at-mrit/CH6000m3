@@ -60,7 +60,6 @@
     <ClCompile Include="page\flushs.cpp">
       <Filter>page</Filter>
     </ClCompile>
-    <ClCompile Include="splash.cpp" />
     <ClCompile Include="page\dredges.cpp">
       <Filter>page</Filter>
     </ClCompile>
@@ -195,7 +194,6 @@
     <ClInclude Include="page\flushs.hpp">
       <Filter>page</Filter>
     </ClInclude>
-    <ClInclude Include="splash.hpp" />
     <ClInclude Include="page\dredges.hpp">
       <Filter>page</Filter>
     </ClInclude>

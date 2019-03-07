@@ -359,7 +359,6 @@
     <ClCompile Include="schema\datalet\alarm_tbl.cpp" />
     <ClCompile Include="schema\earthwork.cpp" />
     <ClCompile Include="schema\datalet\earthwork_ts.cpp" />
-    <ClCompile Include="splash.cpp" />
     <ClCompile Include="page\flushs.cpp" />
     <ClCompile Include="page\charges.cpp" />
     <ClCompile Include="page\draughts.cpp" />
@@ -418,7 +417,6 @@
     <ClInclude Include="schema\datalet\alarm_tbl.hpp" />
     <ClInclude Include="schema\earthwork.hpp" />
     <ClInclude Include="schema\datalet\earthwork_ts.hpp" />
-    <ClInclude Include="splash.hpp" />
     <ClInclude Include="page\flushs.hpp" />
     <ClInclude Include="page\charges.hpp" />
     <ClInclude Include="page\draughts.hpp" />

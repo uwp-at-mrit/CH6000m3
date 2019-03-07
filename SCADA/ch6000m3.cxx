@@ -19,8 +19,6 @@
 #include "page/flushs.hpp"
 #include "page/dredges.hpp"
 
-#include "splash.hpp"
-
 using namespace WarGrey::SCADA;
 
 using namespace Windows::ApplicationModel;
@@ -53,9 +51,6 @@ internal:
 
 protected:
 	void construct(CanvasCreateResourcesReason reason) override {
-		// this->push_planet(new SplashScreen(620.0F));
-		// this->push_planet(new SplashScreen(1240.0F, 0.0F));
-		
 		this->push_planet(new HydraulicsPage(this->device)); // 0
 		this->push_planet(new ChargesPage(this->device)); // 1
 		this->push_planet(new DredgesPage(DragView::_, this->device)); // 2
