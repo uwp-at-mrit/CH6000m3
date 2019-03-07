@@ -14,6 +14,7 @@ static WarGrey::SCADA::Log default_plc_master_logging_level = WarGrey::SCADA::Lo
 static Platform::String^ remote_test_server = "192.168.0.152";
 
 static Platform::String^ root_machines[] = {
+	"192.168.0.5",
 	"192.168.0.6",
 	"192.168.0.9",
 	"192.168.0.7",
