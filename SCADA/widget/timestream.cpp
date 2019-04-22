@@ -11,7 +11,8 @@
 #include "page/hopper_doors.hpp"
 #include "page/lubricatings.hpp"
 
-#include "box.hpp"
+#include "datum/box.hpp"
+
 #include "system.hpp"
 #include "module.hpp"
 

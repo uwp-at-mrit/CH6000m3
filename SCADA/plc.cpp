@@ -1,6 +1,7 @@
 #include "plc.hpp"
-#include "box.hpp"
-#include "enum.hpp"
+
+#include "datum/box.hpp"
+#include "datum/enum.hpp"
 
 using namespace WarGrey::SCADA;
 

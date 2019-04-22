@@ -3,9 +3,7 @@
 #include "page/diagnostics/dredges_dx.hpp"
 #include "configuration.hpp"
 
-#include "module.hpp"
-#include "string.hpp"
-#include "brushes.hxx"
+#include "datum/string.hpp"
 
 #include "graphlet/shapelet.hpp"
 #include "graphlet/buttonlet.hpp"
@@ -19,6 +17,9 @@
 #include "iotables/di_devices.hpp"
 #include "iotables/di_pumps.hpp"
 #include "iotables/di_hopper_pumps.hpp"
+
+#include "brushes.hxx"
+#include "module.hpp"
 
 using namespace WarGrey::SCADA;
 

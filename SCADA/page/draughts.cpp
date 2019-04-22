@@ -21,8 +21,9 @@
 
 #include "decorator/ship.hpp"
 
+#include "datum/path.hpp"
+
 #include "module.hpp"
-#include "path.hpp"
 
 using namespace WarGrey::SCADA;
 

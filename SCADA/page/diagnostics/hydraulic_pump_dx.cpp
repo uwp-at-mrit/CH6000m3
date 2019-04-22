@@ -3,9 +3,7 @@
 #include "page/diagnostics/hydraulic_pump_dx.hpp"
 #include "configuration.hpp"
 
-#include "module.hpp"
-#include "string.hpp"
-#include "brushes.hxx"
+#include "datum/string.hpp"
 
 #include "graphlet/shapelet.hpp"
 #include "graphlet/dashboard/alarmlet.hpp"
@@ -15,6 +13,9 @@
 #include "iotables/di_devices.hpp"
 #include "iotables/di_dredges.hpp"
 #include "iotables/di_hopper_pumps.hpp"
+
+#include "module.hpp"
+#include "brushes.hxx"
 
 using namespace WarGrey::SCADA;
 

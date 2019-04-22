@@ -1,5 +1,6 @@
 #include "menu.hpp"
-#include "credit.hpp"
+
+#include "datum/credit.hpp"
 
 #include "iotables/do_doors.hpp"
 

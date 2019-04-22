@@ -12,10 +12,11 @@
 #include "graphlet/textlet.hpp"
 #include "graphlet/buttonlet.hpp"
 
+#include "datum/time.hpp"
+#include "datum/path.hpp"
+
 #include "module.hpp"
 #include "system.hpp"
-#include "time.hpp"
-#include "path.hpp"
 
 using namespace WarGrey::SCADA;
 
