@@ -107,6 +107,7 @@
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>Daily</AppInstallerCheckForUpdateFrequency>
     <AppInstallerUri>\\192.168.0.2\Win10_SCADA</AppInstallerUri>
+    <PackageCertificateThumbprint>B2A49B83B149C36BE99EA49EA1FEAE18F9846BAF</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
