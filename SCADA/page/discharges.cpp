@@ -450,7 +450,7 @@ public:
 			it->second->fill_pump_origin(&ox);
 			this->station->map_credit_graphlet(it->second, GraphletAnchor::CC, -ox);
 
-			ox = std::fabsf(ox);
+			ox = flabs(ox);
 			switch (it->first) {
 			case RS::PSHPump: {
 				this->master->move_to(this->captions[it->first], it->second, GraphletAnchor::RC, GraphletAnchor::LC, ox);
@@ -644,7 +644,7 @@ private:
 	void load_pump(std::map<E, G*>& gs, std::map<E, Credit<Labellet, E>*>& ls, E id, float rx, float fy) {
 		this->load_label(ls, id, Colours::Salmon, this->caption_font);
 
-		gs[id] = this->master->insert_one(new G(rx, std::fabsf(rx) * fy), id);
+		gs[id] = this->master->insert_one(new G(rx, flabs(rx) * fy), id);
 
 		this->load_dimension(this->powers, id, "kwatt", 0);
 		this->load_dimension(this->rpms, id, "rpm", 0);

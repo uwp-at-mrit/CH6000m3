@@ -2,6 +2,8 @@
 
 #include "decorator/decorator.hpp"
 
+#include "datum/flonum.hpp"
+
 namespace WarGrey::SCADA {
 	template<class V, typename E>
 	private class TVesselDecorator : public WarGrey::SCADA::IPlanetDecorator {
@@ -40,7 +42,7 @@ namespace WarGrey::SCADA {
 
 				{ // draw ship
 					float ship_width = this->actual_width();
-					float ship_height = std::fabsf(sb_y - ps_y);
+					float ship_height = flabs(sb_y - ps_y);
 					auto real_ship = geometry_scale(this->ship, ship_width, ship_height);
 					Rect ship_box = real_ship->ComputeBounds();
 					float sx = 0.0F;
@@ -52,8 +54,8 @@ namespace WarGrey::SCADA {
 				{ // draw deck region
 					float dx = x + std::fminf(deck_lx, deck_rx);
 					float dy = y + std::fminf(deck_ty, deck_by);
-					float dw = std::fabsf((deck_rx - deck_lx));
-					float dh = std::fabsf((deck_by - deck_ty));
+					float dw = flabs((deck_rx - deck_lx));
+					float dh = flabs((deck_by - deck_ty));
 
 					ds->DrawGeometry(rectangle(dx, dy, dw, dh), Colours::SeaGreen, 1.0F, this->ship_style);
 				}

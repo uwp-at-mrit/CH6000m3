@@ -6,6 +6,8 @@
 #include "module.hpp"
 #include "brushes.hxx"
 
+#include "datum/flonum.hpp"
+
 #include "graphlet/shapelet.hpp"
 #include "graphlet/buttonlet.hpp"
 #include "graphlet/dashboard/alarmlet.hpp"
@@ -302,7 +304,7 @@ void HopperPumpDiagnostics::fill_extent(float* width, float* height) {
 	}
 
 	SET_BOX(width, ps_width + sb_width);
-	SET_BOX(height, std::fmaxf(ps_height, sb_height));
+	SET_BOX(height, flmax(ps_height, sb_height));
 }
 
 void HopperPumpDiagnostics::load(CanvasCreateResourcesReason reason, float width, float height) {

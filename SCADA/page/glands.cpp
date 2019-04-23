@@ -400,7 +400,7 @@ private:
 	void load_device(std::map<E, G*>& gs, std::map<E, Credit<Labellet, E>*>& ls, E id, float rx, float fy) {
 		this->load_label(ls, id, Colours::Salmon);
 
-		gs[id] = this->master->insert_one(new G(rx, std::fabsf(rx) * fy), id);
+		gs[id] = this->master->insert_one(new G(rx, flabs(rx) * fy), id);
 
 		this->load_dimension(this->rpms, id, "rpm", "S", 0);
 		this->load_dimension(this->powers, id, "kwatt", "P", 0);

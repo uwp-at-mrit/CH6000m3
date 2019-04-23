@@ -12,6 +12,8 @@
 #include "brushes.hxx"
 #include "turtle.hpp"
 
+#include "datum/flonum.hpp"
+
 #include "graphlet/shapelet.hpp"
 #include "graphlet/statuslet.hpp"
 #include "graphlet/buttonlet.hpp"
@@ -397,7 +399,7 @@ public:
 	void reflow(float width, float height, float gwidth, float gheight, float vinset) {
 		GraphletAnchor anchor;
 		float dx, dy, margin, label_height, ox, oy;
-		float gridsize = std::fminf(gwidth, gheight);
+		float gridsize = flmin(gwidth, gheight);
 		float x0 = 0.0F;
 		float y0 = 0.0F;
 
@@ -432,7 +434,7 @@ public:
 				this->station->map_credit_graphlet(it->second, GraphletAnchor::CC, -ox, 0.0F);
 			}
 
-			ox = max(std::fabsf(ox), std::fabsf(oy));
+			ox = flmax(flabs(ox), flabs(oy));
 			switch (it->first) {
 			case CS::PSHPump: {
 				this->master->move_to(this->captions[it->first], it->second, GraphletAnchor::RC, GraphletAnchor::LC, ox);
@@ -501,7 +503,7 @@ public:
 		}
 
 		{ // reflow motor-driven valves
-			float polar45 = gridsize * std::sqrtf(2.0F) * 0.618F;
+			float polar45 = gridsize * flsqrt(2.0F) * 0.618F;
 
 			for (auto it = this->mvalves.begin(); it != this->mvalves.end(); it++) {
 				switch (it->first) {

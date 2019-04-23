@@ -14,6 +14,7 @@
 
 #include "datum/time.hpp"
 #include "datum/path.hpp"
+#include "datum/flonum.hpp"
 
 #include "module.hpp"
 #include "system.hpp"
@@ -75,7 +76,7 @@ public:
 		for (SS id = _E0(SS); id < SS::_; id++) {
 			this->labels[id] = this->insert_one(new Labellet(_speak(id), label_font, Colours::GhostWhite));
 			this->labels[id]->fill_extent(0.0F, 0.0F, &label_width, &button_height);
-			this->label_max = std::fmaxf(label_width, this->label_max);
+			this->label_max = flmax(label_width, this->label_max);
 		}
 
 		for (Icon id = _E0(Icon); id < Icon::_; id++) {

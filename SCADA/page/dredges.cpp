@@ -6,6 +6,8 @@
 #include "configuration.hpp"
 #include "menu.hpp"
 
+#include "datum/flonum.hpp"
+
 #include "graphlet/shapelet.hpp"
 #include "graphlet/buttonlet.hpp"
 #include "graphlet/statuslet.hpp"
@@ -804,8 +806,8 @@ public:
 		this->station->map_credit_graphlet(this->labels[DS::LMOD], GraphletAnchor::CC);
 		
 		this->hpumps[DS::SBHP]->fill_pump_origin(&dx, nullptr);
-		this->station->map_credit_graphlet(this->hpumps[DS::SBHP], GraphletAnchor::CC, +std::fabsf(dx));
-		this->station->map_credit_graphlet(this->hpumps[DS::PSHP], GraphletAnchor::CC, -std::fabsf(dx));
+		this->station->map_credit_graphlet(this->hpumps[DS::SBHP], GraphletAnchor::CC, +flabs(dx));
+		this->station->map_credit_graphlet(this->hpumps[DS::PSHP], GraphletAnchor::CC, -flabs(dx));
 		this->station->map_credit_graphlet(this->suctions[DS::PS], GraphletAnchor::LC);
 		this->station->map_credit_graphlet(this->suctions[DS::SB], GraphletAnchor::RC);
 
