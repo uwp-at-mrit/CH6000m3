@@ -505,7 +505,6 @@
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ch6000m3.scrbl" />
     <None Include="Assets\ch6000m3.rkt">
       <Filter>Assets</Filter>
     </None>

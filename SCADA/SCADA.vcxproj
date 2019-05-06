@@ -202,7 +202,6 @@
     </None>
     <None Include="packages.config" />
     <None Include="SCADA_TemporaryKey.pfx" />
-    <None Include="ch6000m3.scrbl" />
     <None Include="schema\alarm.dao.rkt" />
     <None Include="schema\earthwork.dao.rkt" />
     <None Include="stone\tongue\alarm.resw.rkt" />

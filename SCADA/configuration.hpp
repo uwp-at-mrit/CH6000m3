@@ -10,8 +10,7 @@ static WarGrey::SCADA::Log default_logging_level = WarGrey::SCADA::Log::Info;
 
 static WarGrey::SCADA::Log default_plc_master_logging_level = WarGrey::SCADA::Log::Info;
 
-//static Platform::String^ remote_test_server = "172.20.10.2";
-static Platform::String^ remote_test_server = "192.168.0.152";
+static Platform::String^ remote_test_server = "255.255.255.255";
 
 static Platform::String^ root_machines[] = {
 	"192.168.0.5",
@@ -29,7 +28,7 @@ static Platform::String^ root_machines[] = {
 /*************************************************************************************************/
 static const unsigned int frame_per_second = 5U;
 static const unsigned int timemachine_frame_per_second = 4U;
-static const long long timemachine_speed = 2; // second per step
+static const long long timemachine_speed = 2; // seconds per step
 static const long long plc_master_suicide_timeout = 4000;
 
 static const unsigned int diagnostics_caption_background = 0x8FBC8F;
