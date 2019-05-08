@@ -1,9 +1,9 @@
 #pragma once
 
 #include "satellite.hpp"
-#include "plc.hpp"
 
-#include "iotables/do_dredges.hpp"
+#include "ch6000m3/plc.hpp"
+#include "ch6000m3/iotables/do_dredges.hpp"
 
 #include "graphlet/shapelet.hpp"
 #include "graphlet/textlet.hpp"

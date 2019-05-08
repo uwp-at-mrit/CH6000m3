@@ -1,5 +1,5 @@
 ﻿#include "decorator/headsup.hpp"
-#include "configuration.hpp"
+#include "ch6000m3/configuration.hpp"
 
 #include "widget/alarms.hpp"
 

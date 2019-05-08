@@ -1,7 +1,7 @@
 ﻿#include <map>
 
 #include "widget/gallery.hpp"
-#include "configuration.hpp"
+#include "ch6000m3/configuration.hpp"
 
 #include "graphlet/textlet.hpp"
 #include "graphlet/shapelet.hpp"

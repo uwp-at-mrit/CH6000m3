@@ -3,7 +3,7 @@
 #include "page/dredges.hpp"
 #include "page/diagnostics/dredges_dx.hpp"
 
-#include "configuration.hpp"
+#include "ch6000m3/configuration.hpp"
 #include "menu.hpp"
 
 #include "datum/flonum.hpp"
@@ -22,20 +22,20 @@
 #include "graphlet/device/winchlet.hpp"
 #include "graphlet/device/draglet.hpp"
 
-#include "iotables/ai_metrics.hpp"
-#include "iotables/ai_dredges.hpp"
-#include "iotables/ai_pumps.hpp"
-#include "iotables/ai_valves.hpp"
+#include "ch6000m3/iotables/ai_metrics.hpp"
+#include "ch6000m3/iotables/ai_dredges.hpp"
+#include "ch6000m3/iotables/ai_pumps.hpp"
+#include "ch6000m3/iotables/ai_valves.hpp"
 
-#include "iotables/di_valves.hpp"
-#include "iotables/di_pumps.hpp"
-#include "iotables/di_hopper_pumps.hpp"
-#include "iotables/di_dredges.hpp"
-#include "iotables/di_winches.hpp"
+#include "ch6000m3/iotables/di_valves.hpp"
+#include "ch6000m3/iotables/di_pumps.hpp"
+#include "ch6000m3/iotables/di_hopper_pumps.hpp"
+#include "ch6000m3/iotables/di_dredges.hpp"
+#include "ch6000m3/iotables/di_winches.hpp"
 
-#include "iotables/do_dredges.hpp"
-#include "iotables/do_winches.hpp"
-#include "iotables/ao_devices.hpp"
+#include "ch6000m3/iotables/do_dredges.hpp"
+#include "ch6000m3/iotables/do_winches.hpp"
+#include "ch6000m3/iotables/ao_devices.hpp"
 
 #include "module.hpp"
 

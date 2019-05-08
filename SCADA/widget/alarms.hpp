@@ -1,6 +1,6 @@
 #pragma once
 
-#include "plc.hpp"
+#include "ch6000m3/plc.hpp"
 
 namespace WarGrey::SCADA {
 	void initialize_the_alarm(WarGrey::SCADA::PLCMaster* plc);

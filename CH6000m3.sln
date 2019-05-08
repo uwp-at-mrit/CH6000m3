@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Auxiliary", "Auxiliary\Auxiliary.vcxitems", "{9D38AD51-FEE8-4303-8B0D-833BBCC93B58}"
 EndProject
@@ -15,14 +15,18 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SCADA", "SCADA\SCADA.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics", "Graphics\Graphics.vcxitems", "{73BFE193-7352-40AB-99C0-717F6EBEE2D8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Configuration", "Configuration\Configuration.vcxitems", "{23BBBE0C-C1AF-496F-A860-706527A8EACC}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Configuration\Configuration.vcxitems*{23bbbe0c-c1af-496f-a860-706527a8eacc}*SharedItemsImports = 9
 		BigBang\BigBang.vcxitems*{6a826f3b-23f9-432c-86bd-f9d318096966}*SharedItemsImports = 9
 		Graphics\Graphics.vcxitems*{73bfe193-7352-40ab-99c0-717f6ebee2d8}*SharedItemsImports = 9
 		Auxiliary\Auxiliary.vcxitems*{9d38ad51-fee8-4303-8b0d-833bbcc93b58}*SharedItemsImports = 9
 		PLCIO\PLCIO.vcxitems*{a218bf46-1f55-4b99-b000-62f2de40576c}*SharedItemsImports = 9
 		Auxiliary\Auxiliary.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		BigBang\BigBang.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
+		Configuration\Configuration.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		DataAccess\DataAccess.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		Graphics\Graphics.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		PLCIO\PLCIO.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4

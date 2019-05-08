@@ -1,7 +1,7 @@
 ﻿#include <map>
 
 #include "page/hopper_doors.hpp"
-#include "configuration.hpp"
+#include "ch6000m3/configuration.hpp"
 #include "menu.hpp"
 
 #include "graphlet/symbol/door/hopper_doorlet.hpp"
@@ -9,12 +9,12 @@
 #include "graphlet/dashboard/cylinderlet.hpp"
 #include "graphlet/statuslet.hpp"
 
-#include "iotables/ai_metrics.hpp"
-#include "iotables/ai_doors.hpp"
-#include "iotables/di_doors.hpp"
-#include "iotables/ai_pumps.hpp"
-#include "iotables/di_pumps.hpp"
-#include "iotables/do_doors.hpp"
+#include "ch6000m3/iotables/ai_metrics.hpp"
+#include "ch6000m3/iotables/ai_doors.hpp"
+#include "ch6000m3/iotables/di_doors.hpp"
+#include "ch6000m3/iotables/ai_pumps.hpp"
+#include "ch6000m3/iotables/di_pumps.hpp"
+#include "ch6000m3/iotables/do_doors.hpp"
 
 #include "decorator/ship.hpp"
 

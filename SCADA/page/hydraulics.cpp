@@ -3,7 +3,7 @@
 #include "page/hydraulics.hpp"
 #include "page/diagnostics/hydraulic_pump_dx.hpp"
 
-#include "configuration.hpp"
+#include "ch6000m3/configuration.hpp"
 #include "menu.hpp"
 
 #include "module.hpp"
@@ -22,15 +22,15 @@
 #include "graphlet/dashboard/thermometerlet.hpp"
 #include "graphlet/dashboard/alarmlet.hpp"
 
-#include "iotables/ai_metrics.hpp"
-#include "iotables/ai_pumps.hpp"
+#include "ch6000m3/iotables/ai_metrics.hpp"
+#include "ch6000m3/iotables/ai_pumps.hpp"
 
-#include "iotables/di_valves.hpp"
-#include "iotables/di_pumps.hpp"
-#include "iotables/di_devices.hpp"
+#include "ch6000m3/iotables/di_valves.hpp"
+#include "ch6000m3/iotables/di_pumps.hpp"
+#include "ch6000m3/iotables/di_devices.hpp"
 
-#include "iotables/do_pumps.hpp"
-#include "iotables/do_devices.hpp"
+#include "ch6000m3/iotables/do_pumps.hpp"
+#include "ch6000m3/iotables/do_devices.hpp"
 
 using namespace WarGrey::SCADA;
 

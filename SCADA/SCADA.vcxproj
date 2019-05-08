@@ -77,6 +77,7 @@
     <Import Project="..\PLCIO\PLCIO.vcxitems" Label="Shared" />
     <Import Project="..\DataAccess\DataAccess.vcxitems" Label="Shared" />
     <Import Project="..\Graphics\Graphics.vcxitems" Label="Shared" />
+    <Import Project="..\Configuration\Configuration.vcxitems" Label="Shared" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -329,24 +330,6 @@
     <ClCompile Include="ch6000m3.cxx" />
     <ClCompile Include="decorator\headsup.cpp" />
     <ClCompile Include="decorator\ship.cpp" />
-    <ClCompile Include="iotables\ai_doors.cpp" />
-    <ClCompile Include="iotables\ao_settings.cpp" />
-    <ClCompile Include="iotables\di_devices.cpp" />
-    <ClCompile Include="iotables\di_doors.cpp" />
-    <ClCompile Include="iotables\di_dredges.cpp" />
-    <ClCompile Include="iotables\di_hopper_pumps.cpp" />
-    <ClCompile Include="iotables\di_pumps.cpp" />
-    <ClCompile Include="iotables\di_valves.cpp" />
-    <ClCompile Include="iotables\di_water_pumps.cpp" />
-    <ClCompile Include="iotables\di_winches.cpp" />
-    <ClCompile Include="iotables\do_devices.cpp" />
-    <ClCompile Include="iotables\do_doors.cpp" />
-    <ClCompile Include="iotables\do_dredges.cpp" />
-    <ClCompile Include="iotables\do_hopper_pumps.cpp" />
-    <ClCompile Include="iotables\do_pumps.cpp" />
-    <ClCompile Include="iotables\do_valves.cpp" />
-    <ClCompile Include="iotables\do_water_pumps.cpp" />
-    <ClCompile Include="iotables\do_winches.cpp" />
     <ClCompile Include="page\diagnostics\dredges_dx.cpp" />
     <ClCompile Include="page\diagnostics\gland_pump_dx.cpp" />
     <ClCompile Include="page\diagnostics\hopper_pump_dx.cpp" />
@@ -354,7 +337,6 @@
     <ClCompile Include="page\diagnostics\water_pump_dx.cpp" />
     <ClCompile Include="page\dredges.cpp" />
     <ClCompile Include="page\lubricatings.cpp" />
-    <ClCompile Include="iotables\ai_dredges.cpp" />
     <ClCompile Include="schema\alarm.cpp" />
     <ClCompile Include="schema\datalet\alarm_tbl.cpp" />
     <ClCompile Include="schema\earthwork.cpp" />
@@ -368,22 +350,14 @@
     <ClCompile Include="widget\gallery.cpp" />
     <ClCompile Include="page\hydraulics.cpp" />
     <ClCompile Include="page\glands.cpp" />
-    <ClCompile Include="plc.cpp" />
     <ClCompile Include="widget.cpp" />
     <ClCompile Include="widget\settings.cpp" />
     <ClCompile Include="widget\timestream.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="configuration.hpp" />
     <ClInclude Include="decorator\headsup.hpp" />
     <ClInclude Include="decorator\ship.hpp" />
     <ClInclude Include="decorator\vessel.hpp" />
-    <ClInclude Include="iotables\ai_winches.hpp" />
-    <ClInclude Include="iotables\ao_devices.hpp" />
-    <ClInclude Include="iotables\ao_settings.hpp" />
-    <ClInclude Include="iotables\di_winches.hpp" />
-    <ClInclude Include="iotables\do_winches.hpp" />
-    <ClInclude Include="iotables\macro_keys.hpp" />
     <ClInclude Include="page\diagnostics\dredges_dx.hpp" />
     <ClInclude Include="page\diagnostics\gland_pump_dx.hpp" />
     <ClInclude Include="page\diagnostics\hopper_pump_dx.hpp" />
@@ -391,28 +365,6 @@
     <ClInclude Include="page\diagnostics\water_pump_dx.hpp" />
     <ClInclude Include="page\dredges.hpp" />
     <ClInclude Include="page\lubricatings.hpp" />
-    <ClInclude Include="iotables\ai_doors.hpp" />
-    <ClInclude Include="iotables\ai_dredges.hpp" />
-    <ClInclude Include="iotables\ai_hopper_pumps.hpp" />
-    <ClInclude Include="iotables\ai_metrics.hpp" />
-    <ClInclude Include="iotables\ai_pumps.hpp" />
-    <ClInclude Include="iotables\ai_valves.hpp" />
-    <ClInclude Include="iotables\ai_water_pumps.hpp" />
-    <ClInclude Include="iotables\ao_gland_pumps.hpp" />
-    <ClInclude Include="iotables\di_devices.hpp" />
-    <ClInclude Include="iotables\di_doors.hpp" />
-    <ClInclude Include="iotables\di_dredges.hpp" />
-    <ClInclude Include="iotables\di_hopper_pumps.hpp" />
-    <ClInclude Include="iotables\di_pumps.hpp" />
-    <ClInclude Include="iotables\di_valves.hpp" />
-    <ClInclude Include="iotables\di_water_pumps.hpp" />
-    <ClInclude Include="iotables\do_devices.hpp" />
-    <ClInclude Include="iotables\do_doors.hpp" />
-    <ClInclude Include="iotables\do_dredges.hpp" />
-    <ClInclude Include="iotables\do_hopper_pumps.hpp" />
-    <ClInclude Include="iotables\do_pumps.hpp" />
-    <ClInclude Include="iotables\do_valves.hpp" />
-    <ClInclude Include="iotables\do_water_pumps.hpp" />
     <ClInclude Include="schema\alarm.hpp" />
     <ClInclude Include="schema\datalet\alarm_tbl.hpp" />
     <ClInclude Include="schema\earthwork.hpp" />
@@ -427,7 +379,6 @@
     <ClInclude Include="widget\gallery.hpp" />
     <ClInclude Include="page\hydraulics.hpp" />
     <ClInclude Include="page\glands.hpp" />
-    <ClInclude Include="plc.hpp" />
     <ClInclude Include="widget.hxx" />
     <ClInclude Include="widget\settings.hpp" />
     <ClInclude Include="widget\timestream.hpp" />

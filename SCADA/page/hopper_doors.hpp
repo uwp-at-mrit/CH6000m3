@@ -2,7 +2,7 @@
 
 #include "timemachine.hpp"
 #include "planet.hpp"
-#include "plc.hpp"
+#include "ch6000m3/plc.hpp"
 
 namespace WarGrey::SCADA {
 	private class HopperDoorsPage : public WarGrey::SCADA::Planet, public WarGrey::SCADA::ITimeMachineListener {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "planet.hpp"
-#include "plc.hpp"
+#include "ch6000m3/plc.hpp"
 
 #include "graphlet/statuslet.hpp"
 

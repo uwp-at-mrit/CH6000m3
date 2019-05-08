@@ -1,7 +1,7 @@
 ﻿#include <map>
 
 #include "page/lubricatings.hpp"
-#include "configuration.hpp"
+#include "ch6000m3/configuration.hpp"
 #include "menu.hpp"
 
 #include "module.hpp"
@@ -15,12 +15,12 @@
 #include "graphlet/dashboard/alarmlet.hpp"
 #include "graphlet/symbol/pump/hydraulic_pumplet.hpp"
 
-#include "iotables/ai_pumps.hpp"
+#include "ch6000m3/iotables/ai_pumps.hpp"
 
-#include "iotables/di_pumps.hpp"
-#include "iotables/di_hopper_pumps.hpp"
+#include "ch6000m3/iotables/di_pumps.hpp"
+#include "ch6000m3/iotables/di_hopper_pumps.hpp"
 
-#include "iotables/do_hopper_pumps.hpp"
+#include "ch6000m3/iotables/do_hopper_pumps.hpp"
 
 using namespace WarGrey::SCADA;
 

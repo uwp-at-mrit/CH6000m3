@@ -1,7 +1,7 @@
 ﻿#include <map>
 
 #include "page/diagnostics/hopper_pump_dx.hpp"
-#include "configuration.hpp"
+#include "ch6000m3/configuration.hpp"
 
 #include "module.hpp"
 #include "brushes.hxx"
@@ -12,8 +12,8 @@
 #include "graphlet/buttonlet.hpp"
 #include "graphlet/dashboard/alarmlet.hpp"
 
-#include "iotables/di_hopper_pumps.hpp"
-#include "iotables/do_hopper_pumps.hpp"
+#include "ch6000m3/iotables/di_hopper_pumps.hpp"
+#include "ch6000m3/iotables/do_hopper_pumps.hpp"
 
 using namespace WarGrey::SCADA;
 

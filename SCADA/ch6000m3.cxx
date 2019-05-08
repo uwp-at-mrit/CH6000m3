@@ -1,8 +1,9 @@
 ﻿#include "application.hxx"
-#include "configuration.hpp"
-#include "iotables/macro_keys.hpp"
 #include "widget.hxx"
-#include "plc.hpp"
+
+#include "ch6000m3/configuration.hpp"
+#include "ch6000m3/iotables/macro_keys.hpp"
+#include "ch6000m3/plc.hpp"
 
 #include "decorator/headsup.hpp"
 #include "navigator/thumbnail.hpp"
