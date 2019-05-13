@@ -130,8 +130,9 @@ public:
 		this->winch_pressures[ShipSlot::ShoreWinch]->set_value(RealData(DB203, shore_discharge_winch_pressure), GraphletAnchor::CC);
 		this->winch_pressures[ShipSlot::BargeWinch]->set_value(RealData(DB203, barge_winch_pressure), GraphletAnchor::CC);
 
-		this->suctions[RS::D003]->set_value(RealData(DB203, gate_valve_D03_progress), GraphletAnchor::LB);
-		this->suctions[RS::D004]->set_value(RealData(DB203, gate_valve_D04_progress), GraphletAnchor::LT);
+		this->gvprogresses[RS::D001]->set_value(RealData(DB203, gate_valve_D01_progress), GraphletAnchor::CT);
+		this->gvprogresses[RS::D003]->set_value(RealData(DB203, gate_valve_D03_progress), GraphletAnchor::LB);
+		this->gvprogresses[RS::D004]->set_value(RealData(DB203, gate_valve_D04_progress), GraphletAnchor::LT);
 
 		this->powers[RS::PSHPump]->set_value(RealData(DB203, ps_hopper_pump_power), GraphletAnchor::RC);
 		this->rpms[RS::PSHPump]->set_value(RealData(DB203, ps_hopper_pump_rpm), GraphletAnchor::LC);
@@ -401,8 +402,9 @@ public:
 		}
 
 		{ // load labels and dimensions
-			this->load_percentage(this->suctions, RS::D003);
-			this->load_percentage(this->suctions, RS::D004);
+			this->load_percentage(this->gvprogresses, RS::D001);
+			this->load_percentage(this->gvprogresses, RS::D003);
+			this->load_percentage(this->gvprogresses, RS::D004);
 			this->load_dimensions(this->pump_pressures, RS::A, RS::H, "bar");
 
 			this->load_label(this->captions, RS::Hatch, Colours::SeaGreen, this->caption_font);
@@ -568,9 +570,10 @@ public:
 
 		{ // reflow dimensions
 			float offset = default_pipe_thickness * 2.0F;
-			
-			this->master->move_to(this->suctions[RS::D003], this->gvalves[RS::D003], GraphletAnchor::CB, GraphletAnchor::LT, offset, -offset);
-			this->master->move_to(this->suctions[RS::D004], this->gvalves[RS::D004], GraphletAnchor::CT, GraphletAnchor::LB, offset);
+
+			this->master->move_to(this->gvprogresses[RS::D001], this->gvalves[RS::D001], GraphletAnchor::CB, GraphletAnchor::CT, 0.0F, -margin);
+			this->master->move_to(this->gvprogresses[RS::D003], this->gvalves[RS::D003], GraphletAnchor::CB, GraphletAnchor::LT, offset, -offset);
+			this->master->move_to(this->gvprogresses[RS::D004], this->gvalves[RS::D004], GraphletAnchor::CT, GraphletAnchor::LB, offset);
 			
 			this->station->map_credit_graphlet(this->pump_pressures[RS::C], GraphletAnchor::RB, -gwidth * 3.0F);
 			this->master->move_to(this->pump_pressures[RS::F], this->pump_pressures[RS::C], GraphletAnchor::RB, GraphletAnchor::RT, 0.0F, offset);
@@ -794,7 +797,7 @@ private:
 	std::map<ShipSlot, Credit<Labellet, ShipSlot>*> winch_labels;
 	std::map<Door, Credit<UpperHopperDoorlet, Door>*> uhdoors;
 	std::map<Door, Credit<Percentagelet, Door>*> progresses;
-	std::map<RS, Credit<Percentagelet, RS>*> suctions;
+	std::map<RS, Credit<Percentagelet, RS>*> gvprogresses;
 	std::map<RS, Credit<Dimensionlet, RS>*> pump_pressures;
 	std::map<RS, Credit<Dimensionlet, RS>*> dpressures;
 	std::map<RS, Credit<Dimensionlet, RS>*> vpressures;
