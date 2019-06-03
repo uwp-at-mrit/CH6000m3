@@ -162,8 +162,8 @@ public:
 
 		{ // check gantry conditions
 			unsigned int gantry_limited = this->gantry_limit;
-			bool trunnion_upper = DI_winch_upper_limited(DB4, (ps ? &winch_ps_trunnion_limits : &winch_sb_trunnion_limits));
-			bool trunnion_soft_upper = DI_winch_soft_upper_limited(DB205, (ps ? &winch_ps_trunnion_details : &winch_sb_trunnion_details));
+			bool trunnion_upper = DI_winch_top_limited(DB4, (ps ? &winch_ps_trunnion_limits : &winch_sb_trunnion_limits));
+			bool trunnion_soft_upper = DI_winch_soft_top_limited(DB205, (ps ? &winch_ps_trunnion_details : &winch_sb_trunnion_details));
 
 			this->subgantries[WG::Remote]->set_color(remote_color);
 			this->subgantries[WG::Scene]->set_color(scene_color);
@@ -194,9 +194,9 @@ public:
 			this->diagnoses[WG::AllGantriesInOrOut]->set_state(gantries_in || gantries_out, AlarmState::Notice, AlarmState::None);
 			this->diagnoses[WG::HopperStopped]->set_state((suction_limited && stopped) || (!suction_limited), AlarmState::Notice, AlarmState::None);
 			this->diagnoses[WG::NoInflating]->set_state(DI_suction_inflating(DB205, suction_btn_p1), AlarmState::None, AlarmState::Notice);
-			this->diagnoses[WG::NoSoftUpper]->set_state(DI_winch_soft_upper_limited(DB205, this->winch_details), AlarmState::None, AlarmState::Notice);
-			this->diagnoses[WG::NoSoftLower]->set_state(DI_winch_soft_lower_limited(DB205, this->winch_details), AlarmState::None, AlarmState::Notice);
-			this->diagnoses[WG::NoUpper]->set_state(DI_winch_upper_limited(DB4, this->winch_limits), AlarmState::None, AlarmState::Notice);
+			this->diagnoses[WG::NoSoftUpper]->set_state(DI_winch_soft_top_limited(DB205, this->winch_details), AlarmState::None, AlarmState::Notice);
+			this->diagnoses[WG::NoSoftLower]->set_state(DI_winch_soft_bottom_limited(DB205, this->winch_details), AlarmState::None, AlarmState::Notice);
+			this->diagnoses[WG::NoUpper]->set_state(DI_winch_top_limited(DB4, this->winch_limits), AlarmState::None, AlarmState::Notice);
 			this->diagnoses[WG::NoSaddle]->set_state(DI_winch_saddle_limited(DB4, this->winch_limits), AlarmState::None, AlarmState::Notice);
 			this->diagnoses[WG::NoSuction]->set_state(suction_limited, AlarmState::None, AlarmState::Notice);
 			this->diagnoses[WG::NoSlack]->set_state(DI_winch_slack(DB4, this->winch_limits), AlarmState::None, AlarmState::Notice);

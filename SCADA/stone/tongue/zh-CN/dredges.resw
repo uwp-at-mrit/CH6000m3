@@ -195,10 +195,10 @@
   <data name="SuctionLimited" xml:space="preserve">
     <value>吸口到位</value>
   </data>
-  <data name="UpperLimited" xml:space="preserve">
+  <data name="CableTopLimited" xml:space="preserve">
     <value>钢丝绳上限</value>
   </data>
-  <data name="SoftUpperLimited" xml:space="preserve">
+  <data name="SoftTopLimited" xml:space="preserve">
     <value>编码器上限</value>
   </data>
   <data name="PSPF1" xml:space="preserve">
@@ -234,7 +234,7 @@
   <data name="SBEarth" xml:space="preserve">
     <value>右对地</value>
   </data>
-  <data name="SoftLowerLimited" xml:space="preserve">
+  <data name="SoftBottomLimited" xml:space="preserve">
     <value>编码器下限</value>
   </data>
   <data name="DivingCompensation" xml:space="preserve">
@@ -248,5 +248,8 @@
   </data>
   <data name="DesignDepth" xml:space="preserve">
     <value>设计挖深设置</value>
+  </data>
+  <data name="CableBottomLimited" xml:space="preserve">
+    <value>钢丝绳下限</value>
   </data>
 </root>

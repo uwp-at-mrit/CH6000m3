@@ -222,17 +222,17 @@
   <data name="FastWindUpReady" xml:space="preserve">
     <value>Ready to High-Speed Wind Up</value>
   </data>
-  <data name="LowerLimited" xml:space="preserve">
+  <data name="CableLowerLimited" xml:space="preserve">
     <value>Cable Lower Limited</value>
   </data>
-  <data name="SoftLowerLimited" xml:space="preserve">
-    <value>Soft Lower Limited</value>
+  <data name="SoftBottomLimited" xml:space="preserve">
+    <value>Soft Bottom Limited</value>
   </data>
-  <data name="SoftUpperLimited" xml:space="preserve">
-    <value>Soft Upper Limited</value>
+  <data name="SoftTopLimited" xml:space="preserve">
+    <value>Soft Top Limited</value>
   </data>
-  <data name="UpperLimited" xml:space="preserve">
-    <value>Cable Upper Limited</value>
+  <data name="CableTopLimited" xml:space="preserve">
+    <value>Cable Top Limited</value>
   </data>
   <data name="WindOutReady" xml:space="preserve">
     <value>Ready to Wind Out</value>
@@ -290,5 +290,14 @@
   </data>
   <data name="Limited" xml:space="preserve">
     <value>Power Limited</value>
+  </data>
+  <data name="BottomLimited" xml:space="preserve">
+    <value>Cable + Soft Bottom Limited</value>
+  </data>
+  <data name="CableBottomLimited" xml:space="preserve">
+    <value>Cable Bottom Limited</value>
+  </data>
+  <data name="TopLimited" xml:space="preserve">
+    <value>Cable + Soft Top Limited</value>
   </data>
 </root>

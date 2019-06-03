@@ -222,16 +222,16 @@
   <data name="FastWindUpReady" xml:space="preserve">
     <value>可以高速收缆</value>
   </data>
-  <data name="LowerLimited" xml:space="preserve">
+  <data name="CableLowerLimited" xml:space="preserve">
     <value>钢丝绳下限</value>
   </data>
-  <data name="SoftLowerLimited" xml:space="preserve">
+  <data name="SoftBottomLimited" xml:space="preserve">
     <value>编码器下限</value>
   </data>
-  <data name="SoftUpperLimited" xml:space="preserve">
+  <data name="SoftTopLimited" xml:space="preserve">
     <value>编码器上限</value>
   </data>
-  <data name="UpperLimited" xml:space="preserve">
+  <data name="CableTopLimited" xml:space="preserve">
     <value>钢丝绳上限</value>
   </data>
   <data name="WindOutReady" xml:space="preserve">
@@ -290,5 +290,14 @@
   </data>
   <data name="Limited" xml:space="preserve">
     <value>功率限制</value>
+  </data>
+  <data name="BottomLimited" xml:space="preserve">
+    <value>钢丝绳 + 编码器下限</value>
+  </data>
+  <data name="CableBottomLimited" xml:space="preserve">
+    <value>钢丝绳下限</value>
+  </data>
+  <data name="TopLimited" xml:space="preserve">
+    <value>钢丝绳 + 编码器上限</value>
   </data>
 </root>

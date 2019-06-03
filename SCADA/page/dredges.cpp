@@ -223,9 +223,9 @@ protected:
 			this->winch_speeds[id] = this->master->insert_one(new Credit<Dimensionlet, E>("mpm"), id);
 			
 			this->load_label(this->winch_saddles, _speak(WinchState::SaddleLimited.ToString()), id, winch_status_color);
-			this->load_label(this->winch_uppers, _speak(WinchState::UpperLimited.ToString()), id, winch_status_color);
-			this->load_label(this->winch_soft_uppers, _speak(WinchState::SoftUpperLimited.ToString()), id, winch_status_color);
-			this->load_label(this->winch_soft_lowers, _speak(WinchState::SoftLowerLimited.ToString()), id, winch_status_color);
+			this->load_label(this->winch_uppers, _speak(WinchState::CableTopLimited.ToString()), id, winch_status_color);
+			this->load_label(this->winch_soft_uppers, _speak(WinchState::SoftTopLimited.ToString()), id, winch_status_color);
+			this->load_label(this->winch_soft_lowers, _speak(WinchState::SoftBottomLimited.ToString()), id, winch_status_color);
 		}
 
 		this->load_label(this->winch_suctions, _speak(WinchState::SuctionLimited.ToString()), id0, winch_status_color);
@@ -357,25 +357,26 @@ protected:
 	void set_winch_limits(DredgesPosition id0, DredgesPosition idn) {
 		for (DredgesPosition id = id0; id <= idn; id++) {
 			bool slack = false;
-			bool upper = false;
 			bool saddle = false;
 			bool suction = false;
 			bool soft_upper = false;
 			bool soft_lower = false;
+			bool cable_upper = false;
 
 			switch (this->winches[id]->get_state()) {
 			case WinchState::SaddleLimited: saddle = true; break;
 			case WinchState::SuctionLimited: suction = true; break;
-			case WinchState::UpperLimited: upper = true; break;
-			case WinchState::SoftUpperLimited: soft_upper = true; break;
-			case WinchState::SoftLowerLimited: soft_lower = true; break;
+			case WinchState::CableTopLimited: cable_upper = true; break;
+			case WinchState::SoftTopLimited: soft_upper = true; break;
+			case WinchState::SoftBottomLimited: case WinchState::BottomLimited: soft_lower = true; break;
+			case WinchState::TopLimited: soft_upper = true; cable_upper = true; break;
 			case WinchState::SaddleSlack: saddle = true; slack = true; break;
 			case WinchState::SuctionSlack: suction = true; slack = true; break;
 			case WinchState::Slack: slack = true; break;
 			}
 
 			this->winch_saddles[id]->set_color(saddle ? winch_status_highlight_color : winch_status_color);
-			this->winch_uppers[id]->set_color(upper ? winch_status_highlight_color : winch_status_color);
+			this->winch_uppers[id]->set_color(cable_upper ? winch_status_highlight_color : winch_status_color);
 			this->winch_soft_uppers[id]->set_color(soft_upper ? winch_status_highlight_color : winch_status_color);
 			this->winch_soft_lowers[id]->set_color(soft_lower ? winch_status_highlight_color : winch_status_color);
 
