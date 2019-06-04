@@ -114,7 +114,7 @@ public:
 		this->pressures[FS::HBV04]->set_value(RealData(DB203, sb_water_pump_discharge_pressure), GraphletAnchor::CB);
 		this->flows[FS::HBV04]->set_value(RealData(DB203, sb_water_pump_flow), GraphletAnchor::CT);
 		this->pressures[FS::HBV05]->set_value(RealData(DB203, ps_water_pump_discharge_pressure), GraphletAnchor::CB);
-		this->flows[FS::HBV05]->set_value(RealData(DB203, sb_water_pump_flow), GraphletAnchor::CT);
+		this->flows[FS::HBV05]->set_value(RealData(DB203, ps_water_pump_flow), GraphletAnchor::CT);
 
 		this->powers[FS::PSPump]->set_value(RealData(DB203, ps_water_pump_power), GraphletAnchor::CB);
 		this->rpms[FS::PSPump]->set_value(RealData(DB203, ps_water_pump_rpm), GraphletAnchor::CT);
