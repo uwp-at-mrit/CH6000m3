@@ -7,12 +7,12 @@
 [submodule "DataAccess"]
 	path = DataAccess
 	url = https://github.com/uwp-at-mrit/DataAccess.git
-[submodule "PLCIO"]
-	path = PLCIO
-	url = https://github.com/uwp-at-mrit/PLCIO.git
 [submodule "Graphics"]
 	path = Graphics
 	url = https://github.com/uwp-at-mrit/Graphics.git
 [submodule "Configuration"]
 	path = Configuration
 	url = https://github.com/uwp-at-mrit/Configuration.git
+[submodule "WormHole"]
+	path = WormHole
+	url = https://github.com/uwp-at-mrit/WormHole.git

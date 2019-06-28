@@ -7,8 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Auxiliary", "Auxiliary\Auxi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BigBang", "BigBang\BigBang.vcxitems", "{6A826F3B-23F9-432C-86BD-F9D318096966}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PLCIO", "PLCIO\PLCIO.vcxitems", "{A218BF46-1F55-4B99-B000-62F2DE40576C}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataAccess", "DataAccess\DataAccess.vcxitems", "{E3EC1920-8383-4717-8D15-46FC7AC41916}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SCADA", "SCADA\SCADA.vcxproj", "{A48FBEC3-58B7-44FF-B428-4B63CD1C0F23}"
@@ -17,19 +15,21 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Graphics", "Graphics\Graphi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Configuration", "Configuration\Configuration.vcxitems", "{23BBBE0C-C1AF-496F-A860-706527A8EACC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WormHole", "WormHole\WormHole.vcxitems", "{A218BF46-1F55-4B99-B000-62F2DE40576C}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Configuration\Configuration.vcxitems*{23bbbe0c-c1af-496f-a860-706527a8eacc}*SharedItemsImports = 9
 		BigBang\BigBang.vcxitems*{6a826f3b-23f9-432c-86bd-f9d318096966}*SharedItemsImports = 9
 		Graphics\Graphics.vcxitems*{73bfe193-7352-40ab-99c0-717f6ebee2d8}*SharedItemsImports = 9
 		Auxiliary\Auxiliary.vcxitems*{9d38ad51-fee8-4303-8b0d-833bbcc93b58}*SharedItemsImports = 9
-		PLCIO\PLCIO.vcxitems*{a218bf46-1f55-4b99-b000-62f2de40576c}*SharedItemsImports = 9
+		WormHole\WormHole.vcxitems*{a218bf46-1f55-4b99-b000-62f2de40576c}*SharedItemsImports = 9
 		Auxiliary\Auxiliary.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		BigBang\BigBang.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		Configuration\Configuration.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		DataAccess\DataAccess.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		Graphics\Graphics.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
-		PLCIO\PLCIO.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
+		WormHole\WormHole.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		DataAccess\DataAccess.vcxitems*{e3ec1920-8383-4717-8d15-46fc7ac41916}*SharedItemsImports = 9
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
