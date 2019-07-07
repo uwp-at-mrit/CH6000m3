@@ -31,6 +31,9 @@ namespace WarGrey::SCADA {
 		WarGrey::SCADA::PLCMaster* device;
 		WarGrey::SCADA::PLCConfirmation* dashboard;
 		WarGrey::SCADA::ISatellite* diagnostics;
+		WarGrey::SCADA::ISatellite* motor_info;
+
+	private:
 		Windows::UI::Xaml::Controls::MenuFlyout^ gate_valve_op;
 		Windows::UI::Xaml::Controls::MenuFlyout^ ghopper_op;
 		Windows::UI::Xaml::Controls::MenuFlyout^ gunderwater_op;

@@ -249,4 +249,7 @@
   <data name="CH6000m3" xml:space="preserve">
     <value>changjing7 SCADA</value>
   </data>
+  <data name="underwater_pump_motor" xml:space="preserve">
+    <value>Underwater Pump Motor</value>
+  </data>
 </root>

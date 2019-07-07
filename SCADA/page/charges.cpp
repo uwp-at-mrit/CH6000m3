@@ -2,6 +2,7 @@
 
 #include "page/charges.hpp"
 #include "page/diagnostics/hopper_pump_dx.hpp"
+#include "page/subpage/underwater_pump_motor.hpp"
 
 #include "ch6000m3/configuration.hpp"
 #include "menu.hpp"
@@ -46,7 +47,7 @@ using namespace Microsoft::Graphics::Canvas::Text;
 using namespace Microsoft::Graphics::Canvas::Brushes;
 using namespace Microsoft::Graphics::Canvas::Geometry;
 
-private enum class CSFunction { Diagnostics, _ };
+private enum class CSFunction { Diagnostics, MotorInfo, _ };
 
 // WARNING: order matters
 private enum class CS : unsigned int {
@@ -61,11 +62,6 @@ private enum class CS : unsigned int {
 
 	// Pump Dimensions
 	C, F, H,
-
-	// Underwater Pump Motor Metrics
-	PSMotor, SBMotor,
-	PSU, PSV, PSW, PSMotorDP1, PSMotorDP2, PSDE, PSNDEa, PSNDEr, PSDEoil, PSNDEoil,
-	SBU, SBV, SBW, SBMotorDP1, SBMotorDP2, SBDE, SBNDEa, SBNDEr, SBDEoil, SBNDEoil,
 	
 	// Key Labels
 	PSUWPump, SBUWPump, PSHPump, SBHPump, Barge, LMOD,
@@ -140,30 +136,6 @@ public:
 		this->rpms[CS::SBUWPump]->set_value(RealData(DB203, sb_underwater_pump_rpm), GraphletAnchor::LC);
 		this->dpressures[CS::SBUWPump]->set_value(RealData(DB203, sb_underwater_pump_discharge_pressure), GraphletAnchor::LT);
 		this->dfpressures[CS::SBUWPump]->set_value(RealData(DB203, sb_draghead_differential_pressure), GraphletAnchor::LT);
-
-		/*
-		this->motors[CS::PSU]->set_value(RealData(DB203, ps_motor_U), GraphletAnchor::LT);
-		this->motors[CS::PSV]->set_value(RealData(DB203, ps_motor_V), GraphletAnchor::LT);
-		this->motors[CS::PSW]->set_value(RealData(DB203, ps_motor_W), GraphletAnchor::LT);
-		this->motors[CS::PSDE]->set_value(RealData(DB203, ps_motor_DE), GraphletAnchor::LT);
-		this->motors[CS::PSNDEa]->set_value(RealData(DB203, ps_motor_NDEa), GraphletAnchor::LT);
-		this->motors[CS::PSNDEr]->set_value(RealData(DB203, ps_motor_NDEr), GraphletAnchor::LT);
-		this->motors[CS::PSDEoil]->set_value(RealData(DB203, ps_motor_DEo), GraphletAnchor::LT);
-		this->motors[CS::PSNDEoil]->set_value(RealData(DB203, ps_motor_NDEo), GraphletAnchor::LT);
-		this->motors[CS::PSMotorDP1]->set_value(RealData(DB203, ps_motor_dp1), GraphletAnchor::LT);
-		this->motors[CS::PSMotorDP2]->set_value(RealData(DB203, ps_motor_dp2), GraphletAnchor::LT);
-
-		this->motors[CS::SBU]->set_value(RealData(DB203, sb_motor_U), GraphletAnchor::LT);
-		this->motors[CS::SBV]->set_value(RealData(DB203, sb_motor_V), GraphletAnchor::LT);
-		this->motors[CS::SBW]->set_value(RealData(DB203, sb_motor_W), GraphletAnchor::LT);
-		this->motors[CS::SBDE]->set_value(RealData(DB203, sb_motor_DE), GraphletAnchor::LT);
-		this->motors[CS::SBNDEa]->set_value(RealData(DB203, sb_motor_NDEa), GraphletAnchor::LT);
-		this->motors[CS::SBNDEr]->set_value(RealData(DB203, sb_motor_NDEr), GraphletAnchor::LT);
-		this->motors[CS::SBDEoil]->set_value(RealData(DB203, sb_motor_DEo), GraphletAnchor::LT);
-		this->motors[CS::SBNDEoil]->set_value(RealData(DB203, sb_motor_NDEo), GraphletAnchor::LT);
-		this->motors[CS::SBMotorDP1]->set_value(RealData(DB203, sb_motor_dp1), GraphletAnchor::LT);
-		this->motors[CS::SBMotorDP2]->set_value(RealData(DB203, sb_motor_dp2), GraphletAnchor::LT);
-		*/
 	}
 
 	void on_digital_input(long long timepoint_ms, const uint8* DB4, size_t count4, const uint8* DB205, size_t count205, Syslog* logger) override {
@@ -281,7 +253,6 @@ public:
 		this->label_font = make_bold_text_format("Microsoft YaHei", small_font_size);
 		this->special_font = make_text_format(tiny_font_size);
 
-		this->motor_style = make_highlight_dimension_style(small_font_size, 6U, 4U, 0);
 		this->pump_style = make_highlight_dimension_style(large_metrics_font_size, 6U, 0, Colours::Background);
 		this->highlight_style = make_highlight_dimension_style(large_metrics_font_size, 6U, 0, Colours::Green);
 
@@ -540,35 +511,10 @@ public:
 			this->station->map_credit_graphlet(this->pump_pressures[CS::C], GraphletAnchor::LT, gwidth * 3.0F);
 			this->master->move_to(this->pump_pressures[CS::F], this->pump_pressures[CS::C], GraphletAnchor::RC, GraphletAnchor::LC, gwidth);
 			this->master->move_to(this->pump_pressures[CS::H], this->pump_pressures[CS::F], GraphletAnchor::RC, GraphletAnchor::LC, gwidth);
-
-			this->master->move_to(this->tips[CS::PSMotor], vinset * 0.618F, vinset * 1.618F, GraphletAnchor::LT);
-			this->master->move_to(this->captions[CS::PSMotor], this->tips[CS::PSMotor], GraphletAnchor::CC, GraphletAnchor::CC);
-			this->master->move_to(this->motors[CS::PSU], this->tips[CS::PSMotor], GraphletAnchor::LB, GraphletAnchor::LT, 0.0F, 1.0F);
-			this->master->move_to(this->motors[CS::PSDE], this->tips[CS::PSMotor], GraphletAnchor::RB, GraphletAnchor::RT, 0.0F, 1.0F);
-
-			this->master->move_to(this->tips[CS::SBMotor], vinset * 0.618F, height - vinset * 1.618F, GraphletAnchor::LB);
-			this->master->move_to(this->captions[CS::SBMotor], this->tips[CS::SBMotor], GraphletAnchor::CC, GraphletAnchor::CC);
-			this->master->move_to(this->motors[CS::SBMotorDP2], this->tips[CS::SBMotor], GraphletAnchor::LT, GraphletAnchor::LB, 0.0F, -1.0F);
-			this->master->move_to(this->motors[CS::SBNDEoil], this->tips[CS::SBMotor], GraphletAnchor::RT, GraphletAnchor::RB, 0.0F, -1.0F);
-
-			for (CS id = CS::PSU; id < CS::PSNDEoil; id++) {
-				if (id != CS::PSMotorDP2) {
-					this->master->move_to(this->motors[_E(CS, _I(id) + 1U)],
-						this->motors[id], GraphletAnchor::LB, GraphletAnchor::LT,
-						0.0F, 1.0F);
-				}
-			}
-
-			for (CS id = CS::SBNDEoil; id > CS::SBU; id--) {
-				if (id != CS::SBDE) {
-					this->master->move_to(this->motors[_E(CS, _I(id) - 1U)],
-						this->motors[id], GraphletAnchor::LT, GraphletAnchor::LB,
-						0.0F, -1.0F);
-				}
-			}
 		}
 
 		this->station->map_graphlet_at_anchor(this->functions[CSFunction::Diagnostics], CS::diagnostics, GraphletAnchor::LB, gwidth * 3.0F);
+		this->master->move_to(this->functions[CSFunction::MotorInfo], this->functions[CSFunction::Diagnostics], GraphletAnchor::RC, GraphletAnchor::LC, gwidth * 2.0F);
 	}
 
 public:
@@ -651,10 +597,6 @@ private:
 
 	template<class G, typename E>
 	void load_pump(std::map<E, G*>& gs, std::map<E, Credit<Labellet, E>*>& ls, E id, float rx, float fy, double degrees, float gapsize) {
-		E title = E::_;
-		E start = E::_;
-		E end = E::_;
-
 		this->load_label(ls, id, Colours::Salmon, this->caption_font);
 
 		gs[id] = this->master->insert_one(new G(rx, std::fabsf(rx) * fy, degrees), id);
@@ -664,51 +606,9 @@ private:
 		this->load_dimension(this->dpressures, id, "bar", 1);
 
 		switch (id) {
-		case E::PSHPump: case E::SBHPump: {
-			this->load_dimension(this->vpressures, id, "bar", 1);
-		}; break;
-		case E::PSUWPump: {
-			this->load_dimension(this->dfpressures, id, "bar", 1);
-			
-			title = E::PSMotor;
-			start = E::PSU;
-			end = E::PSNDEoil;
-		}; break;
-		case E::SBUWPump: {
-			this->load_dimension(this->dfpressures, id, "bar", 1);
-			
-			title = E::SBMotor;
-			start = E::SBU;
-			end = E::SBNDEoil;
-		}; break;
+		case E::PSHPump:  case E::SBHPump:  this->load_dimension(this->vpressures, id, "bar", 1);  break;
+		case E::PSUWPump: case E::SBUWPump: this->load_dimension(this->dfpressures, id, "bar", 1); break;
 		}
-
-		/*
-		if (title != E::_) {
-			Platform::String^ unit = nullptr;
-			float mwidth, mheight;
-			
-			for (E mid = start; mid <= end; mid++) {
-				switch (mid) {
-				case E::PSMotorDP1: case E::PSMotorDP2: unit = "bar"; this->motor_style.precision = 2; break;
-				case E::SBMotorDP1: case E::SBMotorDP2: unit = "bar"; this->motor_style.precision = 2; break;
-				default: unit = "celsius"; this->motor_style.precision = 0; break;
-				}
-
-				this->motors[mid] = this->master->insert_one(new Credit<Dimensionlet, E>(this->motor_style, unit, _speak(mid)), mid);
-			}
-
-			this->motors[start]->fill_extent(0.0F, 0.0F, &mwidth, &mheight);
-			
-			this->tips[title] = this->master->insert_one(
-				new Rectanglet(mwidth * 2.0F + gapsize, mheight,
-					Colours::RoyalBlue, Colours::DodgerBlue));
-
-			this->captions[title] = this->master->insert_one(
-				new Credit<Labellet, E>(_speak(title), this->motor_style.label_font, this->motor_style.label_color),
-				title);
-		}
-		*/
 	}
 
 	template<typename E>
@@ -820,7 +720,6 @@ private:
 	DimensionStyle highlight_style;
 	DimensionStyle plain_style;
 	DimensionStyle hopper_style;
-	DimensionStyle motor_style;
 
 private:
 	ChargesPage* master;
@@ -850,6 +749,7 @@ ChargesPage::ChargesPage(PLCMaster* plc) : Planet(__MODULE__), device(plc) {
 	
 	if (this->device != nullptr) {
 		this->diagnostics = new HopperPumpDiagnostics(plc);
+		this->motor_info = new UnderwaterPumpMotorInfo(plc);
 
 		this->gate_valve_op = make_gate_valve_menu(DO_gate_valve_action, plc);
 		this->ghopper_op = make_charge_condition_menu(GroupChargeAction::BothHopper, plc);
@@ -941,12 +841,15 @@ bool ChargesPage::can_select_multiple() {
 void ChargesPage::on_tap_selected(IGraphlet* g, float local_x, float local_y) {
 	auto gvalve = dynamic_cast<GateValvelet*>(g);
 	auto hpump = dynamic_cast<Credit<HopperPumplet, CS>*>(g);
-	auto diagnose = dynamic_cast<Credit<Buttonlet, CSFunction>*>(g);
+	auto function = dynamic_cast<Credit<Buttonlet, CSFunction>*>(g);
 	
 	if (gvalve != nullptr) {
 		menu_popup(this->gate_valve_op, g, local_x, local_y);
-	} else if (diagnose != nullptr) {
-		this->diagnostics->show();
+	} else if (function != nullptr) {
+		switch (function->id) {
+		case CSFunction::Diagnostics: this->diagnostics->show(); break;
+		case CSFunction::MotorInfo: this->motor_info->show(); break;
+		}
 	} else if (hpump != nullptr) {
 		switch (hpump->id) {
 		case CS::PSHPump: menu_popup(this->ps_hopper_op, g, local_x, local_y); break;

@@ -117,139 +117,42 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="hydraulics" xml:space="preserve">
-    <value>液压系统</value>
+  <data name="DE" xml:space="preserve">
+    <value>DE</value>
   </data>
-  <data name="gallery" xml:space="preserve">
-    <value>图元状态示例</value>
+  <data name="DEoil" xml:space="preserve">
+    <value>DEoil</value>
   </data>
-  <data name="temperature" xml:space="preserve">
-    <value>温度</value>
+  <data name="MotorDP1" xml:space="preserve">
+    <value>MotorDP1</value>
   </data>
-  <data name="glands" xml:space="preserve">
-    <value>泥泵封水管系</value>
+  <data name="MotorDP2" xml:space="preserve">
+    <value>MotorDP2</value>
   </data>
-  <data name="hopper_doors" xml:space="preserve">
-    <value>泥门控制</value>
+  <data name="NDEa" xml:space="preserve">
+    <value>NDEa</value>
+    <comment>axial</comment>
   </data>
-  <data name="Empty" xml:space="preserve">
-    <value>空</value>
+  <data name="NDEoil" xml:space="preserve">
+    <value>NDEoil</value>
   </data>
-  <data name="Full" xml:space="preserve">
-    <value>满</value>
+  <data name="NDEr" xml:space="preserve">
+    <value>NDEr</value>
+    <comment>radial</comment>
   </data>
-  <data name="High" xml:space="preserve">
-    <value>高</value>
+  <data name="PS" xml:space="preserve">
+    <value>PS</value>
   </data>
-  <data name="Low" xml:space="preserve">
-    <value>低</value>
+  <data name="SB" xml:space="preserve">
+    <value>SB</value>
   </data>
-  <data name="Normal" xml:space="preserve">
-    <value>正常</value>
+  <data name="U" xml:space="preserve">
+    <value>U</value>
   </data>
-  <data name="UltraLow" xml:space="preserve">
-    <value>过低</value>
+  <data name="V" xml:space="preserve">
+    <value>V</value>
   </data>
-  <data name="draughts" xml:space="preserve">
-    <value>吃水装载</value>
-  </data>
-  <data name="charges" xml:space="preserve">
-    <value>装舱丨装驳</value>
-  </data>
-  <data name="discharges" xml:space="preserve">
-    <value>艏吹丨艏喷</value>
-  </data>
-  <data name="flushs" xml:space="preserve">
-    <value>高压冲水</value>
-  </data>
-  <data name="dredges" xml:space="preserve">
-    <value>耙臂指示</value>
-  </data>
-  <data name="density" xml:space="preserve">
-    <value>密度</value>
-  </data>
-  <data name="flspeed" xml:space="preserve">
-    <value>流速</value>
-  </data>
-  <data name="dredges_PortSide" xml:space="preserve">
-    <value>左绞车 &amp;&amp; 吊架</value>
-  </data>
-  <data name="dredges_Starboard" xml:space="preserve">
-    <value>右绞车 &amp;&amp; 吊架</value>
-  </data>
-  <data name="lubricatings" xml:space="preserve">
-    <value>泥泵轴承 &amp;&amp; 齿轮箱</value>
-  </data>
-  <data name="water_pump_dx" xml:space="preserve">
-    <value>高压冲水泵诊断</value>
-  </data>
-  <data name="hopper_pump_dx" xml:space="preserve">
-    <value>泥泵诊断</value>
-  </data>
-  <data name="performance" xml:space="preserve">
-    <value>性能可视化</value>
-  </data>
-  <data name="gland_pump_dx" xml:space="preserve">
-    <value>封水泵/冲水泵诊断</value>
-  </data>
-  <data name="PS1" xml:space="preserve">
-    <value>#1</value>
-  </data>
-  <data name="PS2" xml:space="preserve">
-    <value>#3</value>
-  </data>
-  <data name="PS3" xml:space="preserve">
-    <value>#5</value>
-  </data>
-  <data name="PS4" xml:space="preserve">
-    <value>#7</value>
-  </data>
-  <data name="PS5" xml:space="preserve">
-    <value>#9</value>
-  </data>
-  <data name="PS6" xml:space="preserve">
-    <value>#11</value>
-  </data>
-  <data name="PS7" xml:space="preserve">
-    <value>#13</value>
-  </data>
-  <data name="SB1" xml:space="preserve">
-    <value>#2</value>
-  </data>
-  <data name="SB2" xml:space="preserve">
-    <value>#4</value>
-  </data>
-  <data name="SB3" xml:space="preserve">
-    <value>#6</value>
-  </data>
-  <data name="SB4" xml:space="preserve">
-    <value>#8</value>
-  </data>
-  <data name="SB5" xml:space="preserve">
-    <value>#10</value>
-  </data>
-  <data name="SB6" xml:space="preserve">
-    <value>#12</value>
-  </data>
-  <data name="SB7" xml:space="preserve">
-    <value>#14</value>
-  </data>
-  <data name="PS_dredges_dx" xml:space="preserve">
-    <value>左舷绞车及吊架诊断</value>
-  </data>
-  <data name="SB_dredges_dx" xml:space="preserve">
-    <value>右舷绞车及吊架诊断</value>
-  </data>
-  <data name="hydraulic_pump_dx" xml:space="preserve">
-    <value>液压泵诊断</value>
-  </data>
-  <data name="dredges_Suctions" xml:space="preserve">
-    <value>水下耙臂</value>
-  </data>
-  <data name="CH6000m3" xml:space="preserve">
-    <value>长鲸7 SCADA</value>
-  </data>
-  <data name="underwater_pump_motor" xml:space="preserve">
-    <value>水下泵电机</value>
+  <data name="W" xml:space="preserve">
+    <value>W</value>
   </data>
 </root>

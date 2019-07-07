@@ -41,6 +41,15 @@
     <Filter Include="schema\datalet">
       <UniqueIdentifier>{100a3152-8298-496b-adf9-c7fc74c297ff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="page\subpage">
+      <UniqueIdentifier>{894b876b-67a9-40a9-9fbc-e074e1ebba1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stone\tongue\en-US\subpage">
+      <UniqueIdentifier>{3ee84848-9dcc-42ad-8f48-00fcff6a5cdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="stone\tongue\zh-CN\subpage">
+      <UniqueIdentifier>{558defa7-931e-48ac-b545-0629e72668c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ch6000m3.cxx" />
@@ -116,6 +125,9 @@
     </ClCompile>
     <ClCompile Include="schema\datalet\alarm_tbl.cpp">
       <Filter>schema\datalet</Filter>
+    </ClCompile>
+    <ClCompile Include="page\subpage\underwater_pump_motor.cpp">
+      <Filter>page\subpage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="schema\datalet\alarm_tbl.hpp">
       <Filter>schema\datalet</Filter>
+    </ClInclude>
+    <ClInclude Include="page\subpage\underwater_pump_motor.hpp">
+      <Filter>page\subpage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -499,6 +514,12 @@
     </PRIResource>
     <PRIResource Include="stone\tongue\en-US\alarms.resw">
       <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\subpage\underwater_pump_motor.resw">
+      <Filter>stone\tongue\zh-CN\subpage</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\subpage\underwater_pump_motor.resw">
+      <Filter>stone\tongue\en-US\subpage</Filter>
     </PRIResource>
   </ItemGroup>
   <ItemGroup>

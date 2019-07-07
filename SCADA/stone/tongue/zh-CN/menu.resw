@@ -441,4 +441,7 @@
   <data name="LongDrag" xml:space="preserve">
     <value>使用长耙</value>
   </data>
+  <data name="MotorInfo" xml:space="preserve">
+    <value>水下泵电机</value>
+  </data>
 </root>

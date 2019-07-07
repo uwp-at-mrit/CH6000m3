@@ -289,6 +289,7 @@
     </PRIResource>
     <PRIResource Include="stone\tongue\en-US\glands.resw" />
     <PRIResource Include="stone\tongue\en-US\settings.resw" />
+    <PRIResource Include="stone\tongue\en-US\subpage\underwater_pump_motor.resw" />
     <PRIResource Include="stone\tongue\en-US\widget.resw" />
     <PRIResource Include="stone\tongue\en-US\tongue.resw">
       <DeploymentContent>false</DeploymentContent>
@@ -321,6 +322,7 @@
     </PRIResource>
     <PRIResource Include="stone\tongue\zh-CN\glands.resw" />
     <PRIResource Include="stone\tongue\zh-CN\settings.resw" />
+    <PRIResource Include="stone\tongue\zh-CN\subpage\underwater_pump_motor.resw" />
     <PRIResource Include="stone\tongue\zh-CN\widget.resw" />
     <PRIResource Include="stone\tongue\zh-CN\tongue.resw">
       <DeploymentContent>false</DeploymentContent>
@@ -337,6 +339,7 @@
     <ClCompile Include="page\diagnostics\water_pump_dx.cpp" />
     <ClCompile Include="page\dredges.cpp" />
     <ClCompile Include="page\lubricatings.cpp" />
+    <ClCompile Include="page\subpage\underwater_pump_motor.cpp" />
     <ClCompile Include="schema\alarm.cpp" />
     <ClCompile Include="schema\datalet\alarm_tbl.cpp" />
     <ClCompile Include="schema\earthwork.cpp" />
@@ -365,6 +368,7 @@
     <ClInclude Include="page\diagnostics\water_pump_dx.hpp" />
     <ClInclude Include="page\dredges.hpp" />
     <ClInclude Include="page\lubricatings.hpp" />
+    <ClInclude Include="page\subpage\underwater_pump_motor.hpp" />
     <ClInclude Include="schema\alarm.hpp" />
     <ClInclude Include="schema\datalet\alarm_tbl.hpp" />
     <ClInclude Include="schema\earthwork.hpp" />

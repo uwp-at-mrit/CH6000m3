@@ -441,4 +441,7 @@
   <data name="LongDrag" xml:space="preserve">
     <value>Long SB Drag</value>
   </data>
+  <data name="MotorInfo" xml:space="preserve">
+    <value>Underwater Pump Motor</value>
+  </data>
 </root>
