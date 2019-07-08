@@ -308,19 +308,19 @@ public:
 		{ // captions color
 			bool ps_trunnion_winch_moving = DI_winch_winding(DB205, winch_ps_trunnion_details.status);
 			bool ps_intermediate_winch_moving = DI_winch_winding(DB205, winch_ps_intermediate_details.status);
-			bool ps_draghead_winch_moving = DI_winch_winding(DB205, winch_ps_trunnion_details.status);
+			bool ps_draghead_winch_moving = DI_winch_winding(DB205, winch_ps_draghead_details.status);
 			bool ps_trunnion_gantry_moving = DI_gantry_moving(DB205, gantry_ps_trunnion_details);
 			bool ps_intermediate_gantry_moving = DI_gantry_moving(DB205, gantry_ps_intermediate_details);
-			bool ps_draghead_gantry_moving = DI_gantry_moving(DB205, gantry_ps_trunnion_details);
+			bool ps_draghead_gantry_moving = DI_gantry_moving(DB205, gantry_ps_draghead_details);
 			bool ps_visor_moving = DI_visor_curling(DB205, ps_visor_details);
 			bool ps_compensator_moving = DI_compensator_working(DB205, ps_compensator_details);
 			
 			bool sb_trunnion_winch_moving = DI_winch_winding(DB205, winch_sb_trunnion_details.status);
 			bool sb_intermediate_winch_moving = DI_winch_winding(DB205, winch_sb_intermediate_details.status);
-			bool sb_draghead_winch_moving = DI_winch_winding(DB205, winch_sb_trunnion_details.status);
+			bool sb_draghead_winch_moving = DI_winch_winding(DB205, winch_sb_draghead_details.status);
 			bool sb_trunnion_gantry_moving = DI_gantry_moving(DB205, gantry_ps_trunnion_details);
 			bool sb_intermediate_gantry_moving = DI_gantry_moving(DB205, gantry_ps_intermediate_details);
-			bool sb_draghead_gantry_moving = DI_gantry_moving(DB205, gantry_ps_trunnion_details);
+			bool sb_draghead_gantry_moving = DI_gantry_moving(DB205, gantry_ps_draghead_details);
 			bool sb_visor_moving = DI_visor_curling(DB205, sb_visor_details);
 			bool sb_compensator_moving = DI_compensator_working(DB205, sb_compensator_details);
 
