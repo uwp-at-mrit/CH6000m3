@@ -749,7 +749,7 @@ ChargesPage::ChargesPage(PLCMaster* plc) : Planet(__MODULE__), device(plc) {
 	
 	if (this->device != nullptr) {
 		this->diagnostics = new HopperPumpDiagnostics(plc);
-		this->motor_info = new UnderwaterPumpMotorInfo(plc);
+		this->motor_info = new UnderwaterPumpMotorMetrics(plc);
 
 		this->gate_valve_op = make_gate_valve_menu(DO_gate_valve_action, plc);
 		this->ghopper_op = make_charge_condition_menu(GroupChargeAction::BothHopper, plc);

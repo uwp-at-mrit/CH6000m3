@@ -228,7 +228,7 @@
   <data name="SternAnchor" xml:space="preserve">
     <value>Stern Anchor</value>
   </data>
-  <data name="WateringValves" xml:space="preserve">
+  <data name="WateringValve" xml:space="preserve">
     <value>Watering Gate Valves</value>
   </data>
   <data name="PSCompensator" xml:space="preserve">

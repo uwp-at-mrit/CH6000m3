@@ -225,7 +225,7 @@
   <data name="SternAnchor" xml:space="preserve">
     <value>艉靠泊</value>
   </data>
-  <data name="WateringValves" xml:space="preserve">
+  <data name="WateringValve" xml:space="preserve">
     <value>引水闸阀</value>
   </data>
   <data name="PSCompensator" xml:space="preserve">

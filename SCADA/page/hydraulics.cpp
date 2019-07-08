@@ -28,6 +28,10 @@
 #include "ch6000m3/iotables/di_valves.hpp"
 #include "ch6000m3/iotables/di_pumps.hpp"
 #include "ch6000m3/iotables/di_devices.hpp"
+#include "ch6000m3/iotables/di_doors.hpp"
+#include "ch6000m3/iotables/di_pipelines.hpp"
+#include "ch6000m3/iotables/di_winches.hpp"
+#include "ch6000m3/iotables/di_dredges.hpp"
 
 #include "ch6000m3/iotables/do_pumps.hpp"
 #include "ch6000m3/iotables/do_devices.hpp"
@@ -47,6 +51,8 @@ private enum class HSFunction { BOPOverride, _ };
 private enum class HSMTState { Empty, UltraLow, Low, Normal, High, Full, _ };
 
 static CanvasSolidColorBrush^ oil_color = Colours::Yellow;
+static CanvasSolidColorBrush^ label_color = Colours::Salmon;
+static CanvasSolidColorBrush^ running_color = Colours::Green;
 
 // WARNING: order matters
 private enum class HS : unsigned int {
@@ -68,7 +74,7 @@ private enum class HS : unsigned int {
 	PSTrunnion, PSGateValves, ShoreDischarge, BowAnchor,
 	PSDraghead, PSDoors, SternAnchor, Overflow, Barge, PSCompensator,
 	SBTrunnion, SBGateValves, PSIntermediate, ButterflyValves, SBIntermediate,
-	DoorsLocking, SBDraghead, SBDoors, WateringValves, SBCompensator,
+	DoorsLocking, SBDraghead, SBDoors, WateringValve, SBCompensator,
 
 	// Dimensions
 	BackOil,
@@ -92,7 +98,7 @@ private enum class HS : unsigned int {
 static HS A[] = { HS::PSDraghead, HS::PSDoors, HS::SternAnchor, HS::Overflow, HS::Barge, HS::PSCompensator };
 static HS B[] = { HS::PSIntermediate };
 static HS G[] = { HS::SBIntermediate };
-static HS H[] = { HS::SBDraghead, HS::SBDoors, HS::WateringValves, HS::SBCompensator };
+static HS H[] = { HS::SBDraghead, HS::SBDoors, HS::WateringValve, HS::SBCompensator };
 
 static HS C[] = { HS::PSTrunnion, HS::PSGateValves, HS::ShoreDischarge, HS::BowAnchor };
 static HS F[] = { HS::SBTrunnion, HS::SBGateValves };
@@ -134,7 +140,7 @@ static void hydraulics_diagnostics(HydraulicPumplet* pump, PLCMaster* plc) {
 		case HS::K: feedback = pump_K_feedback; group = HPDX::Other; details = pump_K_status; break;
 		}
 		
-		// WARNING: `set_pump()`ing before `switch_id()`ing. 
+		// WARNING: invoking `set_pump` before `switch_id`. 
 		satellite->set_pump(credit_pump->id.ToString(), group, details);
 		satellite->switch_id(feedback);
 		satellite->show();
@@ -235,7 +241,7 @@ public:
 			}
 		}
 		
-		{ // pump states
+		{ // pumps state
 			DI_hydraulic_pump(this->pumps[HS::A], DB4, pump_A_feedback, DB205, pump_A_status);
 			DI_hydraulic_pump(this->pumps[HS::B], DB4, pump_B_feedback, DB205, pump_B_status);
 			DI_hydraulic_pump(this->pumps[HS::G], DB4, pump_G_feedback, DB205, pump_G_status);
@@ -255,7 +261,7 @@ public:
 			DI_hydraulic_pump(this->pumps[HS::J], DB4, pump_J_feedback, DB205, pump_J_status);
 		}
 
-		{ // valve statuses
+		{ // valves state
 			DI_manual_valve(this->valves[HS::SQ1], DB4, manual_valve_SQ1_status);
 			DI_manual_valve(this->valves[HS::SQ2], DB4, manual_valve_SQ2_status);
 
@@ -279,7 +285,7 @@ public:
 			DI_manual_valve(this->valves[HS::SQh], DB4, manual_valve_SQd_status);
 		}
 
-		{ // filter statuses
+		{ // filters state
 			DI_alarm(this->alarms[HS::F01], DB4, filter_01_status);
 			DI_alarm(this->alarms[HS::F02], DB4, filter_02_status);
 			DI_alarm(this->alarms[HS::F10], DB4, filter_10_status);
@@ -297,6 +303,54 @@ public:
 			DI_alarm(this->alarms[HS::F2H], DB4, pump_F_replace_H, AlarmState::Notice);
 			DI_alarm(this->alarms[HS::F2G], DB4, pump_F_replace_G, AlarmState::Notice);
 			DI_alarm(this->alarms[HS::J2I], DB4, pump_J_replace_I, AlarmState::Notice);
+		}
+
+		{ // captions color
+			bool ps_trunnion_winch_moving = DI_winch_winding(DB205, winch_ps_trunnion_details.status);
+			bool ps_intermediate_winch_moving = DI_winch_winding(DB205, winch_ps_intermediate_details.status);
+			bool ps_draghead_winch_moving = DI_winch_winding(DB205, winch_ps_trunnion_details.status);
+			bool ps_trunnion_gantry_moving = DI_gantry_moving(DB205, gantry_ps_trunnion_details);
+			bool ps_intermediate_gantry_moving = DI_gantry_moving(DB205, gantry_ps_intermediate_details);
+			bool ps_draghead_gantry_moving = DI_gantry_moving(DB205, gantry_ps_trunnion_details);
+			bool ps_visor_moving = DI_visor_curling(DB205, ps_visor_details);
+			bool ps_compensator_moving = DI_compensator_working(DB205, ps_compensator_details);
+			
+			bool sb_trunnion_winch_moving = DI_winch_winding(DB205, winch_sb_trunnion_details.status);
+			bool sb_intermediate_winch_moving = DI_winch_winding(DB205, winch_sb_intermediate_details.status);
+			bool sb_draghead_winch_moving = DI_winch_winding(DB205, winch_sb_trunnion_details.status);
+			bool sb_trunnion_gantry_moving = DI_gantry_moving(DB205, gantry_ps_trunnion_details);
+			bool sb_intermediate_gantry_moving = DI_gantry_moving(DB205, gantry_ps_intermediate_details);
+			bool sb_draghead_gantry_moving = DI_gantry_moving(DB205, gantry_ps_trunnion_details);
+			bool sb_visor_moving = DI_visor_curling(DB205, sb_visor_details);
+			bool sb_compensator_moving = DI_compensator_working(DB205, sb_compensator_details);
+
+			bool shore_dischange_winch_moving = DI_winch_winding(DB205, shore_discharge_winch_details);
+			bool shore_dischange_cylinder_moving = DI_bolt_moving(DB205, shore_discharge_bolt_details) || DI_holdhoop_moving(DB205, shore_discharge_holdhoop_details);
+			bool barging = DI_winch_winding(DB205, barge_winch_details) || DI_bolt_moving(DB205, barge_bolt_details);
+
+			this->captions[HS::PSTrunnion]->set_color((ps_trunnion_gantry_moving || ps_trunnion_winch_moving) ? running_color : label_color);
+			this->captions[HS::PSIntermediate]->set_color((ps_intermediate_gantry_moving || ps_intermediate_winch_moving) ? running_color : label_color);
+			this->captions[HS::PSDraghead]->set_color((ps_draghead_gantry_moving || ps_draghead_winch_moving) ? running_color : label_color);
+			this->captions[HS::J]->set_color(ps_visor_moving ? running_color : label_color);
+			this->captions[HS::PSCompensator]->set_color(ps_compensator_moving ? running_color : label_color);
+			this->captions[HS::SBTrunnion]->set_color((sb_trunnion_gantry_moving || sb_trunnion_winch_moving) ? running_color : label_color);
+			this->captions[HS::SBIntermediate]->set_color((sb_intermediate_gantry_moving || sb_intermediate_winch_moving) ? running_color : label_color);
+			this->captions[HS::SBDraghead]->set_color((sb_draghead_gantry_moving || sb_draghead_winch_moving) ? running_color : label_color);
+			this->captions[HS::I]->set_color(sb_visor_moving ? running_color : label_color);
+			this->captions[HS::SBCompensator]->set_color(sb_compensator_moving ? running_color : label_color);
+
+			this->captions[HS::PSGateValves]->set_color(DI_pipeline_ready(DB205, pipeline_L1_W) ? running_color : label_color);
+			this->captions[HS::SBGateValves]->set_color(DI_pipeline_ready(DB205, pipeline_L1_G) ? running_color : label_color);
+			this->captions[HS::ButterflyValves]->set_color(DI_pipeline_ready(DB205, pipeline_L2_W) ? running_color : label_color);
+			this->captions[HS::PSDoors]->set_color(DI_pipeline_ready(DB205, pipeline_L2_G) ? running_color : label_color);
+			this->captions[HS::SBDoors]->set_color(DI_pipeline_ready(DB205, pipeline_L3_W) ? running_color : label_color);
+			this->captions[HS::DoorsLocking]->set_color(DI_hopper_doors_locked(DB205) ? running_color : label_color);
+			this->captions[HS::WateringValve]->set_color(DI_gate_value_moving(DB205, gate_valve_D01_status) ? running_color : label_color);
+			this->captions[HS::BowAnchor]->set_color(DI_gate_value_moving(DB205, bow_anchor_winch_details) ? running_color : label_color);
+			this->captions[HS::SternAnchor]->set_color(DI_winch_winding(DB205, stern_anchor_winch_details) ? running_color : label_color);
+			this->captions[HS::ShoreDischarge]->set_color((shore_dischange_winch_moving || shore_dischange_cylinder_moving) ? running_color : label_color);
+			this->captions[HS::Barge]->set_color(barging ? running_color : label_color);
+			this->captions[HS::Overflow]->set_color(DI_overflow_moving(DB205, overflow_pipe_status) ? running_color : label_color);
 		}
 	}
 
@@ -344,9 +398,9 @@ public:
 public:
 	void construct(float gwidth, float gheight) {
 		this->caption_font = make_bold_text_format("Microsoft YaHei", large_font_size);
-		this->label_font = make_bold_text_format("Microsoft YaHei", small_font_size);
+		this->label_font = make_bold_text_format("Microsoft YaHei", normal_font_size);
 
-		this->button_style.font = make_bold_text_format("Consolas", 14.0F);
+		this->button_style.font = make_bold_text_format("Consolas", small_font_size);
 		this->button_style.corner_radius = 2.0F;
 		this->button_style.thickness = 2.0F;
 
@@ -412,7 +466,7 @@ public:
 		this->visor_tank = this->master->insert_one(new Tanklet(drag_visor_tank_range, gwidth * 18.0F, gheight * 7.0F, 8U, thickness));
 		
 		this->heater = this->master->insert_one(new Heaterlet(gwidth * 1.618F));
-		this->load_label(this->labels, HS::Heater, Colours::Salmon);
+		this->load_label(this->labels, HS::Heater, label_color);
 
 		this->load_thermometer(this->thermometers, this->temperatures, HS::Master, gwidth * 2.5F, gheight * 4.5F);
 		this->load_thermometer(this->thermometers, this->temperatures, HS::Visor, gwidth * 2.5F, gheight * 4.5F);
@@ -431,10 +485,10 @@ public:
 		float pradius = radius * 1.2F;
 
 		{ // load pumps
-			this->load_devices(this->pumps, this->labels, this->captions, HS::A, HS::H, pradius, 0.000, Colours::Salmon);
-			this->load_devices(this->pumps, this->labels, this->captions, HS::C, HS::E, pradius, 180.0, Colours::Salmon);
-			this->load_devices(this->pumps, this->labels, this->captions, HS::Y, HS::K, pradius, -90.0, Colours::Salmon);
-			this->load_devices(this->pumps, this->labels, this->captions, HS::J, HS::I, pradius, 90.00, Colours::Salmon);
+			this->load_devices(this->pumps, this->labels, this->captions, HS::A, HS::H, pradius, 0.000, label_color);
+			this->load_devices(this->pumps, this->labels, this->captions, HS::C, HS::E, pradius, 180.0, label_color);
+			this->load_devices(this->pumps, this->labels, this->captions, HS::Y, HS::K, pradius, -90.0, label_color);
+			this->load_devices(this->pumps, this->labels, this->captions, HS::J, HS::I, pradius, 90.00, label_color);
 
 			this->load_dimensions(this->pressures, HS::A, HS::I, "bar");
 		}
@@ -524,15 +578,25 @@ public:
 			if (this->captions.find(it->first) != this->captions.end()) {
 				this->station->map_credit_graphlet(this->captions[it->first], cpt_a, cpt_dx, cpt_dy);
 			} else {
+				unsigned int column = 3U;
 				unsigned int count = 0U;
 				const HS* cpts = select_captions(it->first, &count);
 				IGraphlet* target = this->captions[cpts[0]];
 				GraphletAnchor tgt_a = ((cpt_a == GraphletAnchor::LT) ? GraphletAnchor::RT : GraphletAnchor::LT);
-				float hgapsize = ((cpt_dx > 0.0F) ? text_hspace : -text_hspace);
+				float hgapsize = ((cpt_dx > 0.0F) ? text_hspace : -text_hspace) * 2.0F;
+				float cpt_height;
 
-				this->station->map_graphlet_at_anchor(target, it->first, cpt_a, cpt_dx, cpt_dy);
+				target->fill_extent(0.0F, 0.0F, nullptr, &cpt_height);
+				for (unsigned int idx = 0; idx < count; idx += column) {
+					this->station->map_graphlet_at_anchor(this->captions[cpts[idx]], it->first, cpt_a,
+						cpt_dx, cpt_dy + cpt_height * (idx / column));
+				}
+
 				for (unsigned int idx = 1; idx < count; idx++) {
-					this->master->move_to(this->captions[cpts[idx]], target, tgt_a, cpt_a, hgapsize);
+					if ((idx % column) != 0) {
+						this->master->move_to(this->captions[cpts[idx]], target, tgt_a, cpt_a, hgapsize);
+					}
+
 					target = this->captions[cpts[idx]];
 				}
 			}
@@ -631,8 +695,8 @@ private:
 	}
 
 	template<class G, typename E>
-	void load_devices(std::map<E, G*>& gs, std::map<E, Credit<Labellet, E>*>& ls, std::map<E, Credit<Labellet, E>*>& cs
-		, E id0, E idn, float radius, double degrees, CanvasSolidColorBrush^ color = Colours::Silver) {
+	void load_devices(std::map<E, G*>& gs, std::map<E, Credit<Labellet, E>*>& ls, std::map<E, Credit<Labellet, E>*>& cs, E id0, E idn
+		, float radius, double degrees, CanvasSolidColorBrush^ color = Colours::Silver) {
 		unsigned int count = 0U;
 
 		this->load_devices(gs, id0, idn, radius, degrees);

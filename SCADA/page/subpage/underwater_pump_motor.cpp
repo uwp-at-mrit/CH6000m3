@@ -34,7 +34,7 @@ private enum class UWM : unsigned int {
 
 private class Motor final : public PLCConfirmation {
 public:
-	Motor(UnderwaterPumpMotorInfo* master, bool ps, unsigned int color) : master(master), ps(ps) {
+	Motor(UnderwaterPumpMotorMetrics* master, bool ps, unsigned int color) : master(master), ps(ps) {
 		this->region_font = make_bold_text_format("Microsoft YaHei", large_font_size);
 		this->motor_style = make_highlight_dimension_style(normal_font_size, 6U, 4U, 0);
 
@@ -176,11 +176,11 @@ private:
 	float region_height;
 
 private:
-	UnderwaterPumpMotorInfo* master;
+	UnderwaterPumpMotorMetrics* master;
 	bool ps;
 };
 
-UnderwaterPumpMotorInfo::UnderwaterPumpMotorInfo(PLCMaster* plc) : ISatellite(plc->get_logger(), __MODULE__), device(plc) {
+UnderwaterPumpMotorMetrics::UnderwaterPumpMotorMetrics(PLCMaster* plc) : ISatellite(plc->get_logger(), __MODULE__), device(plc) {
 	Motor* ps_dashboard = new Motor(this, true, default_ps_color);
 	Motor* sb_dashboard = new Motor(this, false, default_sb_color);
 
@@ -191,14 +191,14 @@ UnderwaterPumpMotorInfo::UnderwaterPumpMotorInfo(PLCMaster* plc) : ISatellite(pl
 	this->device->push_confirmation_receiver(sb_dashboard);
 }
 
-UnderwaterPumpMotorInfo::~UnderwaterPumpMotorInfo() {
+UnderwaterPumpMotorMetrics::~UnderwaterPumpMotorMetrics() {
 	if (this->ps_dashboard != nullptr) {
 		delete this->ps_dashboard;
 		delete this->sb_dashboard;
 	}
 }
 
-void UnderwaterPumpMotorInfo::fill_extent(float* width, float* height) {
+void UnderwaterPumpMotorMetrics::fill_extent(float* width, float* height) {
 	auto ps_dashboard = dynamic_cast<Motor*>(this->ps_dashboard);
 	auto sb_dashboard = dynamic_cast<Motor*>(this->sb_dashboard);
 	float ps_width = 400.0F;
@@ -221,7 +221,7 @@ void UnderwaterPumpMotorInfo::fill_extent(float* width, float* height) {
 	SET_BOX(height, flmax(ps_height, sb_height));
 }
 
-void UnderwaterPumpMotorInfo::load(CanvasCreateResourcesReason reason, float width, float height) {
+void UnderwaterPumpMotorMetrics::load(CanvasCreateResourcesReason reason, float width, float height) {
 	auto ps_dashboard = dynamic_cast<Motor*>(this->ps_dashboard);
 	auto sb_dashboard = dynamic_cast<Motor*>(this->sb_dashboard);
 	
@@ -237,7 +237,7 @@ void UnderwaterPumpMotorInfo::load(CanvasCreateResourcesReason reason, float wid
 	}
 }
 
-void UnderwaterPumpMotorInfo::reflow(float width, float height) {
+void UnderwaterPumpMotorMetrics::reflow(float width, float height) {
 	auto ps_dashboard = dynamic_cast<Motor*>(this->ps_dashboard);
 	auto sb_dashboard = dynamic_cast<Motor*>(this->sb_dashboard);
 
@@ -251,7 +251,7 @@ void UnderwaterPumpMotorInfo::reflow(float width, float height) {
 	}
 }
 
-bool UnderwaterPumpMotorInfo::can_select(IGraphlet* g) {
+bool UnderwaterPumpMotorMetrics::can_select(IGraphlet* g) {
 	return false;
 }
 
