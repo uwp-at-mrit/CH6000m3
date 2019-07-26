@@ -96,7 +96,7 @@ public:
 			this->transfer_to(this->macro_event->get_target_page());
 		}
 
-		this->global_mask_alpha = 1.0 - this->macro_event->get_brightness();
+		// this->global_mask_alpha = 1.0 - this->macro_event->get_brightness();
 	}
 
 protected:
@@ -116,8 +116,17 @@ protected:
 	}
 
 	bool on_key(VirtualKey key, bool screen_keyboard) override {
-		syslog(Log::Info, key.ToString());
-		return false;
+		int page = this->macro_event->get_target_page();
+		bool handled = false;
+
+		if (page == -1) { // does not controlled by dashboard macro keys
+			switch (key) {
+			case VirtualKey::Down: case VirtualKey::PageDown: this->transfer_next(); handled = true; break;
+			case VirtualKey::Up: case VirtualKey::PageUp: this->transfer_previous(); handled = true; break;
+			}
+		}
+
+		return handled;
 	}
 
 protected private:
