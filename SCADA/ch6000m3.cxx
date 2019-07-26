@@ -38,6 +38,40 @@ using namespace Windows::UI::Xaml::Controls;
 using namespace Microsoft::Graphics::Canvas;
 using namespace Microsoft::Graphics::Canvas::UI;
 
+/*************************************************************************************************/
+private class MacroEventListener : public PLCConfirmation {
+public:
+	MacroEventListener(unsigned int brightness_idx, int page_idx)
+		: b_idx(brightness_idx), brightness(1.0)
+		, p_idx(page_idx), page(2 /* the dredging page */) {}
+
+public:
+	void on_analog_input(long long timepoint_ms, const uint8* DB2, size_t count2, const uint8* DB203, size_t count203, Syslog* logger) override {
+		this->brightness = double(RealData(DB203, this->b_idx)) / 100.0;
+
+		if (this->p_idx >= 0) {
+			this->page = int(DBD(DB2, this->p_idx));
+		}
+	}
+
+public:
+	double get_brightness() {
+		return this->brightness;
+	}
+
+	int get_target_page() {
+		return ((this->p_idx >= 0) ? this->page : -1);
+	}
+
+private:
+	unsigned int b_idx;
+	double brightness;
+
+private:
+	int p_idx;
+	int page;
+};
+
 private ref class DredgerUniverse : public UniverseDisplay {
 public:
 	virtual ~DredgerUniverse() {
@@ -47,8 +81,23 @@ public:
 	}
 
 internal:
-	DredgerUniverse(Platform::String^ name, PLCMaster* device, IUniverseNavigator* navigator, IHeadUpPlanet* heads_up)
-		: UniverseDisplay(make_system_logger(default_logging_level, name), name, navigator, heads_up), device(device) {}
+	DredgerUniverse(Platform::String^ name, PLCMaster* device, IUniverseNavigator* navigator, IHeadUpPlanet* heads_up
+		, unsigned int brightness_idx, int paging_idx = -1)
+		: UniverseDisplay(make_system_logger(default_logging_level, name), name, navigator, heads_up), device(device) {
+		this->macro_event = new MacroEventListener(brightness_idx, paging_idx);
+		this->device->push_confirmation_receiver(this->macro_event);
+	}
+
+public:
+	void update(long long count, long long interval, long long uptime) override {
+		int page = this->macro_event->get_target_page();
+
+		if (page >= 0) {
+			this->transfer_to(this->macro_event->get_target_page());
+		}
+
+		this->global_mask_alpha = 1.0 - this->macro_event->get_brightness();
+	}
 
 protected:
 	void construct(CanvasCreateResourcesReason reason) override {
@@ -66,52 +115,14 @@ protected:
 		this->push_planet(new DredgesPage(DragView::Suctions, this->device)); // 11
 	}
 
+	bool on_key(VirtualKey key, bool screen_keyboard) override {
+		syslog(Log::Info, key.ToString());
+		return false;
+	}
+
 protected private:
 	PLCMaster* device;
-};
-
-/*************************************************************************************************/
-private class PageEventListener : public PLCConfirmation {
-public:
-	PageEventListener(unsigned int idx) : dbidx(idx), page(2 /* the dredging page */) {}
-
-public:
-	void on_analog_input(long long timepoint_ms, const uint8* DB2, size_t count2, const uint8* DB203, size_t count203, Syslog* logger) override {
-		this->page = int(DBD(DB2, this->dbidx));
-	}
-
-public:
-	int get_target_page() {
-		return page;
-	}
-
-private:
-	unsigned int dbidx;
-	int page;
-};
-
-private ref class DashboardUniverse sealed : public DredgerUniverse {
-public:
-	virtual ~DashboardUniverse() {
-		if (this->page_turner != nullptr) {
-			delete this->page_turner;
-		}
-	}
-
-internal:
-	DashboardUniverse(Platform::String^ name, PLCMaster* device, IUniverseNavigator* navigator, IHeadUpPlanet* heads_up, unsigned int dbidx)
-		: DredgerUniverse(name, device, navigator, heads_up) {
-		this->page_turner = new PageEventListener(dbidx);
-		this->device->push_confirmation_receiver(this->page_turner);
-	}
-
-public:
-	void update(long long count, long long interval, long long uptime) override {
-		this->transfer_to(this->page_turner->get_target_page());
-	}
-
-private:
-	PageEventListener* page_turner;
+	MacroEventListener* macro_event;
 };
 
 /*************************************************************************************************/
@@ -125,9 +136,6 @@ public:
 
 		this->PointerMoved += ref new PointerEventHandler(this, &CH6000m3::on_pointer_moved);
 		this->PointerReleased += ref new PointerEventHandler(this, &CH6000m3::on_pointer_released);
-
-		//this->AddHandler(UIElement::PointerPressedEvent, ref new PointerEventHandler(this, &CH6000m3::on_pointer_pressed), true);
-		//this->AddHandler(UIElement::PointerReleasedEvent, ref new PointerEventHandler(this, &CH6000m3::on_pointer_released), true);
 	}
 
 public:
@@ -138,11 +146,11 @@ public:
 		HeadsUpPlanet* heads_up = new HeadsUpPlanet(device);
 
 		if (localhost->Equals("192.168.0.11")) {
-			this->universe = ref new DashboardUniverse(name, device, navigator, heads_up, left_paging_key);
+			this->universe = ref new DredgerUniverse(name, device, navigator, heads_up, sailing_board_brightness, left_paging_key);
 		} else if (localhost->Equals("192.168.0.12")) {
-			this->universe = ref new DashboardUniverse(name, device, navigator, heads_up, right_paging_key);
+			this->universe = ref new DredgerUniverse(name, device, navigator, heads_up, sailing_board_brightness, right_paging_key);
 		} else {
-			this->universe = ref new DredgerUniverse(name, device, navigator, heads_up);
+			this->universe = ref new DredgerUniverse(name, device, navigator, heads_up, sailing_board_brightness);
 		}
 
 		// TODO: Why SplitView::Content cannot do it on its own?
