@@ -87,6 +87,8 @@ namespace WarGrey::SCADA {
         static WarGrey::SCADA::Alarms* SBHopperGearboxTemperatureHigh() { return WarGrey::SCADA::Tongue<WarGrey::SCADA::Alarms>::UnsafeTongue(262686U); } // SB Hopper Gearbox Temperature High
         static WarGrey::SCADA::Alarms* SBHopperGearboxPressureLow() { return WarGrey::SCADA::Tongue<WarGrey::SCADA::Alarms>::UnsafeTongue(262687U); } // SB Hopper Gearbox Pressure Low
         static WarGrey::SCADA::Alarms* HydraulicsStoppedBySailing() { return WarGrey::SCADA::Tongue<WarGrey::SCADA::Alarms>::UnsafeTongue(262812U); } // Hydraulics Stopped(Sailing Console)
+        static WarGrey::SCADA::Alarms* PSWaterValveOpenTimeout() { return WarGrey::SCADA::Tongue<WarGrey::SCADA::Alarms>::UnsafeTongue(13435914U); } // PS Water Pump Outlet Valve Open Timeout
+        static WarGrey::SCADA::Alarms* SBWaterValveOpenTimeout() { return WarGrey::SCADA::Tongue<WarGrey::SCADA::Alarms>::UnsafeTongue(13435915U); } // SB Water Pump Outlet Valve Open Timeout
         static WarGrey::SCADA::Alarms* PSDIAngleExceed() { return WarGrey::SCADA::Tongue<WarGrey::SCADA::Alarms>::UnsafeTongue(13436298U); } // PS Drag Intermediate Angle Exceed
         static WarGrey::SCADA::Alarms* SBDIAngleExceed() { return WarGrey::SCADA::Tongue<WarGrey::SCADA::Alarms>::UnsafeTongue(13436299U); } // SB Drag Intermediate Angle Exceed
         static WarGrey::SCADA::Alarms* BackOilPressureFail() { return WarGrey::SCADA::Tongue<WarGrey::SCADA::Alarms>::UnsafeTongue(13436689U); } // Back Oil Pressure Less Than 3bar, All Winches are Limited
@@ -127,7 +129,7 @@ namespace WarGrey::SCADA {
         static WarGrey::SCADA::Alarms* SBDTCableExceed() { return WarGrey::SCADA::Tongue<WarGrey::SCADA::Alarms>::UnsafeTongue(13437175U); } // SB Drag Trunnion Cable Exceed
 
     private:
-        static size_t indices_size() { return 116U; }
+        static size_t indices_size() { return 118U; }
         static const unsigned int* indices() {
             static const unsigned int indexes[] = {
                 262151U, 262155U, 262159U, 262163U, 262164U, 262166U, 262167U, 262175U,
@@ -139,12 +141,12 @@ namespace WarGrey::SCADA {
                 262351U, 262359U, 262367U, 262629U, 262630U, 262631U, 262632U, 262633U,
                 262634U, 262635U, 262645U, 262646U, 262647U, 262648U, 262649U, 262650U,
                 262651U, 262659U, 262663U, 262666U, 262669U, 262670U, 262671U, 262675U,
-                262679U, 262682U, 262685U, 262686U, 262687U, 262812U, 13436298U, 13436299U,
-                13436689U, 13436936U, 13436937U, 13436938U, 13436939U, 13436940U, 13436941U, 13436942U,
-                13436943U, 13436944U, 13436945U, 13436946U, 13436947U, 13436948U, 13436949U, 13436950U,
-                13436951U, 13436952U, 13436953U, 13436954U, 13436955U, 13436956U, 13436957U, 13436958U,
-                13436959U, 13436961U, 13436962U, 13436963U, 13437168U, 13437169U, 13437170U, 13437171U,
-                13437172U, 13437173U, 13437174U, 13437175U
+                262679U, 262682U, 262685U, 262686U, 262687U, 262812U, 13435914U, 13435915U,
+                13436298U, 13436299U, 13436689U, 13436936U, 13436937U, 13436938U, 13436939U, 13436940U,
+                13436941U, 13436942U, 13436943U, 13436944U, 13436945U, 13436946U, 13436947U, 13436948U,
+                13436949U, 13436950U, 13436951U, 13436952U, 13436953U, 13436954U, 13436955U, 13436956U,
+                13436957U, 13436958U, 13436959U, 13436961U, 13436962U, 13436963U, 13437168U, 13437169U,
+                13437170U, 13437171U, 13437172U, 13437173U, 13437174U, 13437175U
             };
 
             return indexes;

@@ -78,6 +78,8 @@
     <data name="262686" xml:space="preserve"> <value>SBHopperGearboxTemperatureHigh</value> </data>
     <data name="262687" xml:space="preserve"> <value>SBHopperGearboxPressureLow</value> </data>
     <data name="262812" xml:space="preserve"> <value>HydraulicsStoppedBySailing</value> </data>
+    <data name="13435914" xml:space="preserve"> <value>PSWaterValveOpenTimeout</value> </data>
+    <data name="13435915" xml:space="preserve"> <value>SBWaterValveOpenTimeout</value> </data>
     <data name="13436298" xml:space="preserve"> <value>PSDIAngleExceed</value> </data>
     <data name="13436299" xml:space="preserve"> <value>SBDIAngleExceed</value> </data>
     <data name="13436689" xml:space="preserve"> <value>BackOilPressureFail</value> </data>
@@ -194,6 +196,8 @@
     <data name="SBHopperGearboxTemperatureHigh" xml:space="preserve"> <value>SB Hopper Gearbox Temperature High</value> </data>
     <data name="SBHopperGearboxPressureLow" xml:space="preserve"> <value>SB Hopper Gearbox Pressure Low</value> </data>
     <data name="HydraulicsStoppedBySailing" xml:space="preserve"> <value>Hydraulics Stopped(Sailing Console)</value> </data>
+    <data name="PSWaterValveOpenTimeout" xml:space="preserve"> <value>PS Water Pump Outlet Valve Open Timeout</value> </data>
+    <data name="SBWaterValveOpenTimeout" xml:space="preserve"> <value>SB Water Pump Outlet Valve Open Timeout</value> </data>
     <data name="PSDIAngleExceed" xml:space="preserve"> <value>PS Drag Intermediate Angle Exceed</value> </data>
     <data name="SBDIAngleExceed" xml:space="preserve"> <value>SB Drag Intermediate Angle Exceed</value> </data>
     <data name="BackOilPressureFail" xml:space="preserve"> <value>Back Oil Pressure Less Than 3bar, All Winches are Limited</value> </data>

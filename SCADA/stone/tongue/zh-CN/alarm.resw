@@ -78,6 +78,8 @@
     <data name="SBHopperGearboxTemperatureHigh" xml:space="preserve"> <value>右舷泥泵齿轮箱滑油温度高报警</value> </data>
     <data name="SBHopperGearboxPressureLow" xml:space="preserve"> <value>右舷泥泵齿轮箱滑油压力低低报警</value> </data>
     <data name="HydraulicsStoppedBySailing" xml:space="preserve"> <value>液压泵紧急停止(航行台)</value> </data>
+    <data name="PSWaterValveOpenTimeout" xml:space="preserve"> <value>左高压冲水泵出口阀未打开运行超时报警</value> </data>
+    <data name="SBWaterValveOpenTimeout" xml:space="preserve"> <value>右高压冲水泵出口阀未打开运行超时报警</value> </data>
     <data name="PSDIAngleExceed" xml:space="preserve"> <value>左耙中角度过大</value> </data>
     <data name="SBDIAngleExceed" xml:space="preserve"> <value>右耙中角度过大</value> </data>
     <data name="BackOilPressureFail" xml:space="preserve"> <value>回油压力小于3bar,所有绞车不能动作</value> </data>
