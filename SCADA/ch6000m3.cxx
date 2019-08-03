@@ -86,6 +86,8 @@ internal:
 		: UniverseDisplay(make_system_logger(default_logging_level, name), name, navigator, heads_up), device(device) {
 		this->macro_event = new MacroEventListener(brightness_idx, paging_idx);
 		this->device->push_confirmation_receiver(this->macro_event);
+
+		system_set_subnet_prefix(system_subnet_prefix);
 	}
 
 public:
@@ -95,8 +97,6 @@ public:
 		if (page >= 0) {
 			this->transfer_to(this->macro_event->get_target_page());
 		}
-
-		// this->global_mask_alpha = 1.0 - this->macro_event->get_brightness();
 	}
 
 protected:

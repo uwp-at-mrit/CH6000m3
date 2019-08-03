@@ -2,6 +2,7 @@
 
 #include "widget.hxx"
 #include "planet.hpp"
+#include "about.hpp"
 #include "ch6000m3/configuration.hpp"
 
 #include "widget/alarms.hpp"
@@ -37,7 +38,7 @@ private enum class Brightness { Brightness100, Brightness80, Brightness60, Brigh
 
 // WARNING: order matters
 private enum class SS : unsigned int { Brightness, Permission, _ };
-private enum class Icon : unsigned int { Gallery , Settings, TimeMachine, Alarm, PrintScreen, FullScreen, _ };
+private enum class Icon : unsigned int { Gallery , Settings, TimeMachine, Alarm, PrintScreen, FullScreen, About, _ };
 
 static Platform::String^ mode_setting_key = "PLC_Master_Mode";
 
@@ -181,6 +182,7 @@ public:
 			case Icon::Gallery: display_the_gallery(); break;
 			case Icon::TimeMachine: launch_the_timemachine(); break;
 			case Icon::Alarm: display_the_alarm(); break;
+			case Icon::About: display_the_about(); break;
 			case Icon::Settings: {
 				if (this->settings == nullptr) {
 					this->settings = make_settings(this->device);
