@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="060621da-8c22-4218-bd3c-1c5b6ca2db44" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>CH6000m3</DisplayName>
-    <PublisherDisplayName>WarGrey@MRIT</PublisherDisplayName>
+    <PublisherDisplayName>镇江明润信息技术有限公司</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>

@@ -24,47 +24,49 @@ using namespace Windows::Storage;
 using namespace Microsoft::Graphics::Canvas::UI;
 
 /*************************************************************************************************/
-private class TimeStream : public TimeMachine, public PLCConfirmation {
-public:
-	TimeStream(long long time_speed, int frame_rate)
-		: TimeMachine(L"timemachine", time_speed * 1000LL, frame_rate, make_system_logger(default_logging_level, __MODULE__))
-		, last_timepoint(current_milliseconds()) {}
+namespace {
+	private class TimeStream : public TimeMachine, public PLCConfirmation {
+	public:
+		TimeStream(long long time_speed, int frame_rate)
+			: TimeMachine(L"timemachine", time_speed * 1000LL, frame_rate, make_system_logger(default_logging_level, __MODULE__))
+			, last_timepoint(current_milliseconds()) {}
 
-	void fill_extent(float* width, float* height) {
-		float margin = normal_font_size * 2.0F;
-		Size size = system_screen_size();
+		void fill_extent(float* width, float* height) {
+			float margin = normal_font_size * 2.0F;
+			Size size = system_screen_size();
 
-		SET_BOX(width, size.Width - margin);
-		SET_BOX(height, size.Height - margin);
-	}
-
-public:
-	void on_all_signals(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, Syslog* logger) override {
-		if ((timepoint_ms - last_timepoint) >= this->get_time_speed()) {
-			this->save_snapshot(timepoint_ms, addr0, addrn, data, size);
-			this->last_timepoint = timepoint_ms;
+			SET_BOX(width, size.Width - margin);
+			SET_BOX(height, size.Height - margin);
 		}
-	}
 
-public:
-	void construct(CanvasCreateResourcesReason reason) override {
-		this->pickup(new HydraulicsPage());
-		this->pickup(new ChargesPage());
-		this->pickup(new DredgesPage(DragView::_));
-		this->pickup(new DischargesPage());
-		this->pickup(new GlandsPage());
-		this->pickup(new FlushsPage());
-		this->pickup(new DredgesPage(DragView::PortSide));
-		this->pickup(new HopperDoorsPage());
-		this->pickup(new LubricatingsPage());
-		this->pickup(new DraughtsPage());
-		this->pickup(new DredgesPage(DragView::Starboard));
-		this->pickup(new DredgesPage(DragView::Suctions));
-	}
+	public:
+		void on_all_signals(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, Syslog* logger) override {
+			if ((timepoint_ms - last_timepoint) >= this->get_time_speed()) {
+				this->save_snapshot(timepoint_ms, addr0, addrn, data, size);
+				this->last_timepoint = timepoint_ms;
+			}
+		}
 
-private:
-	long long last_timepoint;
-};
+	public:
+		void construct(CanvasCreateResourcesReason reason) override {
+			this->pickup(new HydraulicsPage());
+			this->pickup(new ChargesPage());
+			this->pickup(new DredgesPage(DragView::_));
+			this->pickup(new DischargesPage());
+			this->pickup(new GlandsPage());
+			this->pickup(new FlushsPage());
+			this->pickup(new DredgesPage(DragView::PortSide));
+			this->pickup(new HopperDoorsPage());
+			this->pickup(new LubricatingsPage());
+			this->pickup(new DraughtsPage());
+			this->pickup(new DredgesPage(DragView::Starboard));
+			this->pickup(new DredgesPage(DragView::Suctions));
+		}
+
+	private:
+		long long last_timepoint;
+	};
+}
 
 /*************************************************************************************************/
 static TimeStream* the_timemachine = nullptr;
