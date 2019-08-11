@@ -141,7 +141,7 @@
   <data name="HopperHeight" xml:space="preserve">
     <value>舱高</value>
   </data>
-  <data name="Loading" xml:space="preserve">
+  <data name="Payload" xml:space="preserve">
     <value>装载量</value>
   </data>
   <data name="Port" xml:space="preserve">

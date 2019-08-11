@@ -41,7 +41,7 @@ private enum class HD : unsigned int {
 	Port, Starboard,
 	
 	// Cylinders
-	EarthWork, Capacity, HopperHeight, Loading, Displacement,
+	EarthWork, Capacity, HopperHeight, Payload, Displacement,
 	
 	// Hydraulic pump dimensions, see hydraulics.cpp
 	A, D, E, H,
@@ -71,7 +71,7 @@ public:
 	void on_analog_input(long long timepoint_ms, const uint8* DB2, size_t count2, const uint8* DB203, size_t count203, Syslog* logger) override {
 		this->set_cylinder(HD::HopperHeight, DBD(DB2, average_hopper_height));
 		this->set_cylinder(HD::Displacement, DBD(DB2, displacement_value));
-		this->set_cylinder(HD::Loading, DBD(DB2, loading_value));
+		this->set_cylinder(HD::Payload, DBD(DB2, payload_value));
 		this->set_cylinder(HD::EarthWork, DBD(DB2, earthwork_value));
 		this->set_cylinder(HD::Capacity, DBD(DB2, vessel_value));
 
@@ -152,7 +152,7 @@ public:
 		this->load_cylinder(this->cylinders, HD::EarthWork, cylinder_height, earthwork_range, 0U, "meter3");
 		this->load_cylinder(this->cylinders, HD::Capacity, cylinder_height, vessel_range, 0U, "meter3");
 		this->load_cylinder(this->cylinders, HD::HopperHeight, cylinder_height, hopper_height_range, 2U, "meter");
-		this->load_cylinder(this->cylinders, HD::Loading, cylinder_height, loading_range, 0U, "ton");
+		this->load_cylinder(this->cylinders, HD::Payload, cylinder_height, payload_range, 0U, "ton");
 		this->load_cylinder(this->cylinders, HD::Displacement, cylinder_height, displacement_range, 0U, "ton");
 
 		this->load_dimensions(this->dimensions, HD::A, HD::H, "bar");

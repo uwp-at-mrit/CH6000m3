@@ -141,8 +141,8 @@
   <data name="HopperHeight" xml:space="preserve">
     <value>Hopper Height</value>
   </data>
-  <data name="Loading" xml:space="preserve">
-    <value>Loading</value>
+  <data name="Payload" xml:space="preserve">
+    <value>Payload</value>
   </data>
   <data name="Port" xml:space="preserve">
     <value>Port</value>

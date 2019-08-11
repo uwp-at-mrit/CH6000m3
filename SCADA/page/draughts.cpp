@@ -107,7 +107,7 @@ public:
 
 			this->set_cylinder(EWTS::HopperHeight, values, DBD(DB2, average_hopper_height));
 			this->set_cylinder(EWTS::Displacement, values, DBD(DB2, displacement_value));
-			this->set_cylinder(EWTS::Loading, values, DBD(DB2, loading_value));
+			this->set_cylinder(EWTS::Payload, values, DBD(DB2, payload_value));
 			this->set_cylinder(EWTS::EarthWork, values, DBD(DB2, earthwork_value));
 			this->set_cylinder(EWTS::Capacity, values, DBD(DB2, vessel_value));
 
@@ -153,7 +153,7 @@ public:
 		this->load_cylinder(this->cylinders, EWTS::EarthWork, cylinder_height, earthwork_range, 0U, "meter3");
 		this->load_cylinder(this->cylinders, EWTS::Capacity, cylinder_height, vessel_range, 0U, "meter3");
 		this->load_cylinder(this->cylinders, EWTS::HopperHeight, cylinder_height, hopper_height_range, 2U, "meter");
-		this->load_cylinder(this->cylinders, EWTS::Loading, cylinder_height, loading_range, 0U, "ton");
+		this->load_cylinder(this->cylinders, EWTS::Payload, cylinder_height, payload_range, 0U, "ton");
 		this->load_cylinder(this->cylinders, EWTS::Displacement, cylinder_height, displacement_range, 0U, "ton");
 
 		this->load_dimensions(this->dimensions, DL::SternDraft, DL::sbSternHeight, "meter");

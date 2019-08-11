@@ -72,7 +72,7 @@ private enum class DS : unsigned int {
 
 	// dimensions
 	Overflow, PSWC, SBWC, PSPF1, PSPF2, SBPF1, SBPF2, PSSIP, SBSIP,
-	TildeMark, Speed,
+	TideMark, Speed,
 
 	// draghead metrics
 	PSDP, SBDP, PSVisor, SBVisor,
@@ -395,7 +395,7 @@ protected:
 		float3 ujoints[2];
 		float3 draghead = DBD_3(db2, pidx + 36U);
 		float3 trunnion = DBD_3(db2, pidx + 0U);
-		float tilde = DBD(db2, tilde_mark);
+		float tilde = DBD(db2, tide_mark);
 		float suction_depth = trunnion.x;
 		
 		ujoints[0] = DBD_3(db2, pidx + 12U);
@@ -1099,7 +1099,7 @@ public:
 
 public:
 	void on_analog_input(long long timepoint_ms, const uint8* DB2, size_t count2, const uint8* DB203, size_t count203, Syslog* logger) override {
-		this->lengths[DS::TildeMark]->set_value(DBD(DB2, tilde_mark));
+		this->lengths[DS::TideMark]->set_value(DBD(DB2, tide_mark));
 		this->speeds[DS::Speed]->set_value(DBD(DB2, gps_speed));
 
 		{ // set winches metrics
@@ -1268,7 +1268,7 @@ public:
 		this->load_label(this->labels, DS::Overlook, this->caption_color, this->label_font);
 		this->load_label(this->labels, DS::Sidelook, this->caption_color, this->label_font);
 
-		this->load_dimension(this->lengths, DS::TildeMark, "meter");
+		this->load_dimension(this->lengths, DS::TideMark, "meter");
 		this->load_dimension(this->speeds, DS::Speed, "knot");
 
 		this->load_setting(this->settings, this->labels, DS::DesignDepth, "meter", 50.0);
@@ -1402,7 +1402,7 @@ public:
 			this->master->move_to(this->labels[DS::Overlook], this->dragxys[this->DS_side], GraphletAnchor::CT, GraphletAnchor::CB, 0.0, -vinset * 2.0F);
 			this->master->move_to(this->labels[DS::Sidelook], this->dragxzes[this->DS_side], 0.5F, this->labels[DS::Overlook], 0.5F, GraphletAnchor::CC);
 
-			this->master->move_to(this->lengths[DS::TildeMark], this->labels[DS::Sidelook], GraphletAnchor::CT, GraphletAnchor::RB, -vinset, -vinset);
+			this->master->move_to(this->lengths[DS::TideMark], this->labels[DS::Sidelook], GraphletAnchor::CT, GraphletAnchor::RB, -vinset, -vinset);
 			this->master->move_to(this->speeds[DS::Speed], this->labels[DS::Sidelook], GraphletAnchor::CT, GraphletAnchor::LB, +vinset, -vinset);
 
 			if (this->DS_side == DS::PS) {	

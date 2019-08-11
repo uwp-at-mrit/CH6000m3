@@ -20,7 +20,7 @@ CanvasSolidColorBrush^ WarGrey::SCADA::earthwork_line_color_dictionary(unsigned 
 	case EWTS::EarthWork: color = Colours::Khaki; break;
 	case EWTS::Capacity: color = Colours::Cyan; break;
 	case EWTS::HopperHeight: color = Colours::Crimson; break;
-	case EWTS::Loading: color = Colours::Orange; break;
+	case EWTS::Payload: color = Colours::Orange; break;
 	case EWTS::Displacement: color = Colours::MediumSeaGreen; break;
 	}
 
@@ -47,7 +47,7 @@ public:
 			this->tempdata[_I(EWTS::EarthWork)] = ework.product;
 			this->tempdata[_I(EWTS::Capacity)] = ework.vessel;
 			this->tempdata[_I(EWTS::HopperHeight)] = ework.hopper_height;
-			this->tempdata[_I(EWTS::Loading)] = ework.loading;
+			this->tempdata[_I(EWTS::Payload)] = ework.loading;
 			this->tempdata[_I(EWTS::Displacement)] = ework.displacement;
 
 			this->receiver->on_datum_values(this->open_s, ts, this->tempdata, _N(EWTS));
@@ -134,7 +134,7 @@ void EarthWorkDataSource::save(long long timepoint, double* values, unsigned int
 		case EWTS::EarthWork: ework.product = values[i]; break;
 		case EWTS::Capacity : ework.vessel = values[i]; break;
 		case EWTS::HopperHeight: ework.hopper_height = values[i]; break;
-		case EWTS::Loading: ework.loading = values[i]; break;
+		case EWTS::Payload: ework.loading = values[i]; break;
 		case EWTS::Displacement: ework.displacement = values[i]; break;
 		}
 	}
