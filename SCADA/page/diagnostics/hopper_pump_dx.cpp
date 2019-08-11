@@ -74,9 +74,11 @@ public:
 		unsigned int gbmaster = (this->ps ? ps_hopper_gearbox_master_feedback : sb_hopper_gearbox_master_feedback);
 		unsigned int gbspare = (this->ps ? ps_hopper_gearbox_spare_feedback : sb_hopper_gearbox_spare_feedback);
 		unsigned int hplready = (this->ps ? ps_hopper_pipeline_ready : sb_hopper_pipeline_ready) - 1U;
-		unsigned int uwplready = (this->ps ? ps_underwater_pipeline_ready : sb_underwater_pipeline_ready) - 1U;
 		unsigned int emergence = (this->ps ? ps_hopper_pump_emergence_feedback : sb_hopper_pump_emergence_feedback) - 1U;
 		unsigned int knob = (this->ps ? ps_hopper_pump_speed_knob_moved : sb_hopper_pump_speed_knob_moved) - 1U;
+		unsigned int ps_uwplready = ps_underwater_pipeline_ready - 1U;
+		unsigned int sb_uw_dready = sb_underwater_dredging_ready - 1U;
+		unsigned int d_uw_dready = double_underwater_dredging_ready - 1U;
 		bool hp = DI_hopper_type(DB4, feedback);
 		bool uwp = DI_underwater_type(DB4, feedback);
 
@@ -99,10 +101,15 @@ public:
 		this->diagnoses[HP::UWPNotRunning]->set_state(DI_hopper_pump_running(DB4, feedback, true), AlarmState::None, AlarmState::Notice);
 		this->diagnoses[HP::UWPNoEmergence]->set_state(DBX(DB205, emergence), AlarmState::None, AlarmState::Notice);
 		this->diagnoses[HP::UWPNoMaintenance]->set_state(DI_hopper_pump_repair(DB4, feedback, true), AlarmState::None, AlarmState::Notice);
-		this->diagnoses[HP::UWPPipelineReady]->set_state(DBX(DB205, uwplready), AlarmState::Notice, AlarmState::None);
 		this->diagnoses[HP::UWPSpeedKnobMoved]->set_state(uwp && DBX(DB4, knob), AlarmState::Notice, AlarmState::None);
 		this->diagnoses[HP::UWPGlandPumpsRunning]->set_state(DI_gland_pump_running(DB4, uwpgmaster, false), AlarmState::Notice, AlarmState::None);
 		this->spare_diagnoses[HP::UWPGlandPumpsRunning]->set_state(DI_gland_pump_running(DB4, uwpgspare, false), AlarmState::Notice, AlarmState::None);
+
+		if (this->ps) {
+			this->diagnoses[HP::UWPPipelineReady]->set_state(DBX(DB205, ps_uwplready), AlarmState::Notice, AlarmState::None);
+		} else {
+			this->diagnoses[HP::UWPPipelineReady]->set_state(DBX(DB205, sb_uw_dready) || DBX(DB205, d_uw_dready), AlarmState::Notice, AlarmState::None);
+		}
 	}
 
 	void post_read_data(Syslog* logger) override {
