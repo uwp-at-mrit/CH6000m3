@@ -395,7 +395,7 @@ protected:
 		float3 ujoints[2];
 		float3 draghead = DBD_3(db2, pidx + 36U);
 		float3 trunnion = DBD_3(db2, pidx + 0U);
-		float tilde = DBD(db2, tide_mark);
+		float tide = DBD(db2, tide_mark);
 		float suction_depth = trunnion.x;
 		
 		ujoints[0] = DBD_3(db2, pidx + 12U);
@@ -406,7 +406,7 @@ protected:
 		draghead.y = DBD(db2, pidx + 52U);
 		draghead.z = DBD(db2, pidx + 56U);
 
-		{ // WARNING: DB2 gives the wrong visor angle, uses DB203 and manually computing it instead.
+		{ // WARNING: DB2 gives the wrong visor angle, using DB203 and manually computing it instead.
 			double visor_progress = RealData(db203, address->visor_progress) * 0.01F;
 			double visor_angle = (info.visor_degrees_max - info.visor_degrees_min) * (1.0 - visor_progress) + info.visor_degrees_min;
 
@@ -416,12 +416,12 @@ protected:
 
 			if (this->dragxzes.find(id) != this->dragxzes.end()) {
 				this->dragxzes[id]->set_figure(trunnion, ujoints, draghead, visor_angle);
-				this->dragxzes[id]->set_tilde_mark(tilde);
+				this->dragxzes[id]->set_tide_mark(tide);
 			}
 
 			if (this->dragyzes.find(id) != this->dragyzes.end()) {
 				this->dragyzes[id]->set_figure(trunnion, ujoints, draghead, visor_angle);
-				this->dragyzes[id]->set_tilde_mark(tilde);
+				this->dragyzes[id]->set_tide_mark(tide);
 			}
 
 			this->dragheads[vid]->set_depths(suction_depth, draghead.z);
@@ -572,7 +572,7 @@ public:
 	}
 
 	void on_digital_input(long long timepoint_ms, const uint8* DB4, size_t count4, const uint8* DB205, size_t count205, Syslog* logger) override {
-		select_sb_drag(DB205);
+		this->select_sb_drag(DB205);
 		
 		DI_hopper_pumps(this->hpumps[DS::PSHP], this->hpumps[DS::PSHP], DB4, ps_hopper_pump_feedback, DB205, ps_hopper_pump_details, ps_underwater_pump_details);
 		DI_hopper_pumps(this->hpumps[DS::SBHP], this->hpumps[DS::SBHP], DB4, sb_hopper_pump_feedback, DB205, sb_hopper_pump_details, sb_underwater_pump_details);
@@ -1193,7 +1193,7 @@ public:
 			DI_boolean_button(this->h_gantry_buttons[GantryCommand::VirtualUp], DB205, gantry_ps_draghead_virtual_up_limited);
 			DI_boolean_button(this->h_gantry_buttons[GantryCommand::VirtualOut], DB205, gantry_ps_draghead_virtual_out_limited);
 		} else {
-			select_sb_drag(DB205);
+			this->select_sb_drag(DB205);
 
 			DI_hydraulic_pump_dimension(this->pump_pressures[DredgesPosition::sbTrunnion], DB4, pump_F_feedback);
 			DI_hydraulic_pump_dimension(this->pump_pressures[DredgesPosition::sbIntermediate], DB4, pump_G_feedback);
@@ -1747,7 +1747,7 @@ public:
 	}
 
 	void on_digital_input(long long timepoint_ms, const uint8* DB4, size_t count4, const uint8* DB205, size_t count205, Syslog* logger) override {
-		select_sb_drag(DB205);
+		this->select_sb_drag(DB205);
 
 		DI_winch(this->winches[DredgesPosition::psTrunnion], DB4, winch_ps_trunnion_feedback, winch_ps_trunnion_limits, DB205, winch_ps_trunnion_details);
 		DI_winch(this->winches[DredgesPosition::psIntermediate], DB4, winch_ps_intermediate_feedback, winch_ps_intermediate_limits, DB205, winch_ps_intermediate_details);
