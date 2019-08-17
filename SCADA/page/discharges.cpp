@@ -588,7 +588,7 @@ public:
 	}
 
 public:
-	void draw_relationships(CanvasDrawingSession^ ds, float Width, float Height) {
+	void draw_relationships(CanvasDrawingSession^ ds, float X, float Y, float Width, float Height) {
 		float ox, oy, sx, sy, tx, ty;
 
 		for (auto it = this->mvalves.begin(); it != this->mvalves.end(); it++) {
@@ -596,14 +596,14 @@ public:
 			this->master->fill_graphlet_location(this->gvalves[it->first], &tx, &ty, GraphletAnchor::CC);
 			it->second->fill_valve_origin(&ox, &oy);
 
-			ds->DrawLine(sx + ox, sy + oy, tx, ty, this->relationship_color, 1.0F, this->relationship_style);
+			ds->DrawLine(sx + ox + X, sy + oy + Y, tx + X, ty + Y, this->relationship_color, 1.0F, this->relationship_style);
 		}
 
 		for (unsigned int idx = 0; idx < hopper_count; idx++) {
 			this->master->fill_graphlet_location(this->uhdoors[_E(Door, idx + _I(Door::PS1))], &sx, &sy, GraphletAnchor::CC);
 			this->master->fill_graphlet_location(this->uhdoors[_E(Door, idx + _I(Door::SB1))], &tx, &ty, GraphletAnchor::CC);
 			
-			ds->DrawLine(sx, sy, tx, ty, this->door_paired_color, 1.0F, this->relationship_style);
+			ds->DrawLine(sx + X, sy + Y, tx + X, ty + Y, this->door_paired_color, 1.0F, this->relationship_style);
 		}
 	}
 

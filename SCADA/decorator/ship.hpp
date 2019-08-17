@@ -10,7 +10,7 @@ namespace WarGrey::SCADA {
 		ShipDecorator();
 
 	public:
-		void draw_before(Microsoft::Graphics::Canvas::CanvasDrawingSession^ ds, float Width, float Height) override;
+		void draw_before(Microsoft::Graphics::Canvas::CanvasDrawingSession^ ds, float X, float Y, float Width, float Height) override;
 
 	public:
 		void fill_ship_extent(float* x, float* y, float* width, float* height, bool full = false);
@@ -35,7 +35,7 @@ namespace WarGrey::SCADA {
 		BottomDoorDecorator();
 
 	public:
-		void draw_before(Microsoft::Graphics::Canvas::CanvasDrawingSession^ ds, float Width, float Height) override;
+		void draw_before(Microsoft::Graphics::Canvas::CanvasDrawingSession^ ds, float X, float Y, float Width, float Height) override;
 
 	public:
 		void fill_door_cell_extent(float* x, float* y, float* width, float* height, size_t idx, float side_hint);

@@ -159,7 +159,7 @@ public:
 	virtual void on_gesture(std::list<float2>& anchors, float x, float y) {}
 
 public:
-	virtual void draw_cables(CanvasDrawingSession^ ds, float Width, float Height) {}
+	virtual void draw_cables(CanvasDrawingSession^ ds, float X, float Y, float Width, float Height) {}
 
 public:
 	void pre_read_data(Syslog* logger) override {
@@ -1439,18 +1439,18 @@ public:
 	}
 
 public:
-	void draw_cables(CanvasDrawingSession^ ds, float Width, float Height) {
+	void draw_cables(CanvasDrawingSession^ ds, float X, float Y, float Width, float Height) {
 		ICanvasBrush^ color = Colours::DarkGray;
 		float thickness = 2.0F;
 
 		if (this->DS_side == DS::PS) {
-			this->draw_cable(ds, DredgesPosition::psTrunnion, GraphletAnchor::RT, GraphletAnchor::LC, color, thickness);
-			this->draw_cable(ds, DredgesPosition::psIntermediate, GraphletAnchor::RT, GraphletAnchor::LC, color, thickness);
-			this->draw_cable(ds, DS::PSWC, DredgesPosition::psDragHead, GraphletAnchor::RT, GraphletAnchor::LC, color, thickness);
+			this->draw_cable(ds, X, Y, DredgesPosition::psTrunnion, GraphletAnchor::RT, GraphletAnchor::LC, color, thickness);
+			this->draw_cable(ds, X, Y, DredgesPosition::psIntermediate, GraphletAnchor::RT, GraphletAnchor::LC, color, thickness);
+			this->draw_cable(ds, X, Y, DS::PSWC, DredgesPosition::psDragHead, GraphletAnchor::RT, GraphletAnchor::LC, color, thickness);
 		} else {
-			this->draw_cable(ds, DredgesPosition::sbTrunnion, GraphletAnchor::LT, GraphletAnchor::RC, color, thickness);
-			this->draw_cable(ds, DredgesPosition::sbIntermediate, GraphletAnchor::LT, GraphletAnchor::RC, color, thickness);
-			this->draw_cable(ds, DS::SBWC, DredgesPosition::sbDragHead, GraphletAnchor::LT, GraphletAnchor::RC, color, thickness);
+			this->draw_cable(ds, X, Y, DredgesPosition::sbTrunnion, GraphletAnchor::LT, GraphletAnchor::RC, color, thickness);
+			this->draw_cable(ds, X, Y, DredgesPosition::sbIntermediate, GraphletAnchor::LT, GraphletAnchor::RC, color, thickness);
+			this->draw_cable(ds, X, Y, DS::SBWC, DredgesPosition::sbDragHead, GraphletAnchor::LT, GraphletAnchor::RC, color, thickness);
 		}
 	}
 
@@ -1638,18 +1638,18 @@ private:
 
 private:
 	template<typename E>
-	void draw_cable(CanvasDrawingSession^ ds, E id, GraphletAnchor ga, GraphletAnchor wa, ICanvasBrush^ color, float thickness) {
+	void draw_cable(CanvasDrawingSession^ ds, float X, float Y, E id, GraphletAnchor ga, GraphletAnchor wa, ICanvasBrush^ color, float thickness) {
 		float gantry_x, gantry_y, winch_x, winch_y;
 		float gantry_joint = this->gantries[id]->get_winch_joint_y();
 
 		this->master->fill_graphlet_location(this->gantries[id], &gantry_x, &gantry_y, ga);
 		this->master->fill_graphlet_location(this->winches[id], &winch_x, &winch_y, wa);
 
-		ds->DrawLine(gantry_x, gantry_y + gantry_joint, winch_x, winch_y, color, thickness);
+		ds->DrawLine(gantry_x + X, gantry_y + gantry_joint + Y, winch_x + X, winch_y + Y, color, thickness);
 	}
 
 	template<typename D, typename E>
-	void draw_cable(CanvasDrawingSession^ ds, D wc, E id, GraphletAnchor ga, GraphletAnchor wa, ICanvasBrush^ color, float thickness) {
+	void draw_cable(CanvasDrawingSession^ ds, float X, float Y, D wc, E id, GraphletAnchor ga, GraphletAnchor wa, ICanvasBrush^ color, float thickness) {
 		float gantry_x, gantry_y, winch_x, winch_y, wc_gx, wc_wx, wc_y;
 		float gantry_joint = this->gantries[id]->get_winch_joint_y();
 		float wc_joint = this->compensators[wc]->get_cable_joint_y();
@@ -1661,8 +1661,8 @@ private:
 		this->master->fill_graphlet_location(this->compensators[wc], &wc_wx, &wc_y, ga);
 		this->master->fill_graphlet_location(this->compensators[wc], &wc_gx, nullptr, wa);
 
-		ds->DrawLine(gantry_x, gantry_y + gantry_joint, wc_gx + wc_adjust * sign, wc_y + wc_joint, color, thickness);
-		ds->DrawLine(wc_wx - wc_adjust * sign, wc_y + wc_joint, winch_x, winch_y, color, thickness);
+		ds->DrawLine(gantry_x + X, gantry_y + gantry_joint + Y, wc_gx + wc_adjust * sign + X, wc_y + wc_joint + Y, color, thickness);
+		ds->DrawLine(wc_wx - wc_adjust * sign + X, wc_y + wc_joint + Y, winch_x + X, winch_y + Y, color, thickness);
 	}
 
 private:
@@ -1723,8 +1723,8 @@ public:
 	DragCableDecorator(IDredgingSystem* master) : master(master) {}
 
 public:
-	void draw_before(CanvasDrawingSession^ ds, float Width, float Height) override {
-		this->master->draw_cables(ds, Width, Height);
+	void draw_before(CanvasDrawingSession^ ds, float X, float Y, float Width, float Height) override {
+		this->master->draw_cables(ds, X, Y, Width, Height);
 	}
 
 private:

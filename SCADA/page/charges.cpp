@@ -546,7 +546,7 @@ public:
 	}
 
 public:
-	void draw_relationships(CanvasDrawingSession^ ds, float Width, float Height) {
+	void draw_relationships(CanvasDrawingSession^ ds, float X, float Y, float Width, float Height) {
 		float ox, oy, gx, gy, mx, my;
 
 		for (auto it = this->mvalves.begin(); it != this->mvalves.end(); it++) {
@@ -554,7 +554,7 @@ public:
 			this->master->fill_graphlet_location(this->gvalves[it->first], &gx, &gy, GraphletAnchor::CC);
 			it->second->fill_valve_origin(&ox, &oy);
 
-			ds->DrawLine(mx + ox, my + oy, gx, gy, this->relationship_color, 1.0F, this->relationship_style);
+			ds->DrawLine(mx + ox + X, my + oy + Y, gx + X, gy + Y, this->relationship_color, 1.0F, this->relationship_style);
 		}
 	}
 

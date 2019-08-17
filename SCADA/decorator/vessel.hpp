@@ -21,8 +21,8 @@ namespace WarGrey::SCADA {
 		}
 
 	public:
-		void draw_before(Microsoft::Graphics::Canvas::CanvasDrawingSession^ ds, float Width, float Height) override {
-			this->master->draw_relationships(ds, Width, Height);
+		void draw_before(Microsoft::Graphics::Canvas::CanvasDrawingSession^ ds, float X, float Y, float Width, float Height) override {
+			this->master->draw_relationships(ds, X, Y, Width, Height);
 		}
 
 		void draw_before_graphlet(WarGrey::SCADA::IGraphlet* g, Microsoft::Graphics::Canvas::CanvasDrawingSession^ ds

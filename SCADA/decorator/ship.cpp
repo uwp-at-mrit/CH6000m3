@@ -33,12 +33,12 @@ ShipDecorator::ShipDecorator() {
 		segment(this->ship_width, radius, -90.0, 90.0, radius, radius));
 }
 
-void ShipDecorator::draw_before(CanvasDrawingSession^ ds, float Width, float Height) {
+void ShipDecorator::draw_before(CanvasDrawingSession^ ds, float X, float Y, float Width, float Height) {
 	auto real_ship = geometry_scale(this->ship, Width, Height);
 	Rect ship_box = real_ship->ComputeBounds();
 	float thickness = 2.0F;
-	float sx = this->x * Width;
-	float sy = this->y * Height;
+	float sx = this->x * Width + X;
+	float sy = this->y * Height + Y;
 
 	ds->DrawGeometry(real_ship, sx, sy, Colours::Silver, thickness);
 }
@@ -100,12 +100,12 @@ BottomDoorDecorator::BottomDoorDecorator() {
 	}
 }
 
-void BottomDoorDecorator::draw_before(CanvasDrawingSession^ ds, float Width, float Height) {
+void BottomDoorDecorator::draw_before(CanvasDrawingSession^ ds, float X, float Y, float Width, float Height) {
 	auto real_ship = geometry_scale(this->ship, Width, Height);
 	Rect ship_box = real_ship->ComputeBounds();
 	float thickness = 2.0F;
-	float sx = this->x * Width;
-	float sy = this->y * Height;
+	float sx = this->x * Width + X;
+	float sy = this->y * Height + Y;
 	float cell_width = this->ship_width * Width / float(hopper_count);
 	float ps_y = sy + (ship_box.Height - this->ps_seqs[0]->LayoutBounds.Height) * 0.4F;
 	float sb_y = sy + (ship_box.Height - this->sb_seqs[0]->LayoutBounds.Height) * 0.6F;
