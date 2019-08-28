@@ -9,7 +9,7 @@
 #include "page/glands.hpp"
 #include "page/flushs.hpp"
 #include "page/hopper_doors.hpp"
-#include "page/lubricatings.hpp"
+#include "page/lubrications.hpp"
 
 #include "datum/box.hpp"
 

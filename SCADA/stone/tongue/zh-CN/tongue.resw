@@ -177,7 +177,7 @@
   <data name="dredges_Starboard" xml:space="preserve">
     <value>右绞车 &amp;&amp; 吊架</value>
   </data>
-  <data name="lubricatings" xml:space="preserve">
+  <data name="lubrications" xml:space="preserve">
     <value>泥泵轴承 &amp;&amp; 齿轮箱</value>
   </data>
   <data name="water_pump_dx" xml:space="preserve">

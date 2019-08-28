@@ -177,8 +177,8 @@
   <data name="dredges_Starboard" xml:space="preserve">
     <value>SB Winches &amp;&amp; Gantries</value>
   </data>
-  <data name="lubricatings" xml:space="preserve">
-    <value>Lubricating Unit</value>
+  <data name="lubrications" xml:space="preserve">
+    <value>Lubrication Unit</value>
   </data>
   <data name="water_pump_dx" xml:space="preserve">
     <value>Water Pump Diagnostics</value>

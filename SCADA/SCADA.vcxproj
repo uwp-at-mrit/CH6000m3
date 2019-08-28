@@ -110,6 +110,8 @@
     <AppInstallerCheckForUpdateFrequency>Daily</AppInstallerCheckForUpdateFrequency>
     <AppInstallerUri>\\192.168.0.2\Win10_SCADA</AppInstallerUri>
     <PackageCertificateThumbprint>B2A49B83B149C36BE99EA49EA1FEAE18F9846BAF</PackageCertificateThumbprint>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <HoursBetweenUpdateChecks>24</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
@@ -274,7 +276,7 @@
     <PRIResource Include="stone\tongue\en-US\flushs.resw" />
     <PRIResource Include="stone\tongue\en-US\charges.resw" />
     <PRIResource Include="stone\tongue\en-US\draughts.resw" />
-    <PRIResource Include="stone\tongue\en-US\lubricatings.resw" />
+    <PRIResource Include="stone\tongue\en-US\lubrications.resw" />
     <PRIResource Include="stone\tongue\en-US\discharges.resw" />
     <PRIResource Include="stone\tongue\en-US\hopper_doors.resw">
       <DeploymentContent>false</DeploymentContent>
@@ -307,7 +309,7 @@
     <PRIResource Include="stone\tongue\zh-CN\flushs.resw" />
     <PRIResource Include="stone\tongue\zh-CN\charges.resw" />
     <PRIResource Include="stone\tongue\zh-CN\draughts.resw" />
-    <PRIResource Include="stone\tongue\zh-CN\lubricatings.resw" />
+    <PRIResource Include="stone\tongue\zh-CN\lubrications.resw" />
     <PRIResource Include="stone\tongue\zh-CN\discharges.resw" />
     <PRIResource Include="stone\tongue\zh-CN\hopper_doors.resw">
       <DeploymentContent>false</DeploymentContent>
@@ -340,7 +342,7 @@
     <ClCompile Include="page\diagnostics\hydraulic_pump_dx.cpp" />
     <ClCompile Include="page\diagnostics\water_pump_dx.cpp" />
     <ClCompile Include="page\dredges.cpp" />
-    <ClCompile Include="page\lubricatings.cpp" />
+    <ClCompile Include="page\lubrications.cpp" />
     <ClCompile Include="page\subpage\underwater_pump_motor.cpp" />
     <ClCompile Include="schema\alarm.cpp" />
     <ClCompile Include="schema\datalet\alarm_tbl.cpp" />
@@ -369,7 +371,7 @@
     <ClInclude Include="page\diagnostics\hydraulic_pump_dx.hpp" />
     <ClInclude Include="page\diagnostics\water_pump_dx.hpp" />
     <ClInclude Include="page\dredges.hpp" />
-    <ClInclude Include="page\lubricatings.hpp" />
+    <ClInclude Include="page\lubrications.hpp" />
     <ClInclude Include="page\subpage\underwater_pump_motor.hpp" />
     <ClInclude Include="schema\alarm.hpp" />
     <ClInclude Include="schema\datalet\alarm_tbl.hpp" />

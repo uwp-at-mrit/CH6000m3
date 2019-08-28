@@ -68,9 +68,6 @@
     <ClCompile Include="page\dredges.cpp">
       <Filter>page</Filter>
     </ClCompile>
-    <ClCompile Include="page\lubricatings.cpp">
-      <Filter>page</Filter>
-    </ClCompile>
     <ClCompile Include="page\charges.cpp">
       <Filter>page</Filter>
     </ClCompile>
@@ -129,6 +126,9 @@
     <ClCompile Include="page\subpage\underwater_pump_motor.cpp">
       <Filter>page\subpage</Filter>
     </ClCompile>
+    <ClCompile Include="page\lubrications.cpp">
+      <Filter>page</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="page\hydraulics.hpp">
@@ -144,9 +144,6 @@
       <Filter>page</Filter>
     </ClInclude>
     <ClInclude Include="page\dredges.hpp">
-      <Filter>page</Filter>
-    </ClInclude>
-    <ClInclude Include="page\lubricatings.hpp">
       <Filter>page</Filter>
     </ClInclude>
     <ClInclude Include="page\charges.hpp">
@@ -212,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="page\subpage\underwater_pump_motor.hpp">
       <Filter>page\subpage</Filter>
+    </ClInclude>
+    <ClInclude Include="page\lubrications.hpp">
+      <Filter>page</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -440,12 +440,6 @@
     <PRIResource Include="stone\tongue\zh-CN\dredges.resw">
       <Filter>stone\tongue\zh-CN</Filter>
     </PRIResource>
-    <PRIResource Include="stone\tongue\en-US\lubricatings.resw">
-      <Filter>stone\tongue\en-US</Filter>
-    </PRIResource>
-    <PRIResource Include="stone\tongue\zh-CN\lubricatings.resw">
-      <Filter>stone\tongue\zh-CN</Filter>
-    </PRIResource>
     <PRIResource Include="stone\tongue\zh-CN\charges.resw">
       <Filter>stone\tongue\zh-CN</Filter>
     </PRIResource>
@@ -523,6 +517,12 @@
     </PRIResource>
     <PRIResource Include="stone\tongue\en-US\subpage\underwater_pump_motor.resw">
       <Filter>stone\tongue\en-US\subpage</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\lubrications.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\lubrications.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
     </PRIResource>
   </ItemGroup>
   <ItemGroup>

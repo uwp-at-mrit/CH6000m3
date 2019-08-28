@@ -354,39 +354,18 @@ protected:
 		this->winch_lengths[id]->set_value(DBD(db2, length_idx), a);
 	}
 
-	void set_winch_limits(DredgesPosition id0, DredgesPosition idn) {
-		for (DredgesPosition id = id0; id <= idn; id++) {
-			bool slack = false;
-			bool saddle = false;
-			bool suction = false;
-			bool soft_upper = false;
-			bool soft_lower = false;
-			bool cable_upper = false;
+	void set_winch_limits(DredgesPosition id, const uint8* db4, WinchLimits& limits, const uint8* db205, WinchDetails& details) {
+		this->winch_saddles[id]->set_color(DI_winch_saddle_limited(db4, &limits) ? winch_status_highlight_color : winch_status_color);
+		this->winch_uppers[id]->set_color(DI_winch_top_limited(db4, &limits) ? winch_status_highlight_color : winch_status_color);
+		this->winch_soft_uppers[id]->set_color(DI_winch_soft_top_limited(db205, &details) ? winch_status_highlight_color : winch_status_color);
+		this->winch_soft_lowers[id]->set_color(DI_winch_soft_bottom_limited(db205, &details) ? winch_status_highlight_color : winch_status_color);
 
-			switch (this->winches[id]->get_state()) {
-			case WinchState::SaddleLimited: saddle = true; break;
-			case WinchState::SuctionLimited: suction = true; break;
-			case WinchState::CableTopLimited: cable_upper = true; break;
-			case WinchState::SoftTopLimited: soft_upper = true; break;
-			case WinchState::SoftBottomLimited: case WinchState::BottomLimited: soft_lower = true; break;
-			case WinchState::TopLimited: soft_upper = true; cable_upper = true; break;
-			case WinchState::SaddleSlack: saddle = true; slack = true; break;
-			case WinchState::SuctionSlack: suction = true; slack = true; break;
-			case WinchState::Slack: slack = true; break;
-			}
+		if (this->winch_slacks.find(id) != this->winch_slacks.end()) {
+			this->winch_slacks[id]->set_color(DI_winch_slack(db4, &limits) ? winch_status_highlight_color : winch_status_color);
+		}
 
-			this->winch_saddles[id]->set_color(saddle ? winch_status_highlight_color : winch_status_color);
-			this->winch_uppers[id]->set_color(cable_upper ? winch_status_highlight_color : winch_status_color);
-			this->winch_soft_uppers[id]->set_color(soft_upper ? winch_status_highlight_color : winch_status_color);
-			this->winch_soft_lowers[id]->set_color(soft_lower ? winch_status_highlight_color : winch_status_color);
-
-			if (this->winch_slacks.find(id) != this->winch_slacks.end()) {
-				this->winch_slacks[id]->set_color(slack ? winch_status_highlight_color : winch_status_color);
-			}
-
-			if (this->winch_suctions.find(id) != this->winch_suctions.end()) {
-				this->winch_suctions[id]->set_color(suction ? winch_status_highlight_color : winch_status_color);
-			}
+		if (this->winch_suctions.find(id) != this->winch_suctions.end()) {
+			this->winch_suctions[id]->set_color(DI_winch_suction_limited(db4, &limits) ? winch_status_highlight_color : winch_status_color);
 		}
 	}
 
@@ -602,10 +581,16 @@ public:
 		DI_winch(this->winches[DredgesPosition::psTrunnion], DB4, winch_ps_trunnion_feedback, winch_ps_trunnion_limits, DB205, winch_ps_trunnion_details);
 		DI_winch(this->winches[DredgesPosition::psIntermediate], DB4, winch_ps_intermediate_feedback, winch_ps_intermediate_limits, DB205, winch_ps_intermediate_details);
 		DI_winch(this->winches[DredgesPosition::psDragHead], DB4, winch_ps_draghead_feedback, winch_ps_draghead_limits, DB205, winch_ps_draghead_details);
+		this->set_winch_limits(DredgesPosition::psTrunnion, DB4, winch_ps_trunnion_limits, DB205, winch_ps_trunnion_details);
+		this->set_winch_limits(DredgesPosition::psIntermediate, DB4, winch_ps_intermediate_limits, DB205, winch_ps_intermediate_details);
+		this->set_winch_limits(DredgesPosition::psDragHead, DB4, winch_ps_draghead_limits, DB205, winch_ps_draghead_details);
 
 		DI_winch(this->winches[DredgesPosition::sbTrunnion], DB4, winch_sb_trunnion_feedback, winch_sb_trunnion_limits, DB205, winch_sb_trunnion_details);
 		DI_winch(this->winches[DredgesPosition::sbIntermediate], DB4, winch_sb_intermediate_feedback, winch_sb_intermediate_limits, DB205, winch_sb_intermediate_details);
 		DI_winch(this->winches[DredgesPosition::sbDragHead], DB4, winch_sb_draghead_feedback, winch_sb_draghead_limits, DB205, winch_sb_draghead_details);
+		this->set_winch_limits(DredgesPosition::sbTrunnion, DB4, winch_sb_trunnion_limits, DB205, winch_sb_trunnion_details);
+		this->set_winch_limits(DredgesPosition::sbIntermediate, DB4, winch_sb_intermediate_limits, DB205, winch_sb_intermediate_details);
+		this->set_winch_limits(DredgesPosition::sbDragHead, DB4, winch_sb_draghead_limits, DB205, winch_sb_draghead_details);
 
 		DI_suction_buttons(this->ps_suctions[SuctionCommand::Inflate], this->ps_suctions[SuctionCommand::Deflate], DB205, suction_ps_buttons);
 		DI_suction_buttons(this->sb_suctions[SuctionCommand::Inflate], this->sb_suctions[SuctionCommand::Deflate], DB205, suction_sb_buttons);
@@ -615,9 +600,6 @@ public:
 
 		DI_boolean_button(this->ps_visors[DragVisorCommand::CResistance], DB205, ctension_ps_button);
 		DI_boolean_button(this->sb_visors[DragVisorCommand::CResistance], DB205, ctension_sb_button);
-
-		this->set_winch_limits(DredgesPosition::psTrunnion, DredgesPosition::psDragHead);
-		this->set_winch_limits(DredgesPosition::sbTrunnion, DredgesPosition::sbDragHead);
 
 		this->set_hopper_type(DS::PS, DB4, ps_hopper_pump_feedback);
 		this->set_hopper_type(DS::SB, DB4, sb_hopper_pump_feedback);
@@ -1176,7 +1158,9 @@ public:
 			DI_winch(this->winches[DredgesPosition::psTrunnion], DB4, winch_ps_trunnion_feedback, winch_ps_trunnion_limits, DB205, winch_ps_trunnion_details);
 			DI_winch(this->winches[DredgesPosition::psIntermediate], DB4, winch_ps_intermediate_feedback, winch_ps_intermediate_limits, DB205, winch_ps_intermediate_details);
 			DI_winch(this->winches[DredgesPosition::psDragHead], DB4, winch_ps_draghead_feedback, winch_ps_draghead_limits, DB205, winch_ps_draghead_details);
-			this->set_winch_limits(DredgesPosition::psTrunnion, DredgesPosition::psDragHead);
+			this->set_winch_limits(DredgesPosition::psTrunnion, DB4, winch_ps_trunnion_limits, DB205, winch_ps_trunnion_details);
+			this->set_winch_limits(DredgesPosition::psIntermediate, DB4, winch_ps_intermediate_limits, DB205, winch_ps_intermediate_details);
+			this->set_winch_limits(DredgesPosition::psDragHead, DB4, winch_ps_draghead_limits, DB205, winch_ps_draghead_details);
 
 			DI_boolean_button(this->buttons[DredgesPosition::psTrunnion], DB205, winch_ps_trunnion_details.override);
 			DI_boolean_button(this->buttons[DredgesPosition::psIntermediate], DB205, winch_ps_intermediate_details.override);
@@ -1202,7 +1186,9 @@ public:
 			DI_winch(this->winches[DredgesPosition::sbTrunnion], DB4, winch_sb_draghead_feedback, winch_sb_trunnion_limits, DB205, winch_sb_trunnion_details);
 			DI_winch(this->winches[DredgesPosition::sbIntermediate], DB4, winch_sb_intermediate_feedback, winch_sb_intermediate_limits, DB205, winch_sb_intermediate_details);
 			DI_winch(this->winches[DredgesPosition::sbDragHead], DB4, winch_sb_draghead_feedback, winch_sb_draghead_limits, DB205, winch_sb_draghead_details);
-			this->set_winch_limits(DredgesPosition::sbTrunnion, DredgesPosition::sbDragHead);
+			this->set_winch_limits(DredgesPosition::sbTrunnion, DB4, winch_sb_trunnion_limits, DB205, winch_sb_trunnion_details);
+			this->set_winch_limits(DredgesPosition::sbIntermediate, DB4, winch_sb_intermediate_limits, DB205, winch_sb_intermediate_details);
+			this->set_winch_limits(DredgesPosition::sbDragHead, DB4, winch_sb_draghead_limits, DB205, winch_sb_draghead_details);
 
 			DI_boolean_button(this->buttons[DredgesPosition::sbTrunnion], DB205, winch_sb_trunnion_details.override);
 			DI_boolean_button(this->buttons[DredgesPosition::sbIntermediate], DB205, winch_sb_intermediate_details.override);

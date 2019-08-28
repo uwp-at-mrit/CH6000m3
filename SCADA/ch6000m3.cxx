@@ -14,7 +14,7 @@
 #include "page/hopper_doors.hpp"
 #include "page/glands.hpp"
 #include "page/draughts.hpp"
-#include "page/lubricatings.hpp"
+#include "page/lubrications.hpp"
 #include "page/charges.hpp"
 #include "page/discharges.hpp"
 #include "page/flushs.hpp"
