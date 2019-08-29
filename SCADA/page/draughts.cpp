@@ -6,6 +6,7 @@
 
 #include "schema/datalet/earthwork_ts.hpp"
 
+#include "graphlet/dashboard/radarlet.hpp"
 #include "graphlet/dashboard/cylinderlet.hpp"
 #include "graphlet/device/overflowlet.hpp"
 #include "graphlet/buttonlet.hpp"
@@ -148,6 +149,7 @@ public:
 		this->decorator->fill_ship_extent(nullptr, &ship_y, &lines_width, &ship_height, true);
 
 		this->overflowpipe = this->master->insert_one(new OverflowPipelet(hopper_height_range, ship_height * 0.382F));
+		//this->radar = this->master->insert_one(new Radarlet<EWTS>(64.0F));
 
 		cylinder_height = ship_height * 0.42F;
 		this->load_cylinder(this->cylinders, EWTS::EarthWork, cylinder_height, earthwork_range, 0U, "meter3");
@@ -345,6 +347,7 @@ private: // never delete these graphlets manually.
 	std::map<BottomDoorCommand, Credit<Buttonlet, BottomDoorCommand>*> hdchecks;
 	TimeSerieslet<EWTS>* timeseries;
 	OverflowPipelet* overflowpipe;
+	Radarlet<EWTS>* radar;
 
 private:
 	CanvasTextFormat^ label_font;

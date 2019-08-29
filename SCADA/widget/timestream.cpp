@@ -60,7 +60,7 @@ namespace {
 			this->pickup(new LubricatingsPage());
 			this->pickup(new DraughtsPage());
 			this->pickup(new DredgesPage(DragView::Starboard));
-			this->pickup(new DredgesPage(DragView::Suctions));
+			//this->pickup(new DredgesPage(DragView::Suctions));
 		}
 
 	private:

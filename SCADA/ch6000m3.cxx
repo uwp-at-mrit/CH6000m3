@@ -112,7 +112,7 @@ protected:
 		this->push_planet(new LubricatingsPage(this->device)); // 8
 		this->push_planet(new DraughtsPage(this->device)); // 9
 		this->push_planet(new DredgesPage(DragView::Starboard, this->device)); // 10
-		this->push_planet(new DredgesPage(DragView::Suctions, this->device)); // 11
+		//this->push_planet(new DredgesPage(DragView::Suctions, this->device)); // 11
 	}
 
 	bool on_key(VirtualKey key, bool screen_keyboard) override {

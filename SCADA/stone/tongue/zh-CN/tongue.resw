@@ -247,7 +247,7 @@
     <value>水下耙臂</value>
   </data>
   <data name="CH6000m3" xml:space="preserve">
-    <value>长鲸7 SCADA</value>
+    <value>长鲸7 疏浚监控系统</value>
   </data>
   <data name="underwater_pump_motor" xml:space="preserve">
     <value>水下泵电机</value>
