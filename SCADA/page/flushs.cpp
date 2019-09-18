@@ -215,14 +215,21 @@ public:
 			this->try_flow_water(FS::HBV04, FS::HBV06, FS::HBV09, water_color);
 			this->try_flow_water(FS::HBV06, FS::Starboard, water_color);
 			this->try_flow_water(FS::HBV09, FS::HBV10, water_color);
-			this->try_flow_water(FS::HBV10, FS::HBV18, water_color);
+			this->try_flow_water(FS::HBV10, FS::water, water_color);
 
-			for (FS HBV = FS::HBV11; HBV <= FS::HBV18; HBV++) {
+			if (this->bfvalves[FS::HBV18]->get_state() == GateValveState::Open) {
+				this->pipeline18->set_color(water_color);
+				this->station->push_subtrack(FS::HBV10, FS::water, water_color);
+			} else {
+				this->pipeline18->set_color(default_pipe_color);
+			}
+
+			for (FS HBV = FS::HBV11; HBV <= FS::HBV17; HBV++) {
 				unsigned int distance = _I(HBV) - _I(FS::HBV11);
 				FS lb = _E(FS, _I(FS::lb11) + distance);
 				FS rb = _E(FS, _I(FS::rb11) + distance);
 
-				this->try_flow_water(HBV, rb, ((HBV == FS::HBV18) ? FS::_ : lb), water_color);
+				this->try_flow_water(HBV, rb, lb, water_color);
 			}
 		}
 
@@ -249,6 +256,8 @@ public:
 		Turtle<FS>* pTurtle = new Turtle<FS>(gwidth, gheight, false, FS::HBV10);
 		Turtle<FS>* rTurtle = new Turtle<FS>(gwidth, gheight, false);
 		Turtle<FS>* wTurtle = new Turtle<FS>(gwidth, gheight, false);
+		Turtle<FS>* vTurtle = new Turtle<FS>(gwidth, gheight, false, FS::HBV18);
+		float half_width = 2.0F;
 
 		pTurtle->move_right(2, FS::h10);
 		
@@ -271,26 +280,23 @@ public:
 
 		pTurtle->move_right(4, FS::HBV04)->move_right(5, FS::h4sb)->turn_right_up()->move_up(2.5F)->turn_up_right()->move_right(2);
 		
-		pTurtle->jump_back(FS::HBV10);
+		pTurtle->jump_back(FS::HBV10)->move_left(half_width);
 
 		for (FS HBV = FS::HBV11; HBV <= FS::HBV18; HBV++) {
 			unsigned int distance = _I(HBV) - _I(FS::HBV11);
-			float half_width = 2.0F;
 			float half_height = 2.5F;
-			float gapsize = 0.382F;
+			float gapsize = 0.618F;
 			float room_height = (6.0F + half_height) * 2.0F;
 			float water_height = room_height - 5.0F;
 			FS hbv = _E(FS, _I(FS::h11) + distance);
 			FS lb = _E(FS, _I(FS::lb11) + distance);
 			FS rb = _E(FS, _I(FS::rb11) + distance);
 
-			pTurtle->move_left(half_width);
-			pTurtle->move_left(gapsize)->move_left(half_width, hbv);
-			pTurtle->move_down(half_height, HBV)->move_down(half_height);
-			pTurtle->jump_right(half_width, rb)->move_left(half_width);
-
 			if (HBV != FS::HBV18) {
-				pTurtle->move_left(half_width, lb)->jump_back(hbv);
+				pTurtle->move_left(gapsize)->move_left(half_width, hbv);
+				pTurtle->move_down(half_height, HBV)->move_down(half_height);
+				pTurtle->jump_right(half_width, rb)->move_left(half_width);
+				pTurtle->move_left(half_width, lb)->jump_back(hbv)->move_left(half_width);
 
 				rTurtle->jump_left(gapsize)->move_left()->jump_left(half_width);
 				rTurtle->move_left(hbv)->move_down(room_height);
@@ -305,13 +311,22 @@ public:
 					wTurtle->jump_up(gapsize)->move_right(half_width)->jump_up(water_height)->move_left(half_width);
 				}
 			} else {
-				pTurtle->jump_back(FS::HBV18)->jump_right(half_width, FS::water)->jump_right(gapsize, FS::room);
+				float half_gap = gapsize * 0.5F;
+
+				pTurtle->jump_down(half_height, FS::room)->jump_left(gapsize, FS::water);
+				pTurtle->jump_back(FS::HBV14)->jump_right(half_width)->jump_right(half_gap, FS::HBV18);
+
+				vTurtle->move_up(half_height - half_gap)->drift(0.0F, -gapsize, half_gap, -half_gap);
+				vTurtle->move_up(water_height * 0.5F - half_gap - half_height);
+				vTurtle->jump_down(water_height)->move_to(FS::HBV18);
+				vTurtle->move_right(half_width - gapsize)->move_up(half_height);
 			}
 		}
 		
 		this->hopper_room = this->master->insert_one(new Tracklet<FS>(rTurtle, default_pipe_thickness, Colours::DimGray, hstyle));
 		this->hopper_water = this->master->insert_one(new Tracklet<FS>(wTurtle, default_pipe_thickness, Colours::DimGray, hstyle));
 		this->station = this->master->insert_one(new Tracklet<FS>(pTurtle, default_pipe_thickness, default_pipe_color));
+		this->pipeline18 = this->master->insert_one(new Tracklet<FS>(vTurtle, default_pipe_thickness, default_pipe_color));
 
 		this->load_buttons(this->functions);
 		this->load_buttons(this->shifts);
@@ -373,6 +388,7 @@ public:
 		this->master->move_to(this->station, width * 0.5F, height * 0.5F, GraphletAnchor::CC);
 		this->station->map_graphlet_at_anchor(this->hopper_room, FS::room, GraphletAnchor::LC);
 		this->station->map_graphlet_at_anchor(this->hopper_water, FS::water, GraphletAnchor::LC);
+		this->station->map_graphlet_at_anchor(this->pipeline18, FS::HBV18, GraphletAnchor::LC);
 
 		this->station->map_graphlet_at_anchor(this->ps_draghead, FS::Port, GraphletAnchor::RC);
 		this->station->map_graphlet_at_anchor(this->sb_draghead, FS::Starboard, GraphletAnchor::RC);
@@ -583,7 +599,7 @@ private:
 			valve->fill_margin(x0, y0, nullptr, nullptr, nullptr, &margin);
 			dx = x0 - gridsize + margin; dy = y0; anchor = GraphletAnchor::RB;
 		}; break;
-		case FS::HBV04: case FS::HBV07: {
+		case FS::HBV04: case FS::HBV07: case FS::HBV18: {
 			valve->fill_margin(x0, y0, nullptr, nullptr, &margin, nullptr);
 			dx = x0; dy = y0 + gridsize - margin; anchor = GraphletAnchor::CT;
 		}; break;
@@ -592,7 +608,7 @@ private:
 			valve->fill_margin(x0, y0, &margin, nullptr, nullptr, nullptr);
 			dx = x0; dy = y0 - gridsize - label_height + margin; anchor = GraphletAnchor::CB;
 		}; break;
-		default: { // HBV11 - HBV18
+		default: { // HBV11 - HBV17
 			this->labels[id]->fill_extent(x0, y0, nullptr, &label_height);
 			this->station->fill_anchor_location(id, nullptr, &vy);
 			this->station->fill_anchor_location(_E(FS, _I(id) - _I(FS::HBV11) + _I(FS::h11)), nullptr, &hy);
@@ -633,6 +649,7 @@ private:
 // never deletes these graphlets mannually
 private:
 	Tracklet<FS>* station;
+	Tracklet<FS>* pipeline18;
 	Tracklet<FS>* hopper_room;
 	Tracklet<FS>* hopper_water;
 	std::map<FS, Credit<Labellet, FS>*> captions;
