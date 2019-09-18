@@ -23,6 +23,7 @@
 #include "graphlet/dashboard/alarmlet.hpp"
 
 #include "ch6000m3/iotables/ai_metrics.hpp"
+#include "ch6000m3/iotables/ai_winches.hpp"
 #include "ch6000m3/iotables/ai_pumps.hpp"
 
 #include "ch6000m3/iotables/di_valves.hpp"
@@ -77,7 +78,7 @@ private enum class HS : unsigned int {
 	DoorsLocking, SBDraghead, SBDoors, WateringValve, SBCompensator,
 
 	// Dimensions
-	BackOil,
+	BackOil, BowWinch, SternWinch,
 
 	// Pump Replacement Indicators
 	A2C, B2C, F2C, H2F, G2F, I2J,
@@ -197,6 +198,8 @@ public:
 		this->set_visor_tank_level(RealData(DB203, visor_tank_level));
 
 		this->pressures[HS::BackOil]->set_value(RealData(DB203, master_back_oil_pressure));
+		this->pressures[HS::BowWinch]->set_value(RealData(DB203, bow_anchor_winch_pressure));
+		this->pressures[HS::SternWinch]->set_value(RealData(DB203, stern_anchor_winch_pressure));
 		
 		{ // pump pressures
 			GraphletAnchor psa = GraphletAnchor::LB;
@@ -354,6 +357,21 @@ public:
 		}
 	}
 
+	void on_analog_io(long long timepoint_ms, const uint8* DB204, size_t count204, Syslog* logger) override {
+		{ // pump flows
+			GraphletAnchor psa = GraphletAnchor::RB;
+			GraphletAnchor sba = GraphletAnchor::LB;
+
+			this->flows[HS::C]->set_value(DBD(DB204, pump_C_flow), psa);
+			this->flows[HS::F]->set_value(DBD(DB204, pump_F_flow), psa);
+
+			this->flows[HS::A]->set_value(DBD(DB204, pump_A_flow), sba);
+			this->flows[HS::B]->set_value(DBD(DB204, pump_B_flow), sba);
+			this->flows[HS::G]->set_value(DBD(DB204, pump_G_flow), sba);
+			this->flows[HS::H]->set_value(DBD(DB204, pump_H_flow), sba);
+		}
+	}
+
 	void post_read_data(Syslog* logger) override {
 		{ // flow oil
 			HS ps_path[] = { HS::lt, HS::tl, HS::cl, HS::Master };
@@ -413,27 +431,27 @@ public:
 	}
  
 public:
-	void load_pump_station(float width, float height, float gwidth, float gheight) {
+	void load_pipelines(float width, float height, float gwidth, float gheight) {
 		Turtle<HS>* pTurtle = new Turtle<HS>(gwidth, gheight, true, HS::Master);
 
 		pTurtle->move_right(2)->move_down(5.5F, HS::SQ1)->move_down()->turn_down_right();
-		pTurtle->move_right(13, HS::sb)->turn_right_down()->move_down(17);
+		pTurtle->move_right(6.5F, HS::BowWinch)->move_right(6.5F, HS::sb)->turn_right_down()->move_down(17);
 		
-		pTurtle->jump_right(20, HS::h)->move_left(4, HS::H)->move_left(12, HS::SQh)->move_left(4)->jump_back();
-		pTurtle->move_up(3, HS::g)->move_left(4, HS::G)->move_left(12, HS::SQg)->move_left(4)->jump_back();
-		pTurtle->move_up(3, HS::b)->move_left(4, HS::B)->move_left(12, HS::SQb)->move_left(4)->jump_back();
-		pTurtle->move_up(3, HS::a)->move_left(4, HS::A)->move_left(12, HS::SQa)->move_left(4)->jump_back();
+		pTurtle->jump_right(20, HS::h)->move_left(5, HS::H)->move_left(10, HS::SQh)->move_left(5)->jump_back();
+		pTurtle->move_up(3, HS::g)->move_left(5, HS::G)->move_left(10, HS::SQg)->move_left(5)->jump_back();
+		pTurtle->move_up(3, HS::b)->move_left(5, HS::B)->move_left(10, HS::SQb)->move_left(5)->jump_back();
+		pTurtle->move_up(3, HS::a)->move_left(5, HS::A)->move_left(10, HS::SQa)->move_left(5)->jump_back();
 		
 		pTurtle->move_up(3, HS::Starboard)->move_up(21, HS::rt)->turn_up_left(HS::tr)->move_left(35, HS::cr);
 		pTurtle->turn_left_down()->move_down(4)->jump_up(4);
 		pTurtle->turn_up_left(HS::cl)->move_left(35, HS::tl)->turn_left_down(HS::lt)->move_down(21);
 
-		pTurtle->move_down(3, HS::c)->move_right(4, HS::C)->move_right(12, HS::SQc)->move_right(4)->jump_back();
-		pTurtle->move_down(3, HS::f)->move_right(4, HS::F)->move_right(12, HS::SQf)->move_right(4)->jump_back();
-		pTurtle->move_down(3, HS::d)->move_right(4, HS::D)->move_right(12, HS::SQd)->move_right(4)->jump_back();
-		pTurtle->move_down(3, HS::e)->move_right(4, HS::E)->move_right(12, HS::SQe)->move_right(4);
+		pTurtle->move_down(3, HS::c)->move_right(5, HS::C)->move_right(10, HS::SQc)->move_right(5)->jump_back();
+		pTurtle->move_down(3, HS::f)->move_right(5, HS::F)->move_right(10, HS::SQf)->move_right(5)->jump_back();
+		pTurtle->move_down(3, HS::d)->move_right(5, HS::D)->move_right(10, HS::SQd)->move_right(5)->jump_back();
+		pTurtle->move_down(3, HS::e)->move_right(5, HS::E)->move_right(10, HS::SQe)->move_right(5);
 
-		pTurtle->move_up(12, HS::Port)->move_up(5)->turn_up_right()->move_right(13)->turn_right_up();
+		pTurtle->move_up(12, HS::Port)->move_up(5)->turn_up_right()->move_right(6.5F, HS::SternWinch)->move_right(6.5F)->turn_right_up();
 		pTurtle->move_up(HS::SQ2)->move_up(5.5F)->move_to(HS::Master);
 
 		pTurtle->jump_back(HS::Master)->jump_right(4, HS::master)->move_up(6.5F)->turn_up_right(HS::f02)->move_right(2);
@@ -454,6 +472,8 @@ public:
 		this->load_label(this->captions, HS::Storage, Colours::Silver);
 
 		this->load_dimension(this->pressures, HS::BackOil, "bar");
+		this->load_dimension(this->pressures, HS::BowWinch, "bar");
+		this->load_dimension(this->pressures, HS::SternWinch, "bar");
 
 		this->load_buttons(this->functions, 48.0F, 24.0F);
 	}
@@ -491,6 +511,7 @@ public:
 			this->load_devices(this->pumps, this->labels, this->captions, HS::J, HS::I, pradius, 90.00, label_color);
 
 			this->load_dimensions(this->pressures, HS::A, HS::I, "bar");
+			this->load_percentages(this->flows, HS::A, HS::F);
 		}
 
 		{ // load valves
@@ -519,6 +540,8 @@ public:
 		this->master->move_to(this->captions[HS::Storage], this->storage_tank, GraphletAnchor::CB, GraphletAnchor::CT);
 
 		this->master->move_to(this->pressures[HS::BackOil], this->station, GraphletAnchor::CT, GraphletAnchor::CB);
+		this->station->map_credit_graphlet(this->pressures[HS::BowWinch], GraphletAnchor::CT);
+		this->station->map_credit_graphlet(this->pressures[HS::SternWinch], GraphletAnchor::CT);
 		this->master->move_to(this->functions[HSFunction::BOPOverride],
 			this->pressures[HS::BackOil], GraphletAnchor::RB, GraphletAnchor::LB, gwidth);
 		
@@ -534,8 +557,8 @@ public:
 	}
 	
 	void reflow_devices(float width, float height, float gwidth, float gheight) {
-		GraphletAnchor lbl_a, cpt_a, bar_a;
-		float lbl_dx, lbl_dy, cpt_dx, cpt_dy, bar_dx, bar_dy, margin;
+		GraphletAnchor lbl_a, cpt_a, bar_a, per_a;
+		float lbl_dx, lbl_dy, cpt_dx, cpt_dy, bar_dx, bar_dy, per_dx, per_dy, margin;
 		float pradius = this->pumps[HS::A]->get_radiusX();
 		float vradius = this->valves[HS::SQ1]->get_radiusY();
 		float text_hspace = default_pipe_thickness * 2.0F;
@@ -548,11 +571,13 @@ public:
 				lbl_dx = x0 - pradius; lbl_dy = y0; lbl_a = GraphletAnchor::RT;
 				cpt_dx = x0 + pradius; cpt_dy = y0; cpt_a = GraphletAnchor::LT;
 				bar_dx = x0 + pradius; bar_dy = y0; bar_a = GraphletAnchor::LB;
+				per_dx = x0 - pradius; per_dy = y0; per_a = GraphletAnchor::RB;
 			} break;
 			case HS::A: case HS::B: case HS::G: case HS::H: {
 				lbl_dx = x0 + pradius; lbl_dy = y0; lbl_a = GraphletAnchor::LT;
 				cpt_dx = x0 - pradius; cpt_dy = y0; cpt_a = GraphletAnchor::RT;
 				bar_dx = x0 - pradius; bar_dy = y0; bar_a = GraphletAnchor::RB;
+				per_dx = x0 + pradius; per_dy = y0; per_a = GraphletAnchor::LB;
 			} break;
 			case HS::Y: case HS::L: case HS::M: case HS::K: {
 				lbl_dx = x0 - pradius; lbl_dy = y0; lbl_a = GraphletAnchor::RB;
@@ -603,6 +628,10 @@ public:
 
 			if (this->pressures.find(it->first) != this->pressures.end()) {
 				this->station->map_credit_graphlet(this->pressures[it->first], bar_a, bar_dx, bar_dy);
+			}
+
+			if (this->flows.find(it->first) != this->flows.end()) {
+				this->station->map_credit_graphlet(this->flows[it->first], per_a, per_dx, per_dy);
 			}
 		}
 
@@ -728,6 +757,13 @@ private:
 		}
 	}
 
+	template<typename E>
+	void load_percentages(std::map<E, Credit<Percentagelet, E>*>& gs, E id0, E idn) {
+		for (E id = id0; id <= idn; id++) {
+			gs[id] = this->master->insert_one(new Credit<Percentagelet, E>(this->flonum_style), id);
+		}
+	}
+
 	template<class A, typename E>
 	void load_alarms(E id0, E idn, float size, std::map<E, Credit<A, E>*>& bs, std::map<E, Credit<Labellet, E>*>& ls) {
 		for (E id = id0; id <= idn; id++) {
@@ -844,6 +880,7 @@ private: // never deletes these graphlets mannually
 	std::map<HS, Credit<HydraulicPumplet, HS>*> pumps;
 	std::map<HS, Credit<ManualValvelet, HS>*> valves;
 	std::map<HS, Credit<Dimensionlet, HS>*> pressures;
+	std::map<HS, Credit<Percentagelet, HS>*> flows;
 	std::map<HS, Credit<Alarmlet, HS>*> alarms;
 	std::map<HS, Credit<Labellet, HS>*> alabels;
 	
@@ -907,7 +944,7 @@ void HydraulicsPage::load(CanvasCreateResourcesReason reason, float width, float
 		
 		dashboard->construct(gwidth, gheight);
 
-		dashboard->load_pump_station(width, height, gwidth, gheight);
+		dashboard->load_pipelines(width, height, gwidth, gheight);
 		dashboard->load_tanks(width, height, gwidth, gheight);
 		dashboard->load_devices(width, height, gwidth, gheight);
 	}
