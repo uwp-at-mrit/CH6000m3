@@ -1,4 +1,5 @@
 ﻿#include <map>
+#include <ppltasks.h>
 
 #include "widget.hxx"
 #include "planet.hpp"
@@ -18,13 +19,18 @@
 #include "datum/flonum.hpp"
 
 #include "module.hpp"
+#include "preference.hxx"
 #include "system.hpp"
 
 using namespace WarGrey::SCADA;
 
+using namespace Concurrency;
+
 using namespace Windows::Foundation;
 using namespace Windows::System;
-using namespace Windows::Storage;
+
+using namespace Windows::Security::Credentials;
+using namespace Windows::Security::Credentials::UI;
 
 using namespace Windows::UI::ViewManagement;
 using namespace Windows::UI::Xaml::Controls;
@@ -40,7 +46,7 @@ private enum class Brightness { Brightness100, Brightness80, Brightness60, Brigh
 private enum class SS : unsigned int { Brightness, Permission, _ };
 private enum class Icon : unsigned int { Gallery , Settings, TimeMachine, Alarm, PrintScreen, FullScreen, About, _ };
 
-static Platform::String^ mode_setting_key = "PLC_Master_Mode";
+static Platform::String^ root_timestamp_key = "PLC_Master_Root";
 
 static ICanvasBrush^ about_bgcolor = Colours::WhiteSmoke;
 static ICanvasBrush^ about_fgcolor = Colours::Black;
@@ -52,19 +58,22 @@ namespace {
 		Widget(SplitView^ frame, UniverseDisplay^ master, PLCMaster* plc)
 			: Planet(__MODULE__), frame(frame), master(master), device(plc) {
 			Platform::String^ localhost = system_ipv4_address();
-
+			
 			this->inset = tiny_font_size * 0.5F;
 			this->btn_xgapsize = 2.0F;
 			this->root = false;
+			this->set_plc_master_mode(TCPMode::User);
 
-			for (unsigned int idx = 0; idx < sizeof(root_machines) / sizeof(Platform::String^); idx++) {
-				if (localhost->Equals(root_machines[idx])) {
-					this->root = true;
-					break;
+			put_preference(root_timestamp_key, 1LL);
+
+			create_task(KeyCredentialManager::IsSupportedAsync()).then([this](task<bool> available) {
+				try {
+					this->root = available.get();
+				} catch (Platform::Exception^ e) {
+					this->master->get_logger()->log_message(Log::Warning, e->Message);
 				}
-			}
+			});
 
-			this->set_plc_master_mode(TCPMode::_);
 		}
 
 	public:
@@ -180,7 +189,35 @@ namespace {
 					this->master->global_mask_alpha = alpha;
 				}
 			} else if (p_btn != nullptr) {
-				this->set_plc_master_mode(p_btn->id);
+				if (this->device->get_mode() != p_btn->id) {
+					long long now_s = current_seconds();
+
+					if (p_btn->id != TCPMode::Root) {
+						if (this->device->get_mode() == TCPMode::Root) {
+							put_preference(root_timestamp_key, now_s);
+						}
+
+						this->set_plc_master_mode(p_btn->id);
+					} else {
+						long long last_root_seconds = get_preference(root_timestamp_key, 1LL);
+
+						if ((now_s - last_root_seconds) > plc_master_pinfree_seconds) {
+							auto verify = create_task(KeyCredentialManager::RequestCreateAsync("root", KeyCredentialCreationOption::ReplaceExisting));
+
+							verify.then([this](task<KeyCredentialRetrievalResult^> result) {
+								try {
+									if (result.get()->Status == KeyCredentialStatus::Success) {
+										this->set_plc_master_mode(TCPMode::Root);
+									}
+								} catch (Platform::Exception^ e) {
+									this->master->get_logger()->log_message(Log::Warning, e->Message);
+								}
+							});
+						} else {
+							this->set_plc_master_mode(TCPMode::Root);
+						}
+					}
+				}
 			} else if (icon != nullptr) {
 				switch (icon->id) {
 				case Icon::Gallery: display_the_gallery(); break;
@@ -250,33 +287,7 @@ namespace {
 
 	private:
 		void set_plc_master_mode(TCPMode mode) {
-			ApplicationDataContainer^ settings = ApplicationData::Current->LocalSettings;
-
-			if (mode == TCPMode::_) {
-				bool set = false;
-
-				if (settings->Values->HasKey(mode_setting_key)) {
-					Platform::String^ mode_str = settings->Values->Lookup(mode_setting_key)->ToString();
-
-					for (TCPMode m = _E0(TCPMode); m < TCPMode::_; m++) {
-						if (m.ToString()->Equals(mode_str)) {
-							if ((m != TCPMode::Root) || this->root) {
-								this->device->set_mode(m);
-								set = true;
-							}
-
-							break;
-						}
-					}
-				}
-
-				if (!set) {
-					this->set_plc_master_mode(TCPMode::User);
-				}
-			} else {
-				this->device->set_mode(mode);
-				settings->Values->Insert(mode_setting_key, mode.ToString());
-			}
+			this->device->set_mode(mode);
 		}
 
 	private:

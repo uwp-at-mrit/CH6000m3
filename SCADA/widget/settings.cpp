@@ -199,7 +199,7 @@ namespace {
 			if (yes) {
 				auto editor = dynamic_cast<IEditorlet*>(g);
 
-				if (editor != nullptr) {
+				if ((editor != nullptr) && (this->device->get_mode() != TCPMode::User)) {
 					this->show_virtual_keyboard(ScreenKeyboard::Numpad);
 				}
 			}
