@@ -46,6 +46,10 @@ private enum class DL : unsigned int {
 	_
 };
 
+private enum class SM : unsigned int {
+	kn, vacuum, flow, frate, dpforce, _
+};
+
 /*************************************************************************************************/
 private class Draughts final : public PLCConfirmation {
 public:
@@ -144,12 +148,13 @@ public:
 	}
 
 	void load(float width, float height, float vinset) {
-		float ship_y, ship_height, cylinder_height, lines_width;
+		float ship_y, ship_height, cylinder_height, lines_width, overflow_height;
 		
 		this->decorator->fill_ship_extent(nullptr, &ship_y, &lines_width, &ship_height, true);
-
-		this->overflowpipe = this->master->insert_one(new OverflowPipelet(hopper_height_range, ship_height * 0.382F));
-		//this->radar = this->master->insert_one(new Radarlet<EWTS>(64.0F));
+		
+		overflow_height = ship_height * 0.382F;
+		this->overflowpipe = this->master->insert_one(new OverflowPipelet(hopper_height_range, overflow_height));
+		this->radar = this->master->insert_one(new Radarlet<SM>(__MODULE__, overflow_height * 0.618F));
 
 		cylinder_height = ship_height * 0.42F;
 		this->load_cylinder(this->cylinders, EWTS::EarthWork, cylinder_height, earthwork_range, 0U, "meter3");
@@ -205,6 +210,7 @@ public:
 		this->master->move_to(this->timeseries, tsx, tsy, GraphletAnchor::CC, 0.0F, -vinset);
 		this->master->move_to(this->overflowpipe, ofpx, ofpy, GraphletAnchor::CC, 0.0F, -gapsize);
 		this->master->move_to(this->dimensions[DL::Overflow], this->overflowpipe, GraphletAnchor::CB, GraphletAnchor::CT, 0.0F, gapsize);
+		this->master->move_to(this->radar, this->overflowpipe, GraphletAnchor::RC, GraphletAnchor::LC, gapsize);
 		
 		{ // reflow dimensions
 			float cpt_height, xoff, yoff;
@@ -347,7 +353,7 @@ private: // never delete these graphlets manually.
 	std::map<BottomDoorCommand, Credit<Buttonlet, BottomDoorCommand>*> hdchecks;
 	TimeSerieslet<EWTS>* timeseries;
 	OverflowPipelet* overflowpipe;
-	Radarlet<EWTS>* radar;
+	Radarlet<SM>* radar;
 
 private:
 	CanvasTextFormat^ label_font;

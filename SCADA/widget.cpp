@@ -202,7 +202,7 @@ namespace {
 						long long last_root_seconds = get_preference(root_timestamp_key, 1LL);
 
 						if ((now_s - last_root_seconds) > plc_master_pinfree_seconds) {
-							auto verify = create_task(KeyCredentialManager::RequestCreateAsync("root", KeyCredentialCreationOption::ReplaceExisting);
+							auto verify = create_task(KeyCredentialManager::RequestCreateAsync("root", KeyCredentialCreationOption::ReplaceExisting));
 
 							/** NOTE
 							 * The touch keyboard will show automatically if:
