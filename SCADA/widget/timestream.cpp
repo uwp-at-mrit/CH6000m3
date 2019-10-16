@@ -31,7 +31,7 @@ namespace {
 			: TimeMachine(L"timemachine", time_speed * 1000LL, frame_rate, make_system_logger(default_logging_level, __MODULE__))
 			, last_timepoint(current_milliseconds()) {}
 
-		void fill_extent(float* width, float* height) {
+		void fill_extent(float* width, float* height) override {
 			float margin = normal_font_size * 2.0F;
 			Size size = system_screen_size();
 

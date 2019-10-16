@@ -331,7 +331,7 @@ public:
 		pTurtle->move_up(3, RS::d0406)->move_right(4, RS::D006)->move_right(4)->move_down(0.5F, RS::deck_ty)->move_down(RS::D009);
 		pTurtle->move_down(2, RS::I0923)->move_down(3)->jump_down()->move_down(2, RS::D023)->jump_back(RS::d0406);
 
-		pTurtle->move_up(1.5F, RS::D004)->move_up(2, RS::ps)->move_up(2)->move_up(RS::Port);
+		pTurtle->move_up(1.5F, RS::D004)->move_up(2, RS::ps)->move_up(2)->move_up(0.5F, RS::Port);
 
 		pTurtle->jump_back(RS::D023)->move_down(2)->jump_down()->move_down(3, RS::I0723)->move_down(2, RS::D007);
 		pTurtle->move_down(RS::deck_by)->move_down(0.5F, RS::d007)->jump_left(8, RS::d0325);
@@ -344,7 +344,7 @@ public:
 		pTurtle->move_up(2.5F, RS::d024)->turn_up_left()->move_left(3, RS::D024)->move_left(3)->turn_left_up();
 		pTurtle->move_up(0.5F, RS::Barge)->move_left(RS::barge)->jump_back(RS::Barge)->move_right()->jump_back(RS::d0325);
 
-		pTurtle->move_down(1.5F, RS::D003)->move_down(2, RS::sb)->move_down(2, RS::C)->move_down(RS::Starboard);
+		pTurtle->move_down(1.5F, RS::D003)->move_down(2, RS::sb)->move_down(2, RS::C)->move_down(0.5F, RS::Starboard);
 
 		pTurtle->jump_back(RS::d1819)->move_right(5, RS::deck_lx)->move_right(2, RS::D019)->move_right(2, RS::d019)->move_to(RS::d1920);
 		
@@ -431,8 +431,8 @@ public:
 		this->station->map_graphlet_at_anchor(this->manual_pipe, RS::d0225, GraphletAnchor::CB);
 
 		this->station->map_credit_graphlet(this->captions[RS::Barge], GraphletAnchor::CB);
-		this->station->map_graphlet_at_anchor(this->ps_suction, RS::Port, GraphletAnchor::CC);
-		this->station->map_graphlet_at_anchor(this->sb_suction, RS::Starboard, GraphletAnchor::CC);
+		this->station->map_graphlet_at_anchor(this->ps_suction, RS::Port, GraphletAnchor::CB);
+		this->station->map_graphlet_at_anchor(this->sb_suction, RS::Starboard, GraphletAnchor::CT);
 		this->station->map_graphlet_at_anchor(this->sea_inlet, RS::Hatch, GraphletAnchor::CC);
 		this->master->move_to(this->captions[RS::Hatch], this->sea_inlet, GraphletAnchor::CB, GraphletAnchor::CT);
 
