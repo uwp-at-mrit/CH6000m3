@@ -11,9 +11,8 @@
 #include "turtle.hpp"
 
 #include "graphlet/shapelet.hpp"
-#include "graphlet/buttonlet.hpp"
-#include "graphlet/statuslet.hpp"
-
+#include "graphlet/ui/buttonlet.hpp"
+#include "graphlet/ui/statuslet.hpp"
 #include "graphlet/symbol/heaterlet.hpp"
 #include "graphlet/symbol/pump/hydraulic_pumplet.hpp"
 #include "graphlet/symbol/valve/manual_valvelet.hpp"

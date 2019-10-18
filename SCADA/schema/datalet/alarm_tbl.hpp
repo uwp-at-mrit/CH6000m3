@@ -5,7 +5,7 @@
 
 #include "schema/alarm.hpp"
 
-#include "graphlet/tablet.hpp"
+#include "graphlet/ui/tablet.hpp"
 
 #include "sqlite3/rotation.hpp"
 

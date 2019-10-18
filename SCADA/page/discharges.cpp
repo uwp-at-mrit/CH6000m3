@@ -11,7 +11,7 @@
 #include "turtle.hpp"
 
 #include "graphlet/shapelet.hpp"
-#include "graphlet/statuslet.hpp"
+#include "graphlet/ui/statuslet.hpp"
 #include "graphlet/dashboard/alarmlet.hpp"
 #include "graphlet/device/winchlet.hpp"
 

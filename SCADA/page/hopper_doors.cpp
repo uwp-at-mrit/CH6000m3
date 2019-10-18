@@ -7,7 +7,7 @@
 #include "graphlet/symbol/door/hopper_doorlet.hpp"
 #include "graphlet/dashboard/alarmlet.hpp"
 #include "graphlet/dashboard/cylinderlet.hpp"
-#include "graphlet/statuslet.hpp"
+#include "graphlet/ui/statuslet.hpp"
 
 #include "ch6000m3/iotables/ai_metrics.hpp"
 #include "ch6000m3/iotables/ai_doors.hpp"

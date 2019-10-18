@@ -11,8 +11,8 @@
 #include "widget/settings.hpp"
 #include "widget/timestream.hpp"
 
-#include "graphlet/textlet.hpp"
-#include "graphlet/buttonlet.hpp"
+#include "graphlet/ui/textlet.hpp"
+#include "graphlet/ui/buttonlet.hpp"
 
 #include "datum/time.hpp"
 #include "datum/path.hpp"

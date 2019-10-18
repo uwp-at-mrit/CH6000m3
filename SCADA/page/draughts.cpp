@@ -9,9 +9,9 @@
 #include "graphlet/dashboard/radarlet.hpp"
 #include "graphlet/dashboard/cylinderlet.hpp"
 #include "graphlet/device/overflowlet.hpp"
-#include "graphlet/buttonlet.hpp"
-#include "graphlet/statuslet.hpp"
-#include "graphlet/textlet.hpp"
+#include "graphlet/ui/buttonlet.hpp"
+#include "graphlet/ui/statuslet.hpp"
+#include "graphlet/ui/textlet.hpp"
 
 #include "ch6000m3/iotables/ai_metrics.hpp"
 #include "ch6000m3/iotables/di_doors.hpp"

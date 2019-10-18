@@ -8,7 +8,7 @@
 #include "brushes.hxx"
 
 #include "graphlet/shapelet.hpp"
-#include "graphlet/buttonlet.hpp"
+#include "graphlet/ui/buttonlet.hpp"
 #include "graphlet/dashboard/alarmlet.hpp"
 
 #include "ch6000m3/iotables/di_hopper_pumps.hpp"

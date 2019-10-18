@@ -3,8 +3,9 @@
 #include "satellite.hpp"
 #include "ch6000m3/plc.hpp"
 
+#include "graphlet/ui/textlet.hpp"
+
 #include "graphlet/shapelet.hpp"
-#include "graphlet/textlet.hpp"
 
 namespace WarGrey::SCADA {
 	private class WaterPumpDiagnostics : public WarGrey::SCADA::ISatellite {

@@ -3,9 +3,9 @@
 #include "widget/settings.hpp"
 #include "ch6000m3/configuration.hpp"
 
-#include "graphlet/textlet.hpp"
+#include "graphlet/ui/textlet.hpp"
+#include "graphlet/ui/buttonlet.hpp"
 #include "graphlet/shapelet.hpp"
-#include "graphlet/buttonlet.hpp"
 
 #include "ch6000m3/iotables/ao_settings.hpp"
 

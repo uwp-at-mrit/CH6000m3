@@ -3,7 +3,7 @@
 #include "planet.hpp"
 #include "ch6000m3/plc.hpp"
 
-#include "graphlet/statuslet.hpp"
+#include "graphlet/ui/statuslet.hpp"
 
 namespace WarGrey::SCADA {
 	private class HeadsUpPlanet : public WarGrey::SCADA::IHeadUpPlanet {

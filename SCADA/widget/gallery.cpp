@@ -3,7 +3,7 @@
 #include "widget/gallery.hpp"
 #include "ch6000m3/configuration.hpp"
 
-#include "graphlet/textlet.hpp"
+#include "graphlet/ui/textlet.hpp"
 #include "graphlet/shapelet.hpp"
 
 #include "graphlet/device/winchlet.hpp"

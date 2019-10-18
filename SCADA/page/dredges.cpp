@@ -8,9 +8,10 @@
 
 #include "datum/flonum.hpp"
 
+#include "graphlet/ui/buttonlet.hpp"
+#include "graphlet/ui/statuslet.hpp"
+
 #include "graphlet/shapelet.hpp"
-#include "graphlet/buttonlet.hpp"
-#include "graphlet/statuslet.hpp"
 
 #include "graphlet/dashboard/cylinderlet.hpp"
 #include "graphlet/dashboard/densityflowmeterlet.hpp"

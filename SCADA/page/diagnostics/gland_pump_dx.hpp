@@ -5,8 +5,9 @@
 
 #include "decorator/decorator.hpp"
 
+#include "graphlet/ui/textlet.hpp"
+
 #include "graphlet/shapelet.hpp"
-#include "graphlet/textlet.hpp"
 
 namespace WarGrey::SCADA {
 	private enum class PumpType { Hopper, Underwater, _ }; // `_` for gate flushing pump 

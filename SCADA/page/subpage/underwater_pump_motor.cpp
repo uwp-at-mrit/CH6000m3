@@ -8,8 +8,9 @@
 
 #include "datum/flonum.hpp"
 
+#include "graphlet/ui/textlet.hpp"
+
 #include "graphlet/shapelet.hpp"
-#include "graphlet/textlet.hpp"
 
 #include "ch6000m3/iotables/ai_hopper_pumps.hpp"
 

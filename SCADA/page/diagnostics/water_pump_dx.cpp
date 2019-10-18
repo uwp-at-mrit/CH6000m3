@@ -9,7 +9,7 @@
 #include "datum/flonum.hpp"
 
 #include "graphlet/shapelet.hpp"
-#include "graphlet/buttonlet.hpp"
+#include "graphlet/ui/buttonlet.hpp"
 #include "graphlet/dashboard/alarmlet.hpp"
 
 #include "ch6000m3/iotables/di_water_pumps.hpp"

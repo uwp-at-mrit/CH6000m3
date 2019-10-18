@@ -13,7 +13,7 @@
 #include "turtle.hpp"
 
 #include "graphlet/shapelet.hpp"
-#include "graphlet/statuslet.hpp"
+#include "graphlet/ui/statuslet.hpp"
 #include "graphlet/symbol/door/hatchlet.hpp"
 #include "graphlet/symbol/pump/hydraulic_pumplet.hpp"
 #include "graphlet/symbol/pump/hopper_pumplet.hpp"

@@ -16,8 +16,8 @@
 #include "datum/flonum.hpp"
 
 #include "graphlet/shapelet.hpp"
-#include "graphlet/statuslet.hpp"
-#include "graphlet/buttonlet.hpp"
+#include "graphlet/ui/statuslet.hpp"
+#include "graphlet/ui/buttonlet.hpp"
 #include "graphlet/symbol/pump/hopper_pumplet.hpp"
 #include "graphlet/symbol/valve/gate_valvelet.hpp"
 #include "graphlet/symbol/valve/tagged_valvelet.hpp"

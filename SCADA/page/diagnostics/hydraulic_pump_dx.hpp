@@ -5,8 +5,9 @@
 #include "ch6000m3/plc.hpp"
 #include "ch6000m3/iotables/do_dredges.hpp"
 
+#include "graphlet/ui/textlet.hpp"
+
 #include "graphlet/shapelet.hpp"
-#include "graphlet/textlet.hpp"
 
 namespace WarGrey::SCADA {
 	private enum class HPDX { PS, SB, Visor, Other, _ };
