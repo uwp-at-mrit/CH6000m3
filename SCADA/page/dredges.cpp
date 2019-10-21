@@ -371,43 +371,31 @@ protected:
 	}
 
 	void set_drag_metrics(DS id, DS vid, const uint8* db2, const uint8* db203, DragInfo& info, DredgeAddress* address) {
-		unsigned int pidx = address->drag_position;
-		float3 ujoints[2];
-		float3 draghead = DBD_3(db2, pidx + 36U);
-		float3 trunnion = DBD_3(db2, pidx + 0U);
+		float3 trunnion, draghead, ujoints[2];
+		float suction_depth;
+		double visor_angle;
 		float tide = DBD(db2, tide_mark);
-		float suction_depth = trunnion.x;
 		
-		ujoints[0] = DBD_3(db2, pidx + 12U);
-		ujoints[1] = DBD_3(db2, pidx + 24U);
-
-		trunnion.x = 0.0F;
-		ujoints[1].y = DBD(db2, pidx + 48U);
-		draghead.y = DBD(db2, pidx + 52U);
-		draghead.z = DBD(db2, pidx + 56U);
-
-		{ // WARNING: DB2 gives the wrong visor angle, using DB203 and manually computing it instead.
-			double visor_progress = RealData(db203, address->visor_progress) * 0.01F;
-			double visor_angle = (info.visor_degrees_max - info.visor_degrees_min) * (1.0 - visor_progress) + info.visor_degrees_min;
-
-			if (this->dragxys.find(id) != this->dragxys.end()) {
-				this->dragxys[id]->set_figure(trunnion, ujoints, draghead, visor_angle);
-			}
-
-			if (this->dragxzes.find(id) != this->dragxzes.end()) {
-				this->dragxzes[id]->set_figure(trunnion, ujoints, draghead, visor_angle);
-				this->dragxzes[id]->set_tide_mark(tide);
-			}
-
-			if (this->dragyzes.find(id) != this->dragyzes.end()) {
-				this->dragyzes[id]->set_figure(trunnion, ujoints, draghead, visor_angle);
-				this->dragyzes[id]->set_tide_mark(tide);
-			}
-
-			this->dragheads[vid]->set_depths(suction_depth, draghead.z);
-			this->dragheads[vid]->set_angles(visor_angle, this->dragxzes[id]->get_arm_degrees());
-			this->degrees[vid]->set_value(visor_angle, GraphletAnchor::LC);
+		read_drag_figures(db2, db203, &trunnion, ujoints, &draghead, &suction_depth, &visor_angle,
+			address->drag_position, address->visor_progress, info.visor_degrees_min, info.arm_degrees_max);
+		
+		if (this->dragxys.find(id) != this->dragxys.end()) {
+			this->dragxys[id]->set_figure(trunnion, ujoints, draghead, visor_angle);
 		}
+
+		if (this->dragxzes.find(id) != this->dragxzes.end()) {
+			this->dragxzes[id]->set_figure(trunnion, ujoints, draghead, visor_angle);
+			this->dragxzes[id]->set_tide_mark(tide);
+		}
+
+		if (this->dragyzes.find(id) != this->dragyzes.end()) {
+			this->dragyzes[id]->set_figure(trunnion, ujoints, draghead, visor_angle);
+			this->dragyzes[id]->set_tide_mark(tide);
+		}
+
+		this->dragheads[vid]->set_depths(suction_depth, draghead.z);
+		this->dragheads[vid]->set_angles(visor_angle, this->dragxzes[id]->get_arm_degrees());
+		this->degrees[vid]->set_value(visor_angle, GraphletAnchor::LC);
 	}
 
 	void set_design_depth(DS id, const uint8* db20, unsigned int target_depth, unsigned int tolerant_depth) {
