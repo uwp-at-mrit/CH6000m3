@@ -113,6 +113,7 @@
     <PackageCertificateThumbprint>B2A49B83B149C36BE99EA49EA1FEAE18F9846BAF</PackageCertificateThumbprint>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <HoursBetweenUpdateChecks>24</HoursBetweenUpdateChecks>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
