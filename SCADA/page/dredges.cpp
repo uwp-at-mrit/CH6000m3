@@ -654,12 +654,12 @@ public:
 		Turtle<DS>* pTurtle = new Turtle<DS>(gridsize, gridsize, DS::LMOD);
 
 		pTurtle->jump_right(1.5F)->move_right(2.5F, DS::D011)->move_right(3, DS::sb)->move_up(4, DS::SBHP);
-		pTurtle->move_right(3, DS::D003)->move_right(3, DS::SB)->jump_back();
+		pTurtle->move_right(3, DS::D003)->move_right(2, DS::SB)->jump_back();
 		pTurtle->move_right(3, DS::d1315)->move_down(4, DS::d13)->move_left(3, DS::d013)->move_down(2, DS::D013)->jump_back(DS::d13);
 		pTurtle->move_down(4, DS::d15)->move_left(3)->move_down(2, DS::D015)->jump_back(DS::LMOD);
 
 		pTurtle->jump_left(1.5F)->move_left(2.5F, DS::D012)->move_left(3, DS::ps)->move_up(4, DS::PSHP);
-		pTurtle->move_left(3, DS::D004)->move_left(3, DS::PS)->jump_back();
+		pTurtle->move_left(3, DS::D004)->move_left(2, DS::PS)->jump_back();
 		pTurtle->move_left(3, DS::d1416)->move_down(4, DS::d14)->move_right(3, DS::d014)->move_down(2, DS::D014)->jump_back(DS::d14);
 		pTurtle->move_down(4, DS::d16)->move_right(3)->move_down(2, DS::D016);
 
@@ -781,8 +781,8 @@ public:
 		this->hpumps[DS::SBHP]->fill_pump_origin(&dx, nullptr);
 		this->station->map_credit_graphlet(this->hpumps[DS::SBHP], GraphletAnchor::CC, +flabs(dx));
 		this->station->map_credit_graphlet(this->hpumps[DS::PSHP], GraphletAnchor::CC, -flabs(dx));
-		this->station->map_credit_graphlet(this->suctions[DS::PS], GraphletAnchor::LC);
-		this->station->map_credit_graphlet(this->suctions[DS::SB], GraphletAnchor::RC);
+		this->station->map_credit_graphlet(this->suctions[DS::PS], GraphletAnchor::RC);
+		this->station->map_credit_graphlet(this->suctions[DS::SB], GraphletAnchor::LC);
 
 		this->master->move_to(this->cylinders[DS::PSHPDP], this->station, GraphletAnchor::LC, GraphletAnchor::RB, 0.0F, vinset * 2.0F);
 		this->master->move_to(this->cylinders[DS::PSHPVP], this->cylinders[DS::PSHPDP], GraphletAnchor::LB, GraphletAnchor::RB, -vinset);
