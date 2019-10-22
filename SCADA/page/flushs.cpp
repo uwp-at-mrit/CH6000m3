@@ -247,6 +247,7 @@ public:
 		this->metrics_style.number_font = make_bold_text_format("Cambria Math", large_metrics_font_size);
 		this->metrics_style.unit_font = make_bold_text_format("Cambria", normal_font_size);
 
+		this->percentage_style.precision = 1;
 	}
  
 public:

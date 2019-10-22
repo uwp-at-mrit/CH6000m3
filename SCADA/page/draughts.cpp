@@ -345,7 +345,6 @@ private:
 
 private: // never delete these graphlets manually.
 	std::map<DL, Credit<Labellet, DL>*> labels;
-	std::map<DL, Credit<Percentagelet, DL>*> progresses;
 	std::map<DL, Credit<Dimensionlet, DL>*> dimensions;
 	std::map<EWTS, Credit<Labellet, EWTS>*> cylabels;
 	std::map<EWTS, Credit<Dimensionlet, EWTS>*> cydimensions;

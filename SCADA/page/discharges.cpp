@@ -313,6 +313,8 @@ public:
 
 		this->metrics_style.number_font = make_bold_text_format("Cambria Math", large_metrics_font_size);
 		this->metrics_style.unit_font = make_bold_text_format("Cambria", normal_font_size);
+
+		this->percentage_style.precision = 1;
 	}
  
 public:
@@ -675,7 +677,7 @@ private:
 
 	template<typename E>
 	void load_percentage(std::map<E, Credit<Percentagelet, E>*>& ps, E id) {
-		ps[id] = this->master->insert_one(new Credit<Percentagelet, E>(this->plain_style), id);
+		ps[id] = this->master->insert_one(new Credit<Percentagelet, E>(this->percentage_style), id);
 	}
 
 	template<typename E>
@@ -820,7 +822,7 @@ private:
 	CanvasStrokeStyle^ relationship_style;
 	DimensionStyle pump_style;
 	DimensionStyle highlight_style;
-	DimensionStyle plain_style;
+	DimensionStyle percentage_style;
 	DimensionStyle metrics_style;
 
 private:

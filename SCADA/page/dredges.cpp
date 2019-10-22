@@ -115,6 +115,8 @@ public:
 		this->plain_style.unit_font = make_bold_text_format("Cambria", normal_font_size);
 		this->plain_style.minimize_number_width = 5U;
 
+		this->percentage_style.precision = 1;
+
 		this->drag_lines_style = drag_default_lines_style();
 		this->drag_styles[0] = drag_default_style(default_ps_color);
 		this->drag_styles[1] = drag_default_style(default_sb_color);
@@ -192,7 +194,7 @@ protected:
 
 	template<typename E>
 	void load_percentage(std::map<E, Credit<Percentagelet, E>*>& ps, E id) {
-		ps[id] = this->master->insert_one(new Credit<Percentagelet, E>(), id);
+		ps[id] = this->master->insert_one(new Credit<Percentagelet, E>(this->percentage_style), id);
 	}
 
 	template<class C, typename E>
@@ -415,7 +417,6 @@ protected:
 		float sbs_alpha = (DI_long_sb_drag(db205) ? 0.0F : 1.0F);
 		float sbl_alpha = 1.0F - sbs_alpha;
 		
-
 		if (this->dragxys.find(DS::SB) != this->dragxys.end()) {
 			this->master->cellophane(this->dragxys[DS::SB], sbs_alpha);
 			this->master->cellophane(this->dragxys[DS::SBL], sbl_alpha);
