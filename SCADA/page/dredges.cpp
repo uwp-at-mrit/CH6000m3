@@ -373,7 +373,7 @@ protected:
 	}
 
 	void set_drag_metrics(DS id, DS vid, const uint8* db2, const uint8* db203, DragInfo& info, DredgeAddress* address) {
-		float3 trunnion, draghead, ujoints[2];
+		double3 trunnion, draghead, ujoints[2];
 		float suction_depth;
 		double visor_angle;
 		float tide = DBD(db2, tide_mark);
