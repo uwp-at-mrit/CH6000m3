@@ -46,8 +46,6 @@ private enum class Brightness { Brightness100, Brightness80, Brightness60, Brigh
 private enum class SS : unsigned int { Brightness, Permission, _ };
 private enum class Icon : unsigned int { Gallery , Settings, TimeMachine, Alarm, PrintScreen, FullScreen, About, _ };
 
-static Platform::String^ root_timestamp_key = "PLC_Master_Root";
-
 static ICanvasBrush^ about_bgcolor = Colours::WhiteSmoke;
 static ICanvasBrush^ about_fgcolor = Colours::Black;
 
@@ -63,8 +61,6 @@ namespace {
 			this->btn_xgapsize = 2.0F;
 			this->root = false;
 			this->set_plc_master_mode(TCPMode::User);
-
-			put_preference(root_timestamp_key, 1LL);
 
 			create_task(KeyCredentialManager::IsSupportedAsync()).then([this](task<bool> available) {
 				try {
@@ -190,41 +186,7 @@ namespace {
 				}
 			} else if (p_btn != nullptr) {
 				if (this->device->get_mode() != p_btn->id) {
-					long long now_s = current_seconds();
-
-					if (p_btn->id != TCPMode::Root) {
-						if (this->device->get_mode() == TCPMode::Root) {
-							put_preference(root_timestamp_key, now_s);
-						}
-
-						this->set_plc_master_mode(p_btn->id);
-					} else {
-						long long last_root_seconds = get_preference(root_timestamp_key, 1LL);
-
-						if ((now_s - last_root_seconds) > plc_master_pinfree_seconds) {
-							auto verify = create_task(KeyCredentialManager::RequestCreateAsync("root", KeyCredentialCreationOption::ReplaceExisting));
-
-							/** NOTE
-							 * The touch keyboard will show automatically if:
-							 *   there is not hardware keyboard connected, and
-							 *     the device is in tablet mode, or
-							 *     "Show the touch keyboard when not in tablet mode" is On
-							 *       [settings -> device -> typing (this option may not exists)]
-							 */
-
-							verify.then([this](task<KeyCredentialRetrievalResult^> result) {
-								try {
-									if (result.get()->Status == KeyCredentialStatus::Success) {
-										this->set_plc_master_mode(TCPMode::Root);
-									}
-								} catch (Platform::Exception^ e) {
-									this->master->get_logger()->log_message(Log::Warning, e->Message);
-								}
-							});
-						} else {
-							this->set_plc_master_mode(TCPMode::Root);
-						}
-					}
+					this->set_plc_master_mode(p_btn->id);
 				}
 			} else if (icon != nullptr) {
 				switch (icon->id) {
@@ -240,10 +202,36 @@ namespace {
 				}; break;
 				case Icon::Settings: {
 					if (this->settings == nullptr) {
+						// NOTE: this will reset the last setting timestamp
 						this->settings = make_settings(this->device);
 					}
+					
+					if ((current_seconds() - last_setting_seconds()) > plc_settings_pinfree_seconds) {
+						auto verify = create_task(KeyCredentialManager::RequestCreateAsync("root", KeyCredentialCreationOption::ReplaceExisting));
 
-					this->settings->show();
+						/** NOTE
+					 	 * The touch keyboard will show automatically if:
+						 *   there is not hardware keyboard connected, and
+						 *     the device is in tablet mode, or
+						 *     "Show the touch keyboard when not in tablet mode" is On
+						 *       [settings -> device -> typing (this option may not exists)]
+						 */
+
+						verify.then([this](task<KeyCredentialRetrievalResult^> result) {
+							try {
+								KeyCredentialStatus state = result.get()->Status;
+
+								switch (state) {
+									case KeyCredentialStatus::Success : this->settings->show(); break;
+									case KeyCredentialStatus::NotFound: this->get_logger()->log_message(Log::Warning, _speak(state)); break;
+								}
+							} catch (Platform::Exception ^ e) {
+								this->master->get_logger()->log_message(Log::Warning, e->Message);
+							}
+						});
+					} else {
+						this->settings->show();
+					}
 				}; break;
 				case Icon::PrintScreen: {
 					this->master->save(this->master->current_planet->name() + "-"

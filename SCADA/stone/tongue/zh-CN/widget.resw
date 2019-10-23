@@ -153,6 +153,9 @@
   <data name="Gallery" xml:space="preserve">
     <value>🔮</value>
   </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>非授权设备无法操作</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>🕹 模式切换</value>
   </data>

@@ -11,6 +11,7 @@
 
 #include "system.hpp"
 #include "module.hpp"
+#include "preference.hxx"
 #include "brushes.hxx"
 
 using namespace WarGrey::SCADA;
@@ -33,6 +34,7 @@ static const float settings_corner_radius = 8.0F;
 
 static const wchar_t* hints[] = { L"Pressure", L"Degrees", L"Length", L"Density" };
 static Platform::String^ units[] = { "bar", "degrees", "meter", "tpm3" };
+static Platform::String^ settings_timestamp_key = "Root_Settings";
 
 namespace {
 // WARNING: order matters
@@ -78,6 +80,8 @@ namespace {
 			this->button_style.thickness = 2.0F;
 
 			this->device->push_confirmation_receiver(this);
+
+			put_preference(settings_timestamp_key, 1LL); // Every relaunch requires authentication 
 		}
 
 		void Settings::fill_extent(float* width, float* height) {
@@ -205,7 +209,6 @@ namespace {
 			}
 		}
 
-
 		bool on_key(VirtualKey key, bool wargrey_keyboard) override {
 			bool handled = Planet::on_key(key, wargrey_keyboard);
 
@@ -254,6 +257,11 @@ namespace {
 			}
 
 			return handled;
+		}
+
+	public:
+		void on_hiden() override {
+			put_preference(settings_timestamp_key, current_seconds());
 		}
 
 	private:
@@ -376,4 +384,8 @@ namespace {
 /*************************************************************************************************/
 ISatellite* WarGrey::SCADA::make_settings(PLCMaster* plc) {
 	return new Settings(plc);
+}
+
+long long WarGrey::SCADA::last_setting_seconds() {
+	return get_preference(settings_timestamp_key, 1LL);
 }

@@ -153,6 +153,9 @@
   <data name="Gallery" xml:space="preserve">
     <value>🔮</value>
   </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Unauthorized</value>
+  </data>
   <data name="Permission" xml:space="preserve">
     <value>🕹 Permission</value>
   </data>
