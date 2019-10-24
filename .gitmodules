@@ -16,3 +16,6 @@
 [submodule "WormHole"]
 	path = WormHole
 	url = https://github.com/uwp-at-mrit/WormHole.git
+[submodule "NanoBoard"]
+	path = NanoBoard
+	url = https://github.com/uwp-at-mrit/NanoBoard.git
