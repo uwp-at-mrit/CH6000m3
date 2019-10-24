@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <ItemsProjectGuid>{23bbbe0c-c1af-496f-a860-706527a8eacc}</ItemsProjectGuid>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(MSBuildThisFileDirectory)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="SourceItemsFromImports" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\configuration.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_doors.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_dredges.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_hopper_pumps.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_metrics.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_pumps.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_valves.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_water_pumps.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_winches.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ao_devices.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ao_gland_pumps.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ao_settings.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_devices.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_doors.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_dredges.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_hopper_pumps.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_pipelines.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_pumps.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_valves.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_water_pumps.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_winches.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_devices.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_doors.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_dredges.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_hopper_pumps.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_pumps.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_valves.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_water_pumps.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_winches.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\macro_keys.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\plc.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_doors.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_dredges.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ao_settings.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_devices.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_doors.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_dredges.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_hopper_pumps.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_pipelines.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_pumps.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_valves.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_water_pumps.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_winches.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_devices.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_doors.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_dredges.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_hopper_pumps.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_pumps.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_valves.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_water_pumps.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_winches.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\plc.cpp" />
+  </ItemGroup>
+</Project>

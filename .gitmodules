@@ -10,9 +10,6 @@
 [submodule "Graphics"]
 	path = Graphics
 	url = https://github.com/uwp-at-mrit/Graphics.git
-[submodule "Configuration"]
-	path = Configuration
-	url = https://github.com/uwp-at-mrit/Configuration.git
 [submodule "WormHole"]
 	path = WormHole
 	url = https://github.com/uwp-at-mrit/WormHole.git
