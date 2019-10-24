@@ -133,11 +133,11 @@
     <data name="SBWaterPumpMaintenance" xml:space="preserve"> <value>SB Water Pump Emergence</value> </data>
     <data name="PSDHPumpABroken" xml:space="preserve"> <value>PS Drag Head Pump A Broken</value> </data>
     <data name="PSDIPumpBBroken" xml:space="preserve"> <value>PS Drag Intermediate Pump B Broken</value> </data>
-    <data name="PSDTPumpCBroken" xml:space="preserve"> <value>PS Drag Trunnion Pump C Broken</value> </data>
+    <data name="PSDTPumpCBroken" xml:space="preserve"> <value>PS Drag Offset Pump C Broken</value> </data>
     <data name="SBDVPumpIBroken" xml:space="preserve"> <value>SB Drag Visor Pump I Broken</value> </data>
     <data name="SBDHPumpHBroken" xml:space="preserve"> <value>SB Drag Head Pump H Broken</value> </data>
     <data name="SBDIPumpGBroken" xml:space="preserve"> <value>SB Drag Intermediate Pump G Broken</value> </data>
-    <data name="SBDTPumpFBroken" xml:space="preserve"> <value>SB Drag Trunnion Pump F Broken</value> </data>
+    <data name="SBDTPumpFBroken" xml:space="preserve"> <value>SB Drag Offset Pump F Broken</value> </data>
     <data name="SBDVPumpJBroken" xml:space="preserve"> <value>SB Drag Visor Pump J Broken</value> </data>
     <data name="DLBVPumpDBroken" xml:space="preserve"> <value>Door Locker/Butterfly Valve Pump D Broken</value> </data>
     <data name="DLBVPumpEBroken" xml:space="preserve"> <value>Door Locker/Butterfly Valve Pump E Broken</value> </data>
@@ -162,10 +162,10 @@
     <data name="PumpI2J" xml:space="preserve"> <value>Pump I Replace J</value> </data>
     <data name="PumpJ2I" xml:space="preserve"> <value>Pump J Replace I</value> </data>
     <data name="ShoreWinchEmergence" xml:space="preserve"> <value>Shore Dischange Winch Emergence</value> </data>
-    <data name="PSDTEmergence" xml:space="preserve"> <value>PS Drag Trunnion Emergence</value> </data>
+    <data name="PSDTEmergence" xml:space="preserve"> <value>PS Drag Offset Emergence</value> </data>
     <data name="PSDIEmergence" xml:space="preserve"> <value>PS Drag Intermediate Emergence</value> </data>
     <data name="PSDHEmergence" xml:space="preserve"> <value>PS Drag Head Emergence</value> </data>
-    <data name="SBDTEmergence" xml:space="preserve"> <value>SB Drag Trunnion Emergence</value> </data>
+    <data name="SBDTEmergence" xml:space="preserve"> <value>SB Drag Offset Emergence</value> </data>
     <data name="SBDIEmergence" xml:space="preserve"> <value>SB Drag Intermediate Emergence</value> </data>
     <data name="SBDHEmergence" xml:space="preserve"> <value>SB Drag Head Emergence</value> </data>
     <data name="BargeWinchEmergence" xml:space="preserve"> <value>Barge Winch Emergence</value> </data>
@@ -208,8 +208,8 @@
     <data name="ET200M_BowPLC5Lost" xml:space="preserve"> <value>15#ET200M - Bow PLC 5 ET200M Lost</value> </data>
     <data name="ET200M_ConsoleDCC1Lost" xml:space="preserve"> <value>16#ET200M - Dredging Console DCC1 Lost</value> </data>
     <data name="ET200M_ConsoleDCC2Lost" xml:space="preserve"> <value>17#ET200M - Dredging Console DCC2 Lost</value> </data>
-    <data name="PSDTWinchLost" xml:space="preserve"> <value>21# - PS Drag Trunnion Winch Lost</value> </data>
-    <data name="SBDTWinchLost" xml:space="preserve"> <value>22# - SB Drag Trunnion Winch Lost</value> </data>
+    <data name="PSDTWinchLost" xml:space="preserve"> <value>21# - PS Drag Offset Winch Lost</value> </data>
+    <data name="SBDTWinchLost" xml:space="preserve"> <value>22# - SB Drag Offset Winch Lost</value> </data>
     <data name="PSDIWinchLost" xml:space="preserve"> <value>23# - PS Drag Intermediate Winch Lost</value> </data>
     <data name="SBDIWinchLost" xml:space="preserve"> <value>24# - SB Drag Intermediate Winch Lost</value> </data>
     <data name="PSDHWinchLost" xml:space="preserve"> <value>25# - PS Drag Head Winch Lost</value> </data>
@@ -231,10 +231,10 @@
     <data name="PSFAAngleExceed" xml:space="preserve"> <value>PS Forearm Drag Angle Exceed</value> </data>
     <data name="PSBAAngleExceed" xml:space="preserve"> <value>PS Backarm Drag Angle Exceed</value> </data>
     <data name="PSFBAngleExceed" xml:space="preserve"> <value>PS Fore-Back Angle Exceed</value> </data>
-    <data name="PSDTCableExceed" xml:space="preserve"> <value>PS Drag Trunnion Cable Exceed</value> </data>
+    <data name="PSDTCableExceed" xml:space="preserve"> <value>PS Drag Offset Cable Exceed</value> </data>
     <data name="SBFAAngleExceed" xml:space="preserve"> <value>SB Forearm Drag Angle Exceed</value> </data>
     <data name="SBBAAngleExceed" xml:space="preserve"> <value>SB Backarm Drag Angle Exceed</value> </data>
     <data name="SBFBAngleExceed" xml:space="preserve"> <value>SB Fore-Back Angle Exceed</value> </data>
-    <data name="SBDTCableExceed" xml:space="preserve"> <value>SB Drag Trunnion Cable Exceed</value> </data>
+    <data name="SBDTCableExceed" xml:space="preserve"> <value>SB Drag Offset Cable Exceed</value> </data>
 </root>
 

@@ -6,8 +6,8 @@
 #include "graphlet/filesystem/configuration/colorplotlet.hpp"
 #include "graphlet/filesystem/configuration/vessel/trailing_suction_dredgerlet.hpp"
 
-#include "plc.hpp"
 #include "syslog.hpp"
+#include "plc.hpp"
 #include "gps.hpp"
 
 namespace WarGrey::SCADA {

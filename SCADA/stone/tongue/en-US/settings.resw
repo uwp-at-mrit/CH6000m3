@@ -126,8 +126,8 @@
   <data name="psIntermediate" xml:space="preserve">
     <value>PS Intermediate Flow &amp;&amp; Pressure Settings</value>
   </data>
-  <data name="psTrunnion" xml:space="preserve">
-    <value>PS Trunnion Flow &amp;&amp; Pressure Settings</value>
+  <data name="psOffset" xml:space="preserve">
+    <value>PS Offset Flow &amp;&amp; Pressure Settings</value>
   </data>
   <data name="sbDraghead" xml:space="preserve">
     <value>SB Draghead Flow &amp;&amp; Pressure Settings</value>
@@ -135,8 +135,8 @@
   <data name="sbIntermediate" xml:space="preserve">
     <value>SB Intermediate Flow &amp;&amp; Pressure Settings</value>
   </data>
-  <data name="sbTrunnion" xml:space="preserve">
-    <value>SB Trunnion Flow &amp;&amp; Pressure Settings</value>
+  <data name="sbOffset" xml:space="preserve">
+    <value>SB Offset Flow &amp;&amp; Pressure Settings</value>
   </data>
   <data name="_Winch" xml:space="preserve">
     <value>Winch</value>
@@ -148,7 +148,7 @@
     <value>Flow Control</value>
   </data>
   <data name="CableLength" xml:space="preserve">
-    <value>Trunnion Cable Length</value>
+    <value>Offset Cable Length</value>
   </data>
   <data name="ClosePressure" xml:space="preserve">
     <value>Close Pressure</value>

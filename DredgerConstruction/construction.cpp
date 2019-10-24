@@ -10,6 +10,8 @@
 #include "graphlet/filesystem/configuration/gpslet.hpp"
 #include "graphlet/filesystem/configuration/vessel/trailing_suction_dredgerlet.hpp"
 
+#include "iotables/ai_dredges.hpp"
+
 #include "cs/wgs_xy.hpp"
 
 using namespace WarGrey::SCADA;
@@ -187,11 +189,16 @@ void DredgerConstruction::pre_read_data(Syslog* logger) {
 }
 
 void DredgerConstruction::on_analog_input(long long timepoint_ms, const uint8* DB2, size_t count2, const uint8* DB203, size_t count203, Syslog* logger) {
-	double trunnion, draghead, ujoint[2];
+	double3 offset, draghead, ujoints[2];
+	DredgeAddress* ps_addr = make_ps_dredging_system_schema();
+	DredgeAddress* sb_addr = make_sb_dredging_system_schema();
+	size_t count = sizeof(ujoints) / sizeof(double3);
 
-	//this->set_drag_metrics(DS::PS, DB2, DB203, this->drag_configs[0], this->ps_address);
-	//this->set_drag_metrics(DS::SB, DB2, DB203, this->drag_configs[1], this->sb_address);
-	//this->set_drag_metrics(DS::SBL, DB2, DB203, this->drag_configs[2], this->sb_address);
+	read_drag_figures(DB2, &offset, ujoints, &draghead, ps_addr->drag_position);
+	this->vessel->set_ps_drag_figures(offset, ujoints, count, draghead);
+
+	read_drag_figures(DB2, &offset, ujoints, &draghead, sb_addr->drag_position);
+	this->vessel->set_sb_drag_figures(offset, ujoints, count, draghead);
 }
 
 void DredgerConstruction::post_read_data(Syslog* logger) {

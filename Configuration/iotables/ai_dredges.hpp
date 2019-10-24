@@ -28,15 +28,15 @@ namespace WarGrey::SCADA {
 	WarGrey::SCADA::DredgeAddress* make_sb_dredging_system_schema();
 
 	// DB203, real data
-	static unsigned int winch_ps_trunnion_A_pressure = 56U;
-	static unsigned int winch_ps_trunnion_B_pressure = 57U;
+	static unsigned int winch_ps_offset_A_pressure = 56U;
+	static unsigned int winch_ps_offset_B_pressure = 57U;
 	static unsigned int winch_ps_intermediate_A_pressure = 58U;
 	static unsigned int winch_ps_intermediate_B_pressure = 59U;
 	static unsigned int winch_ps_draghead_A_pressure = 80U;
 	static unsigned int winch_ps_draghead_B_pressure = 81U;
 
-	static unsigned int winch_sb_trunnion_A_pressure = 60U;
-	static unsigned int winch_sb_trunnion_B_pressure = 61U;
+	static unsigned int winch_sb_offset_A_pressure = 60U;
+	static unsigned int winch_sb_offset_B_pressure = 61U;
 	static unsigned int winch_sb_intermediate_A_pressure = 62U;
 	static unsigned int winch_sb_intermediate_B_pressure = 63U;
 	static unsigned int winch_sb_draghead_A_pressure = 96U;
@@ -59,11 +59,11 @@ namespace WarGrey::SCADA {
 	static unsigned int draghead_landing_depth = 186U;
 	static unsigned int compensator_diving_progress = 198U;
 
-	static unsigned int winch_ps_trunnion_pulses = 424U;
+	static unsigned int winch_ps_offset_pulses = 424U;
 	static unsigned int winch_ps_intermediate_pulses = 444U;
 	static unsigned int winch_ps_draghead_pulses = 464U;
 
-	static unsigned int winch_sb_trunnion_pulses = 484U;
+	static unsigned int winch_sb_offset_pulses = 484U;
 	static unsigned int winch_sb_intermediate_pulses = 504U;
 	static unsigned int winch_sb_draghead_pulses = 524U;
 }

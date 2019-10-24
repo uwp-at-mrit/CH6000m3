@@ -1,7 +1,7 @@
 #pragma once
 
 namespace WarGrey::SCADA {
-	private enum class GantryWinchTrunnionSettings {
+	private enum class GantryWinchOffsetSettings {
 		_Gantry, GantryFlow, PushFlow, PullFlow, GantryPressure,
 		_Winch, WinchFlow, PushUpFlow, PushOutFlow, PullUpFlow, PullOutFlow, WinchPressure, RemoteFlow, RemotePressure,
 		_
@@ -37,7 +37,7 @@ namespace WarGrey::SCADA {
 		_
 	};
 
-	unsigned int AO_gantry_winch_trunnion_settings(GantryWinchTrunnionSettings setting, bool ps);
+	unsigned int AO_gantry_winch_offset_settings(GantryWinchOffsetSettings setting, bool ps);
 	unsigned int AO_gantry_winch_intermediate_settings(GantryWinchIntermediateSettings setting, bool ps);
 	unsigned int AO_gantry_winch_draghead_settings(GantryWinchDragHeadSettings setting, bool ps);
 	unsigned int AO_drag_pipes_settings(DragPipesSettings setting, bool ps);

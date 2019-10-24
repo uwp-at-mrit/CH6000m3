@@ -2,24 +2,24 @@
 
 using namespace WarGrey::SCADA;
 
-unsigned int WarGrey::SCADA::AO_gantry_winch_trunnion_settings(GantryWinchTrunnionSettings setting, bool ps) { // DB20, DBD
+unsigned int WarGrey::SCADA::AO_gantry_winch_offset_settings(GantryWinchOffsetSettings setting, bool ps) { // DB20, DBD
 	unsigned int idx = 0U;
 
 	switch(setting) {
-	case GantryWinchTrunnionSettings::GantryFlow:     idx = (ps ? 562U : 578U); break;
-	case GantryWinchTrunnionSettings::PushFlow:       idx = (ps ? 566U : 582U); break;
-	case GantryWinchTrunnionSettings::PullFlow:       idx = (ps ? 570U : 586U); break;
-	case GantryWinchTrunnionSettings::GantryPressure: idx = (ps ? 574U : 590U); break;
+	case GantryWinchOffsetSettings::GantryFlow:     idx = (ps ? 562U : 578U); break;
+	case GantryWinchOffsetSettings::PushFlow:       idx = (ps ? 566U : 582U); break;
+	case GantryWinchOffsetSettings::PullFlow:       idx = (ps ? 570U : 586U); break;
+	case GantryWinchOffsetSettings::GantryPressure: idx = (ps ? 574U : 590U); break;
 
-	case GantryWinchTrunnionSettings::WinchFlow:      idx = (ps ? 506U : 510U); break;
-	case GantryWinchTrunnionSettings::PushUpFlow:     idx = (ps ? 514U : 534U); break;
-	case GantryWinchTrunnionSettings::PushOutFlow:    idx = (ps ? 518U : 538U); break;
-	case GantryWinchTrunnionSettings::PullUpFlow:     idx = (ps ? 522U : 542U); break;
-	case GantryWinchTrunnionSettings::PullOutFlow:    idx = (ps ? 526U : 546U); break;
+	case GantryWinchOffsetSettings::WinchFlow:      idx = (ps ? 506U : 510U); break;
+	case GantryWinchOffsetSettings::PushUpFlow:     idx = (ps ? 514U : 534U); break;
+	case GantryWinchOffsetSettings::PushOutFlow:    idx = (ps ? 518U : 538U); break;
+	case GantryWinchOffsetSettings::PullUpFlow:     idx = (ps ? 522U : 542U); break;
+	case GantryWinchOffsetSettings::PullOutFlow:    idx = (ps ? 526U : 546U); break;
 
-	case GantryWinchTrunnionSettings::WinchPressure:  idx = (ps ? 554U : 558U); break;
-	case GantryWinchTrunnionSettings::RemoteFlow:     idx = (ps ? 770U : 782U); break;
-	case GantryWinchTrunnionSettings::RemotePressure: idx = (ps ? 774U : 786U); break;
+	case GantryWinchOffsetSettings::WinchPressure:  idx = (ps ? 554U : 558U); break;
+	case GantryWinchOffsetSettings::RemoteFlow:     idx = (ps ? 770U : 782U); break;
+	case GantryWinchOffsetSettings::RemotePressure: idx = (ps ? 774U : 786U); break;
 	}
 
 	return idx;

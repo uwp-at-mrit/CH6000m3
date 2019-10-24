@@ -5,11 +5,11 @@
 
 namespace WarGrey::SCADA {
 	// DB4, starts from 1
-	static unsigned int gantry_ps_trunnion_limited = 325U;
+	static unsigned int gantry_ps_offset_limited = 325U;
 	static unsigned int gantry_ps_intermediate_limited = 357U;
 	static unsigned int gantry_ps_draghead_limited = 365U;
 
-	static unsigned int gantry_sb_trunnion_limited = 341U;
+	static unsigned int gantry_sb_offset_limited = 341U;
 	static unsigned int gantry_sb_intermediate_limited = 389U;
 	static unsigned int gantry_sb_long_draghead_limited = 409U;
 	static unsigned int gantry_sb_short_draghead_limited = 397U;
@@ -22,32 +22,32 @@ namespace WarGrey::SCADA {
 	static unsigned int console_sb_draghead_winch_lift_button = 650U;
 	static unsigned int console_sb_winch_gantry_stop_button = 651U;
 
-	static unsigned int ps_trunnion_details = 169U;
+	static unsigned int ps_offset_details = 169U;
 	static unsigned int ps_intermediate_details = 177U;
 	static unsigned int ps_draghead_details = 185U;
 
-	static unsigned int sb_trunnion_details = 193U;
+	static unsigned int sb_offset_details = 193U;
 	static unsigned int sb_intermediate_details = 201U;
 	static unsigned int sb_draghead_details = 209U;
 
 	// DB205, starts from 1
-	static unsigned int gantry_ps_trunnion_details = 1305U;
+	static unsigned int gantry_ps_offset_details = 1305U;
 	static unsigned int gantry_ps_intermediate_details = 1313U;
 	static unsigned int gantry_ps_draghead_details = 1321U;
 
-	static unsigned int gantry_ps_trunnion_virtual_up_limited = 2041U;
-	static unsigned int gantry_ps_trunnion_virtual_out_limited = 2042U;
+	static unsigned int gantry_ps_offset_virtual_up_limited = 2041U;
+	static unsigned int gantry_ps_offset_virtual_out_limited = 2042U;
 	static unsigned int gantry_ps_intermediate_virtual_up_limited = 2043U;
 	static unsigned int gantry_ps_intermediate_virtual_out_limited = 2044U;
 	static unsigned int gantry_ps_draghead_virtual_up_limited = 2045U;
 	static unsigned int gantry_ps_draghead_virtual_out_limited = 2046U;
 
-	static unsigned int gantry_sb_trunnion_details = 1329U;
+	static unsigned int gantry_sb_offset_details = 1329U;
 	static unsigned int gantry_sb_intermediate_details = 1337U;
 	static unsigned int gantry_sb_draghead_details = 1345U;
 
-	static unsigned int gantry_sb_trunnion_virtual_up_limited = 2049U;
-	static unsigned int gantry_sb_trunnion_virtual_out_limited = 2050U;
+	static unsigned int gantry_sb_offset_virtual_up_limited = 2049U;
+	static unsigned int gantry_sb_offset_virtual_out_limited = 2050U;
 	static unsigned int gantry_sb_intermediate_virtual_up_limited = 2051U;
 	static unsigned int gantry_sb_intermediate_virtual_out_limited = 2052U;
 	static unsigned int gantry_sb_draghead_virtual_up_limited = 2053U;

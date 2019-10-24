@@ -48,7 +48,7 @@ private enum class WG : unsigned int {
 	A, B, C, H, F, G,
 
 	// Addition Labels
-	Draghead, Intermediate, Trunnion,
+	Draghead, Intermediate, Offset,
 	Remote, Scene, Allowed,
 	Pull_Push, WindUp_Out,
 
@@ -99,14 +99,14 @@ public:
 			this->sublabel_start = WG::A;
 			this->sublabel_end = WG::C;
 
-			this->winch_limits = &winch_ps_trunnion_limits;
-			this->winch_details = &winch_ps_trunnion_details;
+			this->winch_limits = &winch_ps_offset_limits;
+			this->winch_details = &winch_ps_offset_details;
 		} else {
 			this->sublabel_start = WG::H;
 			this->sublabel_end = WG::G;
 
-			this->winch_limits = &winch_sb_trunnion_limits;
-			this->winch_details = &winch_sb_trunnion_details;
+			this->winch_limits = &winch_sb_offset_limits;
+			this->winch_details = &winch_sb_offset_details;
 		}
 	}
 
@@ -138,11 +138,11 @@ public:
 			}
 		}
 
-		for (WG id = WG::Draghead; id <= WG::Trunnion; id++) {
+		for (WG id = WG::Draghead; id <= WG::Offset; id++) {
 			switch (id) {
-			case WG::Draghead: scene_stop |= this->check_scene_stop(id, DB4, (ps ? ps_trunnion_details : sb_trunnion_details)); break;
-			case WG::Intermediate: scene_stop |= this->check_scene_stop(id, DB4, (ps ? ps_trunnion_details : sb_trunnion_details)); break;
-			case WG::Trunnion: scene_stop |= this->check_scene_stop(id, DB4, (ps ? ps_trunnion_details : sb_trunnion_details)); break;
+			case WG::Draghead: scene_stop |= this->check_scene_stop(id, DB4, (ps ? ps_offset_details : sb_offset_details)); break;
+			case WG::Intermediate: scene_stop |= this->check_scene_stop(id, DB4, (ps ? ps_offset_details : sb_offset_details)); break;
+			case WG::Offset: scene_stop |= this->check_scene_stop(id, DB4, (ps ? ps_offset_details : sb_offset_details)); break;
 			}
 		}
 
@@ -162,8 +162,8 @@ public:
 
 		{ // check gantry conditions
 			unsigned int gantry_limited = this->gantry_limit;
-			bool trunnion_upper = DI_winch_top_limited(DB4, (ps ? &winch_ps_trunnion_limits : &winch_sb_trunnion_limits));
-			bool trunnion_soft_upper = DI_winch_soft_top_limited(DB205, (ps ? &winch_ps_trunnion_details : &winch_sb_trunnion_details));
+			bool offset_upper = DI_winch_top_limited(DB4, (ps ? &winch_ps_offset_limits : &winch_sb_offset_limits));
+			bool offset_soft_upper = DI_winch_soft_top_limited(DB205, (ps ? &winch_ps_offset_details : &winch_sb_offset_details));
 
 			this->subgantries[WG::Remote]->set_color(remote_color);
 			this->subgantries[WG::Scene]->set_color(scene_color);
@@ -173,7 +173,7 @@ public:
 				gantry_limited = (DI_long_sb_drag(DB205) ? gantry_sb_long_draghead_limited : gantry_sb_short_draghead_limited);
 			}
 
-			this->diagnoses[WG::WinchAtTop]->set_state(trunnion_upper || trunnion_soft_upper, AlarmState::Notice, AlarmState::None);
+			this->diagnoses[WG::WinchAtTop]->set_state(offset_upper || offset_soft_upper, AlarmState::Notice, AlarmState::None);
 			this->diagnoses[WG::NoPulledIn]->set_state(DI_gantry_pulled_in(DB4, gantry_limited), AlarmState::None, AlarmState::Notice);
 			this->diagnoses[WG::NoPushedOut]->set_state(DI_gantry_pushed_out(DB4, gantry_limited), AlarmState::None, AlarmState::Notice);
 		}
@@ -252,9 +252,9 @@ public:
 			new RoundedRectanglet(region_width, this->metrics_region_height, corner_radius, region_background));
 
 		this->load_label(this->labels, WG::MiscCondition, side, this->color, this->region_font);
-		this->load_label(this->labels, WG::GantryCondition, WG::Trunnion, this->color, this->region_font);
-		this->load_label(this->labels, WG::WinchCondition, WG::Trunnion, this->color, this->region_font);
-		this->load_label(this->labels, WG::WinchMetrics, WG::Trunnion, this->color, this->region_font);
+		this->load_label(this->labels, WG::GantryCondition, WG::Offset, this->color, this->region_font);
+		this->load_label(this->labels, WG::WinchCondition, WG::Offset, this->color, this->region_font);
+		this->load_label(this->labels, WG::WinchMetrics, WG::Offset, this->color, this->region_font);
 		this->load_label(this->labels, WG::Pull_Push, tips_color, this->plain_style.unit_font);
 		this->load_label(this->labels, WG::WindUp_Out, tips_color, this->plain_style.unit_font);
 
@@ -286,7 +286,7 @@ public:
 				this->load_label(this->labels, id, subcolor, this->plain_style.unit_font);
 			}
 
-			for (WG id = WG::Draghead; id <= WG::Trunnion; id++) {
+			for (WG id = WG::Draghead; id <= WG::Offset; id++) {
 				this->load_label(this->labels, id, subcolor, this->plain_style.unit_font);
 			}
 
@@ -360,7 +360,7 @@ public:
 					this->reflow(this->labels, id, this->sublabel_start, this->sublabel_end, GraphletAnchor::RB, GraphletAnchor::LB, vgapsize, 0.0F);
 				}; break;
 				case WG::NoSceneStop: {
-					this->reflow(this->labels, id, WG::Draghead, WG::Trunnion, GraphletAnchor::RB, GraphletAnchor::LB, vgapsize, 0.0F);
+					this->reflow(this->labels, id, WG::Draghead, WG::Offset, GraphletAnchor::RB, GraphletAnchor::LB, vgapsize, 0.0F);
 				}; break;
 				case WG::BackOilPressureOkay: {
 					this->master->move_to(this->backoil, this->labels[WG::BackOilPressureOkay], GraphletAnchor::RB, GraphletAnchor::LB, vgapsize);
@@ -376,7 +376,7 @@ public:
 				case WG::NoSuction: case WG::HopperStopped: case WG::NoInflating: case WG::NoSlack: {
 					DredgesPosition pos = this->master->get_id();
 
-					if ((pos != DredgesPosition::psTrunnion) && (pos != DredgesPosition::sbTrunnion)) {
+					if ((pos != DredgesPosition::psOffset) && (pos != DredgesPosition::sbOffset)) {
 						this->master->move_to(this->diagnoses[id], 0.0F, 0.0F);
 						this->master->move_to(this->labels[id], 0.0F, 0.0F);
 
@@ -422,13 +422,13 @@ public:
 		bool ps = (this->side == DX::PS);
 		
 		switch (pos) {
-		case DredgesPosition::psTrunnion: case DredgesPosition::sbTrunnion: {
-			this->gantry_limit = (ps ? gantry_ps_trunnion_limited : gantry_sb_trunnion_limited);
-			this->winch_limits = (ps ? &winch_ps_trunnion_limits : &winch_sb_trunnion_limits);
-			this->winch_details = (ps ? &winch_ps_trunnion_details : &winch_sb_trunnion_details);
+		case DredgesPosition::psOffset: case DredgesPosition::sbOffset: {
+			this->gantry_limit = (ps ? gantry_ps_offset_limited : gantry_sb_offset_limited);
+			this->winch_limits = (ps ? &winch_ps_offset_limits : &winch_sb_offset_limits);
+			this->winch_details = (ps ? &winch_ps_offset_details : &winch_sb_offset_details);
 			this->details = (ps ? ps_draghead_details : sb_draghead_details);
-			this->pulses = (ps ? winch_ps_trunnion_pulses : winch_sb_trunnion_pulses);
-			this->reset_captions(WG::Trunnion);
+			this->pulses = (ps ? winch_ps_offset_pulses : winch_sb_offset_pulses);
+			this->reset_captions(WG::Offset);
 		}; break;
 		case DredgesPosition::psIntermediate: case DredgesPosition::sbIntermediate: {
 			this->gantry_limit = (ps ? gantry_ps_intermediate_limited : gantry_sb_intermediate_limited);
@@ -442,7 +442,7 @@ public:
 			this->gantry_limit = (ps ? gantry_ps_draghead_limited : 0U);
 			this->winch_limits = (ps ? &winch_ps_draghead_limits : &winch_sb_draghead_limits);
 			this->winch_details = (ps ? &winch_ps_draghead_details : &winch_sb_draghead_details);
-			this->details = (ps ? ps_trunnion_details : sb_trunnion_details);
+			this->details = (ps ? ps_offset_details : sb_offset_details);
 			this->pulses = (ps ? winch_ps_draghead_pulses : winch_sb_draghead_pulses);
 			this->reset_captions(WG::Draghead);
 		}; break;

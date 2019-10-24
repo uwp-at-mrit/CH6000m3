@@ -39,7 +39,7 @@ static Platform::String^ settings_timestamp_key = "Root_Settings";
 namespace {
 // WARNING: order matters
 	private enum class Mode {
-		psTrunnion, psIntermediate, psDragHead, sbTrunnion, sbIntermediate, sbDragHead,
+		psOffset, psIntermediate, psDragHead, sbOffset, sbIntermediate, sbDragHead,
 		psDragPipes, sbDragPipes, psDoors, sbDoors, ShoreDischarge,
 		Others,
 		_
@@ -95,11 +95,11 @@ namespace {
 		}
 
 		void on_forat(long long timepoint_ms, const uint8* DB20, size_t count, Syslog* logger) override {
-			this->AI_settings(DB20, this->pst_metrics, AO_gantry_winch_trunnion_settings, true);
+			this->AI_settings(DB20, this->pst_metrics, AO_gantry_winch_offset_settings, true);
 			this->AI_settings(DB20, this->psi_metrics, AO_gantry_winch_intermediate_settings, true);
 			this->AI_settings(DB20, this->psh_metrics, AO_gantry_winch_draghead_settings, true);
 
-			this->AI_settings(DB20, this->sbt_metrics, AO_gantry_winch_trunnion_settings, false);
+			this->AI_settings(DB20, this->sbt_metrics, AO_gantry_winch_offset_settings, false);
 			this->AI_settings(DB20, this->sbi_metrics, AO_gantry_winch_intermediate_settings, false);
 			this->AI_settings(DB20, this->sbh_metrics, AO_gantry_winch_draghead_settings, false);
 
@@ -130,10 +130,10 @@ namespace {
 			this->change_mode(0U);
 			this->load_buttons(this->tabs, button_width, button_height);
 
-			this->load_settings(Mode::psTrunnion, this->pst_metrics, caption_width, caption_height, default_ps_color);
+			this->load_settings(Mode::psOffset, this->pst_metrics, caption_width, caption_height, default_ps_color);
 			this->load_settings(Mode::psIntermediate, this->psi_metrics, caption_width, caption_height, default_ps_color);
 			this->load_settings(Mode::psDragHead, this->psh_metrics, caption_width, caption_height, default_ps_color);
-			this->load_settings(Mode::sbTrunnion, this->sbt_metrics, caption_width, caption_height, default_sb_color);
+			this->load_settings(Mode::sbOffset, this->sbt_metrics, caption_width, caption_height, default_sb_color);
 			this->load_settings(Mode::sbIntermediate, this->sbi_metrics, caption_width, caption_height, default_sb_color);
 			this->load_settings(Mode::sbDragHead, this->sbh_metrics, caption_width, caption_height, default_sb_color);
 			this->load_settings(Mode::psDragPipes, this->psdp_metrics, caption_width, caption_height, default_ps_color);
@@ -157,10 +157,10 @@ namespace {
 				this->move_to(this->tabs[m], button_x, button_height * _F(m) + button_y);
 			}
 
-			this->reflow_settings(Mode::psTrunnion, this->pst_metrics, caption_rx, caption_y);
+			this->reflow_settings(Mode::psOffset, this->pst_metrics, caption_rx, caption_y);
 			this->reflow_settings(Mode::psIntermediate, this->psi_metrics, caption_rx, caption_y);
 			this->reflow_settings(Mode::psDragHead, this->psh_metrics, caption_rx, caption_y);
-			this->reflow_settings(Mode::sbTrunnion, this->sbt_metrics, caption_rx, caption_y);
+			this->reflow_settings(Mode::sbOffset, this->sbt_metrics, caption_rx, caption_y);
 			this->reflow_settings(Mode::sbIntermediate, this->sbi_metrics, caption_rx, caption_y);
 			this->reflow_settings(Mode::sbDragHead, this->sbh_metrics, caption_rx, caption_y);
 			this->reflow_settings(Mode::psDragPipes, this->psdp_metrics, caption_rx, caption_y);
@@ -228,11 +228,11 @@ namespace {
 					}
 
 					switch (m) {
-					case Mode::psTrunnion: addr = AO_gantry_winch_trunnion_settings(this->id<GantryWinchTrunnionSettings>(editor), true); break;
+					case Mode::psOffset: addr = AO_gantry_winch_offset_settings(this->id<GantryWinchOffsetSettings>(editor), true); break;
 					case Mode::psIntermediate: addr = AO_gantry_winch_intermediate_settings(this->id<GantryWinchIntermediateSettings>(editor), true); break;
 					case Mode::psDragHead: addr = AO_gantry_winch_draghead_settings(this->id<GantryWinchDragHeadSettings>(editor), true); break;
 
-					case Mode::sbTrunnion: addr = AO_gantry_winch_trunnion_settings(this->id<GantryWinchTrunnionSettings>(editor), false); break;
+					case Mode::sbOffset: addr = AO_gantry_winch_offset_settings(this->id<GantryWinchOffsetSettings>(editor), false); break;
 					case Mode::sbIntermediate: addr = AO_gantry_winch_intermediate_settings(this->id<GantryWinchIntermediateSettings>(editor), false); break;
 					case Mode::sbDragHead: addr = AO_gantry_winch_draghead_settings(this->id<GantryWinchDragHeadSettings>(editor), false); break;
 
@@ -350,10 +350,10 @@ namespace {
 	private: // never delete these graphlets manually.
 		std::map<Mode, Labellet*> captions;
 		std::map<Mode, Rectanglet*> caption_boxes;
-		Metrics<GantryWinchTrunnionSettings> pst_metrics;
+		Metrics<GantryWinchOffsetSettings> pst_metrics;
 		Metrics<GantryWinchIntermediateSettings> psi_metrics;
 		Metrics<GantryWinchDragHeadSettings> psh_metrics;
-		Metrics<GantryWinchTrunnionSettings> sbt_metrics;
+		Metrics<GantryWinchOffsetSettings> sbt_metrics;
 		Metrics<GantryWinchIntermediateSettings> sbi_metrics;
 		Metrics<GantryWinchDragHeadSettings> sbh_metrics;
 		Metrics<DragPipesSettings> psdp_metrics;

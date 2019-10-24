@@ -36,17 +36,17 @@ namespace WarGrey::SCADA {
 	};
 
 	// DB4, starts from 1
-	static WarGrey::SCADA::WinchLimits winch_ps_trunnion_limits = WarGrey::SCADA::WinchLimits(321U, 322U, 323U, 324U);
+	static WarGrey::SCADA::WinchLimits winch_ps_offset_limits = WarGrey::SCADA::WinchLimits(321U, 322U, 323U, 324U);
 	static WarGrey::SCADA::WinchLimits winch_ps_intermediate_limits = WarGrey::SCADA::WinchLimits(332U, 354U);
 	static WarGrey::SCADA::WinchLimits winch_ps_draghead_limits = WarGrey::SCADA::WinchLimits(361U, 362U);
-	static unsigned int winch_ps_trunnion_feedback = 169U;
+	static unsigned int winch_ps_offset_feedback = 169U;
 	static unsigned int winch_ps_intermediate_feedback = 177U;
 	static unsigned int winch_ps_draghead_feedback = 185U;
 
-	static WarGrey::SCADA::WinchLimits winch_sb_trunnion_limits = WarGrey::SCADA::WinchLimits(337U, 338U, 339U, 340U);
+	static WarGrey::SCADA::WinchLimits winch_sb_offset_limits = WarGrey::SCADA::WinchLimits(337U, 338U, 339U, 340U);
 	static WarGrey::SCADA::WinchLimits winch_sb_intermediate_limits = WarGrey::SCADA::WinchLimits(348U, 386U);
 	static WarGrey::SCADA::WinchLimits winch_sb_draghead_limits = WarGrey::SCADA::WinchLimits(393U, 394U);
-	static unsigned int winch_sb_trunnion_feedback = 193U;
+	static unsigned int winch_sb_offset_feedback = 193U;
 	static unsigned int winch_sb_intermediate_feedback = 201U;
 	static unsigned int winch_sb_draghead_feedback = 209U;
 
@@ -60,11 +60,11 @@ namespace WarGrey::SCADA {
 	static unsigned int barge_winch_limits = 377U;
 
 	// DB205, starts from 1
-	static WarGrey::SCADA::WinchDetails winch_ps_trunnion_details = WarGrey::SCADA::WinchDetails(false, 1353U, 1793U, 1817U, 2033U, 2009U, 2025U);
+	static WarGrey::SCADA::WinchDetails winch_ps_offset_details = WarGrey::SCADA::WinchDetails(false, 1353U, 1793U, 1817U, 2033U, 2009U, 2025U);
 	static WarGrey::SCADA::WinchDetails winch_ps_intermediate_details = WarGrey::SCADA::WinchDetails(false, 1361U, 1795U, 1818U, 2034U, 2010U, 2026U);
 	static WarGrey::SCADA::WinchDetails winch_ps_draghead_details = WarGrey::SCADA::WinchDetails(true, 1369U, 1797U, 1819U, 2035U, 2011U, 2027U);
 	
-	static WarGrey::SCADA::WinchDetails winch_sb_trunnion_details = WarGrey::SCADA::WinchDetails(false, 1377U, 1799U, 1820U, 2036U, 2012U, 2028U);
+	static WarGrey::SCADA::WinchDetails winch_sb_offset_details = WarGrey::SCADA::WinchDetails(false, 1377U, 1799U, 1820U, 2036U, 2012U, 2028U);
 	static WarGrey::SCADA::WinchDetails winch_sb_intermediate_details = WarGrey::SCADA::WinchDetails(false, 1385U, 1801U, 1821U, 2037U, 2013U, 2029U);
 	static WarGrey::SCADA::WinchDetails winch_sb_draghead_details = WarGrey::SCADA::WinchDetails(true, 1393U, 1803U, 1822U, 2038U, 2014U, 2030U);
 

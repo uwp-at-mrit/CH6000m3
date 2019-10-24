@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="TrunnionGantryCondition" xml:space="preserve">
-    <value>Trunnion Gantry Control Condition</value>
+  <data name="OffsetGantryCondition" xml:space="preserve">
+    <value>Offset Gantry Control Condition</value>
   </data>
   <data name="PSMiscCondition" xml:space="preserve">
     <value>PS Winches and Gantries Misc Control Condition</value>
   </data>
-  <data name="TrunnionWinchCondition" xml:space="preserve">
-    <value>Trunnion Winch Control Condition</value>
+  <data name="OffsetWinchCondition" xml:space="preserve">
+    <value>Offset Winch Control Condition</value>
   </data>
   <data name="SBMiscCondition" xml:space="preserve">
     <value>SB Winches and Gantries Misc Control Condition</value>
@@ -219,8 +219,8 @@
   <data name="IntermediateWinchMetrics" xml:space="preserve">
     <value>Intermediate Winch Metrics</value>
   </data>
-  <data name="TrunnionWinchMetrics" xml:space="preserve">
-    <value>Trunnion Winch Metrics</value>
+  <data name="OffsetWinchMetrics" xml:space="preserve">
+    <value>Offset Winch Metrics</value>
   </data>
   <data name="A" xml:space="preserve">
     <value>[A]</value>
@@ -249,8 +249,8 @@
   <data name="NoSoftLower" xml:space="preserve">
     <value>No Soft Lower Limited</value>
   </data>
-  <data name="Trunnion" xml:space="preserve">
-    <value>[Trunnion]</value>
+  <data name="Offset" xml:space="preserve">
+    <value>[Offset]</value>
   </data>
   <data name="Pull_Push" xml:space="preserve">
     <value>Pull &amp; Push</value>

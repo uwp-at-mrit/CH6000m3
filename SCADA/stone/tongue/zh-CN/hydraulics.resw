@@ -123,7 +123,7 @@
   <data name="PSIntermediate" xml:space="preserve">
     <value>左耙中</value>
   </data>
-  <data name="PSTrunnion" xml:space="preserve">
+  <data name="PSOffset" xml:space="preserve">
     <value>左弯管</value>
   </data>
   <data name="ButterflyValves" xml:space="preserve">
@@ -132,7 +132,7 @@
   <data name="DoorsLocking" xml:space="preserve">
     <value>泥门紧锁</value>
   </data>
-  <data name="SBTrunnion" xml:space="preserve">
+  <data name="SBOffset" xml:space="preserve">
     <value>右弯管</value>
   </data>
   <data name="SBIntermediate" xml:space="preserve">

@@ -38,10 +38,10 @@ public:
 			}
 
 			switch (gantry->id) {
-			case DredgesPosition::psTrunnion:     index = 561U; break;
+			case DredgesPosition::psOffset:       index = 561U; break;
 			case DredgesPosition::psIntermediate: index = 564U; break;
 			case DredgesPosition::psDragHead:     index = 567U; break;
-			case DredgesPosition::sbTrunnion:     index = 580U; break;
+			case DredgesPosition::sbOffset:       index = 580U; break;
 			case DredgesPosition::sbIntermediate: index = 583U; break;
 			case DredgesPosition::sbDragHead:     index = 586U; break;
 			}
@@ -166,11 +166,11 @@ uint16 WarGrey::SCADA::DO_gantry_virtual_action_command(DredgesPosition gid, Gan
 	uint16 index = 0U;
 
 	switch(gid) {
-	case DredgesPosition::psTrunnion: index = (cmd == GantryCommand::VirtualUp ? 793U : 794U); break;
+	case DredgesPosition::psOffset: index = (cmd == GantryCommand::VirtualUp ? 793U : 794U); break;
 	case DredgesPosition::psIntermediate: index = (cmd == GantryCommand::VirtualUp ? 795U : 796U); break;
 	case DredgesPosition::psDragHead: index = (cmd == GantryCommand::VirtualUp ? 797U : 798U); break;
 
-	case DredgesPosition::sbTrunnion: index = (cmd == GantryCommand::VirtualUp ? 799U : 800U); break;
+	case DredgesPosition::sbOffset: index = (cmd == GantryCommand::VirtualUp ? 799U : 800U); break;
 	case DredgesPosition::sbIntermediate: index = (cmd == GantryCommand::VirtualUp ? 801U : 802U); break;
 	case DredgesPosition::sbDragHead: index = (cmd == GantryCommand::VirtualUp ? 803U : 804U); break;
 	}

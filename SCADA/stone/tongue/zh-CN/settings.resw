@@ -126,7 +126,7 @@
   <data name="psIntermediate" xml:space="preserve">
     <value>左耙中流量 &amp;&amp; 压力设置</value>
   </data>
-  <data name="psTrunnion" xml:space="preserve">
+  <data name="psOffset" xml:space="preserve">
     <value>左弯管流量 &amp;&amp; 压力设置</value>
   </data>
   <data name="sbDraghead" xml:space="preserve">
@@ -135,7 +135,7 @@
   <data name="sbIntermediate" xml:space="preserve">
     <value>右耙中流量 &amp;&amp; 压力设置</value>
   </data>
-  <data name="sbTrunnion" xml:space="preserve">
+  <data name="sbOffset" xml:space="preserve">
     <value>右弯管流量 &amp;&amp; 压力设置</value>
   </data>
   <data name="_Winch" xml:space="preserve">

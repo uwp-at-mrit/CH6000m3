@@ -35,17 +35,17 @@ public:
 			uint16 index = 0U;
 
 			switch (cmd) {
-			case DredgingWinchAction::WindUp:        offset = 0U; break;
-			case DredgingWinchAction::WindOut:      offset = 1U; break;
+			case DredgingWinchAction::WindUp:    offset = 0U; break;
+			case DredgingWinchAction::WindOut:   offset = 1U; break;
 			case DredgingWinchAction::Stop:      offset = 2U; break;
 			case DredgingWinchAction::HighSpeed: offset = 3U; break;
 			}
 
 			switch (winch->id) {
-			case DredgesPosition::psTrunnion:     index = 570U; break;
+			case DredgesPosition::psOffset:       index = 570U; break;
 			case DredgesPosition::psIntermediate: index = 573U; break;
 			case DredgesPosition::psDragHead:     index = 576U; break;
-			case DredgesPosition::sbTrunnion:     index = 589U; break;
+			case DredgesPosition::sbOffset:       index = 589U; break;
 			case DredgesPosition::sbIntermediate: index = 592U; break;
 			case DredgesPosition::sbDragHead:     index = 595U; break;
 			}
@@ -211,10 +211,10 @@ uint16 WarGrey::SCADA::DO_winch_override_command(DredgesPosition id) {
 	uint16 index = 0U;
 
 	switch (id) {
-	case DredgesPosition::psTrunnion:     index = 617U; break;
+	case DredgesPosition::psOffset:       index = 617U; break;
 	case DredgesPosition::psIntermediate: index = 618U; break;
 	case DredgesPosition::psDragHead:     index = 619U; break;
-	case DredgesPosition::sbTrunnion:     index = 620U; break;
+	case DredgesPosition::sbOffset:       index = 620U; break;
 	case DredgesPosition::sbIntermediate: index = 621U; break;
 	case DredgesPosition::sbDragHead:     index = 622U; break;
 	}
@@ -226,10 +226,10 @@ uint16 WarGrey::SCADA::DO_winch_upper_check_command(DredgesPosition id) {
 	uint16 index = 0U;
 
 	switch (id) {
-	case DredgesPosition::psTrunnion:     index = 823U; break;
+	case DredgesPosition::psOffset:       index = 823U; break;
 	case DredgesPosition::psIntermediate: index = 824U; break;
 	case DredgesPosition::psDragHead:     index = 825U; break;
-	case DredgesPosition::sbTrunnion:     index = 826U; break;
+	case DredgesPosition::sbOffset:       index = 826U; break;
 	case DredgesPosition::sbIntermediate: index = 827U; break;
 	case DredgesPosition::sbDragHead:     index = 828U; break;
 	}
@@ -241,10 +241,10 @@ uint16 WarGrey::SCADA::DO_winch_saddle_check_command(DredgesPosition id) {
 	uint16 index = 0U;
 
 	switch (id) {
-	case DredgesPosition::psTrunnion:     index = 809U; break;
+	case DredgesPosition::psOffset:       index = 809U; break;
 	case DredgesPosition::psIntermediate: index = 810U; break;
 	case DredgesPosition::psDragHead:     index = 811U; break;
-	case DredgesPosition::sbTrunnion:     index = 812U; break;
+	case DredgesPosition::sbOffset:       index = 812U; break;
 	case DredgesPosition::sbIntermediate: index = 813U; break;
 	case DredgesPosition::sbDragHead:     index = 814U; break;
 	}

@@ -56,8 +56,8 @@ public:
 		this->drag_no_lines_style.target_depth_color = Colours::Transparent;
 		this->drag_no_lines_style.tolerance_depth_color = Colours::Transparent;
 
-		this->drag_configs[0].trunnion_gapsize = ps_drag_trunnion_gapsize;
-		this->drag_configs[0].trunnion_length = ps_drag_trunnion_length;
+		this->drag_configs[0].offset_gapsize = ps_drag_offset_gapsize;
+		this->drag_configs[0].offset_length = ps_drag_offset_length;
 		this->drag_configs[0].pipe_lengths[0] = ps_drag_pipe1_length;
 		this->drag_configs[0].pipe_lengths[1] = ps_drag_pipe2_length;
 		this->drag_configs[0].pipe_radius = ps_drag_radius;
@@ -68,8 +68,8 @@ public:
 		this->drag_configs[0].arm_degrees_min = drag_arm_degrees_min;
 		this->drag_configs[0].arm_degrees_max = drag_arm_degrees_max;
 
-		this->drag_configs[1].trunnion_gapsize = sb_drag_trunnion_gapsize;
-		this->drag_configs[1].trunnion_length = sb_drag_trunnion_length;
+		this->drag_configs[1].offset_gapsize = sb_drag_offset_gapsize;
+		this->drag_configs[1].offset_length = sb_drag_offset_length;
 		this->drag_configs[1].pipe_lengths[0] = sb_drag_pipe1_length;
 		this->drag_configs[1].pipe_lengths[1] = sb_drag_pipe2_length;
 		this->drag_configs[1].pipe_radius = sb_drag_radius;
@@ -93,8 +93,8 @@ public:
 	void on_digital_input(long long timepoint_ms, const uint8* DB4, size_t count4, const uint8* DB205, size_t count205, Syslog* logger) override {
 		this->select_sb_drag(DB205);
 
-		this->suctions[DS::PS]->set_color(DI_winch_suction_limited(DB4, &winch_ps_trunnion_limits) ? suction_active_color : suction_inactive_color);
-		this->suctions[DS::SB]->set_color(DI_winch_suction_limited(DB4, &winch_sb_trunnion_limits) ? suction_active_color : suction_inactive_color);
+		this->suctions[DS::PS]->set_color(DI_winch_suction_limited(DB4, &winch_ps_offset_limits) ? suction_active_color : suction_inactive_color);
+		this->suctions[DS::SB]->set_color(DI_winch_suction_limited(DB4, &winch_sb_offset_limits) ? suction_active_color : suction_inactive_color);
 	}
 
 	void on_analog_input(long long timepoint_ms, const uint8* DB2, size_t count2, const uint8* DB203, size_t count203, Syslog* logger) override {
@@ -191,14 +191,14 @@ private:
 	}
 
 	void set_drag_metrics(DS id, const uint8* db2, const uint8* db203, DragInfo& info, DredgeAddress* address) {
-		double3 draghead, trunnion, ujoints[2];
+		double3 draghead, offset, ujoints[2];
 		double visor_angle;
 		float tide = DBD(db2, tide_mark);
 		
-		read_drag_figures(db2, db203, &trunnion, ujoints, &draghead, &visor_angle,
+		read_drag_figures(db2, db203, &offset, ujoints, &draghead, &visor_angle,
 			address->drag_position, address->visor_progress, info.visor_degrees_min, info.visor_degrees_max);
 
-		this->drags[id]->set_figure(trunnion, ujoints, draghead, visor_angle);
+		this->drags[id]->set_figure(offset, ujoints, draghead, visor_angle);
 		this->drags[id]->set_tide_mark(tide);
 	}
 

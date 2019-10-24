@@ -61,8 +61,8 @@ static const double displacement_range = 22000.0;
 static const double compensator_range = 3.0;
 static const double timeseries_range = displacement_range + 2000.0;
 
-static const double ps_drag_trunnion_gapsize = 1.845;
-static const double ps_drag_trunnion_length = 4.135;
+static const double ps_drag_offset_gapsize = 1.845;
+static const double ps_drag_offset_length = 4.135;
 static const double ps_drag_pipe1_length = 22.978;
 static const double ps_drag_pipe2_length = 21.78;
 static const double ps_drag_radius = 0.5;
@@ -70,8 +70,8 @@ static const double ps_drag_head_width = 4.03;
 static const double ps_drag_head_length = 2.54;
 static const double ps_drag_head_compensation = 0.5;
 
-static const double sb_drag_trunnion_gapsize = 1.845;
-static const double sb_drag_trunnion_length = 4.135;
+static const double sb_drag_offset_gapsize = 1.845;
+static const double sb_drag_offset_length = 4.135;
 static const double sb_drag_pipe1_length = 22.978;
 static const double sb_drag_pipe2_length = 22.642;
 static const double sb_drag_pipe2_enlength = 12.0;

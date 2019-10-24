@@ -4,7 +4,7 @@
 #include "graphlet/device/winchlet.hpp"
 
 namespace WarGrey::SCADA {
-	private enum class DredgesPosition { psTrunnion, psIntermediate, psDragHead, sbTrunnion, sbIntermediate, sbDragHead, _ };
+	private enum class DredgesPosition { psOffset, psIntermediate, psDragHead, sbOffset, sbIntermediate, sbDragHead, _ };
 	private enum class ShipSlot { BowWinch, SternWinch, ShoreWinch, BargeWinch, _ };
 
 	private enum class DredgingWinchAction { WindUp, WindOut, Stop, HighSpeed, Diagnostics, _ };

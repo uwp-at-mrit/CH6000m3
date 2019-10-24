@@ -183,14 +183,14 @@ void PLCConfirmation::on_all_signals(long long timepoint_ms, size_t addr0, size_
 	}
 }
 
-void WarGrey::SCADA::read_drag_figures(const uint8* DB2, double3* trunnion, double3 ujoints[], double3* draghead, unsigned int drag_idx) {
-	fill_position(trunnion, DB2, drag_idx + 0U);
+void WarGrey::SCADA::read_drag_figures(const uint8* DB2, double3* offset, double3 ujoints[], double3* draghead, unsigned int drag_idx) {
+	fill_position(offset, DB2, drag_idx + 0U);
 	fill_position(draghead, DB2, drag_idx + 36U);
 
 	fill_position(ujoints + 0, DB2, drag_idx + 12U);
 	fill_position(ujoints + 1, DB2, drag_idx + 24U);
 
-	trunnion->x = 0.0F; // suction_depth
+	offset->x = 0.0F; // suction_depth
 
 	ujoints[1].y = DBD(DB2, drag_idx + 48U);
 	draghead->y = DBD(DB2, drag_idx + 52U);
@@ -198,18 +198,18 @@ void WarGrey::SCADA::read_drag_figures(const uint8* DB2, double3* trunnion, doub
 }
 
 void WarGrey::SCADA::read_drag_figures(const uint8* DB2, const uint8* DB203
-	, double3* trunnion, double3 ujoints[], double3* draghead, double* suction_depth, double* visor_angle
+	, double3* offset, double3 ujoints[], double3* draghead, double* suction_depth, double* visor_angle
 	, unsigned int drag_idx, unsigned int visor_idx, double visor_min, double visor_max) {
-	read_drag_figures(DB2, trunnion, ujoints, draghead, drag_idx);
+	read_drag_figures(DB2, offset, ujoints, draghead, drag_idx);
 
-	SET_BOX(suction_depth, DBD(DB2, drag_idx)); // stored in trunnion->x;
+	SET_BOX(suction_depth, DBD(DB2, drag_idx)); // stored in offset->x;
 
 	if (visor_angle != nullptr) { // WARNING: DB2 gives the wrong visor angle, using DB203 and manually computing it instead.
 		(*visor_angle) = (visor_max - visor_min) * (1.0 - RealData(DB203, visor_idx) * 0.01F) + visor_min;
 	}
 }
 
-void WarGrey::SCADA::read_drag_figures(const uint8* DB2, const uint8* DB203, double3* trunnion, double3 ujoints[], double3* draghead,
+void WarGrey::SCADA::read_drag_figures(const uint8* DB2, const uint8* DB203, double3* offset, double3 ujoints[], double3* draghead,
 	double* visor_angle, unsigned int drag_idx, unsigned int visor_idx, double visor_angle_min, double visor_angle_max) {
-	read_drag_figures(DB2, DB203, trunnion, ujoints, draghead, nullptr, visor_angle, drag_idx, visor_idx, visor_angle_min, visor_angle_max);
+	read_drag_figures(DB2, DB203, offset, ujoints, draghead, nullptr, visor_angle, drag_idx, visor_idx, visor_angle_min, visor_angle_max);
 }

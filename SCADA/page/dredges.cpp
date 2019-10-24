@@ -92,7 +92,7 @@ static CanvasSolidColorBrush^ water_color = Colours::Green;
 static std::map<DX, DredgesDiagnostics*> satellites; // satellites will be destroyed by `atexit()`;
 
 static void dredges_diagnostics(DredgesPosition position, PLCMaster* plc) {
-	DX side = ((position >= DredgesPosition::sbTrunnion) ? DX::SB : DX::PS);
+	DX side = ((position >= DredgesPosition::sbOffset) ? DX::SB : DX::PS);
 
 	if (satellites.find(side) == satellites.end()) {
 		satellites.insert(std::pair<DX, DredgesDiagnostics*>(side, new DredgesDiagnostics(side, plc)));
@@ -122,8 +122,8 @@ public:
 		this->drag_styles[1] = drag_default_style(default_sb_color);
 		this->drag_styles[2] = drag_default_style(default_sb_color);
 
-		this->drag_configs[0].trunnion_gapsize = ps_drag_trunnion_gapsize;
-		this->drag_configs[0].trunnion_length = ps_drag_trunnion_length;
+		this->drag_configs[0].offset_gapsize = ps_drag_offset_gapsize;
+		this->drag_configs[0].offset_length = ps_drag_offset_length;
 		this->drag_configs[0].pipe_lengths[0] = ps_drag_pipe1_length;
 		this->drag_configs[0].pipe_lengths[1] = ps_drag_pipe2_length;
 		this->drag_configs[0].pipe_radius = ps_drag_radius;
@@ -134,8 +134,8 @@ public:
 		this->drag_configs[0].arm_degrees_min = drag_arm_degrees_min;
 		this->drag_configs[0].arm_degrees_max = drag_arm_degrees_max;
 
-		this->drag_configs[1].trunnion_gapsize = sb_drag_trunnion_gapsize;
-		this->drag_configs[1].trunnion_length = sb_drag_trunnion_length;
+		this->drag_configs[1].offset_gapsize = sb_drag_offset_gapsize;
+		this->drag_configs[1].offset_length = sb_drag_offset_length;
 		this->drag_configs[1].pipe_lengths[0] = sb_drag_pipe1_length;
 		this->drag_configs[1].pipe_lengths[1] = sb_drag_pipe2_length;
 		this->drag_configs[1].pipe_radius = sb_drag_radius;
@@ -373,25 +373,25 @@ protected:
 	}
 
 	void set_drag_metrics(DS id, DS vid, const uint8* db2, const uint8* db203, DragInfo& info, DredgeAddress* address) {
-		double3 trunnion, draghead, ujoints[2];
+		double3 offset, draghead, ujoints[2];
 		double suction_depth;
 		double visor_angle;
 		float tide = DBD(db2, tide_mark);
 		
-		read_drag_figures(db2, db203, &trunnion, ujoints, &draghead, &suction_depth, &visor_angle,
+		read_drag_figures(db2, db203, &offset, ujoints, &draghead, &suction_depth, &visor_angle,
 			address->drag_position, address->visor_progress, info.visor_degrees_min, info.arm_degrees_max);
 		
 		if (this->dragxys.find(id) != this->dragxys.end()) {
-			this->dragxys[id]->set_figure(trunnion, ujoints, draghead, visor_angle);
+			this->dragxys[id]->set_figure(offset, ujoints, draghead, visor_angle);
 		}
 
 		if (this->dragxzes.find(id) != this->dragxzes.end()) {
-			this->dragxzes[id]->set_figure(trunnion, ujoints, draghead, visor_angle);
+			this->dragxzes[id]->set_figure(offset, ujoints, draghead, visor_angle);
 			this->dragxzes[id]->set_tide_mark(tide);
 		}
 
 		if (this->dragyzes.find(id) != this->dragyzes.end()) {
-			this->dragyzes[id]->set_figure(trunnion, ujoints, draghead, visor_angle);
+			this->dragyzes[id]->set_figure(offset, ujoints, draghead, visor_angle);
 			this->dragyzes[id]->set_tide_mark(tide);
 		}
 
@@ -526,11 +526,11 @@ public:
 			unsigned int sbws_idx = this->sb_address->winch_speed;
 			unsigned int sbwl_idx = this->sb_address->winch_length;
 
-			this->set_winch_metrics(DredgesPosition::psTrunnion, DB2, psws_idx + 0U, pswl_idx + 0U, GraphletAnchor::LC);
+			this->set_winch_metrics(DredgesPosition::psOffset, DB2, psws_idx + 0U, pswl_idx + 0U, GraphletAnchor::LC);
 			this->set_winch_metrics(DredgesPosition::psIntermediate, DB2, psws_idx + 4U, pswl_idx + 4U, GraphletAnchor::LC);
 			this->set_winch_metrics(DredgesPosition::psDragHead, DB2, psws_idx + 8U, pswl_idx + 8U, GraphletAnchor::LC);
 
-			this->set_winch_metrics(DredgesPosition::sbTrunnion, DB2, sbws_idx + 0U, sbwl_idx + 0U, GraphletAnchor::RC);
+			this->set_winch_metrics(DredgesPosition::sbOffset, DB2, sbws_idx + 0U, sbwl_idx + 0U, GraphletAnchor::RC);
 			this->set_winch_metrics(DredgesPosition::sbIntermediate, DB2, sbws_idx + 4U, sbwl_idx + 4U, GraphletAnchor::RC);
 			this->set_winch_metrics(DredgesPosition::sbDragHead, DB2, sbws_idx + 8U, sbwl_idx + 8U, GraphletAnchor::RC);
 		}
@@ -555,11 +555,11 @@ public:
 		DI_gate_valve(this->valves[DS::D015], DB4, gate_valve_D15_feedback, DB205, gate_valve_D15_status);
 		DI_gate_valve(this->valves[DS::D016], DB4, gate_valve_D16_feedback, DB205, gate_valve_D16_status);
 		
-		DI_gantry(this->gantries[DredgesPosition::psTrunnion], DB4, gantry_ps_trunnion_limited, DB205, gantry_ps_trunnion_details);
+		DI_gantry(this->gantries[DredgesPosition::psOffset], DB4, gantry_ps_offset_limited, DB205, gantry_ps_offset_details);
 		DI_gantry(this->gantries[DredgesPosition::psIntermediate], DB4, gantry_ps_intermediate_limited, DB205, gantry_ps_intermediate_details);
 		DI_gantry(this->gantries[DredgesPosition::psDragHead], DB4, gantry_ps_draghead_limited, DB205, gantry_ps_draghead_details);
 
-		DI_gantry(this->gantries[DredgesPosition::sbTrunnion], DB4, gantry_sb_trunnion_limited, DB205, gantry_sb_trunnion_details);
+		DI_gantry(this->gantries[DredgesPosition::sbOffset], DB4, gantry_sb_offset_limited, DB205, gantry_sb_offset_details);
 		DI_gantry(this->gantries[DredgesPosition::sbIntermediate], DB4, gantry_sb_intermediate_limited, DB205, gantry_sb_intermediate_details);
 
 		if (DI_long_sb_drag(DB205)) {
@@ -568,17 +568,17 @@ public:
 			DI_gantry(this->gantries[DredgesPosition::sbDragHead], DB4, gantry_sb_short_draghead_limited, DB205, gantry_sb_draghead_details);
 		}
 
-		DI_winch(this->winches[DredgesPosition::psTrunnion], DB4, winch_ps_trunnion_feedback, winch_ps_trunnion_limits, DB205, winch_ps_trunnion_details);
+		DI_winch(this->winches[DredgesPosition::psOffset], DB4, winch_ps_offset_feedback, winch_ps_offset_limits, DB205, winch_ps_offset_details);
 		DI_winch(this->winches[DredgesPosition::psIntermediate], DB4, winch_ps_intermediate_feedback, winch_ps_intermediate_limits, DB205, winch_ps_intermediate_details);
 		DI_winch(this->winches[DredgesPosition::psDragHead], DB4, winch_ps_draghead_feedback, winch_ps_draghead_limits, DB205, winch_ps_draghead_details);
-		this->set_winch_limits(DredgesPosition::psTrunnion, DB4, winch_ps_trunnion_limits, DB205, winch_ps_trunnion_details);
+		this->set_winch_limits(DredgesPosition::psOffset, DB4, winch_ps_offset_limits, DB205, winch_ps_offset_details);
 		this->set_winch_limits(DredgesPosition::psIntermediate, DB4, winch_ps_intermediate_limits, DB205, winch_ps_intermediate_details);
 		this->set_winch_limits(DredgesPosition::psDragHead, DB4, winch_ps_draghead_limits, DB205, winch_ps_draghead_details);
 
-		DI_winch(this->winches[DredgesPosition::sbTrunnion], DB4, winch_sb_trunnion_feedback, winch_sb_trunnion_limits, DB205, winch_sb_trunnion_details);
+		DI_winch(this->winches[DredgesPosition::sbOffset], DB4, winch_sb_offset_feedback, winch_sb_offset_limits, DB205, winch_sb_offset_details);
 		DI_winch(this->winches[DredgesPosition::sbIntermediate], DB4, winch_sb_intermediate_feedback, winch_sb_intermediate_limits, DB205, winch_sb_intermediate_details);
 		DI_winch(this->winches[DredgesPosition::sbDragHead], DB4, winch_sb_draghead_feedback, winch_sb_draghead_limits, DB205, winch_sb_draghead_details);
-		this->set_winch_limits(DredgesPosition::sbTrunnion, DB4, winch_sb_trunnion_limits, DB205, winch_sb_trunnion_details);
+		this->set_winch_limits(DredgesPosition::sbOffset, DB4, winch_sb_offset_limits, DB205, winch_sb_offset_details);
 		this->set_winch_limits(DredgesPosition::sbIntermediate, DB4, winch_sb_intermediate_limits, DB205, winch_sb_intermediate_details);
 		this->set_winch_limits(DredgesPosition::sbDragHead, DB4, winch_sb_draghead_limits, DB205, winch_sb_draghead_details);
 
@@ -711,11 +711,11 @@ public:
 			this->load_cylinders(this->cylinders, DS::PSHPDP, DS::SBHPDP, cylinder_height, 0.0, 20.0, "bar");
 			this->load_cylinders(this->cylinders, DS::PSHPVP, DS::SBHPVP, cylinder_height, -2.0, 2.0, "bar");
 
-			this->load_gantries(this->gantries, DredgesPosition::psTrunnion, DredgesPosition::psDragHead, -gantry_width);
-			this->load_gantries(this->gantries, DredgesPosition::sbTrunnion, DredgesPosition::sbDragHead, +gantry_width);
+			this->load_gantries(this->gantries, DredgesPosition::psOffset, DredgesPosition::psDragHead, -gantry_width);
+			this->load_gantries(this->gantries, DredgesPosition::sbOffset, DredgesPosition::sbDragHead, +gantry_width);
 
-			this->load_winches(this->winches, DredgesPosition::psTrunnion, DredgesPosition::psDragHead, winch_width);
-			this->load_winches(this->winches, DredgesPosition::sbTrunnion, DredgesPosition::sbDragHead, winch_width);
+			this->load_winches(this->winches, DredgesPosition::psOffset, DredgesPosition::psDragHead, winch_width);
+			this->load_winches(this->winches, DredgesPosition::sbOffset, DredgesPosition::sbDragHead, winch_width);
 		}
 
 		{ // load drags
@@ -794,7 +794,7 @@ public:
 		float txt_gapsize = vinset * 0.5F;
 		float cx = width * 0.5F;
 		float cy = height * 0.5F;
-		float trunnion_y, intermediate_y, draghead_y;
+		float offset_y, intermediate_y, draghead_y;
 		
 		{ // reflow centeral components
 			float wc_offset = vinset * 1.5F;
@@ -824,11 +824,11 @@ public:
 			{ // reflow gantries
 				float lx = 0.0F;
 
-				this->master->fill_graphlet_location(this->dragxys[DS::PS], nullptr, &trunnion_y, GraphletAnchor::CT);
+				this->master->fill_graphlet_location(this->dragxys[DS::PS], nullptr, &offset_y, GraphletAnchor::CT);
 				this->master->fill_graphlet_location(this->dragxys[DS::PS], nullptr, &intermediate_y, GraphletAnchor::CC);
 				this->master->fill_graphlet_location(this->dragxys[DS::PS], nullptr, &draghead_y, GraphletAnchor::CB);
 
-				this->master->move_to(this->gantries[DredgesPosition::psTrunnion], lx, trunnion_y, GraphletAnchor::LT, 0.0F, vinset * 5.0F);
+				this->master->move_to(this->gantries[DredgesPosition::psOffset], lx, offset_y, GraphletAnchor::LT, 0.0F, vinset * 5.0F);
 				this->master->move_to(this->gantries[DredgesPosition::psIntermediate], lx, intermediate_y, GraphletAnchor::LC, 0.0F, vinset * 2.0F);
 				this->master->move_to(this->gantries[DredgesPosition::psDragHead], lx, draghead_y, GraphletAnchor::LB, 0.0F, -vinset * 1.0F);
 			}
@@ -850,11 +850,11 @@ public:
 			{ // reflow winches
 				float rx = width;
 
-				this->master->fill_graphlet_location(this->dragxys[DS::SB], nullptr, &trunnion_y, GraphletAnchor::CT);
+				this->master->fill_graphlet_location(this->dragxys[DS::SB], nullptr, &offset_y, GraphletAnchor::CT);
 				this->master->fill_graphlet_location(this->dragxys[DS::SB], nullptr, &intermediate_y, GraphletAnchor::CC);
 				this->master->fill_graphlet_location(this->dragxys[DS::SB], nullptr, &draghead_y, GraphletAnchor::CB);
 
-				this->master->move_to(this->gantries[DredgesPosition::sbTrunnion], rx, trunnion_y, GraphletAnchor::RT, 0.0F, vinset * 5.0F);
+				this->master->move_to(this->gantries[DredgesPosition::sbOffset], rx, offset_y, GraphletAnchor::RT, 0.0F, vinset * 5.0F);
 				this->master->move_to(this->gantries[DredgesPosition::sbIntermediate], rx, intermediate_y, GraphletAnchor::RC, 0.0F, vinset * 2.0F);
 				this->master->move_to(this->gantries[DredgesPosition::sbDragHead], rx, draghead_y, GraphletAnchor::RB, 0.0F, -vinset * 1.0F);
 			}
@@ -872,7 +872,7 @@ public:
 				this->master->move_to(this->pressures[id], this->cylinders[id], GraphletAnchor::CB, GraphletAnchor::CT, 0.0F, txt_gapsize);
 			}
 
-			for (DredgesPosition id = DredgesPosition::psTrunnion; id <= DredgesPosition::psDragHead; id++) {
+			for (DredgesPosition id = DredgesPosition::psOffset; id <= DredgesPosition::psDragHead; id++) {
 				this->master->move_to(this->winches[id], this->gantries[id], GraphletAnchor::CC, GraphletAnchor::CC);
 				this->master->move_to(this->winch_lengths[id], this->gantries[id], GraphletAnchor::RC, GraphletAnchor::LC, txt_gapsize);
 				this->master->move_to(this->position_labels[id], this->winch_lengths[id], GraphletAnchor::LT, GraphletAnchor::LB);
@@ -881,7 +881,7 @@ public:
 				this->reflow_winch_limits(id);
 			}
 
-			for (DredgesPosition id = DredgesPosition::sbTrunnion; id <= DredgesPosition::sbDragHead; id++) {
+			for (DredgesPosition id = DredgesPosition::sbOffset; id <= DredgesPosition::sbDragHead; id++) {
 				this->master->move_to(this->winches[id], this->gantries[id], GraphletAnchor::CC, GraphletAnchor::CC);
 				this->master->move_to(this->winch_lengths[id], this->gantries[id], GraphletAnchor::LC, GraphletAnchor::RC, -txt_gapsize);
 				this->master->move_to(this->position_labels[id], this->winch_lengths[id], GraphletAnchor::RT, GraphletAnchor::RB);
@@ -1081,18 +1081,18 @@ public:
 			unsigned int sbwl_idx = this->address->winch_length;
 
 			if (this->DS_side == DS::PS) {
-				this->set_winch_metrics(DredgesPosition::psTrunnion, DB2, psws_idx + 0U, pswl_idx + 0U, GraphletAnchor::CC);
+				this->set_winch_metrics(DredgesPosition::psOffset, DB2, psws_idx + 0U, pswl_idx + 0U, GraphletAnchor::CC);
 				this->set_winch_metrics(DredgesPosition::psIntermediate, DB2, psws_idx + 4U, pswl_idx + 4U, GraphletAnchor::CC);
 				this->set_winch_metrics(DredgesPosition::psDragHead, DB2, psws_idx + 8U, pswl_idx + 8U, GraphletAnchor::CC);
 			} else {
-				this->set_winch_metrics(DredgesPosition::sbTrunnion, DB2, sbws_idx + 0U, sbwl_idx + 0U, GraphletAnchor::CC);
+				this->set_winch_metrics(DredgesPosition::sbOffset, DB2, sbws_idx + 0U, sbwl_idx + 0U, GraphletAnchor::CC);
 				this->set_winch_metrics(DredgesPosition::sbIntermediate, DB2, sbws_idx + 4U, sbwl_idx + 4U, GraphletAnchor::CC);
 				this->set_winch_metrics(DredgesPosition::sbDragHead, DB2, sbws_idx + 8U, sbwl_idx + 8U, GraphletAnchor::CC);
 			}
 		}
 
 		if (this->DS_side == DS::PS) {
-			this->pump_pressures[DredgesPosition::psTrunnion]->set_value(RealData(DB203, pump_C_pressure), GraphletAnchor::CC);
+			this->pump_pressures[DredgesPosition::psOffset]->set_value(RealData(DB203, pump_C_pressure), GraphletAnchor::CC);
 			this->pump_pressures[DredgesPosition::psIntermediate]->set_value(RealData(DB203, pump_B_pressure), GraphletAnchor::CC);
 			this->pump_pressures[DredgesPosition::psDragHead]->set_value(RealData(DB203, pump_A_pressure), GraphletAnchor::CC);
 
@@ -1104,14 +1104,14 @@ public:
 			
 			this->set_compensator(DS::PSWC, DB203, this->address->compensator, GraphletAnchor::LC);
 
-			this->Alets[DredgesPosition::psTrunnion]->set_value(RealData(DB203, winch_ps_trunnion_A_pressure), GraphletAnchor::LB);
-			this->Blets[DredgesPosition::psTrunnion]->set_value(RealData(DB203, winch_ps_trunnion_B_pressure), GraphletAnchor::LT);
+			this->Alets[DredgesPosition::psOffset]->set_value(RealData(DB203, winch_ps_offset_A_pressure), GraphletAnchor::LB);
+			this->Blets[DredgesPosition::psOffset]->set_value(RealData(DB203, winch_ps_offset_B_pressure), GraphletAnchor::LT);
 			this->Alets[DredgesPosition::psIntermediate]->set_value(RealData(DB203, winch_ps_intermediate_A_pressure), GraphletAnchor::LB);
 			this->Blets[DredgesPosition::psIntermediate]->set_value(RealData(DB203, winch_ps_intermediate_B_pressure), GraphletAnchor::LT);
 			this->Alets[DredgesPosition::psDragHead]->set_value(RealData(DB203, winch_ps_draghead_A_pressure), GraphletAnchor::LB);
 			this->Blets[DredgesPosition::psDragHead]->set_value(RealData(DB203, winch_ps_draghead_B_pressure), GraphletAnchor::LT);
 		} else {
-			this->pump_pressures[DredgesPosition::sbTrunnion]->set_value(RealData(DB203, pump_F_pressure), GraphletAnchor::CC);
+			this->pump_pressures[DredgesPosition::sbOffset]->set_value(RealData(DB203, pump_F_pressure), GraphletAnchor::CC);
 			this->pump_pressures[DredgesPosition::sbIntermediate]->set_value(RealData(DB203, pump_G_pressure), GraphletAnchor::CC);
 			this->pump_pressures[DredgesPosition::sbDragHead]->set_value(RealData(DB203, pump_H_pressure), GraphletAnchor::CC);
 
@@ -1123,8 +1123,8 @@ public:
 
 			this->set_compensator(DS::SBWC, DB203, this->address->compensator, GraphletAnchor::RC);
 
-			this->Alets[DredgesPosition::sbTrunnion]->set_value(RealData(DB203, winch_sb_trunnion_A_pressure), GraphletAnchor::RB);
-			this->Blets[DredgesPosition::sbTrunnion]->set_value(RealData(DB203, winch_sb_trunnion_B_pressure), GraphletAnchor::RT);
+			this->Alets[DredgesPosition::sbOffset]->set_value(RealData(DB203, winch_sb_offset_A_pressure), GraphletAnchor::RB);
+			this->Blets[DredgesPosition::sbOffset]->set_value(RealData(DB203, winch_sb_offset_B_pressure), GraphletAnchor::RT);
 			this->Alets[DredgesPosition::sbIntermediate]->set_value(RealData(DB203, winch_sb_intermediate_A_pressure), GraphletAnchor::RB);
 			this->Blets[DredgesPosition::sbIntermediate]->set_value(RealData(DB203, winch_sb_intermediate_B_pressure), GraphletAnchor::RT);
 			this->Alets[DredgesPosition::sbDragHead]->set_value(RealData(DB203, winch_sb_draghead_A_pressure), GraphletAnchor::RB);
@@ -1141,27 +1141,27 @@ public:
 
 	void on_digital_input(long long timepoint_ms, const uint8* DB4, size_t count4, const uint8* DB205, size_t count205, Syslog* logger) override {
 		if (this->DS_side == DS::PS) {
-			DI_hydraulic_pump_dimension(this->pump_pressures[DredgesPosition::psTrunnion], DB4, pump_C_feedback);
+			DI_hydraulic_pump_dimension(this->pump_pressures[DredgesPosition::psOffset], DB4, pump_C_feedback);
 			DI_hydraulic_pump_dimension(this->pump_pressures[DredgesPosition::psIntermediate], DB4, pump_B_feedback);
 			DI_hydraulic_pump_dimension(this->pump_pressures[DredgesPosition::psDragHead], DB4, pump_A_feedback);
 
-			DI_winch(this->winches[DredgesPosition::psTrunnion], DB4, winch_ps_trunnion_feedback, winch_ps_trunnion_limits, DB205, winch_ps_trunnion_details);
+			DI_winch(this->winches[DredgesPosition::psOffset], DB4, winch_ps_offset_feedback, winch_ps_offset_limits, DB205, winch_ps_offset_details);
 			DI_winch(this->winches[DredgesPosition::psIntermediate], DB4, winch_ps_intermediate_feedback, winch_ps_intermediate_limits, DB205, winch_ps_intermediate_details);
 			DI_winch(this->winches[DredgesPosition::psDragHead], DB4, winch_ps_draghead_feedback, winch_ps_draghead_limits, DB205, winch_ps_draghead_details);
-			this->set_winch_limits(DredgesPosition::psTrunnion, DB4, winch_ps_trunnion_limits, DB205, winch_ps_trunnion_details);
+			this->set_winch_limits(DredgesPosition::psOffset, DB4, winch_ps_offset_limits, DB205, winch_ps_offset_details);
 			this->set_winch_limits(DredgesPosition::psIntermediate, DB4, winch_ps_intermediate_limits, DB205, winch_ps_intermediate_details);
 			this->set_winch_limits(DredgesPosition::psDragHead, DB4, winch_ps_draghead_limits, DB205, winch_ps_draghead_details);
 
-			DI_boolean_button(this->buttons[DredgesPosition::psTrunnion], DB205, winch_ps_trunnion_details.override);
+			DI_boolean_button(this->buttons[DredgesPosition::psOffset], DB205, winch_ps_offset_details.override);
 			DI_boolean_button(this->buttons[DredgesPosition::psIntermediate], DB205, winch_ps_intermediate_details.override);
 			DI_boolean_button(this->buttons[DredgesPosition::psDragHead], DB205, winch_ps_draghead_details.override);
 
-			DI_gantry(this->gantries[DredgesPosition::psTrunnion], DB4, gantry_ps_trunnion_limited, DB205, gantry_ps_trunnion_details);
+			DI_gantry(this->gantries[DredgesPosition::psOffset], DB4, gantry_ps_offset_limited, DB205, gantry_ps_offset_details);
 			DI_gantry(this->gantries[DredgesPosition::psIntermediate], DB4, gantry_ps_intermediate_limited, DB205, gantry_ps_intermediate_details);
 			DI_gantry(this->gantries[DredgesPosition::psDragHead], DB4, gantry_ps_draghead_limited, DB205, gantry_ps_draghead_details);
 
-			DI_boolean_button(this->t_gantry_buttons[GantryCommand::VirtualUp], DB205, gantry_ps_trunnion_virtual_up_limited);
-			DI_boolean_button(this->t_gantry_buttons[GantryCommand::VirtualOut], DB205, gantry_ps_trunnion_virtual_out_limited);
+			DI_boolean_button(this->t_gantry_buttons[GantryCommand::VirtualUp], DB205, gantry_ps_offset_virtual_up_limited);
+			DI_boolean_button(this->t_gantry_buttons[GantryCommand::VirtualOut], DB205, gantry_ps_offset_virtual_out_limited);
 			DI_boolean_button(this->i_gantry_buttons[GantryCommand::VirtualUp], DB205, gantry_ps_intermediate_virtual_up_limited);
 			DI_boolean_button(this->i_gantry_buttons[GantryCommand::VirtualOut], DB205, gantry_ps_intermediate_virtual_out_limited);
 			DI_boolean_button(this->h_gantry_buttons[GantryCommand::VirtualUp], DB205, gantry_ps_draghead_virtual_up_limited);
@@ -1169,22 +1169,22 @@ public:
 		} else {
 			this->select_sb_drag(DB205);
 
-			DI_hydraulic_pump_dimension(this->pump_pressures[DredgesPosition::sbTrunnion], DB4, pump_F_feedback);
+			DI_hydraulic_pump_dimension(this->pump_pressures[DredgesPosition::sbOffset], DB4, pump_F_feedback);
 			DI_hydraulic_pump_dimension(this->pump_pressures[DredgesPosition::sbIntermediate], DB4, pump_G_feedback);
 			DI_hydraulic_pump_dimension(this->pump_pressures[DredgesPosition::sbDragHead], DB4, pump_H_feedback);
 
-			DI_winch(this->winches[DredgesPosition::sbTrunnion], DB4, winch_sb_draghead_feedback, winch_sb_trunnion_limits, DB205, winch_sb_trunnion_details);
+			DI_winch(this->winches[DredgesPosition::sbOffset], DB4, winch_sb_draghead_feedback, winch_sb_offset_limits, DB205, winch_sb_offset_details);
 			DI_winch(this->winches[DredgesPosition::sbIntermediate], DB4, winch_sb_intermediate_feedback, winch_sb_intermediate_limits, DB205, winch_sb_intermediate_details);
 			DI_winch(this->winches[DredgesPosition::sbDragHead], DB4, winch_sb_draghead_feedback, winch_sb_draghead_limits, DB205, winch_sb_draghead_details);
-			this->set_winch_limits(DredgesPosition::sbTrunnion, DB4, winch_sb_trunnion_limits, DB205, winch_sb_trunnion_details);
+			this->set_winch_limits(DredgesPosition::sbOffset, DB4, winch_sb_offset_limits, DB205, winch_sb_offset_details);
 			this->set_winch_limits(DredgesPosition::sbIntermediate, DB4, winch_sb_intermediate_limits, DB205, winch_sb_intermediate_details);
 			this->set_winch_limits(DredgesPosition::sbDragHead, DB4, winch_sb_draghead_limits, DB205, winch_sb_draghead_details);
 
-			DI_boolean_button(this->buttons[DredgesPosition::sbTrunnion], DB205, winch_sb_trunnion_details.override);
+			DI_boolean_button(this->buttons[DredgesPosition::sbOffset], DB205, winch_sb_offset_details.override);
 			DI_boolean_button(this->buttons[DredgesPosition::sbIntermediate], DB205, winch_sb_intermediate_details.override);
 			DI_boolean_button(this->buttons[DredgesPosition::sbDragHead], DB205, winch_sb_draghead_details.override);
 
-			DI_gantry(this->gantries[DredgesPosition::sbTrunnion], DB4, gantry_sb_trunnion_limited, DB205, gantry_sb_trunnion_details);
+			DI_gantry(this->gantries[DredgesPosition::sbOffset], DB4, gantry_sb_offset_limited, DB205, gantry_sb_offset_details);
 			DI_gantry(this->gantries[DredgesPosition::sbIntermediate], DB4, gantry_sb_intermediate_limited, DB205, gantry_sb_intermediate_details);
 
 			if (DI_long_sb_drag(DB205)) {
@@ -1195,8 +1195,8 @@ public:
 				this->drag_use_buttons[DragUseCommand::LongDrag]->set_state(ButtonState::Default);
 			}
 
-			DI_boolean_button(this->t_gantry_buttons[GantryCommand::VirtualUp], DB205, gantry_sb_trunnion_virtual_up_limited);
-			DI_boolean_button(this->t_gantry_buttons[GantryCommand::VirtualOut], DB205, gantry_sb_trunnion_virtual_out_limited);
+			DI_boolean_button(this->t_gantry_buttons[GantryCommand::VirtualUp], DB205, gantry_sb_offset_virtual_up_limited);
+			DI_boolean_button(this->t_gantry_buttons[GantryCommand::VirtualOut], DB205, gantry_sb_offset_virtual_out_limited);
 			DI_boolean_button(this->i_gantry_buttons[GantryCommand::VirtualUp], DB205, gantry_sb_intermediate_virtual_up_limited);
 			DI_boolean_button(this->i_gantry_buttons[GantryCommand::VirtualOut], DB205, gantry_sb_intermediate_virtual_out_limited);
 			DI_boolean_button(this->h_gantry_buttons[GantryCommand::VirtualUp], DB205, gantry_sb_draghead_virtual_up_limited);
@@ -1255,26 +1255,26 @@ public:
 		
 		if (this->DS_side == DS::PS) {
 			this->load_draghead(this->dragheads, DS::PSVisor, DS::PSDP, -draghead_radius, config, default_ps_color);
-			this->load_gantries(this->gantries, DredgesPosition::psTrunnion, DredgesPosition::psDragHead, -gantry_radius);
+			this->load_gantries(this->gantries, DredgesPosition::psOffset, DredgesPosition::psDragHead, -gantry_radius);
 			this->load_compensator(this->compensators, DS::PSWC, gantry_radius, compensator_range);
-			this->load_dimensions(this->pump_pressures, DredgesPosition::psTrunnion, DredgesPosition::psDragHead, DS::C, "bar");
-			this->load_detailed_winches(this->winches, DredgesPosition::psTrunnion, DredgesPosition::psDragHead, winch_width);
+			this->load_dimensions(this->pump_pressures, DredgesPosition::psOffset, DredgesPosition::psDragHead, DS::C, "bar");
+			this->load_detailed_winches(this->winches, DredgesPosition::psOffset, DredgesPosition::psDragHead, winch_width);
 			this->load_dimension(this->forces, DS::PSPF1, "knewton");
 			this->load_dimension(this->forces, DS::PSPF2, "knewton");
 
-			this->load_buttons(this->t_gantry_buttons, DredgesPosition::psTrunnion, this->button_style, gvabtn_size, gvabtn_size);
+			this->load_buttons(this->t_gantry_buttons, DredgesPosition::psOffset, this->button_style, gvabtn_size, gvabtn_size);
 			this->load_buttons(this->i_gantry_buttons, DredgesPosition::psIntermediate, this->button_style, gvabtn_size, gvabtn_size);
 			this->load_buttons(this->h_gantry_buttons, DredgesPosition::psDragHead, this->button_style, gvabtn_size, gvabtn_size);
 		} else {
 			this->load_draghead(this->dragheads, DS::SBVisor, DS::SBDP, +draghead_radius, config, default_sb_color);
-			this->load_gantries(this->gantries, DredgesPosition::sbTrunnion, DredgesPosition::sbDragHead, +gantry_radius);
+			this->load_gantries(this->gantries, DredgesPosition::sbOffset, DredgesPosition::sbDragHead, +gantry_radius);
 			this->load_compensator(this->compensators, DS::SBWC, gantry_radius, compensator_range);
-			this->load_dimensions(this->pump_pressures, DredgesPosition::sbTrunnion, DredgesPosition::sbDragHead, DS::F, "bar");
-			this->load_detailed_winches(this->winches, DredgesPosition::sbTrunnion, DredgesPosition::sbDragHead, winch_width);
+			this->load_dimensions(this->pump_pressures, DredgesPosition::sbOffset, DredgesPosition::sbDragHead, DS::F, "bar");
+			this->load_detailed_winches(this->winches, DredgesPosition::sbOffset, DredgesPosition::sbDragHead, winch_width);
 			this->load_dimension(this->forces, DS::SBPF1, "knewton");
 			this->load_dimension(this->forces, DS::SBPF2, "knewton");
 
-			this->load_buttons(this->t_gantry_buttons, DredgesPosition::sbTrunnion, this->button_style, gvabtn_size, gvabtn_size);
+			this->load_buttons(this->t_gantry_buttons, DredgesPosition::sbOffset, this->button_style, gvabtn_size, gvabtn_size);
 			this->load_buttons(this->i_gantry_buttons, DredgesPosition::sbIntermediate, this->button_style, gvabtn_size, gvabtn_size);
 			this->load_buttons(this->h_gantry_buttons, DredgesPosition::sbDragHead, this->button_style, gvabtn_size, gvabtn_size);
 			
@@ -1296,16 +1296,16 @@ public:
 			{ // reflow gantries and winches
 				auto gantry = this->gantries[DredgesPosition::psIntermediate];
 				
-				this->pump_pressures[DredgesPosition::psTrunnion]->fill_extent(0.0F, 0.0F, nullptr, &vgapsize);
+				this->pump_pressures[DredgesPosition::psOffset]->fill_extent(0.0F, 0.0F, nullptr, &vgapsize);
 
 				vgapsize = (vgapsize + vinset) * 2.0F;
 				this->master->move_to(gantry, this->dragxys[DS::PS], GraphletAnchor::RC, GraphletAnchor::LC, 0.0F, -vinset);
-				this->master->move_to(this->gantries[DredgesPosition::psTrunnion], gantry, GraphletAnchor::LT, GraphletAnchor::LB, 0.0F, -vgapsize);
+				this->master->move_to(this->gantries[DredgesPosition::psOffset], gantry, GraphletAnchor::LT, GraphletAnchor::LB, 0.0F, -vgapsize);
 				this->master->move_to(this->gantries[DredgesPosition::psDragHead], gantry, GraphletAnchor::LB, GraphletAnchor::LT, 0.0F, +vgapsize);
-				this->reflow_winches(DS::PSWC, DredgesPosition::psTrunnion, DredgesPosition::psDragHead, GraphletAnchor::RC, GraphletAnchor::LC, vinset * 2.0F);
+				this->reflow_winches(DS::PSWC, DredgesPosition::psOffset, DredgesPosition::psDragHead, GraphletAnchor::RC, GraphletAnchor::LC, vinset * 2.0F);
 			}
 
-			for (DredgesPosition id = DredgesPosition::psTrunnion; id <= DredgesPosition::psDragHead; id++) {
+			for (DredgesPosition id = DredgesPosition::psOffset; id <= DredgesPosition::psDragHead; id++) {
 				this->master->move_to(this->pump_pressures[id], this->gantries[id], GraphletAnchor::RB, GraphletAnchor::CT, -vinset, txt_gapsize);
 				this->master->move_to(this->position_labels[id], this->winches[id], GraphletAnchor::LC, GraphletAnchor::RB);
 				this->master->move_to(this->Alets[id], this->winches[id], GraphletAnchor::RC, GraphletAnchor::LB, txt_gapsize, -1.0F);
@@ -1335,16 +1335,16 @@ public:
 			{ // reflow gantries and winches
 				auto gantry = this->gantries[DredgesPosition::sbIntermediate];
 				
-				this->pump_pressures[DredgesPosition::sbTrunnion]->fill_extent(0.0F, 0.0F, nullptr, &vgapsize);
+				this->pump_pressures[DredgesPosition::sbOffset]->fill_extent(0.0F, 0.0F, nullptr, &vgapsize);
 
 				vgapsize = (vgapsize + vinset) * 2.0F;
 				this->master->move_to(gantry, this->dragxys[DS::SB], GraphletAnchor::LC, GraphletAnchor::RC, 0.0F, -vinset);
-				this->master->move_to(this->gantries[DredgesPosition::sbTrunnion], gantry, GraphletAnchor::RT, GraphletAnchor::RB, 0.0F, -vgapsize);
+				this->master->move_to(this->gantries[DredgesPosition::sbOffset], gantry, GraphletAnchor::RT, GraphletAnchor::RB, 0.0F, -vgapsize);
 				this->master->move_to(this->gantries[DredgesPosition::sbDragHead], gantry, GraphletAnchor::RB, GraphletAnchor::RT, 0.0F, +vgapsize);
-				this->reflow_winches(DS::SBWC, DredgesPosition::sbTrunnion, DredgesPosition::sbDragHead, GraphletAnchor::LC, GraphletAnchor::RC, vinset * -2.0F);
+				this->reflow_winches(DS::SBWC, DredgesPosition::sbOffset, DredgesPosition::sbDragHead, GraphletAnchor::LC, GraphletAnchor::RC, vinset * -2.0F);
 			}
 
-			for (DredgesPosition id = DredgesPosition::sbTrunnion; id <= DredgesPosition::sbDragHead; id++) {
+			for (DredgesPosition id = DredgesPosition::sbOffset; id <= DredgesPosition::sbDragHead; id++) {
 				this->master->move_to(this->pump_pressures[id], this->gantries[id], GraphletAnchor::LB, GraphletAnchor::CT, vinset, txt_gapsize);
 				this->master->move_to(this->position_labels[id], this->winches[id], GraphletAnchor::RC, GraphletAnchor::LB);
 				this->master->move_to(this->Alets[id], this->winches[id], GraphletAnchor::LC, GraphletAnchor::RB, -txt_gapsize, -1.0F);
@@ -1420,11 +1420,11 @@ public:
 		float thickness = 2.0F;
 
 		if (this->DS_side == DS::PS) {
-			this->draw_cable(ds, X, Y, DredgesPosition::psTrunnion, GraphletAnchor::RT, GraphletAnchor::LC, color, thickness);
+			this->draw_cable(ds, X, Y, DredgesPosition::psOffset, GraphletAnchor::RT, GraphletAnchor::LC, color, thickness);
 			this->draw_cable(ds, X, Y, DredgesPosition::psIntermediate, GraphletAnchor::RT, GraphletAnchor::LC, color, thickness);
 			this->draw_cable(ds, X, Y, DS::PSWC, DredgesPosition::psDragHead, GraphletAnchor::RT, GraphletAnchor::LC, color, thickness);
 		} else {
-			this->draw_cable(ds, X, Y, DredgesPosition::sbTrunnion, GraphletAnchor::LT, GraphletAnchor::RC, color, thickness);
+			this->draw_cable(ds, X, Y, DredgesPosition::sbOffset, GraphletAnchor::LT, GraphletAnchor::RC, color, thickness);
 			this->draw_cable(ds, X, Y, DredgesPosition::sbIntermediate, GraphletAnchor::LT, GraphletAnchor::RC, color, thickness);
 			this->draw_cable(ds, X, Y, DS::SBWC, DredgesPosition::sbDragHead, GraphletAnchor::LT, GraphletAnchor::RC, color, thickness);
 		}
@@ -1473,11 +1473,11 @@ public:
 
 	void on_gesture(std::list<float2>& anchors, float x, float y) {
 		if (this->DS_side == DS::PS) {
-			if (this->gantries_selected(DredgesPosition::psTrunnion, DredgesPosition::psDragHead, 2)) {
+			if (this->gantries_selected(DredgesPosition::psOffset, DredgesPosition::psDragHead, 2)) {
 				group_menu_popup(this->ggantries_op, this->master, x, y);
 			}
 		} else {
-			if (this->gantries_selected(DredgesPosition::sbTrunnion, DredgesPosition::sbDragHead, 2)) {
+			if (this->gantries_selected(DredgesPosition::sbOffset, DredgesPosition::sbDragHead, 2)) {
 				group_menu_popup(this->ggantries_op, this->master, x, y);
 			}
 		}
@@ -1564,7 +1564,7 @@ private:
 
 private:
 	template<typename D, typename E>
-	void reflow_winches(D wc, E trunnion, E draghead, GraphletAnchor ga, GraphletAnchor wa, float gapsize) {
+	void reflow_winches(D wc, E offset, E draghead, GraphletAnchor ga, GraphletAnchor wa, float gapsize) {
 		float compensator_width, compensator_height;
 		
 		this->compensators[wc]->fill_extent(0.0F, 0.0F, &compensator_width, &compensator_height);
@@ -1574,7 +1574,7 @@ private:
 			float gw_gap = gc_gap * 2.0F + compensator_width * ((gapsize > 0.0F) ? 1.0F : -1.0F);
 			float gantry_joint_dy = 0.0F;
 
-			for (E id = trunnion; id <= draghead; id++) {
+			for (E id = offset; id <= draghead; id++) {
 				float gantry_height = 0.0F;
 				
 				this->gantries[id]->fill_extent(0.0F, 0.0F, nullptr, &gantry_height);
@@ -1725,11 +1725,11 @@ public:
 	void on_digital_input(long long timepoint_ms, const uint8* DB4, size_t count4, const uint8* DB205, size_t count205, Syslog* logger) override {
 		this->select_sb_drag(DB205);
 
-		DI_winch(this->winches[DredgesPosition::psTrunnion], DB4, winch_ps_trunnion_feedback, winch_ps_trunnion_limits, DB205, winch_ps_trunnion_details);
+		DI_winch(this->winches[DredgesPosition::psOffset], DB4, winch_ps_offset_feedback, winch_ps_offset_limits, DB205, winch_ps_offset_details);
 		DI_winch(this->winches[DredgesPosition::psIntermediate], DB4, winch_ps_intermediate_feedback, winch_ps_intermediate_limits, DB205, winch_ps_intermediate_details);
 		DI_winch(this->winches[DredgesPosition::psDragHead], DB4, winch_ps_draghead_feedback, winch_ps_draghead_limits, DB205, winch_ps_draghead_details);
 
-		DI_winch(this->winches[DredgesPosition::sbTrunnion], DB4, winch_sb_trunnion_feedback, winch_sb_trunnion_limits, DB205, winch_sb_trunnion_details);
+		DI_winch(this->winches[DredgesPosition::sbOffset], DB4, winch_sb_offset_feedback, winch_sb_offset_limits, DB205, winch_sb_offset_details);
 		DI_winch(this->winches[DredgesPosition::sbIntermediate], DB4, winch_sb_intermediate_feedback, winch_sb_intermediate_limits, DB205, winch_sb_intermediate_details);
 		DI_winch(this->winches[DredgesPosition::sbDragHead], DB4, winch_sb_draghead_feedback, winch_sb_draghead_limits, DB205, winch_sb_draghead_details);
 	}
@@ -1745,8 +1745,8 @@ public:
 		{ // load dimensions
 			float winch_width = width * 0.314F * 0.12F;
 			
-			this->load_winches(this->winches, DredgesPosition::psTrunnion, DredgesPosition::psDragHead, winch_width);
-			this->load_winches(this->winches, DredgesPosition::sbTrunnion, DredgesPosition::sbDragHead, winch_width);
+			this->load_winches(this->winches, DredgesPosition::psOffset, DredgesPosition::psDragHead, winch_width);
+			this->load_winches(this->winches, DredgesPosition::sbOffset, DredgesPosition::sbDragHead, winch_width);
 		}
 
 		{ // load drags
@@ -1784,7 +1784,7 @@ public:
 			this->master->move_to(this->dragyzes[DS::PS], 0.0F, height * 0.5F, GraphletAnchor::LC);
 			this->master->move_to(this->dragxzes[DS::PS], this->dragyzes[DS::PS], GraphletAnchor::RT, GraphletAnchor::LT, +vinset);
 
-			this->master->move_to(this->winches[DredgesPosition::psTrunnion], this->dragxzes[DS::PS], GraphletAnchor::RT, GraphletAnchor::RB, -inset);
+			this->master->move_to(this->winches[DredgesPosition::psOffset], this->dragxzes[DS::PS], GraphletAnchor::RT, GraphletAnchor::RB, -inset);
 			this->master->move_to(this->winches[DredgesPosition::psIntermediate], this->dragxzes[DS::PS], GraphletAnchor::CT, GraphletAnchor::CB);
 			this->master->move_to(this->winches[DredgesPosition::psDragHead], this->dragxzes[DS::PS], GraphletAnchor::LT, GraphletAnchor::LB, +inset);
 		}
@@ -1800,7 +1800,7 @@ public:
 			this->master->move_to(this->dragyzes[DS::SBL], this->dragyzes[DS::SB], GraphletAnchor::CC, GraphletAnchor::CC);
 			this->master->move_to(this->dragxzes[DS::SBL], this->dragxzes[DS::SB], GraphletAnchor::CC, GraphletAnchor::CC);
 
-			this->master->move_to(this->winches[DredgesPosition::sbTrunnion], this->dragxzes[DS::SB], GraphletAnchor::LT, GraphletAnchor::LB, +inset);
+			this->master->move_to(this->winches[DredgesPosition::sbOffset], this->dragxzes[DS::SB], GraphletAnchor::LT, GraphletAnchor::LB, +inset);
 			this->master->move_to(this->winches[DredgesPosition::sbIntermediate], this->dragxzes[DS::SB], GraphletAnchor::CT, GraphletAnchor::CB);
 			this->master->move_to(this->winches[DredgesPosition::sbDragHead], this->dragxzes[DS::SB], GraphletAnchor::RT, GraphletAnchor::RB, -inset);
 		}

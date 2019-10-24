@@ -129,7 +129,7 @@
   <data name="psIntermediate" xml:space="preserve">
     <value>耙中</value>
   </data>
-  <data name="psTrunnion" xml:space="preserve">
+  <data name="psOffset" xml:space="preserve">
     <value>弯管</value>
   </data>
   <data name="PSHPVP" xml:space="preserve">
@@ -147,7 +147,7 @@
   <data name="sbIntermediate" xml:space="preserve">
     <value>耙中</value>
   </data>
-  <data name="sbTrunnion" xml:space="preserve">
+  <data name="sbOffset" xml:space="preserve">
     <value>弯管</value>
   </data>
   <data name="SBHPVP" xml:space="preserve">

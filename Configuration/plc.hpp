@@ -13,15 +13,15 @@ namespace WarGrey::SCADA {
 	float RealData(const uint8* src, size_t idx);
 
 	void read_drag_figures(const uint8* DB2,
-		WarGrey::SCADA::double3* trunnion, WarGrey::SCADA::double3 ujoints[], WarGrey::SCADA::double3* draghead,
+		WarGrey::SCADA::double3* offset, WarGrey::SCADA::double3 ujoints[], WarGrey::SCADA::double3* draghead,
 		unsigned int drag_idx);
 
 	void read_drag_figures(const uint8* DB2, const uint8* DB203,
-		WarGrey::SCADA::double3* trunnion, WarGrey::SCADA::double3 ujoints[], WarGrey::SCADA::double3* draghead,
+		WarGrey::SCADA::double3* offset, WarGrey::SCADA::double3 ujoints[], WarGrey::SCADA::double3* draghead,
 		double* visor_angle, unsigned int drag_idx, unsigned int visor_idx, double visor_angle_min, double visor_angle_max);
 
 	void read_drag_figures(const uint8* DB2, const uint8* DB203,
-		WarGrey::SCADA::double3* trunnion, WarGrey::SCADA::double3 ujoints[], WarGrey::SCADA::double3* draghead,
+		WarGrey::SCADA::double3* offset, WarGrey::SCADA::double3 ujoints[], WarGrey::SCADA::double3* draghead,
 		double* suction_depth, double* visor_angle, unsigned int drag_idx, unsigned int visor_idx, double visor_angle_min, double visor_angle_max);
 
 	private class PLCConfirmation : public WarGrey::SCADA::MRConfirmation {

@@ -123,8 +123,8 @@
   <data name="PSIntermediate" xml:space="preserve">
     <value>PS Intermediate</value>
   </data>
-  <data name="PSTrunnion" xml:space="preserve">
-    <value>PS Trunnion</value>
+  <data name="PSOffset" xml:space="preserve">
+    <value>PS Offset</value>
   </data>
   <data name="ButterflyValves" xml:space="preserve">
     <value>Butterfly Valve</value>
@@ -132,8 +132,8 @@
   <data name="DoorsLocking" xml:space="preserve">
     <value>Hopper Doors Locking</value>
   </data>
-  <data name="SBTrunnion" xml:space="preserve">
-    <value>SB Trunnion</value>
+  <data name="SBOffset" xml:space="preserve">
+    <value>SB Offset</value>
   </data>
   <data name="SBIntermediate" xml:space="preserve">
     <value>SB Intermediate</value>
