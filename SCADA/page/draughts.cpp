@@ -47,7 +47,7 @@ private enum class DL : unsigned int {
 };
 
 private enum class SM : unsigned int {
-	kn, vacuum, flow, frate, dpforce, _
+	kn, vacuum, fvolume, fspeed, dpforce, _
 };
 
 /*************************************************************************************************/

@@ -186,4 +186,19 @@
   <data name="AverageDraft" xml:space="preserve">
     <value>平均吃水</value>
   </data>
+  <data name="dpforce" xml:space="preserve">
+    <value>耙管拉力</value>
+  </data>
+  <data name="fspeed" xml:space="preserve">
+    <value>流速</value>
+  </data>
+  <data name="fvolume" xml:space="preserve">
+    <value>流量</value>
+  </data>
+  <data name="kn" xml:space="preserve">
+    <value>航速</value>
+  </data>
+  <data name="vacuum" xml:space="preserve">
+    <value>真空</value>
+  </data>
 </root>

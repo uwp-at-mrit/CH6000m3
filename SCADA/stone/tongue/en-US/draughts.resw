@@ -189,4 +189,19 @@
   <data name="AverageDraft" xml:space="preserve">
     <value>Average Draught</value>
   </data>
+  <data name="dpforce" xml:space="preserve">
+    <value>Drag Pull Force</value>
+  </data>
+  <data name="fspeed" xml:space="preserve">
+    <value>Flow Speed</value>
+  </data>
+  <data name="fvolume" xml:space="preserve">
+    <value>Flow Volume</value>
+  </data>
+  <data name="kn" xml:space="preserve">
+    <value>kN</value>
+  </data>
+  <data name="vacuum" xml:space="preserve">
+    <value>Vacuum</value>
+  </data>
 </root>
