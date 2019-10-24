@@ -1,7 +1,7 @@
 #pragma once
 
 #include "universe.hxx"
-#include "ch6000m3/plc.hpp"
+#include "plc.hpp"
 
 namespace WarGrey::SCADA {
 	private ref class UniverseWidget : public WarGrey::SCADA::UniverseDisplay {

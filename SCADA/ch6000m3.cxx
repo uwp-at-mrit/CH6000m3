@@ -1,9 +1,9 @@
 ﻿#include "application.hxx"
 #include "widget.hxx"
 
-#include "ch6000m3/configuration.hpp"
-#include "ch6000m3/iotables/macro_keys.hpp"
-#include "ch6000m3/plc.hpp"
+#include "configuration.hpp"
+#include "iotables/macro_keys.hpp"
+#include "plc.hpp"
 
 #include "decorator/headsup.hpp"
 #include "navigator/thumbnail.hpp"
@@ -151,7 +151,7 @@ public:
 	void construct(Platform::String^ name, Size region) {
 		Platform::String^ localhost = system_ipv4_address();
 		Syslog* plc_logger = make_system_logger(default_plc_master_logging_level, name + ": PLC");
-		PLCMaster* device = new PLCMaster(plc_logger, scada_plc_master_port, plc_master_suicide_timeout);
+		PLCMaster* device = new PLCMaster(plc_logger, plc_hostname, scada_plc_master_port, plc_master_suicide_timeout);
 		IUniverseNavigator* navigator = new ThumbnailNavigator(default_logging_level, name, region.Width / region.Height, 160.0F);
 		HeadsUpPlanet* heads_up = new HeadsUpPlanet(device);
 

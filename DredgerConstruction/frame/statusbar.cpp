@@ -1,7 +1,7 @@
 ﻿#include <map>
 
 #include "frame/statusbar.hpp"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 
 #include "datum/credit.hpp"
 

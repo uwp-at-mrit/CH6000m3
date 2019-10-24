@@ -1,7 +1,7 @@
 ﻿#include <map>
 
 #include "page/diagnostics/dredges_dx.hpp"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 
 #include "datum/string.hpp"
 
@@ -9,14 +9,14 @@
 #include "graphlet/ui/buttonlet.hpp"
 #include "graphlet/dashboard/alarmlet.hpp"
 
-#include "ch6000m3/iotables/ai_metrics.hpp"
-#include "ch6000m3/iotables/ai_dredges.hpp"
+#include "iotables/ai_metrics.hpp"
+#include "iotables/ai_dredges.hpp"
 
-#include "ch6000m3/iotables/di_winches.hpp"
-#include "ch6000m3/iotables/di_dredges.hpp"
-#include "ch6000m3/iotables/di_devices.hpp"
-#include "ch6000m3/iotables/di_pumps.hpp"
-#include "ch6000m3/iotables/di_hopper_pumps.hpp"
+#include "iotables/di_winches.hpp"
+#include "iotables/di_dredges.hpp"
+#include "iotables/di_devices.hpp"
+#include "iotables/di_pumps.hpp"
+#include "iotables/di_hopper_pumps.hpp"
 
 #include "brushes.hxx"
 #include "module.hpp"

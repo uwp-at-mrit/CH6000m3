@@ -1,7 +1,7 @@
 ﻿#include <map>
 
 #include "page/subpage/underwater_pump_motor.hpp"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 
 #include "module.hpp"
 #include "brushes.hxx"
@@ -12,7 +12,7 @@
 
 #include "graphlet/shapelet.hpp"
 
-#include "ch6000m3/iotables/ai_hopper_pumps.hpp"
+#include "iotables/ai_hopper_pumps.hpp"
 
 using namespace WarGrey::SCADA;
 

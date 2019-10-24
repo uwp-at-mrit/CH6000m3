@@ -6,7 +6,7 @@
 #include "graphlet/filesystem/configuration/colorplotlet.hpp"
 #include "graphlet/filesystem/configuration/vessel/trailing_suction_dredgerlet.hpp"
 
-#include "ch6000m3/plc.hpp"
+#include "plc.hpp"
 #include "syslog.hpp"
 #include "gps.hpp"
 

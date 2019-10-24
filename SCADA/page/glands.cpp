@@ -3,7 +3,7 @@
 #include "page/glands.hpp"
 #include "page/diagnostics/gland_pump_dx.hpp"
 
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 #include "menu.hpp"
 
 #include "module.hpp"
@@ -19,10 +19,10 @@
 #include "graphlet/symbol/pump/hopper_pumplet.hpp"
 #include "graphlet/symbol/valve/manual_valvelet.hpp"
 
-#include "ch6000m3/iotables/ai_hopper_pumps.hpp"
-#include "ch6000m3/iotables/di_hopper_pumps.hpp"
-#include "ch6000m3/iotables/do_hopper_pumps.hpp"
-#include "ch6000m3/iotables/ao_gland_pumps.hpp"
+#include "iotables/ai_hopper_pumps.hpp"
+#include "iotables/di_hopper_pumps.hpp"
+#include "iotables/do_hopper_pumps.hpp"
+#include "iotables/ao_gland_pumps.hpp"
 
 using namespace WarGrey::SCADA;
 

@@ -4,7 +4,7 @@
 #include "page/diagnostics/hopper_pump_dx.hpp"
 #include "page/subpage/underwater_pump_motor.hpp"
 
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 #include "menu.hpp"
 
 #include "module.hpp"
@@ -22,17 +22,17 @@
 #include "graphlet/symbol/valve/gate_valvelet.hpp"
 #include "graphlet/symbol/valve/tagged_valvelet.hpp"
 
-#include "ch6000m3/iotables/ai_pumps.hpp"
-#include "ch6000m3/iotables/ai_valves.hpp"
-#include "ch6000m3/iotables/ai_hopper_pumps.hpp"
-#include "ch6000m3/iotables/ai_dredges.hpp"
+#include "iotables/ai_pumps.hpp"
+#include "iotables/ai_valves.hpp"
+#include "iotables/ai_hopper_pumps.hpp"
+#include "iotables/ai_dredges.hpp"
 
-#include "ch6000m3/iotables/di_pumps.hpp"
-#include "ch6000m3/iotables/di_hopper_pumps.hpp"
-#include "ch6000m3/iotables/di_valves.hpp"
+#include "iotables/di_pumps.hpp"
+#include "iotables/di_hopper_pumps.hpp"
+#include "iotables/di_valves.hpp"
 
-#include "ch6000m3/iotables/do_valves.hpp"
-#include "ch6000m3/iotables/do_hopper_pumps.hpp"
+#include "iotables/do_valves.hpp"
+#include "iotables/do_hopper_pumps.hpp"
 
 #include "decorator/vessel.hpp"
 

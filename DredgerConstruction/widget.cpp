@@ -3,7 +3,7 @@
 #include "widget.hxx"
 #include "planet.hpp"
 #include "about.hpp"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 
 #include "widget/settings.hpp"
 #include "widget/timestream.hpp"

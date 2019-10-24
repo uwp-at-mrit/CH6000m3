@@ -2,7 +2,7 @@
 
 #include "widget/alarms.hpp"
 #include "stone/tongue/alarm.hpp"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 
 #include "graphlet/ui/tablet.hpp"
 #include "schema/datalet/alarm_tbl.hpp"

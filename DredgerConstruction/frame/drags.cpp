@@ -3,17 +3,17 @@
 
 #include "frame/drags.hpp"
 
-#include "ch6000m3/configuration.hpp"
-#include "ch6000m3/plc.hpp"
+#include "configuration.hpp"
+#include "plc.hpp"
 
 #include "graphlet/shapelet.hpp"
 #include "graphlet/ui/textlet.hpp"
 #include "graphlet/device/draglet.hpp"
 
-#include "ch6000m3/iotables/ai_metrics.hpp"
-#include "ch6000m3/iotables/ai_dredges.hpp"
-#include "ch6000m3/iotables/di_dredges.hpp"
-#include "ch6000m3/iotables/di_winches.hpp"
+#include "iotables/ai_metrics.hpp"
+#include "iotables/ai_dredges.hpp"
+#include "iotables/di_dredges.hpp"
+#include "iotables/di_winches.hpp"
 
 #include "module.hpp"
 

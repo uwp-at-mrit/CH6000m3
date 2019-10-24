@@ -1,13 +1,13 @@
 ﻿#include <map>
 
 #include "widget/settings.hpp"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 
 #include "graphlet/ui/textlet.hpp"
 #include "graphlet/ui/buttonlet.hpp"
 #include "graphlet/shapelet.hpp"
 
-#include "ch6000m3/iotables/ao_settings.hpp"
+#include "iotables/ao_settings.hpp"
 
 #include "system.hpp"
 #include "module.hpp"

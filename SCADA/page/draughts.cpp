@@ -1,7 +1,7 @@
 ﻿#include <map>
 
 #include "page/draughts.hpp"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 #include "menu.hpp"
 
 #include "schema/datalet/earthwork_ts.hpp"
@@ -13,12 +13,12 @@
 #include "graphlet/ui/statuslet.hpp"
 #include "graphlet/ui/textlet.hpp"
 
-#include "ch6000m3/iotables/ai_metrics.hpp"
-#include "ch6000m3/iotables/di_doors.hpp"
+#include "iotables/ai_metrics.hpp"
+#include "iotables/di_doors.hpp"
 
-#include "ch6000m3/iotables/ao_devices.hpp"
-#include "ch6000m3/iotables/do_devices.hpp"
-#include "ch6000m3/iotables/do_doors.hpp"
+#include "iotables/ao_devices.hpp"
+#include "iotables/do_devices.hpp"
+#include "iotables/do_doors.hpp"
 
 #include "decorator/ship.hpp"
 

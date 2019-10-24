@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 
 #include "decorator/decorator.hpp"
 

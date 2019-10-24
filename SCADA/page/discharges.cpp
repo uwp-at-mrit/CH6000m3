@@ -1,7 +1,7 @@
 ﻿#include <map>
 
 #include "page/discharges.hpp"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 #include "menu.hpp"
 
 #include "module.hpp"
@@ -24,22 +24,22 @@
 #include "graphlet/cylinder/boltlet.hpp"
 #include "graphlet/cylinder/holdhooplet.hpp"
 
-#include "ch6000m3/iotables/di_winches.hpp"
-#include "ch6000m3/iotables/di_pumps.hpp"
-#include "ch6000m3/iotables/di_hopper_pumps.hpp"
-#include "ch6000m3/iotables/di_valves.hpp"
-#include "ch6000m3/iotables/di_doors.hpp"
+#include "iotables/di_winches.hpp"
+#include "iotables/di_pumps.hpp"
+#include "iotables/di_hopper_pumps.hpp"
+#include "iotables/di_valves.hpp"
+#include "iotables/di_doors.hpp"
 
-#include "ch6000m3/iotables/ai_winches.hpp"
-#include "ch6000m3/iotables/ai_valves.hpp"
-#include "ch6000m3/iotables/ai_pumps.hpp"
-#include "ch6000m3/iotables/ai_hopper_pumps.hpp"
-#include "ch6000m3/iotables/ai_doors.hpp"
+#include "iotables/ai_winches.hpp"
+#include "iotables/ai_valves.hpp"
+#include "iotables/ai_pumps.hpp"
+#include "iotables/ai_hopper_pumps.hpp"
+#include "iotables/ai_doors.hpp"
 
-#include "ch6000m3/iotables/do_doors.hpp"
-#include "ch6000m3/iotables/do_valves.hpp"
-#include "ch6000m3/iotables/do_winches.hpp"
-#include "ch6000m3/iotables/do_hopper_pumps.hpp"
+#include "iotables/do_doors.hpp"
+#include "iotables/do_valves.hpp"
+#include "iotables/do_winches.hpp"
+#include "iotables/do_hopper_pumps.hpp"
 
 #include "decorator/vessel.hpp"
 

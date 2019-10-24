@@ -1,5 +1,5 @@
 ﻿#include "widget/timestream.hpp"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 
 #include "datum/box.hpp"
 

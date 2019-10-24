@@ -2,7 +2,7 @@
 
 #include "page/diagnostics/gland_pump_dx.hpp"
 #include "decorator/decorator.hpp"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 
 #include "module.hpp"
 #include "brushes.hxx"
@@ -11,7 +11,7 @@
 #include "graphlet/ui/buttonlet.hpp"
 #include "graphlet/dashboard/alarmlet.hpp"
 
-#include "ch6000m3/iotables/di_hopper_pumps.hpp"
+#include "iotables/di_hopper_pumps.hpp"
 
 using namespace WarGrey::SCADA;
 

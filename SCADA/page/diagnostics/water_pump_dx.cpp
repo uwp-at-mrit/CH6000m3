@@ -1,7 +1,7 @@
 ﻿#include <map>
 
 #include "page/diagnostics/water_pump_dx.hpp"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 
 #include "module.hpp"
 #include "brushes.hxx"
@@ -12,8 +12,8 @@
 #include "graphlet/ui/buttonlet.hpp"
 #include "graphlet/dashboard/alarmlet.hpp"
 
-#include "ch6000m3/iotables/di_water_pumps.hpp"
-#include "ch6000m3/iotables/do_water_pumps.hpp"
+#include "iotables/di_water_pumps.hpp"
+#include "iotables/do_water_pumps.hpp"
 
 using namespace WarGrey::SCADA;
 

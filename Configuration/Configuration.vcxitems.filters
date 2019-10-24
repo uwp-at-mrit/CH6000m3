@@ -1,171 +1,162 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ch6000m3">
-      <UniqueIdentifier>{2cefe9db-84bd-4d76-8b4d-c512a26e8b9d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ch6000m3\iotables">
-      <UniqueIdentifier>{3ab34b66-62c3-478e-981f-8c1dae25b98b}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\plc.cpp">
-      <Filter>ch6000m3</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)plc.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\ai_doors.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_doors.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\ai_dredges.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_dredges.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\ao_settings.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ao_settings.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_devices.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_devices.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_doors.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_doors.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_dredges.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_dredges.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_hopper_pumps.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_hopper_pumps.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_pipelines.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_pumps.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_pumps.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_valves.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_valves.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_water_pumps.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_water_pumps.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_winches.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_winches.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_devices.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\do_devices.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_doors.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\do_doors.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_dredges.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\do_dredges.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_hopper_pumps.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\do_hopper_pumps.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_pumps.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\do_pumps.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_valves.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\do_valves.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_water_pumps.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\do_water_pumps.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_winches.cpp">
-      <Filter>ch6000m3\iotables</Filter>
-    </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_pipelines.cpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\do_winches.cpp">
+      <Filter>iotables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\configuration.hpp">
-      <Filter>ch6000m3</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)plc.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)configuration.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ai_doors.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\plc.hpp">
-      <Filter>ch6000m3</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ai_dredges.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_doors.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ai_hopper_pumps.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_dredges.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ai_metrics.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_hopper_pumps.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ai_pumps.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_metrics.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ai_valves.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_pumps.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ai_water_pumps.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_valves.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ai_winches.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_water_pumps.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ao_devices.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ai_winches.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ao_gland_pumps.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ao_devices.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ao_settings.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ao_gland_pumps.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_devices.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\ao_settings.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_doors.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_devices.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_dredges.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_doors.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_hopper_pumps.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_dredges.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_pipelines.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_hopper_pumps.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_pumps.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_pumps.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_valves.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_valves.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_water_pumps.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_water_pumps.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_winches.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_winches.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\do_devices.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_devices.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\do_doors.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_doors.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\do_dredges.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_dredges.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\do_hopper_pumps.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_hopper_pumps.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\do_pumps.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_pumps.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\do_valves.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_valves.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\do_water_pumps.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_water_pumps.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\do_winches.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\do_winches.hpp">
-      <Filter>ch6000m3\iotables</Filter>
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\macro_keys.hpp">
+      <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\macro_keys.hpp">
-      <Filter>ch6000m3\iotables</Filter>
-    </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)ch6000m3\iotables\di_pipelines.hpp">
-      <Filter>ch6000m3\iotables</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="iotables">
+      <UniqueIdentifier>{6a1cde7e-e9dc-45c0-be04-ffc85198824b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

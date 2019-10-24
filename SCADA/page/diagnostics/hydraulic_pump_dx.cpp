@@ -1,18 +1,18 @@
 ﻿#include <map>
 
 #include "page/diagnostics/hydraulic_pump_dx.hpp"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 
 #include "datum/string.hpp"
 
 #include "graphlet/shapelet.hpp"
 #include "graphlet/dashboard/alarmlet.hpp"
 
-#include "ch6000m3/iotables/di_pumps.hpp"
-#include "ch6000m3/iotables/di_valves.hpp"
-#include "ch6000m3/iotables/di_devices.hpp"
-#include "ch6000m3/iotables/di_dredges.hpp"
-#include "ch6000m3/iotables/di_hopper_pumps.hpp"
+#include "iotables/di_pumps.hpp"
+#include "iotables/di_valves.hpp"
+#include "iotables/di_devices.hpp"
+#include "iotables/di_dredges.hpp"
+#include "iotables/di_hopper_pumps.hpp"
 
 #include "module.hpp"
 #include "brushes.hxx"

@@ -4,7 +4,7 @@
 #include "widget.hxx"
 #include "planet.hpp"
 #include "about.hpp"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 
 #include "widget/alarms.hpp"
 #include "widget/gallery.hpp"

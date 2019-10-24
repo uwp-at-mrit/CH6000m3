@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ch6000m3/plc.hpp"
+#include "plc.hpp"
 #include "satellite.hpp"
 
 #include "decorator/decorator.hpp"

@@ -1,5 +1,5 @@
 ﻿#include "application.hxx"
-#include "ch6000m3/configuration.hpp"
+#include "configuration.hpp"
 
 #include "widget.hxx"
 #include "construction.hpp"
@@ -8,7 +8,7 @@
 #include "planet.hpp"
 #include "timer.hxx"
 
-#include "ch6000m3/plc.hpp"
+#include "plc.hpp"
 #include "gps.hpp"
 
 using namespace WarGrey::SCADA;
@@ -64,7 +64,7 @@ internal:
 		: UniverseDisplay(make_system_logger(default_logging_level, name), name, navigator, heads_up) {
 		Syslog* plc_logger = make_system_logger(default_plc_master_logging_level, "PLC");
 		
-		this->plc = new PLCMaster(plc_logger, test_plc, construction_plc_master_port, plc_master_suicide_timeout);
+		this->plc = new PLCMaster(plc_logger, plc_hostname, construction_plc_master_port, plc_master_suicide_timeout);
 
 		this->gps1 = make_gps("GPS1", gps1_port);
 		this->gps2 = make_gps("GPS2", gps2_port);

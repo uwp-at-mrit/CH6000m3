@@ -12,10 +12,10 @@
 #include "graphlet/shapelet.hpp"
 #include "graphlet/ui/textlet.hpp"
 
-#include "ch6000m3/configuration.hpp"
-#include "ch6000m3/plc.hpp"
+#include "configuration.hpp"
+#include "plc.hpp"
 
-#include "ch6000m3/iotables/di_hopper_pumps.hpp"
+#include "iotables/di_hopper_pumps.hpp"
 
 using namespace WarGrey::SCADA;
 
