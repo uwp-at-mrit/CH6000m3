@@ -18,9 +18,9 @@
 #include "datum/path.hpp"
 #include "datum/flonum.hpp"
 
-#include "module.hpp"
 #include "preference.hxx"
 #include "system.hpp"
+#include "module.hpp"
 
 using namespace WarGrey::SCADA;
 
@@ -69,7 +69,6 @@ namespace {
 					this->master->get_logger()->log_message(Log::Warning, e->Message);
 				}
 			});
-
 		}
 
 	public:

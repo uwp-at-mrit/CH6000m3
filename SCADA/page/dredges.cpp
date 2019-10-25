@@ -218,12 +218,14 @@ protected:
 
 	template<class W, typename E>
 	void load_winches(std::map<E, Credit<W, E>*>& ws, E id0, E idn, float radius) {
+		this->plain_style.precision = 1U;
+
 		for (E id = id0; id <= idn; id++) {
 			ws[id] = this->master->insert_one(new Credit<W, E>(radius), id);
 
 			this->load_label(this->position_labels, id, this->caption_color);
-			this->winch_lengths[id] = this->master->insert_one(new Credit<Dimensionlet, E>("meter"), id);
-			this->winch_speeds[id] = this->master->insert_one(new Credit<Dimensionlet, E>("mpm"), id);
+			this->winch_lengths[id] = this->master->insert_one(new Credit<Dimensionlet, E>(this->plain_style, "meter"), id);
+			this->winch_speeds[id] = this->master->insert_one(new Credit<Dimensionlet, E>(this->plain_style, "mpm"), id);
 			
 			this->load_label(this->winch_saddles, _speak(WinchState::SaddleLimited.ToString()), id, winch_status_color);
 			this->load_label(this->winch_uppers, _speak(WinchState::CableTopLimited.ToString()), id, winch_status_color);
