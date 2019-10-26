@@ -62,6 +62,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\do_winches.cpp">
       <Filter>iotables</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)drag_info.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)plc.hpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\macro_keys.hpp">
       <Filter>iotables</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)drag_info.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="iotables">

@@ -4,6 +4,7 @@
 #include "frame/drags.hpp"
 
 #include "configuration.hpp"
+#include "drag_info.hpp"
 #include "plc.hpp"
 
 #include "graphlet/shapelet.hpp"
@@ -56,29 +57,8 @@ public:
 		this->drag_no_lines_style.target_depth_color = Colours::Transparent;
 		this->drag_no_lines_style.tolerance_depth_color = Colours::Transparent;
 
-		this->drag_configs[0].offset_gapsize = ps_drag_offset_gapsize;
-		this->drag_configs[0].offset_length = ps_drag_offset_length;
-		this->drag_configs[0].pipe_lengths[0] = ps_drag_pipe1_length;
-		this->drag_configs[0].pipe_lengths[1] = ps_drag_pipe2_length;
-		this->drag_configs[0].pipe_radius = ps_drag_radius;
-		this->drag_configs[0].head_width = ps_drag_head_width;
-		this->drag_configs[0].head_height = ps_drag_head_length;
-		this->drag_configs[0].visor_degrees_min = drag_visor_degrees_min;
-		this->drag_configs[0].visor_degrees_max = drag_visor_degrees_max;
-		this->drag_configs[0].arm_degrees_min = drag_arm_degrees_min;
-		this->drag_configs[0].arm_degrees_max = drag_arm_degrees_max;
-
-		this->drag_configs[1].offset_gapsize = sb_drag_offset_gapsize;
-		this->drag_configs[1].offset_length = sb_drag_offset_length;
-		this->drag_configs[1].pipe_lengths[0] = sb_drag_pipe1_length;
-		this->drag_configs[1].pipe_lengths[1] = sb_drag_pipe2_length;
-		this->drag_configs[1].pipe_radius = sb_drag_radius;
-		this->drag_configs[1].head_width = sb_drag_head_width;
-		this->drag_configs[1].head_height = sb_drag_head_length;
-		this->drag_configs[1].visor_degrees_min = drag_visor_degrees_min;
-		this->drag_configs[1].visor_degrees_max = drag_visor_degrees_max;
-		this->drag_configs[1].arm_degrees_min = drag_arm_degrees_min;
-		this->drag_configs[1].arm_degrees_max = drag_arm_degrees_max;
+		fill_ps_drag_info(this->drag_configs + 0);
+		fill_sb_drag_info(this->drag_configs + 1);
 
 		this->drag_configs[2] = this->drag_configs[1];
 		this->drag_configs[2].pipe_lengths[1] += sb_drag_pipe2_enlength;

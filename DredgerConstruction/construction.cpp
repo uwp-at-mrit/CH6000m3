@@ -1,4 +1,6 @@
 ﻿#include "construction.hpp"
+#include "configuration.hpp"
+#include "drag_info.hpp"
 #include "module.hpp"
 
 #include "frame/metrics.hpp"
@@ -46,7 +48,7 @@ void DredgerConstruction::load(CanvasCreateResourcesReason reason, float width, 
 	float plot_height = height * 0.8F;
 	float plot_width = plot_height / float(ColorPlotSize);
 	float map_width = width - side_zone_width - plot_width;
-
+	
 	MetricsFrame* metrics = new MetricsFrame(side_zone_width, 0U, this->plc, this->gps1, this->gps2, this->gyro);
 	TimesFrame* times = new TimesFrame(side_zone_width, this->plc);
 	StatusFrame* status = new StatusFrame(this->plc, this->gps1, this->gps2, this->gyro);
@@ -65,6 +67,17 @@ void DredgerConstruction::load(CanvasCreateResourcesReason reason, float width, 
 
 	this->drags->set_stretch_anchor(GraphletAnchor::RB);
 	this->gps->camouflage(false);
+
+	{ // Set initial drags
+		DragInfo ps, sb;
+
+		// NOTE: long drags are just the extention of short ones, they therefore are not considered as the initial drags
+		
+		fill_ps_drag_info(&ps);
+		fill_sb_drag_info(&sb);
+		this->vessel->set_ps_drag_info(ps, default_ps_color, 2U);
+		this->vessel->set_sb_drag_info(sb, default_sb_color, 2U);
+	}
 }
 
 void DredgerConstruction::reflow(float width, float height) {
@@ -189,16 +202,16 @@ void DredgerConstruction::pre_read_data(Syslog* logger) {
 }
 
 void DredgerConstruction::on_analog_input(long long timepoint_ms, const uint8* DB2, size_t count2, const uint8* DB203, size_t count203, Syslog* logger) {
-	double3 offset, draghead, ujoints[2];
+	double3 offset, draghead, ujoints[DRAG_SEGMENT_MAX_COUNT];
 	DredgeAddress* ps_addr = make_ps_dredging_system_schema();
 	DredgeAddress* sb_addr = make_sb_dredging_system_schema();
 	size_t count = sizeof(ujoints) / sizeof(double3);
 
 	read_drag_figures(DB2, &offset, ujoints, &draghead, ps_addr->drag_position);
-	this->vessel->set_ps_drag_figures(offset, ujoints, count, draghead);
+	this->vessel->set_ps_drag_figures(offset, ujoints, draghead);
 
 	read_drag_figures(DB2, &offset, ujoints, &draghead, sb_addr->drag_position);
-	this->vessel->set_sb_drag_figures(offset, ujoints, count, draghead);
+	this->vessel->set_sb_drag_figures(offset, ujoints, draghead);
 }
 
 void DredgerConstruction::post_read_data(Syslog* logger) {

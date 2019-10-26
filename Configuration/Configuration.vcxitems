@@ -14,6 +14,7 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="$(MSBuildThisFileDirectory)drag_info.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\ai_doors.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\ai_dredges.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\ao_settings.cpp" />
@@ -38,6 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)configuration.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)drag_info.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ai_doors.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ai_dredges.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ai_hopper_pumps.hpp" />
