@@ -1,5 +1,4 @@
 ﻿#include "construction.hpp"
-#include "configuration.hpp"
 #include "drag_info.hpp"
 #include "module.hpp"
 
@@ -75,8 +74,8 @@ void DredgerConstruction::load(CanvasCreateResourcesReason reason, float width, 
 		
 		fill_ps_drag_info(&ps);
 		fill_sb_drag_info(&sb);
-		this->vessel->set_ps_drag_info(ps, default_ps_color, 2U);
-		this->vessel->set_sb_drag_info(sb, default_sb_color, 2U);
+		this->vessel->set_ps_drag_info(ps, 2U);
+		this->vessel->set_sb_drag_info(sb, 2U);
 	}
 }
 
@@ -117,7 +116,7 @@ void DredgerConstruction::on_graphlet_ready(IGraphlet* g) {
 
 void DredgerConstruction::on_location_changed(double latitude, double longitude, double altitude, double x, double y) {
 	if (this->vmap != nullptr) {
-		this->vmap->on_location_changed(latitude, longitude, altitude, x, y);
+		this->vmap->on_location_changed(x, y);
 	}
 }
 
