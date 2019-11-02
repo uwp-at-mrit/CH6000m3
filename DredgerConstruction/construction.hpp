@@ -2,6 +2,7 @@
 
 #include "graphlet/planetlet.hpp"
 #include "graphlet/filesystem/projectlet.hpp"
+#include "graphlet/filesystem/project/sectionlet.hpp"
 #include "graphlet/filesystem/configuration/gpslet.hpp"
 #include "graphlet/filesystem/configuration/colorplotlet.hpp"
 #include "graphlet/filesystem/configuration/vessel/trailing_suction_dredgerlet.hpp"
@@ -45,16 +46,17 @@ namespace WarGrey::SCADA {
 		void on_location_changed(double latitude, double longitude, double altitude, double x, double y);
 
 	private: // never deletes these graphlets manually
+		WarGrey::SCADA::TrailingSuctionDredgerlet* vessel;
 		WarGrey::SCADA::Planetlet* metrics;
 		WarGrey::SCADA::Planetlet* times;
 		WarGrey::SCADA::Projectlet* vmap;
+		WarGrey::SCADA::TransverseSectionlet* section;
 		WarGrey::SCADA::GPSlet* gps;
 		WarGrey::SCADA::ColorPlotlet* plot;
 		WarGrey::SCADA::Planetlet* drags;
 		WarGrey::SCADA::Planetlet* status;
 
 	private:
-		WarGrey::SCADA::TrailingSuctionDredgerlet* vessel;
 		WarGrey::SCADA::GPSCS^ gcs;
 		WarGrey::SCADA::MRMaster* plc;
 		WarGrey::SCADA::GPS* gps1;

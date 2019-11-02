@@ -7,6 +7,7 @@
 #include "device/gps_cs.hpp"
 
 #include "preference/colorplot.hpp"
+#include "preference/transverse_section.hpp"
 
 #include "datum/box.hpp"
 
@@ -117,9 +118,10 @@ namespace {
 
 	protected:
 		void construct(CanvasCreateResourcesReason reason) override {
-			this->push_planet(new TrailingSuctionDredgerPlanet());
-			this->push_planet(new GPSCSPlanet(BEJ54Convertor::instance()));
-			this->push_planet(new ColorPlotPlanet());
+			this->push_planet(new TrailingSuctionDredgerEditor());
+			this->push_planet(new GPSCSEditor(BEJ54Convertor::instance()));
+			this->push_planet(new ColorPlotEditor());
+			this->push_planet(new TransverseSectionEditor());
 		}
 
 	private: // never delete these objects manually

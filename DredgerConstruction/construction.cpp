@@ -44,9 +44,12 @@ DredgerConstruction::DredgerConstruction(MRMaster* plc, GPS* gps1, GPS* gps2, GP
 
 void DredgerConstruction::load(CanvasCreateResourcesReason reason, float width, float height) {
 	float side_zone_width = width * 0.1618F;
+	float status_height = 28.0F;
 	float plot_height = height * 0.8F;
 	float plot_width = plot_height / float(ColorPlotSize);
 	float map_width = width - side_zone_width - plot_width;
+	float section_width = map_width + plot_width;
+	float section_height = height - plot_height - status_height;
 	
 	MetricsFrame* metrics = new MetricsFrame(side_zone_width, 0U, this->plc, this->gps1, this->gps2, this->gyro);
 	TimesFrame* times = new TimesFrame(side_zone_width, this->plc);
@@ -58,9 +61,10 @@ void DredgerConstruction::load(CanvasCreateResourcesReason reason, float width, 
 	this->vessel = new TrailingSuctionDredgerlet("vessel", 1.0F);
 	this->metrics = this->insert_one(new Planetlet(metrics, GraphletAnchor::RT));
 	this->times = this->insert_one(new Planetlet(times, GraphletAnchor::RT));
-	this->status = this->insert_one(new Planetlet(status, width, 28.0F));
+	this->status = this->insert_one(new Planetlet(status, width, status_height));
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
 	this->vmap = this->insert_one(new Projectlet(this->vessel, plot, L"长江口工程", map_width, plot_height));
+	this->section = this->insert_one(new TransverseSectionlet("section", section_width, section_height));
 	this->gps = this->insert_one(gps);
 	this->plot = this->insert_one(plot);
 
@@ -87,6 +91,7 @@ void DredgerConstruction::reflow(float width, float height) {
 	this->move_to(this->plot, 0.0F, 0.0F, GraphletAnchor::LT);
 	this->move_to(this->vmap, this->plot, GraphletAnchor::RT, GraphletAnchor::LT);
 	this->move_to(this->gps, this->vmap, GraphletAnchor::LT, GraphletAnchor::LT);
+	this->move_to(this->section, this->status, GraphletAnchor::LT, GraphletAnchor::LB);
 
 	{ // adjust drags
 		float drags_y, times_bottom;
