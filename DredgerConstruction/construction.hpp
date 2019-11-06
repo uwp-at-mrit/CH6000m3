@@ -49,7 +49,7 @@ namespace WarGrey::SCADA {
 		WarGrey::SCADA::TrailingSuctionDredgerlet* vessel;
 		WarGrey::SCADA::Planetlet* metrics;
 		WarGrey::SCADA::Planetlet* times;
-		WarGrey::SCADA::Projectlet* vmap;
+		WarGrey::SCADA::Projectlet* project;
 		WarGrey::SCADA::TransverseSectionlet* section;
 		WarGrey::SCADA::GPSlet* gps;
 		WarGrey::SCADA::ColorPlotlet* plot;

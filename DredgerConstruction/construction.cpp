@@ -63,7 +63,7 @@ void DredgerConstruction::load(CanvasCreateResourcesReason reason, float width, 
 	this->times = this->insert_one(new Planetlet(times, GraphletAnchor::RT));
 	this->status = this->insert_one(new Planetlet(status, width, status_height));
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
-	this->vmap = this->insert_one(new Projectlet(this->vessel, plot, L"长江口工程", map_width, plot_height));
+	this->project = this->insert_one(new Projectlet(this->vessel, plot, L"长江口工程", map_width, plot_height));
 	this->section = this->insert_one(new TransverseSectionlet("section", section_width, section_height));
 	this->gps = this->insert_one(gps);
 	this->plot = this->insert_one(plot);
@@ -89,8 +89,8 @@ void DredgerConstruction::reflow(float width, float height) {
 	this->move_to(this->status, 0.0F, height, GraphletAnchor::LB);
 	this->move_to(this->drags, this->status, GraphletAnchor::RT, GraphletAnchor::RB);
 	this->move_to(this->plot, 0.0F, 0.0F, GraphletAnchor::LT);
-	this->move_to(this->vmap, this->plot, GraphletAnchor::RT, GraphletAnchor::LT);
-	this->move_to(this->gps, this->vmap, GraphletAnchor::LT, GraphletAnchor::LT);
+	this->move_to(this->project, this->plot, GraphletAnchor::RT, GraphletAnchor::LT);
+	this->move_to(this->gps, this->project, GraphletAnchor::LT, GraphletAnchor::LT);
 	this->move_to(this->section, this->status, GraphletAnchor::LT, GraphletAnchor::LB);
 
 	{ // adjust drags
@@ -106,7 +106,7 @@ void DredgerConstruction::reflow(float width, float height) {
 }
 
 IGraphlet* DredgerConstruction::thumbnail_graphlet() {
-	return this->vmap;
+	return this->project;
 }
 
 bool DredgerConstruction::can_select(IGraphlet* g) {
@@ -120,8 +120,14 @@ void DredgerConstruction::on_graphlet_ready(IGraphlet* g) {
 }
 
 void DredgerConstruction::on_location_changed(double latitude, double longitude, double altitude, double x, double y) {
-	if (this->vmap != nullptr) {
-		this->vmap->on_location_changed(x, y);
+	if (this->project != nullptr) {
+		this->begin_update_sequence();
+
+		if (this->project->move_vessel(x, y)) {
+			this->project->section(x, y);
+		}
+
+		this->end_update_sequence();
 	}
 }
 
