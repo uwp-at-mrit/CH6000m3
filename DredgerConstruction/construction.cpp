@@ -124,7 +124,7 @@ void DredgerConstruction::on_location_changed(double latitude, double longitude,
 		this->begin_update_sequence();
 
 		if (this->project->move_vessel(x, y)) {
-			this->project->section(x, y);
+			this->section->update_section(this->project->section(x, y));
 		}
 
 		this->end_update_sequence();
