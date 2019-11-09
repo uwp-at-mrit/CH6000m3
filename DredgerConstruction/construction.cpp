@@ -64,7 +64,7 @@ void DredgerConstruction::load(CanvasCreateResourcesReason reason, float width, 
 	this->status = this->insert_one(new Planetlet(status, width, status_height));
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
 	this->project = this->insert_one(new Projectlet(this->vessel, plot, L"长江口工程", map_width, plot_height));
-	this->section = this->insert_one(new TransverseSectionlet("section", section_width, section_height));
+	this->section = this->insert_one(new TransverseSectionlet(this->vessel, "section", section_width, section_height));
 	this->gps = this->insert_one(gps);
 	this->plot = this->insert_one(plot);
 
@@ -124,7 +124,7 @@ void DredgerConstruction::on_location_changed(double latitude, double longitude,
 		this->begin_update_sequence();
 
 		if (this->project->move_vessel(x, y)) {
-			this->section->update_section(this->project->section(x, y));
+			this->section->update_section(this->project->section(x, y), x, y);
 		}
 
 		this->end_update_sequence();
