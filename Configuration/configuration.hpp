@@ -23,8 +23,8 @@ static const unsigned short scada_plc_master_port = 2008;
 static const unsigned short construction_plc_master_port = 2008;
 
 // UWP can connect to, but cannot be connected by, local non-UWP application.
-static Platform::String^ moxa_gateway = "127.0.0.1";
-static Platform::String^ plc_hostname = "127.0.0.1";
+static Platform::String^ moxa_gateway = "172.16.42.45";
+static Platform::String^ plc_hostname = "172.16.42.45";
 
 /*************************************************************************************************/
 static const unsigned int frame_per_second = 5U;
