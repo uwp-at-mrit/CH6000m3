@@ -669,7 +669,7 @@ public:
 			this->master->move_to(this->alarms[HS::F10], this->thermometers[HS::Visor], 1.0F, 0.25F, GraphletAnchor::LC, gwidth);
 
 			this->master->move_to(this->alarms[HS::A2C], this->pumps[HS::C], 0.5F, this->master_tank, 0.0F, GraphletAnchor::LT);
-			this->master->move_to(this->alarms[HS::C2A], this->valves[HS::SQc], 0.0F, this->master_tank, 0.0F, GraphletAnchor::RT, -gwidth * 2.0F);
+			this->master->move_to(this->alarms[HS::C2A], this->valves[HS::SQc], 0.5F, this->master_tank, 0.0F, GraphletAnchor::RT, -gwidth * 2.0F);
 
 			for (HS id = HS::A2C; id < HS::J2I; id++) {
 				if (id != HS::I2J) {
