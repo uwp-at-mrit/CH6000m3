@@ -24,7 +24,7 @@ using namespace Microsoft::Graphics::Canvas::Brushes;
 
 /*************************************************************************************************/
 DredgerConstruction::DredgerConstruction(MRMaster* plc, GPS* gps1, GPS* gps2, GPS* gyro)
-	: Planet(__MODULE__), plc(plc), gps1(gps1), gps2(gps2), gyro(gyro) {
+: Planet(__MODULE__), plc(plc), gps1(gps1), gps2(gps2), gyro(gyro) {
 	if (this->plc != nullptr) {
 		this->plc->push_confirmation_receiver(this);
 	}
@@ -50,7 +50,7 @@ void DredgerConstruction::load(CanvasCreateResourcesReason reason, float width, 
 	float map_width = width - side_zone_width - plot_width;
 	float section_width = map_width + plot_width;
 	float section_height = height - plot_height - status_height;
-	
+
 	MetricsFrame* metrics = new MetricsFrame(side_zone_width, 0U, this->plc, this->gps1, this->gps2, this->gyro);
 	TimesFrame* times = new TimesFrame(side_zone_width, this->plc);
 	StatusFrame* status = new StatusFrame(this->plc, this->gps1, this->gps2, this->gyro);
@@ -75,7 +75,7 @@ void DredgerConstruction::load(CanvasCreateResourcesReason reason, float width, 
 		DragInfo ps, sb;
 
 		// NOTE: long drags are just the extention of short ones, they therefore are not considered as the initial drags
-		
+
 		fill_ps_drag_info(&ps);
 		fill_sb_drag_info(&sb);
 		this->vessel->set_ps_drag_info(ps, 2U);
@@ -98,7 +98,7 @@ void DredgerConstruction::reflow(float width, float height) {
 
 		this->fill_graphlet_location(this->drags, nullptr, &drags_y, GraphletAnchor::CT);
 		this->fill_graphlet_location(this->times, nullptr, &times_bottom, GraphletAnchor::CB);
-	
+
 		if (drags_y < times_bottom) {
 			this->move_to(this->drags, this->times, GraphletAnchor::CB, GraphletAnchor::CT);
 		}
@@ -110,7 +110,37 @@ IGraphlet* DredgerConstruction::thumbnail_graphlet() {
 }
 
 bool DredgerConstruction::can_select(IGraphlet* g) {
-	return false;
+	return (g == this->gps);
+}
+
+void DredgerConstruction::on_tap_selected(IGraphlet* g, float local_x, float local_y) {
+	if ((this->project != nullptr) && this->project->ready()) {
+		this->project->center_vessel();
+	}
+}
+
+bool DredgerConstruction::can_affine_transform(float2& lt, float2& rb) {
+	bool enabled = false;
+
+	if ((this->project != nullptr) && (this->project->ready())) {
+		float ltx, lty, rbx, rby;
+
+		this->fill_graphlet_location(this->project, &ltx, &lty, GraphletAnchor::LT);
+
+		if ((lt.x >= ltx) && (lt.y >= lty)) {
+			this->fill_graphlet_location(this->project, &rbx, &rby, GraphletAnchor::RB);
+			enabled = ((rb.x <= rbx) && (rb.y <= rby));
+		}
+	}
+
+	return enabled;
+}
+
+void DredgerConstruction::on_gesture(GraphletGesture gesture, float delta, float2& lt, float2& rb) {
+	switch (gesture) {
+	case GraphletGesture::TranslateX: this->project->translate(delta, 0.0F); break;
+	case GraphletGesture::TranslateY: this->project->translate(0.0F, delta); break;
+	}
 }
 
 void DredgerConstruction::on_graphlet_ready(IGraphlet* g) {

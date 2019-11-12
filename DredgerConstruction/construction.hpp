@@ -20,10 +20,13 @@ namespace WarGrey::SCADA {
 		void load(Microsoft::Graphics::Canvas::UI::CanvasCreateResourcesReason reason, float width, float height) override;
 		void reflow(float width, float height) override;
 		void on_graphlet_ready(WarGrey::SCADA::IGraphlet* g) override;
+		void on_tap_selected(WarGrey::SCADA::IGraphlet* g, float local_x, float local_y) override;
+		void on_gesture(WarGrey::SCADA::GraphletGesture gesture, float delta, Windows::Foundation::Numerics::float2& lt, Windows::Foundation::Numerics::float2& rb) override;
 		IGraphlet* thumbnail_graphlet() override;
 
 	public:
 		bool can_select(WarGrey::SCADA::IGraphlet* g) override;
+		bool can_affine_transform(Windows::Foundation::Numerics::float2& lt, Windows::Foundation::Numerics::float2& rb) override;
 
 	public:
 		bool available(int id) override;
