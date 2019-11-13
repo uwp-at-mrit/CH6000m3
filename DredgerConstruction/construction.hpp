@@ -21,7 +21,8 @@ namespace WarGrey::SCADA {
 		void reflow(float width, float height) override;
 		void on_graphlet_ready(WarGrey::SCADA::IGraphlet* g) override;
 		void on_tap_selected(WarGrey::SCADA::IGraphlet* g, float local_x, float local_y) override;
-		void on_gesture(WarGrey::SCADA::GraphletGesture gesture, float delta, Windows::Foundation::Numerics::float2& lt, Windows::Foundation::Numerics::float2& rb) override;
+		void on_translation_gesture(float deltaX, float deltaY, Windows::Foundation::Numerics::float2& lt, Windows::Foundation::Numerics::float2& rb) override;
+		void on_zoom_gesture(float zx, float zy, float length, Windows::Foundation::Numerics::float2& lt, Windows::Foundation::Numerics::float2& rb) override;
 		IGraphlet* thumbnail_graphlet() override;
 
 	public:

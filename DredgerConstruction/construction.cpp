@@ -110,12 +110,14 @@ IGraphlet* DredgerConstruction::thumbnail_graphlet() {
 }
 
 bool DredgerConstruction::can_select(IGraphlet* g) {
-	return (g == this->gps);
+	return ((g == this->project) || (g == this->gps));
 }
 
 void DredgerConstruction::on_tap_selected(IGraphlet* g, float local_x, float local_y) {
-	if ((this->project != nullptr) && this->project->ready()) {
-		this->project->center_vessel();
+	if (this->gps == g) {
+		if (this->project != nullptr) {
+			this->project->center_vessel();
+		}
 	}
 }
 
@@ -136,11 +138,12 @@ bool DredgerConstruction::can_affine_transform(float2& lt, float2& rb) {
 	return enabled;
 }
 
-void DredgerConstruction::on_gesture(GraphletGesture gesture, float delta, float2& lt, float2& rb) {
-	switch (gesture) {
-	case GraphletGesture::TranslateX: this->project->translate(delta, 0.0F); break;
-	case GraphletGesture::TranslateY: this->project->translate(0.0F, delta); break;
-	}
+void DredgerConstruction::on_translation_gesture(float deltaX, float deltaY, float2& lt, float2& rb) {
+	this->project->translate(deltaX, deltaY);
+}
+
+void DredgerConstruction::on_zoom_gesture(float zx, float zy, float length, float2& lt, float2& rb) {
+	this->project->zoom(zx, zy, length);
 }
 
 void DredgerConstruction::on_graphlet_ready(IGraphlet* g) {
