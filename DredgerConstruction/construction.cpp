@@ -110,7 +110,7 @@ IGraphlet* DredgerConstruction::thumbnail_graphlet() {
 }
 
 bool DredgerConstruction::can_select(IGraphlet* g) {
-	return ((g == this->project) || (g == this->gps));
+	return (g == this->gps);
 }
 
 void DredgerConstruction::on_tap_selected(IGraphlet* g, float local_x, float local_y) {
@@ -143,7 +143,10 @@ void DredgerConstruction::on_translation_gesture(float deltaX, float deltaY, flo
 }
 
 void DredgerConstruction::on_zoom_gesture(float zx, float zy, float length, float2& lt, float2& rb) {
-	this->project->zoom(zx, zy, length);
+	float px, py;
+
+	this->fill_graphlet_location(this->project, &px, &py);
+	this->project->zoom(zx - px, zy - py, length);
 }
 
 void DredgerConstruction::on_graphlet_ready(IGraphlet* g) {
