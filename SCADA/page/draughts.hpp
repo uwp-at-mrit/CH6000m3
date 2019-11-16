@@ -24,7 +24,9 @@ namespace WarGrey::SCADA {
 		bool on_key(Windows::System::VirtualKey key, bool wargrey_keyboard) override;
 		void on_focus(IGraphlet* g, bool yes_no) override;
 		void on_tap_selected(IGraphlet* g, float local_x, float local_y) override;
-		void on_gesture(std::list<Windows::Foundation::Numerics::float2>& points, float x, float y) override;
+		void on_translation_gesture(float deltaX, float deltaY, Windows::Foundation::Numerics::float2& lt, Windows::Foundation::Numerics::float2& rb) override;
+		void on_zoom_gesture(float zx, float zy, float deltaScale, Windows::Foundation::Numerics::float2& lt, Windows::Foundation::Numerics::float2& rb) override;
+		bool in_affine_gesture_zone(Windows::Foundation::Numerics::float2& lt, Windows::Foundation::Numerics::float2& rb) override;
 
 	private:
 		WarGrey::SCADA::PLCMaster* device;

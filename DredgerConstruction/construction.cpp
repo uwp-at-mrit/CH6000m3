@@ -121,32 +121,21 @@ void DredgerConstruction::on_tap_selected(IGraphlet* g, float local_x, float loc
 	}
 }
 
-bool DredgerConstruction::can_affine_transform(float2& lt, float2& rb) {
-	bool enabled = false;
-
-	if ((this->project != nullptr) && (this->project->ready())) {
-		float ltx, lty, rbx, rby;
-
-		this->fill_graphlet_location(this->project, &ltx, &lty, GraphletAnchor::LT);
-
-		if ((lt.x >= ltx) && (lt.y >= lty)) {
-			this->fill_graphlet_location(this->project, &rbx, &rby, GraphletAnchor::RB);
-			enabled = ((rb.x <= rbx) && (rb.y <= rby));
-		}
-	}
-
-	return enabled;
+bool DredgerConstruction::in_affine_gesture_zone(float2& lt, float2& rb) {
+	return ((this->project != nullptr)
+		&& (this->project->ready())
+		&& this->project->contain_region(lt, rb));
 }
 
 void DredgerConstruction::on_translation_gesture(float deltaX, float deltaY, float2& lt, float2& rb) {
 	this->project->translate(deltaX, deltaY);
 }
 
-void DredgerConstruction::on_zoom_gesture(float zx, float zy, float length, float2& lt, float2& rb) {
+void DredgerConstruction::on_zoom_gesture(float zx, float zy, float deltaScale, float2& lt, float2& rb) {
 	float px, py;
 
 	this->fill_graphlet_location(this->project, &px, &py);
-	this->project->zoom(zx - px, zy - py, length);
+	this->project->zoom(zx - px, zy - py, deltaScale);
 }
 
 void DredgerConstruction::on_graphlet_ready(IGraphlet* g) {

@@ -28,8 +28,9 @@
 
 using namespace WarGrey::SCADA;
 
-using namespace Windows::Foundation;
 using namespace Windows::System;
+using namespace Windows::Foundation;
+using namespace Windows::Foundation::Numerics;
 
 using namespace Microsoft::Graphics::Canvas;
 using namespace Microsoft::Graphics::Canvas::UI;
@@ -256,6 +257,26 @@ public:
 			this->master->move_to(this->hdchecks[BottomDoorCommand::CloseDoorCheck],
 				this->hdchecks[BottomDoorCommand::OpenDoorCheck], GraphletAnchor::RC,
 				GraphletAnchor::LC, vinset * 2.0F);
+		}
+	}
+
+public:
+	bool in_affine_gesture_region(float2& lt, float2& rb) {
+		return ((this->timeseries != nullptr) && this->timeseries->contain_region(lt, rb));
+	}
+
+	void gesture_translate(float deltaX, float deltaY) {
+		if (this->timeseries != nullptr) {
+			this->timeseries->translate(deltaX);
+		}
+	}
+
+	void gesture_zoom(float zx, float zy, float deltaScale) {
+		if (this->timeseries != nullptr) {
+			float tx, ty;
+
+			this->master->fill_graphlet_location(this->timeseries, &tx, &ty);
+			this->timeseries->zoom(zx - tx, zy - ty, deltaScale);
 		}
 	}
 
@@ -507,6 +528,30 @@ void DraughtsPage::on_tap_selected(IGraphlet* g, float local_x, float local_y) {
 	}
 }
 
-void DraughtsPage::on_gesture(std::list<Windows::Foundation::Numerics::float2>& points, float x, float y) {
-	//this->get_logger()->log_message(Log::Info, L"(%f, %f)", x, y);
+bool DraughtsPage::in_affine_gesture_zone(float2& lt, float2& rb) {
+	auto db = dynamic_cast<Draughts*>(this->dashboard);
+	bool in = false;
+
+	if (db != nullptr) {
+		in = db->in_affine_gesture_region(lt, rb);
+	}
+
+	return in;
 }
+
+void DraughtsPage::on_translation_gesture(float deltaX, float deltaY, float2& lt, float2& rb) {
+	auto db = dynamic_cast<Draughts*>(this->dashboard);
+	
+	if (db != nullptr) {
+		db->gesture_translate(deltaX, deltaY);
+	}
+}
+
+void DraughtsPage::on_zoom_gesture(float zx, float zy, float deltaScale, float2& lt, float2& rb) {
+	auto db = dynamic_cast<Draughts*>(this->dashboard);
+	
+	if (db != nullptr) {
+		db->gesture_zoom(zx, zy, deltaScale);
+	}
+}
+
