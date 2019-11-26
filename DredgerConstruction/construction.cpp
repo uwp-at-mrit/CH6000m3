@@ -8,6 +8,7 @@
 #include "frame/statusbar.hpp"
 
 #include "graphlet/planetlet.hpp"
+#include "graphlet/filesystem/s63let.hpp"
 #include "graphlet/filesystem/configuration/gpslet.hpp"
 #include "graphlet/filesystem/configuration/vessel/trailing_suction_dredgerlet.hpp"
 
@@ -56,6 +57,7 @@ void DredgerConstruction::load(CanvasCreateResourcesReason reason, float width, 
 	StatusFrame* status = new StatusFrame(this->plc, this->gps1, this->gps2, this->gyro);
 	DragsFrame* drags = new DragsFrame(this->plc);
 	ColorPlotlet* plot = new ColorPlotlet("colorplot", plot_width, plot_height);
+	S63let* enchart = new S63let("20170817", map_width, plot_height);
 	GPSlet* gps = new GPSlet("gps", 64.0F);
 
 	this->vessel = new TrailingSuctionDredgerlet("vessel", 1.0F);
@@ -63,7 +65,7 @@ void DredgerConstruction::load(CanvasCreateResourcesReason reason, float width, 
 	this->times = this->insert_one(new Planetlet(times, GraphletAnchor::RT));
 	this->status = this->insert_one(new Planetlet(status, width, status_height));
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
-	this->project = this->insert_one(new Projectlet(this->vessel, plot, L"长江口工程", map_width, plot_height));
+	this->project = this->insert_one(new Projectlet(this->vessel, plot, enchart, L"长江口工程", map_width, plot_height));
 	this->section = this->insert_one(new TransverseSectionlet(this->vessel, "section", section_width, section_height));
 	this->gps = this->insert_one(gps);
 	this->plot = this->insert_one(plot);
