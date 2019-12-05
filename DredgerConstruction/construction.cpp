@@ -13,7 +13,6 @@
 #include "graphlet/filesystem/configuration/vessel/trailing_suction_dredgerlet.hpp"
 
 #include "iotables/ai_dredges.hpp"
-#include "datum/natural.hpp"
 
 #include "cs/wgs_xy.hpp"
 
@@ -83,23 +82,6 @@ void DredgerConstruction::load(CanvasCreateResourcesReason reason, float width, 
 		fill_sb_drag_info(&sb);
 		this->vessel->set_ps_drag_info(ps, 2U);
 		this->vessel->set_sb_drag_info(sb, 2U);
-	}
-
-	{ //
-		char ch[] = { 0xFE, 0xCD, 0xBA, 0x98, 0x76, 0x54, 0x32, 0x10, 0x01, 0x23, 0x45, 0x67, 0x89, 0xAB, 0xCD, 0xEF };
-		wchar_t wch[] = { 0x7654, 0x3210, 0x0123, 0x4567, 0x89AB, 0xCDEF };
-
-		Natural ns[] = {
-			Natural(), Natural(0xDU), Natural(0x4021U),
-			Natural(0xEFCDBA01U), Natural(0x23456789U),
-			Natural(0x7FCDBA0123456789U), Natural(0xFECDBA0123456789U),
-			Natural(ch), Natural(wch)
-		};
-
-		for (size_t idx = 0; idx < sizeof(ns) / sizeof(Natural); idx++) {
-			this->get_logger()->log_message(Log::Info, L"[%02u][%03u]0x%SU",
-				ns[idx].length(), ns[idx].integer_length(), ns[idx].to_hexstring().c_str());
-		}
 	}
 }
 

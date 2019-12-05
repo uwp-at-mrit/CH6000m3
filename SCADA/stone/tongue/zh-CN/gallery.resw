@@ -300,4 +300,7 @@
   <data name="TopLimited" xml:space="preserve">
     <value>钢丝绳 + 编码器上限</value>
   </data>
+  <data name="VirtualBroken" xml:space="preserve">
+    <value>假故障</value>
+  </data>
 </root>

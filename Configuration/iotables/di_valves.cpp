@@ -8,13 +8,22 @@ void WarGrey::SCADA::DI_manual_valve(ManualValvelet* target, const uint8* db4, s
 }
 
 void WarGrey::SCADA::DI_gate_valve(GateValvelet* target, const uint8* db4, size_t idx4_p1, const uint8* db205, size_t idx205_p1) {
-	if (DBX(db205, idx205_p1 + 5U)) {
+	bool vopen = DBX(db205, idx205_p1 + 5U);
+	bool vclosed = DBX(db205, idx205_p1 + 6U);
+	bool open = DBX(db205, idx4_p1 - 1U);
+	bool closed = DBX(db205, idx4_p1 + 0U);
+
+	if (vopen && vclosed) {
+		target->set_state(GateValveState::VirtualBroken);
+	} else if (vopen) {
 		target->set_state(GateValveState::VirtualOpen);
-	} else if (DBX(db205, idx205_p1 + 6U)) {
+	} else if (vclosed) {
 		target->set_state(GateValveState::VirtualClose);
-	} else if (DBX(db4, idx4_p1 - 1U)) {
+	} else if (open && closed) {
+		target->set_state(GateValveState::Broken);
+	} else if (open) {
 		target->set_state(GateValveState::Open);
-	} else if (DBX(db4, idx4_p1 + 0U)) {
+	} else if (closed) {
 		target->set_state(GateValveState::Closed);
 	} else if (DBX(db205, idx205_p1 - 1U)) {
 		target->set_state(GateValveState::Opening);
@@ -34,13 +43,22 @@ void WarGrey::SCADA::DI_gate_valve(GateValvelet* target, const uint8* db4, size_
 }
 
 void WarGrey::SCADA::DI_motor_valve(MotorValvelet* target, const uint8* db4, size_t idx4_p1, const uint8* db205, size_t idx205_p1) {
-	if (DBX(db205, idx205_p1 + 5U)) {
+	bool vopen = DBX(db205, idx205_p1 + 5U);
+	bool vclosed = DBX(db205, idx205_p1 + 6U);
+	bool open = DBX(db205, idx4_p1 - 1U);
+	bool closed = DBX(db205, idx4_p1 + 0U);
+	
+	if (vopen && vclosed) {
+		target->set_state(TValveState::VirtualBroken);
+	} else if (vopen) {
 		target->set_state(TValveState::VirtualOpen);
-	} else if (DBX(db205, idx205_p1 + 6U)) {
+	} else if (vclosed) {
 		target->set_state(TValveState::VirtualClose);
-	} else if (DBX(db4, idx4_p1 - 1U)) {
+	} else if (open && closed) {
+		target->set_state(TValveState::Broken);
+	} else if (open) {
 		target->set_state(TValveState::Open);
-	} else if (DBX(db4, idx4_p1 + 0U)) {
+	} else if (closed) {
 		target->set_state(TValveState::Closed);
 	} else if (DBX(db205, idx205_p1 - 1U)) {
 		target->set_state(TValveState::Opening);

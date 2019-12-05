@@ -300,4 +300,7 @@
   <data name="TopLimited" xml:space="preserve">
     <value>Cable + Soft Top Limited</value>
   </data>
+  <data name="VirtualBroken" xml:space="preserve">
+    <value>Virtual Broken</value>
+  </data>
 </root>
