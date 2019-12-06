@@ -10,8 +10,8 @@ void WarGrey::SCADA::DI_manual_valve(ManualValvelet* target, const uint8* db4, s
 void WarGrey::SCADA::DI_gate_valve(GateValvelet* target, const uint8* db4, size_t idx4_p1, const uint8* db205, size_t idx205_p1) {
 	bool vopen = DBX(db205, idx205_p1 + 5U);
 	bool vclosed = DBX(db205, idx205_p1 + 6U);
-	bool open = DBX(db205, idx4_p1 - 1U);
-	bool closed = DBX(db205, idx4_p1 + 0U);
+	bool open = DBX(db4, idx4_p1 - 1U);
+	bool closed = DBX(db4, idx4_p1 + 0U);
 
 	if (vopen && vclosed) {
 		target->set_state(GateValveState::VirtualBroken);
@@ -45,8 +45,8 @@ void WarGrey::SCADA::DI_gate_valve(GateValvelet* target, const uint8* db4, size_
 void WarGrey::SCADA::DI_motor_valve(MotorValvelet* target, const uint8* db4, size_t idx4_p1, const uint8* db205, size_t idx205_p1) {
 	bool vopen = DBX(db205, idx205_p1 + 5U);
 	bool vclosed = DBX(db205, idx205_p1 + 6U);
-	bool open = DBX(db205, idx4_p1 - 1U);
-	bool closed = DBX(db205, idx4_p1 + 0U);
+	bool open = DBX(db4, idx4_p1 - 1U);
+	bool closed = DBX(db4, idx4_p1 + 0U);
 	
 	if (vopen && vclosed) {
 		target->set_state(TValveState::VirtualBroken);
