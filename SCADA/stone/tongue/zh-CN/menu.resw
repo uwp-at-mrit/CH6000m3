@@ -340,7 +340,7 @@
     <value>右冲右耙</value>
   </data>
   <data name="I2_2" xml:space="preserve">
-    <value>左右单冲</value>
+    <value>分冲双耙</value>
   </data>
   <data name="CloseButterFlyValves" xml:space="preserve">
     <value>关闭所有蝶阀</value>
