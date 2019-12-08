@@ -244,8 +244,8 @@ protected:
 	}
 
 	template<class D, typename E>
-	void load_overview_drag(std::map<E, Credit<D, E>*>& ds, E id, float length, unsigned int idx) {
-		ds[id] = this->master->insert_one(new Credit<D, E>(this->drag_configs[idx], this->drag_styles[idx], length), id);
+	void load_overview_drag(std::map<E, Credit<D, E>*>& ds, E id, float length, float interval, unsigned int idx) {
+		ds[id] = this->master->insert_one(new Credit<D, E>(this->drag_configs[idx], this->drag_styles[idx], length, interval), id);
 
 		if (id == DS::SBL) {
 			this->master->cellophane(ds[id], 0.0F);
@@ -708,9 +708,9 @@ public:
 			this->load_draghead(this->dragheads, DS::PSVisor, DS::PSDP, -draghead_radius, this->drag_configs[0], default_ps_color);
 			this->load_draghead(this->dragheads, DS::SBVisor, DS::SBDP, +draghead_radius, this->drag_configs[1], default_sb_color);
 		
-			this->load_overview_drag(this->dragxys, DS::PS, -over_drag_height, 0);
-			this->load_overview_drag(this->dragxys, DS::SB, +over_drag_height, 1);
-			this->load_overview_drag(this->dragxys, DS::SBL, +over_drag_height, 2);
+			this->load_overview_drag(this->dragxys, DS::PS, over_drag_height, -default_drag_y_interval, 0);
+			this->load_overview_drag(this->dragxys, DS::SB, over_drag_height, +default_drag_y_interval, 1);
+			this->load_overview_drag(this->dragxys, DS::SBL, over_drag_height, +default_drag_y_interval, 2);
 
 			this->load_sideview_drag(this->dragxzes, DS::PS, -side_drag_width, drag_depth_degrees_max, 0);
 			this->load_sideview_drag(this->dragxzes, DS::SB, +side_drag_width, drag_depth_degrees_max, 1);
@@ -1215,11 +1215,11 @@ public:
 		float gvabtn_size = 36.0F;
 		
 		this->load_sideview_drag(this->dragxzes, this->DS_side, side_drag_width * this->sign, drag_depth_degrees_max, this->drag_idx);
-		this->load_overview_drag(this->dragxys, this->DS_side, over_drag_height * this->sign, this->drag_idx);
+		this->load_overview_drag(this->dragxys, this->DS_side, over_drag_height, default_drag_y_interval * this->sign, this->drag_idx);
 
 		if (this->DS_side == DS::SB) {
 			this->load_sideview_drag(this->dragxzes, DS::SBL, side_drag_width * this->sign, drag_depth_degrees_max, this->drag_idx + 1);
-			this->load_overview_drag(this->dragxys, DS::SBL, over_drag_height * this->sign, this->drag_idx + 1);
+			this->load_overview_drag(this->dragxys, DS::SBL, over_drag_height, default_drag_y_interval * this->sign, this->drag_idx + 1);
 		}
 
 		this->load_label(this->labels, this->DS_side, this->caption_color, this->caption_font);

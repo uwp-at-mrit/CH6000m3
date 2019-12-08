@@ -24,7 +24,7 @@ static const unsigned short construction_plc_master_port = 2008;
 
 // UWP can connect to, but cannot be connected by, local non-UWPpation.
 static Platform::String^ moxa_gateway = "192.168.18.111";
-static Platform::String^ plc_hostname = "192.168.18.111";
+static Platform::String^ plc_hostname = "172.16.8.1";
 
 /*************************************************************************************************/
 static const unsigned int frame_per_second = 5U;
