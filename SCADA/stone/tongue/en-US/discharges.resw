@@ -142,40 +142,40 @@
     <value>Empty</value>
   </data>
   <data name="D003" xml:space="preserve">
-    <value>Starboard Suction</value>
+    <value>SB Suction</value>
   </data>
   <data name="D004" xml:space="preserve">
-    <value>Port Suction</value>
+    <value>PS Suction</value>
   </data>
   <data name="D005" xml:space="preserve">
-    <value>Port Isolation</value>
+    <value>PS Isolation</value>
   </data>
   <data name="D006" xml:space="preserve">
-    <value>Port Underwater Discharge</value>
+    <value>PS Underwater Discharge</value>
   </data>
   <data name="D007" xml:space="preserve">
-    <value>Starboard Underwater Charge</value>
+    <value>SB Underwater Charge</value>
   </data>
   <data name="D008" xml:space="preserve">
-    <value>Starboard Main Charge</value>
+    <value>SB Main Charge</value>
   </data>
   <data name="D009" xml:space="preserve">
-    <value>Port Underwater Charge</value>
+    <value>PS Underwater Charge</value>
   </data>
   <data name="D010" xml:space="preserve">
-    <value>Port Main Charge</value>
+    <value>PS Main Charge</value>
   </data>
   <data name="D017" xml:space="preserve">
-    <value>Port Deck Pump Charge</value>
+    <value>PS Deck Pump Charge</value>
   </data>
   <data name="D018" xml:space="preserve">
-    <value>Starboard Deck Pump Charge</value>
+    <value>SB Deck Pump Charge</value>
   </data>
   <data name="D019" xml:space="preserve">
-    <value>Starboard Shore Discharge</value>
+    <value>SB Shore Discharge</value>
   </data>
   <data name="D020" xml:space="preserve">
-    <value>Port Shore Discharge</value>
+    <value>PS Shore Discharge</value>
   </data>
   <data name="D021" xml:space="preserve">
     <value>Bow Fill</value>
@@ -190,10 +190,10 @@
     <value>Load</value>
   </data>
   <data name="D025" xml:space="preserve">
-    <value>Starboard Isolation</value>
+    <value>SB Isolation</value>
   </data>
   <data name="D026" xml:space="preserve">
-    <value>Starboard Underwater Discharge</value>
+    <value>SB Underwater Discharge</value>
   </data>
   <data name="Hatch" xml:space="preserve">
     <value>Sea Water Inlet</value>
@@ -202,10 +202,10 @@
     <value>Lower Limited</value>
   </data>
   <data name="PSHPump" xml:space="preserve">
-    <value>Port Inhatch Pump</value>
+    <value>PS Inhatch Pump</value>
   </data>
   <data name="SBHPump" xml:space="preserve">
-    <value>Starboard Inhatch Pump</value>
+    <value>SB Inhatch Pump</value>
   </data>
   <data name="ShoreWinch" xml:space="preserve">
     <value>Shore Discharge Winch</value>

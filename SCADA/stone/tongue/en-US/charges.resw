@@ -124,58 +124,58 @@
     <value>Empty</value>
   </data>
   <data name="D003" xml:space="preserve">
-    <value>Starboard Suction</value>
+    <value>SB Suction</value>
   </data>
   <data name="D004" xml:space="preserve">
-    <value>Port Suction</value>
+    <value>PS Suction</value>
   </data>
   <data name="D005" xml:space="preserve">
-    <value>Port Isolation</value>
+    <value>PS Isolation</value>
   </data>
   <data name="D006" xml:space="preserve">
-    <value>Port Underwater Discharge</value>
+    <value>PS Underwater Discharge</value>
   </data>
   <data name="D007" xml:space="preserve">
-    <value>Starboard Underwater Charge</value>
+    <value>SB Underwater Charge</value>
   </data>
   <data name="D008" xml:space="preserve">
-    <value>Starboard Main Charge</value>
+    <value>SB Main Charge</value>
   </data>
   <data name="D009" xml:space="preserve">
-    <value>Port Underwater Charge</value>
+    <value>PS Underwater Charge</value>
   </data>
   <data name="D010" xml:space="preserve">
-    <value>Port Main Charge</value>
+    <value>PS Main Charge</value>
   </data>
   <data name="D011" xml:space="preserve">
-    <value>Starboard Low Discharge</value>
+    <value>SB Low Discharge</value>
   </data>
   <data name="D012" xml:space="preserve">
-    <value>Port Low Discharge</value>
+    <value>PS Low Discharge</value>
   </data>
   <data name="D013" xml:space="preserve">
-    <value>Starboard Fore Charge</value>
+    <value>SB Fore Charge</value>
   </data>
   <data name="D014" xml:space="preserve">
-    <value>Port Fore Charge</value>
+    <value>PS Fore Charge</value>
   </data>
   <data name="D015" xml:space="preserve">
-    <value>Starboard Back Charge</value>
+    <value>SB Back Charge</value>
   </data>
   <data name="D016" xml:space="preserve">
-    <value>Port Back Charge</value>
+    <value>PS Back Charge</value>
   </data>
   <data name="D017" xml:space="preserve">
-    <value>Port Deck Pump Charge</value>
+    <value>PS Deck Pump Charge</value>
   </data>
   <data name="D018" xml:space="preserve">
-    <value>Starboard Deck Pump Charge</value>
+    <value>SB Deck Pump Charge</value>
   </data>
   <data name="D019" xml:space="preserve">
-    <value>Starboard Shore Discharge</value>
+    <value>SB Shore Discharge</value>
   </data>
   <data name="D020" xml:space="preserve">
-    <value>Port Shore Discharge</value>
+    <value>PS Shore Discharge</value>
   </data>
   <data name="D021" xml:space="preserve">
     <value>Bow Fill</value>
@@ -190,10 +190,10 @@
     <value>Load</value>
   </data>
   <data name="D025" xml:space="preserve">
-    <value>Starboard Isolation</value>
+    <value>SB Isolation</value>
   </data>
   <data name="D026" xml:space="preserve">
-    <value>Starboard Underwater Discharge</value>
+    <value>SB Underwater Discharge</value>
   </data>
   <data name="Barge" xml:space="preserve">
     <value>Barge</value>
@@ -201,22 +201,22 @@
   <data name="LMOD" xml:space="preserve">
     <value>LMOD</value>
   </data>
-  <data name="Port" xml:space="preserve">
+  <data name="PS" xml:space="preserve">
     <value>PS</value>
   </data>
   <data name="PSHPump" xml:space="preserve">
-    <value>Port Inhatch Pump</value>
+    <value>PS Inhatch Pump</value>
   </data>
   <data name="PSUWPump" xml:space="preserve">
-    <value>Port Underwater Pump</value>
+    <value>PS Underwater Pump</value>
   </data>
   <data name="SBHPump" xml:space="preserve">
-    <value>Starboard Inhatch Pump</value>
+    <value>SB Inhatch Pump</value>
   </data>
   <data name="SBUWPump" xml:space="preserve">
-    <value>Starboard Underwater Pump</value>
+    <value>SB Underwater Pump</value>
   </data>
-  <data name="Starboard" xml:space="preserve">
+  <data name="SB" xml:space="preserve">
     <value>SB</value>
   </data>
 </root>

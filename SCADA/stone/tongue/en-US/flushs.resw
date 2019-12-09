@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="HBV01" xml:space="preserve">
-    <value>Starboard Injection</value>
+    <value>SB Injection</value>
   </data>
   <data name="HBV02" xml:space="preserve">
-    <value>Port Injection</value>
+    <value>PS Injection</value>
   </data>
   <data name="HBV03" xml:space="preserve">
     <value>Through</value>
   </data>
   <data name="HBV04" xml:space="preserve">
-    <value>Starboard Discharge</value>
+    <value>SB Discharge</value>
   </data>
   <data name="HBV05" xml:space="preserve">
-    <value>Port Discharge</value>
+    <value>PS Discharge</value>
   </data>
   <data name="HBV06" xml:space="preserve">
-    <value>Starboard Draghead Flushing</value>
+    <value>SB Draghead Flushing</value>
   </data>
   <data name="HBV07" xml:space="preserve">
-    <value>Port Draghead Flushing</value>
+    <value>PS Draghead Flushing</value>
   </data>
   <data name="HBV08" xml:space="preserve">
-    <value>Port Draghead Isolation</value>
+    <value>PS Draghead Isolation</value>
   </data>
   <data name="HBV09" xml:space="preserve">
-    <value>Starboard Draghead Isolation</value>
+    <value>SB Draghead Isolation</value>
   </data>
   <data name="HBV10" xml:space="preserve">
     <value>General Flushing</value>
@@ -172,40 +172,40 @@
     <value>Empty</value>
   </data>
   <data name="PSPPower" xml:space="preserve">
-    <value>Port Water Pump Power</value>
+    <value>PS Water Pump Power</value>
   </data>
   <data name="PSPRpm" xml:space="preserve">
-    <value>Port Water Pump Speed</value>
+    <value>PS Water Pump Speed</value>
   </data>
   <data name="PSPump" xml:space="preserve">
-    <value>Port High Pressure Water Pump</value>
+    <value>PS Pressure Water Pump</value>
   </data>
   <data name="PSSea" xml:space="preserve">
     <value>Sea Inlet</value>
   </data>
   <data name="SBPPower" xml:space="preserve">
-    <value>Starboard Water Pump Power</value>
+    <value>SB Water Pump Power</value>
   </data>
   <data name="SBPRpm" xml:space="preserve">
-    <value>Starboard Water Pump Speed</value>
+    <value>SB Water Pump Speed</value>
   </data>
   <data name="SBPump" xml:space="preserve">
-    <value>Starboard High Pressure Water Pump</value>
+    <value>SB Pressure Water Pump</value>
   </data>
   <data name="SBSea" xml:space="preserve">
     <value>Sea Inlet</value>
   </data>
   <data name="SBV1" xml:space="preserve">
-    <value>Startboard Inject Manual</value>
+    <value>SB Inject Manual</value>
   </data>
   <data name="SBV2" xml:space="preserve">
-    <value>Port Inject Manual</value>
+    <value>PS Inject Manual</value>
   </data>
   <data name="SBV3" xml:space="preserve">
-    <value>Starboard Suction Manual</value>
+    <value>SB Suction Manual</value>
   </data>
   <data name="SBV4" xml:space="preserve">
-    <value>Port Suction Manual</value>
+    <value>PS Suction Manual</value>
   </data>
   <data name="SBV5" xml:space="preserve">
     <value>General Flushing Manual</value>
