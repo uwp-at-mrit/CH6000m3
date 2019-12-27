@@ -135,7 +135,8 @@ MenuFlyout^ WarGrey::SCADA::make_drag_visor_menu(PLCMaster* plc) {
 }
 
 MenuFlyout^ WarGrey::SCADA::make_gantry_group_menu(DredgesGroup group, PLCMaster* plc) {
-	return make_group_menu<GantryAction, DredgesGroup, PLCMaster*>(new GantryGroupExecutor(), group, plc);
+	return make_group_menu<GantryAction, DredgesGroup, PLCMaster*>(new GantryGroupExecutor(), group,
+		static_cast<GantryAction>(0), GantryAction::Diagnostics, plc);
 }
 
 /*************************************************************************************************/

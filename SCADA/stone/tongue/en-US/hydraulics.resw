@@ -154,10 +154,10 @@
     <value>Starboard Hydraulic System</value>
   </data>
   <data name="I" xml:space="preserve">
-    <value>Right Draghead Visor</value>
+    <value>SB Draghead Visor</value>
   </data>
   <data name="J" xml:space="preserve">
-    <value>Left Draghead Visor</value>
+    <value>PS Draghead Visor</value>
   </data>
   <data name="M" xml:space="preserve">
     <value>Backup</value>

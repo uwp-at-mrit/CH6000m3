@@ -18,7 +18,7 @@ namespace WarGrey::SCADA {
         Integer timestamp;
     };
 
-	private class IEarthWorkCursor abstract {
+    private class IEarthWorkCursor abstract {
     public:
         virtual bool step(WarGrey::SCADA::EarthWork& occurrence, bool asc, int code) = 0;
     };

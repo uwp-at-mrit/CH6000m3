@@ -157,7 +157,7 @@ std::optional<EarthWork> WarGrey::SCADA::seek_earthwork(IDBSystem* dbc, EarthWor
 }
 
 void WarGrey::SCADA::update_earthwork(IDBSystem* dbc, EarthWork& self, bool refresh) {
-    update_earthwork(dbc, &self, 1);
+    update_earthwork(dbc, &self, 1, refresh);
 }
 
 void WarGrey::SCADA::update_earthwork(IDBSystem* dbc, EarthWork* selves, size_t count, bool refresh) {

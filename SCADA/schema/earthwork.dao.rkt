@@ -1,6 +1,6 @@
 #lang racket
 
-(require "../../Scripts/ORM/schema.rkt")
+(require "../../../Toolbox/ORM/schema.rkt")
 
 (define-table earthwork #:as EarthWork #:with [uuid] #:order-by timestamp
   ([uuid          : Integer       #:default pk64_timestamp]

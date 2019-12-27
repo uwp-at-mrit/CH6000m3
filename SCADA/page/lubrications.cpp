@@ -291,8 +291,8 @@ void LubricatingsPage::on_timestream(long long timepoint_ms, size_t addr0, size_
 }
 
 bool LubricatingsPage::can_select(IGraphlet* g) {
-	return (((this->device != nullptr) && (this->device->authorized())
-		&& (dynamic_cast<HydraulicPumplet*>(g) != nullptr)));
+	return ((this->device != nullptr)
+		&& (dynamic_cast<HydraulicPumplet*>(g) != nullptr));
 }
 
 void LubricatingsPage::on_tap_selected(IGraphlet* g, float local_x, float local_y) {

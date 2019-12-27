@@ -135,6 +135,7 @@ public:
 		}
 	}
 	
+	void on_foreground_activated(Platform::String^ argv) {}
 	void on_entered_background(EnteredBackgroundEventArgs^ args) {}
 	void on_background_activated(IBackgroundTaskInstance^ task) {}
 	void on_leaving_background(LeavingBackgroundEventArgs^ args) {}

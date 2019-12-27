@@ -201,7 +201,7 @@
   <data name="LMOD" xml:space="preserve">
     <value>LMOD</value>
   </data>
-  <data name="PS" xml:space="preserve">
+  <data name="Port" xml:space="preserve">
     <value>PS</value>
   </data>
   <data name="PSHPump" xml:space="preserve">
@@ -216,7 +216,7 @@
   <data name="SBUWPump" xml:space="preserve">
     <value>SB Underwater Pump</value>
   </data>
-  <data name="SB" xml:space="preserve">
+  <data name="Starboard" xml:space="preserve">
     <value>SB</value>
   </data>
 </root>
