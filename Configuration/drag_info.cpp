@@ -20,6 +20,10 @@ void WarGrey::SCADA::fill_ps_drag_info(DragInfo* info) {
 	info->visor_degrees_max = drag_visor_degrees_max;
 	info->arm_degrees_min = drag_arm_degrees_min;
 	info->arm_degrees_max = drag_arm_degrees_max;
+	info->visor_side_a = drag_visor_side_a;
+	info->visor_side_b = drag_visor_side_b;
+	info->visor_side_c = drag_visor_side_c;
+	info->visor_active_length = drag_visor_active_length;
 }
 
 void WarGrey::SCADA::fill_sb_drag_info(DragInfo* info) {
@@ -38,4 +42,8 @@ void WarGrey::SCADA::fill_sb_drag_info(DragInfo* info) {
 	info->visor_degrees_max = drag_visor_degrees_max;
 	info->arm_degrees_min = drag_arm_degrees_min;
 	info->arm_degrees_max = drag_arm_degrees_max;
+	info->visor_side_a = drag_visor_side_a;
+	info->visor_side_b = drag_visor_side_b;
+	info->visor_side_c = drag_visor_side_c;
+	info->visor_active_length = drag_visor_active_length;
 }

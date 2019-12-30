@@ -229,7 +229,7 @@ void WarGrey::SCADA::read_drag_figures(const uint8* DB2, const uint8* DB203
 		double realtime_side = fixed_length + visor_active_length * RealData(DB203, visor_idx) * 0.01F;
 		double alpha = triangle_angle(realtime_side, visor_side_b, visor_side_c);
 
-		(*visor_angle) = Alpha0 - alpha;
+		(*visor_angle) = radians_to_degrees(Alpha0 - alpha);
 	}
 }
 

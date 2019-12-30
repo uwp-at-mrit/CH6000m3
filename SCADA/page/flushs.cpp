@@ -184,6 +184,7 @@ public:
 		DI_hopper_door(this->uhdoors[Door::SB6], DB205, upper_door_SB6_status);
 		DI_hopper_door(this->uhdoors[Door::SB7], DB205, upper_door_SB7_status);
 
+		/*
 		if (this->ps_menu != nullptr) {
 			DI_water_condition_menu(this->ps_menu, _I(PSWaterPumpAction::PS_PS), DB205, ps_ps_details);
 			DI_water_condition_menu(this->ps_menu, _I(PSWaterPumpAction::PS_SB), DB205, ps_sb_details);
@@ -211,6 +212,7 @@ public:
 			DI_water_condition_menu(this->sb_menu, _I(SBWaterPumpAction::P2_H),  DB205, p2_h_details);
 			DI_water_condition_menu(this->sb_menu, _I(SBWaterPumpAction::I2_2),  DB205, i2_2_details);
 		}
+		*/
 
 		DI_shift_button(this->shifts[FlushingCommand::LeftShift], DB205, left_shifting_details);
 		DI_shift_button(this->shifts[FlushingCommand::RightShift], DB205, right_shifting_details);
