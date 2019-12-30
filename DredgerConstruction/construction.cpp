@@ -57,7 +57,7 @@ void DredgerConstruction::load(CanvasCreateResourcesReason reason, float width, 
 	StatusFrame* status = new StatusFrame(this->plc, this->gps1, this->gps2, this->gyro);
 	DragsFrame* drags = new DragsFrame(this->plc);
 	ColorPlotlet* plot = new ColorPlotlet("colorplot", plot_width, plot_height);
-	S63let* enchart = new S63let("20170817", map_width, plot_height);
+	S63let* enchart = nullptr;// new S63let("20170817", map_width, plot_height);
 	GPSlet* gps = new GPSlet("gps", 64.0F);
 
 	this->vessel = new TrailingSuctionDredgerlet("vessel", 1.0F);

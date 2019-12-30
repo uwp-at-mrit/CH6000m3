@@ -24,6 +24,16 @@ namespace WarGrey::SCADA {
 		WarGrey::SCADA::double3* offset, WarGrey::SCADA::double3 ujoints[], WarGrey::SCADA::double3* draghead,
 		double* suction_depth, double* visor_angle, unsigned int drag_idx, unsigned int visor_idx, double visor_angle_min, double visor_angle_max);
 
+	void read_drag_figures(const uint8* DB2, const uint8* DB203,
+		WarGrey::SCADA::double3* offset, WarGrey::SCADA::double3 ujoints[], WarGrey::SCADA::double3* draghead,
+		double* visor_angle, unsigned int drag_idx, unsigned int visor_idx,
+		double visor_side_a, double visor_side_b, double visor_side_c, double visor_active_length);
+
+	void read_drag_figures(const uint8* DB2, const uint8* DB203,
+		WarGrey::SCADA::double3* offset, WarGrey::SCADA::double3 ujoints[], WarGrey::SCADA::double3* draghead,
+		double* suction_depth, double* visor_angle, unsigned int drag_idx, unsigned int visor_idx,
+		double visor_side_a, double visor_side_b, double visor_side_c, double visor_active_length);
+
 	private class PLCConfirmation : public WarGrey::SCADA::MRConfirmation {
 	public:
 		void on_all_signals(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, WarGrey::SCADA::Syslog* logger) override;

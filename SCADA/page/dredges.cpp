@@ -361,7 +361,7 @@ protected:
 		float tide = DBD(db2, tide_mark);
 		
 		read_drag_figures(db2, db203, &offset, ujoints, &draghead, &suction_depth, &visor_angle,
-			address->drag_position, address->visor_progress, info.visor_degrees_min, info.arm_degrees_max);
+			address->drag_position, address->visor_progress, info.visor_degrees_min, info.visor_degrees_max);
 		
 		if (this->dragxys.find(id) != this->dragxys.end()) {
 			this->dragxys[id]->set_figure(offset, ujoints, draghead, visor_angle);

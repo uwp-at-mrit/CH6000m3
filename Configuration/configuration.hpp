@@ -13,7 +13,8 @@ static WarGrey::SCADA::Log default_gps_logging_level = WarGrey::SCADA::Log::Info
 
 static Platform::String^ remote_test_server = "255.255.255.255";
 static Platform::String^ system_subnet_prefix = "192.168";
-// static Platform::String^ moxa_gateway = "192.168.0.253";
+static Platform::String^ moxa_gateway = "192.168.0.253";
+static Platform::String^ plc_hostname = nullptr;
 
 static const unsigned short gps1_port = 4006;
 static const unsigned short gps2_port = 4002;
@@ -23,8 +24,8 @@ static const unsigned short scada_plc_master_port = 2008;
 static const unsigned short construction_plc_master_port = 2008;
 
 // UWP can connect to, but cannot be connected by, local non-UWPpation.
-static Platform::String^ moxa_gateway = "172.16.8.1";
-static Platform::String^ plc_hostname = "172.16.8.1";
+//static Platform::String^ moxa_gateway = "172.16.8.1";
+//static Platform::String^ plc_hostname = "172.16.8.1";
 
 /*************************************************************************************************/
 static const unsigned int frame_per_second = 5U;
@@ -86,6 +87,11 @@ static const double drag_visor_degrees_max = 50.0;
 static const double drag_arm_degrees_min = 0.0;
 static const double drag_arm_degrees_max = 60.0;
 static const double drag_depth_degrees_max = 42.0;
+
+static const double drag_visor_side_b = 1483.0;
+static const double drag_visor_side_c = 1933.0;
+static const double drag_visor_side_a = 2382.0;
+static const double drag_visor_active_length = 1400.0;
 
 static const unsigned int default_ps_color = 0xFF0000;
 static const unsigned int default_sb_color = 0x008000;

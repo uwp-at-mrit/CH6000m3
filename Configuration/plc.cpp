@@ -3,6 +3,8 @@
 #include "datum/box.hpp"
 #include "datum/enum.hpp"
 
+#include "math.hpp"
+
 using namespace WarGrey::SCADA;
 
 using namespace Windows::Foundation::Numerics;
@@ -212,4 +214,27 @@ void WarGrey::SCADA::read_drag_figures(const uint8* DB2, const uint8* DB203
 void WarGrey::SCADA::read_drag_figures(const uint8* DB2, const uint8* DB203, double3* offset, double3 ujoints[], double3* draghead,
 	double* visor_angle, unsigned int drag_idx, unsigned int visor_idx, double visor_angle_min, double visor_angle_max) {
 	read_drag_figures(DB2, DB203, offset, ujoints, draghead, nullptr, visor_angle, drag_idx, visor_idx, visor_angle_min, visor_angle_max);
+}
+
+void WarGrey::SCADA::read_drag_figures(const uint8* DB2, const uint8* DB203
+	, double3* offset, double3 ujoints[], double3* draghead, double* suction_depth, double* visor_angle
+	, unsigned int drag_idx, unsigned int visor_idx, double visor_side_a, double visor_side_b, double visor_side_c, double visor_active_length) {
+	read_drag_figures(DB2, offset, ujoints, draghead, drag_idx);
+
+	SET_BOX(suction_depth, DBD(DB2, drag_idx)); // stored in offset->x;
+
+	if (visor_angle != nullptr) { // WARNING: DB2 gives the wrong visor angle, using DB203 and manually computing it instead.
+		double Alpha0 = triangle_angle(visor_side_a, visor_side_b, visor_side_c);
+		double fixed_length = visor_side_a - visor_active_length;
+		double realtime_side = fixed_length + visor_active_length * RealData(DB203, visor_idx) * 0.01F;
+		double alpha = triangle_angle(realtime_side, visor_side_b, visor_side_c);
+
+		(*visor_angle) = Alpha0 - alpha;
+	}
+}
+
+void WarGrey::SCADA::read_drag_figures(const uint8* DB2, const uint8* DB203, double3* offset, double3 ujoints[], double3* draghead,
+	double* visor_angle, unsigned int drag_idx, unsigned int visor_idx, double visor_side_a, double visor_side_b, double visor_side_c, double visor_active_length) {
+	read_drag_figures(DB2, DB203, offset, ujoints, draghead, nullptr, visor_angle, drag_idx, visor_idx,
+		visor_side_a, visor_side_b, visor_side_c, visor_active_length);
 }
