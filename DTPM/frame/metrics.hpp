@@ -5,24 +5,24 @@
 #include "gps.hpp"
 #include "mrit.hpp"
 
-namespace WarGrey::SCADA {
+namespace WarGrey::DTPM {
 	private class MetricsFrame : public WarGrey::SCADA::Planet {
 	public:
 		virtual ~MetricsFrame() noexcept;
 		MetricsFrame(float width, unsigned int slot_count,
 			WarGrey::SCADA::MRMaster* plc = nullptr,
-			WarGrey::SCADA::GPS* gps1 = nullptr, WarGrey::SCADA::GPS* gps2 = nullptr,
-			WarGrey::SCADA::GPS* gyro = nullptr);
+			WarGrey::DTPM::GPS* gps1 = nullptr, WarGrey::DTPM::GPS* gps2 = nullptr,
+			WarGrey::DTPM::GPS* gyro = nullptr);
 
 	public:
 		void load(Microsoft::Graphics::Canvas::UI::CanvasCreateResourcesReason reason, float width, float height) override;
 		void reflow(float width, float height) override;
 
 	public:
-		bool can_select(IGraphlet* g) override;
+		bool can_select(WarGrey::SCADA::IGraphlet* g) override;
 
 	private:
 		WarGrey::SCADA::MRMaster* plc;
-		WarGrey::SCADA::GPSReceiver* dashboard;
+		WarGrey::DTPM::GPSReceiver* dashboard;
 	};
 }

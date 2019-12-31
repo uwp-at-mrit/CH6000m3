@@ -2,7 +2,7 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Globals">
     <ProjectGuid>{6a1ce595-6f91-457d-9392-bb67c87edfc7}</ProjectGuid>
-    <RootNamespace>DredgerConstruction</RootNamespace>
+    <RootNamespace>DTPM</RootNamespace>
     <DefaultLanguage>en-US</DefaultLanguage>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
@@ -10,7 +10,7 @@
     <WindowsTargetPlatformVersion Condition=" '$(WindowsTargetPlatformVersion)' == '' ">10.0.17763.0</WindowsTargetPlatformVersion>
     <WindowsTargetPlatformMinVersion>10.0.16299.0</WindowsTargetPlatformMinVersion>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
-    <ProjectName>DredgerConstruction</ProjectName>
+    <ProjectName>DTPM</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ItemGroup Label="ProjectConfigurations">
@@ -127,7 +127,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <PackageCertificateKeyFile>DredgerConstruction_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>F:\CH6000m3\DTPM\DTPM_TemporaryKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>9D9A882039213370798E3ACE5CE4E5F51F8DF613</PackageCertificateThumbprint>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
@@ -207,7 +207,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="DredgerConstruction_TemporaryKey.pfx" />
+    <None Include="DTPM_TemporaryKey.pfx" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -265,7 +265,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="construction.cpp" />
-    <ClCompile Include="DredgerConstrution.cxx" />
+    <ClCompile Include="DTPM.cxx" />
     <ClCompile Include="frame\drags.cpp" />
     <ClCompile Include="frame\metrics.cpp" />
     <ClCompile Include="frame\statusbar.cpp" />

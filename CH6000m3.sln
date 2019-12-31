@@ -19,7 +19,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WormHole", "WormHole\WormHo
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NanoBoard", "NanoBoard\NanoBoard.vcxitems", "{FE47A134-F1BC-44E8-BC82-C014A5C3B0FB}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DredgerConstruction", "DredgerConstruction\DredgerConstruction.vcxproj", "{6A1CE595-6F91-457D-9392-BB67C87EDFC7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DTPM", "DTPM\DTPM.vcxproj", "{6A1CE595-6F91-457D-9392-BB67C87EDFC7}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

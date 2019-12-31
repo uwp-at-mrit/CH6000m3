@@ -14,6 +14,7 @@
 #include "graphlet/ui/textlet.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::DTPM;
 
 using namespace Microsoft::Graphics::Canvas;
 using namespace Microsoft::Graphics::Canvas::UI;

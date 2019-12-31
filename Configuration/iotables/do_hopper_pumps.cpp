@@ -302,8 +302,9 @@ MenuFlyout^ WarGrey::SCADA::make_gearbox_lubricator_menu(PLCMaster* plc) {
 
 MenuFlyout^ WarGrey::SCADA::make_charge_condition_menu(GroupChargeAction action, WarGrey::SCADA::PLCMaster* plc) {
 	auto exe = new GroupChargeExecutor();
+	GroupChargeAction endp1 = _E(GroupChargeAction, _I(action) + 1U);
 
-	return make_group_menu<GroupChargeAction, HopperGroup, PLCMaster*>(exe, HopperGroup::ChargeCondition, action, action, plc);
+	return make_group_menu<GroupChargeAction, HopperGroup, PLCMaster*>(exe, HopperGroup::ChargeCondition, action, endp1, plc);
 }
 
 MenuFlyout^ WarGrey::SCADA::make_ps_hopper_pump_charge_menu(PLCMaster* plc) {

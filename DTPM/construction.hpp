@@ -11,10 +11,10 @@
 #include "plc.hpp"
 #include "gps.hpp"
 
-namespace WarGrey::SCADA {
-	private class DredgerConstruction : public WarGrey::SCADA::Planet, public WarGrey::SCADA::GPSReceiver, public WarGrey::SCADA::PLCConfirmation {
+namespace WarGrey::DTPM {
+	private class DredgerConstruction : public WarGrey::SCADA::Planet, public WarGrey::DTPM::GPSReceiver, public WarGrey::SCADA::PLCConfirmation {
 	public:
-		DredgerConstruction(WarGrey::SCADA::MRMaster* plc, WarGrey::SCADA::GPS* gps1, WarGrey::SCADA::GPS* gps2, WarGrey::SCADA::GPS* gyro);
+		DredgerConstruction(WarGrey::SCADA::MRMaster* plc, WarGrey::DTPM::GPS* gps1, WarGrey::DTPM::GPS* gps2, WarGrey::DTPM::GPS* gyro);
 
 	public:
 		void load(Microsoft::Graphics::Canvas::UI::CanvasCreateResourcesReason reason, float width, float height) override;
@@ -23,7 +23,7 @@ namespace WarGrey::SCADA {
 		void on_tap_selected(WarGrey::SCADA::IGraphlet* g, float local_x, float local_y) override;
 		void on_translation_gesture(float deltaX, float deltaY, Windows::Foundation::Numerics::float2& lt, Windows::Foundation::Numerics::float2& rb) override;
 		void on_zoom_gesture(float zx, float zy, float deltaScale, Windows::Foundation::Numerics::float2& lt, Windows::Foundation::Numerics::float2& rb) override;
-		IGraphlet* thumbnail_graphlet() override;
+		WarGrey::SCADA::IGraphlet* thumbnail_graphlet() override;
 
 	public:
 		bool can_select(WarGrey::SCADA::IGraphlet* g) override;
@@ -32,13 +32,13 @@ namespace WarGrey::SCADA {
 	public:
 		bool available(int id) override;
 		void pre_scan_data(int id, WarGrey::SCADA::Syslog* logger) override;
-		void on_GGA(int id, long long timepoint_ms, GGA* gga, WarGrey::SCADA::Syslog* logger) override;
-		void on_VTG(int id, long long timepoint_ms, VTG* vtg, WarGrey::SCADA::Syslog* logger) override;
-		void on_GLL(int id, long long timepoint_ms, GLL* gll, WarGrey::SCADA::Syslog* logger) override;
-		void on_GSA(int id, long long timepoint_ms, GSA* gsa, WarGrey::SCADA::Syslog* logger) override;
-		void on_GSV(int id, long long timepoint_ms, GSV* gsv, WarGrey::SCADA::Syslog* logger) override;
-		void on_ZDA(int id, long long timepoint_ms, ZDA* zda, WarGrey::SCADA::Syslog* logger) override;
-		void on_HDT(int id, long long timepoint_ms, HDT* hdt, WarGrey::SCADA::Syslog* logger) override;
+		void on_GGA(int id, long long timepoint_ms, WarGrey::DTPM::GGA* gga, WarGrey::SCADA::Syslog* logger) override;
+		void on_VTG(int id, long long timepoint_ms, WarGrey::DTPM::VTG* vtg, WarGrey::SCADA::Syslog* logger) override;
+		void on_GLL(int id, long long timepoint_ms, WarGrey::DTPM::GLL* gll, WarGrey::SCADA::Syslog* logger) override;
+		void on_GSA(int id, long long timepoint_ms, WarGrey::DTPM::GSA* gsa, WarGrey::SCADA::Syslog* logger) override;
+		void on_GSV(int id, long long timepoint_ms, WarGrey::DTPM::GSV* gsv, WarGrey::SCADA::Syslog* logger) override;
+		void on_ZDA(int id, long long timepoint_ms, WarGrey::DTPM::ZDA* zda, WarGrey::SCADA::Syslog* logger) override;
+		void on_HDT(int id, long long timepoint_ms, WarGrey::DTPM::HDT* hdt, WarGrey::SCADA::Syslog* logger) override;
 		void post_scan_data(int id, WarGrey::SCADA::Syslog* logger) override;
 
 	public:
@@ -50,21 +50,21 @@ namespace WarGrey::SCADA {
 		void on_location_changed(double latitude, double longitude, double altitude, double x, double y);
 
 	private: // never deletes these graphlets manually
-		WarGrey::SCADA::TrailingSuctionDredgerlet* vessel;
+		WarGrey::DTPM::TrailingSuctionDredgerlet* vessel;
 		WarGrey::SCADA::Planetlet* metrics;
 		WarGrey::SCADA::Planetlet* times;
-		WarGrey::SCADA::Projectlet* project;
-		WarGrey::SCADA::TransverseSectionlet* section;
-		WarGrey::SCADA::GPSlet* gps;
-		WarGrey::SCADA::ColorPlotlet* plot;
+		WarGrey::DTPM::Projectlet* project;
+		WarGrey::DTPM::TransverseSectionlet* section;
+		WarGrey::DTPM::GPSlet* gps;
+		WarGrey::DTPM::ColorPlotlet* plot;
 		WarGrey::SCADA::Planetlet* drags;
 		WarGrey::SCADA::Planetlet* status;
 
 	private:
-		WarGrey::SCADA::GPSCS^ gcs;
 		WarGrey::SCADA::MRMaster* plc;
-		WarGrey::SCADA::GPS* gps1;
-		WarGrey::SCADA::GPS* gps2;
-		WarGrey::SCADA::GPS* gyro;
+		WarGrey::DTPM::GPSCS^ gcs;
+		WarGrey::DTPM::GPS* gps1;
+		WarGrey::DTPM::GPS* gps2;
+		WarGrey::DTPM::GPS* gyro;
 	};
 }

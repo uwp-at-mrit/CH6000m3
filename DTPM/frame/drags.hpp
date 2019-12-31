@@ -4,7 +4,7 @@
 #include "planet.hpp"
 #include "mrit.hpp"
 
-namespace WarGrey::SCADA {
+namespace WarGrey::DTPM {
 	private class DragsFrame : public WarGrey::SCADA::Planet, public WarGrey::SCADA::ITimeMachineListener {
 	public:
 		virtual ~DragsFrame() noexcept;

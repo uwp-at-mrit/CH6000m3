@@ -3,7 +3,7 @@
 #include "universe.hxx"
 #include "mrit.hpp"
 
-namespace WarGrey::SCADA {
+namespace WarGrey::DTPM {
 	private ref class UniverseWidget : public WarGrey::SCADA::UniverseDisplay {
 	internal:
 		UniverseWidget(Windows::UI::Xaml::Controls::SplitView^ frame, WarGrey::SCADA::UniverseDisplay^ master,
@@ -17,6 +17,6 @@ namespace WarGrey::SCADA {
 		WarGrey::SCADA::UniverseDisplay^ master;
 
 	private:
-		MRMaster* plc;
+		WarGrey::SCADA::MRMaster* plc;
 	};
 }

@@ -7,6 +7,7 @@
 #include "module.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::DTPM;
 
 using namespace Windows::Foundation;
 using namespace Windows::Storage;
@@ -49,7 +50,7 @@ namespace {
 /*************************************************************************************************/
 static TimeStream* the_timemachine = nullptr;
 
-void WarGrey::SCADA::initialize_the_timemachine(MRMaster* plc, long long speed, int frame_rate) {
+void WarGrey::DTPM::initialize_the_timemachine(MRMaster* plc, long long speed, int frame_rate) {
 	if (the_timemachine == nullptr) {
 		the_timemachine = new TimeStream(speed, frame_rate);
 
@@ -57,7 +58,7 @@ void WarGrey::SCADA::initialize_the_timemachine(MRMaster* plc, long long speed, 
 	}
 }
 
-void WarGrey::SCADA::launch_the_timemachine() {
+void WarGrey::DTPM::launch_the_timemachine() {
 	if (the_timemachine != nullptr) {
 		the_timemachine->show();
 	}

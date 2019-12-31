@@ -12,6 +12,7 @@
 #include "gps.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::DTPM;
 
 using namespace Windows::ApplicationModel;
 using namespace Windows::ApplicationModel::Activation;
@@ -86,16 +87,16 @@ protected:
 };
 
 /*************************************************************************************************/
-private ref class DredgeConstructApplication sealed : public SplitView {
+private ref class Ch6000m3 sealed : public SplitView {
 public:
-	DredgeConstructApplication() : SplitView() {
+	Ch6000m3() : SplitView() {
 		this->Margin = ThicknessHelper::FromUniformLength(0.0);
 		this->PanePlacement = SplitViewPanePlacement::Left;
 		this->DisplayMode = SplitViewDisplayMode::Overlay;
 		this->IsPaneOpen = false;
 
-		this->PointerMoved += ref new PointerEventHandler(this, &DredgeConstructApplication::on_pointer_moved);
-		this->PointerReleased += ref new PointerEventHandler(this, &DredgeConstructApplication::on_pointer_released);
+		this->PointerMoved += ref new PointerEventHandler(this, &Ch6000m3::on_pointer_moved);
+		this->PointerReleased += ref new PointerEventHandler(this, &Ch6000m3::on_pointer_released);
 	}
 
 public:
@@ -177,5 +178,5 @@ private:
 };
 
 int main(Platform::Array<Platform::String^>^ args) {
-	return launch_universal_windows_application<DredgeConstructApplication>(default_logging_level, remote_test_server);
+	return launch_universal_windows_application<Ch6000m3>(default_logging_level, remote_test_server);
 }

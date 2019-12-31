@@ -2,6 +2,6 @@
 
 #include "plc.hpp"
 
-namespace WarGrey::SCADA {
+namespace WarGrey::DTPM {
 	void launch_the_settings();
 }

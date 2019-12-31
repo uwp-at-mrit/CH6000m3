@@ -16,6 +16,7 @@
 #include "module.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::DTPM;
 
 using namespace Windows::Foundation;
 using namespace Windows::System;
@@ -177,7 +178,7 @@ namespace {
 /*************************************************************************************************/
 static Settings* the_settings = nullptr;
 
-void WarGrey::SCADA::launch_the_settings() {
+void WarGrey::DTPM::launch_the_settings() {
 	if (the_settings == nullptr) {
 		the_settings = new Settings();
 	}

@@ -4,13 +4,13 @@
 
 #include "gps.hpp"
 
-namespace WarGrey::SCADA {
+namespace WarGrey::DTPM {
 	private class StatusFrame : public WarGrey::SCADA::Planet {
 	public:
 		virtual ~StatusFrame() noexcept;
 		StatusFrame(WarGrey::SCADA::ITCPStatedConnection* plc = nullptr,
-			WarGrey::SCADA::GPS* gps1 = nullptr, WarGrey::SCADA::GPS* gps2 = nullptr,
-			WarGrey::SCADA::GPS* gyro = nullptr);
+			WarGrey::DTPM::GPS* gps1 = nullptr, WarGrey::DTPM::GPS* gps2 = nullptr,
+			WarGrey::DTPM::GPS* gyro = nullptr);
 
 	public:
 		void load(Microsoft::Graphics::Canvas::UI::CanvasCreateResourcesReason reason, float width, float height) override;
@@ -18,9 +18,9 @@ namespace WarGrey::SCADA {
 		void update(long long count, long long interval, long long uptime) override;
 
 	public:
-		bool can_select(IGraphlet* g) override;
+		bool can_select(WarGrey::SCADA::IGraphlet* g) override;
 
 	private:
-		WarGrey::SCADA::IGPSReceiver* statusbar;
+		WarGrey::DTPM::IGPSReceiver* statusbar;
 	};
 }

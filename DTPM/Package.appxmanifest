@@ -1,9 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap mp iot rescap">
-  <Identity Name="DredgerConstruction" Publisher="CN=wargrey@mrit" Version="1.0.6.0" />
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+         xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+         xmlns:iot="http://schemas.microsoft.com/appx/manifest/iot/windows10"
+         IgnorableNamespaces="uap mp iot">
+  <Identity Name="DTPM" Publisher="CN=wargrey@mrit" Version="1.0.7.0" />
   <mp:PhoneIdentity PhoneProductId="060621da-8c22-4218-bd3c-1c5b6ca2db44" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
-    <DisplayName>DredgerConstruction</DisplayName>
+    <DisplayName>DTPM</DisplayName>
     <PublisherDisplayName>镇江明润信息科技有限公司</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -14,8 +18,8 @@
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
-    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="DredgerConstruct.App">
-      <uap:VisualElements DisplayName="疏浚施工" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Dredger Construction" BackgroundColor="transparent">
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="DTPM.App">
+      <uap:VisualElements DisplayName="长鲸7 疏浚断面跟踪系统" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Dredging Tracking and Profile Monitor System" BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#000000" />
@@ -27,8 +31,5 @@
     <Capability Name="privateNetworkClientServer" />
     <Capability Name="internetClientServer" />
     <uap:Capability Name="picturesLibrary" />
-    <rescap:Capability Name="extendedExecutionUnconstrained" />
-    <rescap:Capability Name="extendedBackgroundTaskTime" />
-    <rescap:Capability Name="broadFileSystemAccess" />
   </Capabilities>
 </Package>

@@ -18,6 +18,7 @@
 #include "iotables/di_hopper_pumps.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::DTPM;
 
 using namespace Microsoft::Graphics::Canvas;
 using namespace Microsoft::Graphics::Canvas::UI;

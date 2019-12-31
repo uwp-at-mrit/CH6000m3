@@ -5,7 +5,7 @@
 #include "gps.hpp"
 #include "mrit.hpp"
 
-namespace WarGrey::SCADA {
+namespace WarGrey::DTPM {
 	private class TimesFrame : public WarGrey::SCADA::Planet {
 	public:
 		virtual ~TimesFrame() noexcept;
@@ -16,7 +16,7 @@ namespace WarGrey::SCADA {
 		void reflow(float width, float height) override;
 
 	public:
-		bool can_select(IGraphlet* g) override;
+		bool can_select(WarGrey::SCADA::IGraphlet* g) override;
 
 	private:
 		WarGrey::SCADA::MRMaster* plc;

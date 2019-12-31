@@ -19,6 +19,7 @@
 #include "module.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::DTPM;
 
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Numerics;

@@ -183,12 +183,11 @@
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="DredgerConstruction_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <None Include="DTPM_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="widget.cpp" />
-    <ClCompile Include="DredgerConstrution.cxx" />
     <ClCompile Include="construction.cpp" />
     <ClCompile Include="frame\metrics.cpp">
       <Filter>frame</Filter>
@@ -208,6 +207,7 @@
     <ClCompile Include="widget\settings.cpp">
       <Filter>widget</Filter>
     </ClCompile>
+    <ClCompile Include="DTPM.cxx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="widget.hxx" />
