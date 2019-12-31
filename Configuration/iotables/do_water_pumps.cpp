@@ -119,8 +119,10 @@ MenuFlyout^ WarGrey::SCADA::make_sb_water_pump_menu(PLCMaster* plc) {
 }
 
 MenuFlyout^ WarGrey::SCADA::make_water_pump_condition_menu(WaterPumpConditionAction action, PLCMaster* plc) {
+	WaterPumpConditionAction next_action = _E(WaterPumpConditionAction, _I(action) + 1U);
+
 	return make_group_menu<WaterPumpConditionAction, PrivateGroup, PLCMaster*>(new WaterPumpConditionExecutor(),
-		PrivateGroup::FlushCondition, action, action, plc);
+		PrivateGroup::FlushCondition, action, next_action, plc);
 }
 
 unsigned int WarGrey::SCADA::DO_water_pump_reset_command(bool ps) {
