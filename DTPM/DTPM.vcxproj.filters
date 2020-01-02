@@ -188,7 +188,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="widget.cpp" />
-    <ClCompile Include="construction.cpp" />
     <ClCompile Include="frame\metrics.cpp">
       <Filter>frame</Filter>
     </ClCompile>
@@ -208,10 +207,10 @@
       <Filter>widget</Filter>
     </ClCompile>
     <ClCompile Include="DTPM.cxx" />
+    <ClCompile Include="monitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="widget.hxx" />
-    <ClInclude Include="construction.hpp" />
     <ClInclude Include="frame\metrics.hpp">
       <Filter>frame</Filter>
     </ClInclude>
@@ -230,6 +229,7 @@
     <ClInclude Include="widget\settings.hpp">
       <Filter>widget</Filter>
     </ClInclude>
+    <ClInclude Include="monitor.hpp" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="stone\tongue\en-US\widget.resw">

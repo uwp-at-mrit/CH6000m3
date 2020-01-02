@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="construction" xml:space="preserve">
-    <value>疏浚施工</value>
+  <data name="DTPM" xml:space="preserve">
+    <value>长鲸7 疏浚追踪与断面监视系统</value>
   </data>
-  <data name="DredgerConstruction" xml:space="preserve">
-    <value>长鲸7  疏浚工程</value>
+  <data name="monitor" xml:space="preserve">
+    <value>疏浚追踪与断面监视</value>
   </data>
   <data name="settings" xml:space="preserve">
     <value>设备参数设置</value>

@@ -1,8 +1,8 @@
 ﻿#include "application.hxx"
 #include "configuration.hpp"
 
+#include "monitor.hpp"
 #include "widget.hxx"
-#include "construction.hpp"
 
 #include "navigator/thumbnail.hpp"
 #include "planet.hpp"
@@ -65,7 +65,7 @@ internal:
 		: UniverseDisplay(make_system_logger(default_logging_level, name), name, navigator, heads_up) {
 		Syslog* plc_logger = make_system_logger(default_plc_master_logging_level, "PLC");
 		
-		this->plc = new PLCMaster(plc_logger, plc_hostname, construction_plc_master_port, plc_master_suicide_timeout);
+		this->plc = new PLCMaster(plc_logger, plc_hostname, dtpm_plc_master_port, plc_master_suicide_timeout);
 
 		this->gps1 = make_gps("GPS1", gps1_port);
 		this->gps2 = make_gps("GPS2", gps2_port);
@@ -82,7 +82,7 @@ internal:
 
 protected:
 	void construct(CanvasCreateResourcesReason reason) override {
-		this->push_planet(new DredgerConstruction(this->plc, this->gps1, this->gps2, this->gyro));
+		this->push_planet(new DTPMonitor(this->plc, this->gps1, this->gps2, this->gyro));
 	}
 };
 

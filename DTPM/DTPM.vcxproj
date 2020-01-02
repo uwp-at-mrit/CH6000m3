@@ -264,7 +264,7 @@
     <Image Include="stone\about.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="construction.cpp" />
+    <ClCompile Include="monitor.cpp" />
     <ClCompile Include="DTPM.cxx" />
     <ClCompile Include="frame\drags.cpp" />
     <ClCompile Include="frame\metrics.cpp" />
@@ -275,7 +275,7 @@
     <ClCompile Include="widget\timestream.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="construction.hpp" />
+    <ClInclude Include="monitor.hpp" />
     <ClInclude Include="frame\drags.hpp" />
     <ClInclude Include="frame\metrics.hpp" />
     <ClInclude Include="frame\statusbar.hpp" />

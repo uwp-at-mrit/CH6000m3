@@ -4,17 +4,21 @@
 #include "configuration.hpp"
 
 #include "datum/credit.hpp"
+#include "datum/string.hpp"
 
 #include "module.hpp"
 #include "text.hpp"
 #include "paint.hpp"
 #include "brushes.hxx"
+#include "system.hpp"
 
 #include "graphlet/shapelet.hpp"
 #include "graphlet/ui/textlet.hpp"
 
 using namespace WarGrey::SCADA;
 using namespace WarGrey::DTPM;
+
+using namespace Windows::System;
 
 using namespace Microsoft::Graphics::Canvas;
 using namespace Microsoft::Graphics::Canvas::UI;
@@ -32,6 +36,83 @@ namespace {
 		// Devices state Indicators
 		GPS1, GPS2, GYRO, PLC,
 		_
+	};
+
+	private class SystemStatuslet : public IGraphlet, public ISystemStatusListener {
+	public:
+		SystemStatuslet(CanvasTextFormat^ status_font) : status_font(status_font), ipv4(nullptr), up_to_date(true) {}
+
+	public:
+		void on_available_storage_changed(unsigned long long free_bytes, unsigned long long total_bytes) override {
+			Platform::String^ label = status_speak("storage");
+			Platform::String^ percentage = flstring(double(free_bytes) / double(total_bytes) * 100.0, 1);
+			Platform::String^ free = sstring(free_bytes, 1);
+
+			this->info->master->enter_critical_section();
+			this->storage = make_text_layout(label + free + "(" + percentage + "%)", status_font);
+			this->up_to_date = false;
+			this->info->master->leave_critical_section();
+		}
+
+		void on_ipv4_address_changed(Platform::String^ ipv4) override {
+			Platform::String^ label = status_speak("ipv4");
+			Platform::String^ ip = ((ipv4 == nullptr) ? status_speak("noipv4") : ipv4);
+
+			this->info->master->enter_critical_section();
+			this->ipv4 = make_text_layout(label + ip, status_font);
+			this->up_to_date = false;
+			this->info->master->leave_critical_section();
+		}
+
+	public:
+		void construct() override {
+			if (ipv4 == nullptr) {
+				register_system_status_listener(this);
+			}
+		}
+
+		void fill_extent(float x, float y, float* w = nullptr, float* h = nullptr) override {
+			SET_BOX(w, this->available_visible_width(x));
+			SET_BOX(h, this->available_visible_height(y));
+		}
+
+		void update(long long count, long long interval, long long uptime) override {
+			if (!this->up_to_date) {
+				this->notify_updated();
+			}
+		}
+
+		void draw(CanvasDrawingSession^ ds, float x, float y, float Width, float Height) override {
+			float subwidth = Width / 3.0F;
+			float context_y = y + (Height - this->ipv4->LayoutBounds.Height) * 0.5F;
+
+			ds->DrawTextLayout(this->ipv4, x + Width - this->ipv4->LayoutBounds.Width, context_y, Colours::Yellow);
+			ds->DrawTextLayout(this->storage, x + subwidth * 1.0F, context_y, Colours::YellowGreen);
+
+			{ // draw App Memory Usage
+				AppMemoryUsageLevel level;
+				unsigned long long app_usage, private_working_set;
+				CanvasSolidColorBrush^ color = Colours::GreenYellow;
+
+				private_working_set = system_physical_memory_usage(&app_usage, &level);
+
+				switch (level) {
+				case AppMemoryUsageLevel::OverLimit: color = Colours::Firebrick; break;
+				case AppMemoryUsageLevel::High: color = Colours::Orange; break;
+				case AppMemoryUsageLevel::Low: color = Colours::RoyalBlue; break;
+				}
+
+				ds->DrawText(status_speak("memory") + ": " + sstring(private_working_set, 1), x, context_y, color, this->status_font);
+			}
+		}
+
+	private:
+		CanvasTextFormat^ status_font;
+		CanvasTextLayout^ storage;
+		CanvasTextLayout^ ipv4;
+
+	private:
+		bool up_to_date;
 	};
 
 	private class Statusbar final : public GPSReceiver {
@@ -73,6 +154,7 @@ namespace {
 	public:
 		void load(float width, float height) {
 			this->background = this->master->insert_one(new Rectanglet(width, height, bar_background));
+			this->system_metrics = this->master->insert_one(new SystemStatuslet(this->status_font));
 
 			this->load_device_indicator(S::GPS1, this->status_font);
 			this->load_device_indicator(S::GPS2, this->status_font);
@@ -84,6 +166,8 @@ namespace {
 		void reflow(float width, float height) {
 			float cy = height * 0.5F;
 			float margin = cy - this->status_font->FontSize * 0.5F;
+
+			this->master->move_to(this->system_metrics, width * 2.0F / 3.0F, 0.0F, GraphletAnchor::LT);
 
 			{ // reflow indicators
 				for (S id = S::GPS1; id <= S::PLC; id++) {
@@ -140,6 +224,7 @@ namespace {
 
 	private: // never deletes these graphlets manually
 		Rectanglet* background;
+		SystemStatuslet* system_metrics;
 		std::map<S, Credit<Labellet, S>*> labels;
 		std::map<S, Credit<Rectanglet, S>*> indicators;
 
@@ -155,7 +240,7 @@ namespace {
 /*************************************************************************************************/
 StatusFrame::StatusFrame(ITCPStatedConnection* plc, GPS* gps1, GPS* gps2, GPS* gyro) : Planet(__MODULE__) {
 	Statusbar* statusbar = new Statusbar(this, plc, gps1, gps2, gyro);
-	
+
 	this->statusbar = statusbar;
 }
 
