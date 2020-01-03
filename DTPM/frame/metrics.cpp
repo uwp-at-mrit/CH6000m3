@@ -12,6 +12,7 @@
 #include "graphlet/ui/textlet.hpp"
 
 #include "configuration.hpp"
+#include "moxa.hpp"
 #include "plc.hpp"
 
 #include "iotables/ai_metrics.hpp"
@@ -79,9 +80,8 @@ namespace {
 
 	private class Metrics final : public PLCConfirmation, public GPSReceiver {
 	public:
-		Metrics(MetricsFrame* master, float width, unsigned int slots, GPS* gps1, GPS* gps2, GPS* gyro)
-			: master(master), width(width), slot_count(slots > 0 ? slots : default_slot_count)
-			, bow_direction(0.0), gps1(gps1), gps2(gps2), gyro(gyro) {
+		Metrics(MetricsFrame* master, float width, unsigned int slots)
+			: master(master), width(width), slot_count(slots > 0 ? slots : default_slot_count), bow_direction(0.0) {
 			this->label_font = make_bold_text_format("Microsoft YaHei", large_font_size);
 			this->metrics_font = make_bold_text_format("Cambria Math", small_metrics_font_size);
 
@@ -89,17 +89,9 @@ namespace {
 			this->inset = this->metrics_font->FontSize * 0.618F;
 			this->hgapsize = this->inset * 0.618F;
 
-			if (this->gps1 != nullptr) {
-				this->gps1->push_confirmation_receiver(this);
-			}
-
-			if (this->gps2 != nullptr) {
-				this->gps2->push_confirmation_receiver(this);
-			}
-
-			if (this->gyro != nullptr) {
-				this->gyro->push_confirmation_receiver(this);
-			}
+			this->gps1 = moxa_tcp_as_gps(MOXA_TCP::MRIT_DGPS, this);
+			this->gps2 = moxa_tcp_as_gps(MOXA_TCP::DP_DGPS, this);
+			this->gyro = moxa_tcp_as_gps(MOXA_TCP::GYRO, this);
 		}
 
 	public:
@@ -242,15 +234,15 @@ namespace {
 
 	private: // never deletes these objects manually
 		MetricsFrame* master;
-		GPS* gps1;
-		GPS* gps2;
-		GPS* gyro;
+		IGPS* gps1;
+		IGPS* gps2;
+		IGPS* gyro;
 	};
 }
 
 /*************************************************************************************************/
-MetricsFrame::MetricsFrame(float width, unsigned int slot_count, MRMaster* plc, GPS* gps1, GPS* gps2, GPS* gyro) : Planet(__MODULE__), plc(plc) {
-	Metrics* dashboard = new Metrics(this, width, slot_count, gps1, gps2, gyro);
+MetricsFrame::MetricsFrame(float width, unsigned int slot_count, MRMaster* plc) : Planet(__MODULE__), plc(plc) {
+	Metrics* dashboard = new Metrics(this, width, slot_count);
 	
 	this->dashboard = dashboard;
 

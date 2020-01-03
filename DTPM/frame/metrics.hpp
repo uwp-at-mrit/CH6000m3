@@ -9,10 +9,7 @@ namespace WarGrey::DTPM {
 	private class MetricsFrame : public WarGrey::SCADA::Planet {
 	public:
 		virtual ~MetricsFrame() noexcept;
-		MetricsFrame(float width, unsigned int slot_count,
-			WarGrey::SCADA::MRMaster* plc = nullptr,
-			WarGrey::DTPM::GPS* gps1 = nullptr, WarGrey::DTPM::GPS* gps2 = nullptr,
-			WarGrey::DTPM::GPS* gyro = nullptr);
+		MetricsFrame(float width, unsigned int slot_count, WarGrey::SCADA::MRMaster* plc = nullptr);
 
 	public:
 		void load(Microsoft::Graphics::Canvas::UI::CanvasCreateResourcesReason reason, float width, float height) override;

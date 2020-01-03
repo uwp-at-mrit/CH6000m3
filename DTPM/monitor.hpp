@@ -14,7 +14,7 @@
 namespace WarGrey::DTPM {
 	private class DTPMonitor : public WarGrey::SCADA::Planet, public WarGrey::DTPM::GPSReceiver, public WarGrey::SCADA::PLCConfirmation {
 	public:
-		DTPMonitor(WarGrey::SCADA::MRMaster* plc, WarGrey::DTPM::GPS* gps1, WarGrey::DTPM::GPS* gps2, WarGrey::DTPM::GPS* gyro);
+		DTPMonitor(WarGrey::SCADA::MRMaster* plc);
 
 	public:
 		void load(Microsoft::Graphics::Canvas::UI::CanvasCreateResourcesReason reason, float width, float height) override;
@@ -63,8 +63,8 @@ namespace WarGrey::DTPM {
 	private:
 		WarGrey::SCADA::MRMaster* plc;
 		WarGrey::DTPM::GPSCS^ gcs;
-		WarGrey::DTPM::GPS* gps1;
-		WarGrey::DTPM::GPS* gps2;
-		WarGrey::DTPM::GPS* gyro;
+		WarGrey::DTPM::IGPS* gps1;
+		WarGrey::DTPM::IGPS* gps2;
+		WarGrey::DTPM::IGPS* gyro;
 	};
 }

@@ -8,8 +8,8 @@
 #include "planet.hpp"
 #include "timer.hxx"
 
+#include "moxa.hpp"
 #include "plc.hpp"
-#include "gps.hpp"
 
 using namespace WarGrey::SCADA;
 using namespace WarGrey::DTPM;
@@ -30,34 +30,15 @@ using namespace Windows::UI::Xaml::Controls;
 using namespace Microsoft::Graphics::Canvas;
 using namespace Microsoft::Graphics::Canvas::UI;
 
-static GPS* make_gps(Platform::String^ name, unsigned short port) {
-	Syslog* gps_logger = make_system_logger(default_gps_logging_level, name);
-	GPS* gps = new GPS(gps_logger, moxa_gateway, port);
-
-	gps->set_suicide_timeout(gps_suicide_timeout);
-
-	return gps;
-}
-
 /*************************************************************************************************/
 private ref class DredgerUniverse : public UniverseDisplay {
 public:
 	virtual ~DredgerUniverse() {
-		if (this->gps1 != nullptr) {
-			delete this->gps1;
+		if (plc != nullptr) {
+			delete plc;
 		}
 
-		if (this->gps2 != nullptr) {
-			delete this->gps2;
-		}
-
-		if (this->gyro != nullptr) {
-			delete this->gyro;
-		}
-
-		if (this->plc != nullptr) {
-			delete this->plc;
-		}
+		moxa_tcp_teardown();
 	}
 
 internal:
@@ -66,24 +47,19 @@ internal:
 		Syslog* plc_logger = make_system_logger(default_plc_master_logging_level, "PLC");
 		
 		this->plc = new PLCMaster(plc_logger, plc_hostname, dtpm_plc_master_port, plc_master_suicide_timeout);
-
-		this->gps1 = make_gps("GPS1", gps1_port);
-		this->gps2 = make_gps("GPS2", gps2_port);
-		this->gyro = make_gps("GYRO", gyro_port);
+		moxa_tcp_setup();
 
 		system_set_subnet_prefix(system_subnet_prefix);
+		
 	}
-
-internal:
-	GPS* gps1;
-	GPS* gps2;
-	GPS* gyro;
-	PLCMaster* plc;
 
 protected:
 	void construct(CanvasCreateResourcesReason reason) override {
-		this->push_planet(new DTPMonitor(this->plc, this->gps1, this->gps2, this->gyro));
+		this->push_planet(new DTPMonitor(this->plc));
 	}
+
+internal:
+	PLCMaster* plc;
 };
 
 /*************************************************************************************************/

@@ -35,6 +35,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\do_valves.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\do_water_pumps.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\do_winches.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)moxa.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)plc.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +70,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\do_water_pumps.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\do_winches.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\macro_keys.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)moxa.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)plc.hpp" />
   </ItemGroup>
 </Project>

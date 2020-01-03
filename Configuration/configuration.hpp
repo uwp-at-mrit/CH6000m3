@@ -9,16 +9,12 @@ static WarGrey::SCADA::Log default_logging_level = WarGrey::SCADA::Log::Info;
 #endif
 
 static WarGrey::SCADA::Log default_plc_master_logging_level = WarGrey::SCADA::Log::Info;
-static WarGrey::SCADA::Log default_gps_logging_level = WarGrey::SCADA::Log::Info;
+static WarGrey::SCADA::Log default_gps_logging_level = default_logging_level;
 
 static Platform::String^ remote_test_server = "255.255.255.255";
 static Platform::String^ system_subnet_prefix = "192.168";
 static Platform::String^ moxa_gateway = "192.168.0.253";
 static Platform::String^ plc_hostname = nullptr;
-
-static const unsigned short gps1_port = 4005; // 4006 for changjing7
-static const unsigned short gps2_port = 4002;
-static const unsigned short gyro_port = 4001;
 
 static const unsigned short scada_plc_master_port = 2008;
 static const unsigned short dtpm_plc_master_port = 2008;

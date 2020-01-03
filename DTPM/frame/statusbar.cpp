@@ -2,6 +2,7 @@
 
 #include "frame/statusbar.hpp"
 #include "configuration.hpp"
+#include "moxa.hpp"
 
 #include "datum/credit.hpp"
 #include "datum/string.hpp"
@@ -111,13 +112,8 @@ namespace {
 
 	private class Statusbar final : public ISystemStatusListener {
 	public:
-		Statusbar(StatusFrame* master, ITCPStatedConnection* plc, GPS* gps1, GPS* gps2, GPS* gyro)
-			: master(master), plc(plc), main_gps(gps1), system_metrics(nullptr) {
+		Statusbar(StatusFrame* master, ITCPConnection* plc) : master(master), plc(plc), system_metrics(nullptr) {
 			this->status_font = make_bold_text_format("Microsoft YaHei", small_font_size);
-			
-			this->devices[S::GPS1] = gps1;
-			this->devices[S::GPS2] = gps2;
-			this->devices[S::GYRO] = gyro;
 			this->devices[S::PLC] = plc;
 		}
 
@@ -135,9 +131,9 @@ namespace {
 			this->background = this->master->insert_one(new Rectanglet(width, height, bar_background));
 			this->log_receiver = this->master->insert_one(new Statuslinelet(default_gps_logging_level));
 			
-			this->load_device_indicator(S::GPS1, this->status_font);
-			this->load_device_indicator(S::GPS2, this->status_font);
-			this->load_device_indicator(S::GYRO, this->status_font);
+			this->load_device_indicator(S::GPS1, MOXA_TCP::MRIT_DGPS, this->status_font);
+			this->load_device_indicator(S::GPS2, MOXA_TCP::DP_DGPS, this->status_font);
+			this->load_device_indicator(S::GYRO, MOXA_TCP::GYRO, this->status_font);
 			this->load_device_indicator(S::PLC, this->status_font);
 
 			if (this->system_metrics == nullptr) {
@@ -196,8 +192,13 @@ namespace {
 		}
 
 	private:
+		void load_device_indicator(S id, MOXA_TCP gps, CanvasTextFormat^ font) {
+			devices[id] = moxa_tcp_as_gps(gps);
+			this->load_device_indicator(id, font);
+		}
+		
 		void load_device_indicator(S id, CanvasTextFormat^ font) {
-			ITCPStatedConnection* device = this->devices[id];
+			ITCPConnection* device = this->devices[id];
 			ICanvasBrush^ initail_color = ((device != nullptr) && device->connected()) ? bar_running_color : bar_stopped_color;
 			
 			this->labels[id] = this->master->insert_one(new Credit<Labellet, S>(_speak(id), font, bar_foreground), id);
@@ -220,15 +221,14 @@ namespace {
 
 	private: // never deletes these objects manually
 		StatusFrame* master;
-		std::map<S, ITCPStatedConnection*> devices;
+		std::map<S, ITCPConnection*> devices;
 		ITCPConnection* plc;
-		GPS* main_gps;
 	};
 }
 
 /*************************************************************************************************/
-StatusFrame::StatusFrame(ITCPStatedConnection* plc, GPS* gps1, GPS* gps2, GPS* gyro) : Planet(__MODULE__) {
-	Statusbar* statusbar = new Statusbar(this, plc, gps1, gps2, gyro);
+StatusFrame::StatusFrame(ITCPConnection* plc) : Planet(__MODULE__) {
+	Statusbar* statusbar = new Statusbar(this, plc);
 
 	this->statusbar = statusbar;
 }

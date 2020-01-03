@@ -1,5 +1,6 @@
 ﻿#include "monitor.hpp"
 #include "drag_info.hpp"
+#include "moxa.hpp"
 #include "module.hpp"
 
 #include "frame/metrics.hpp"
@@ -25,23 +26,14 @@ using namespace Microsoft::Graphics::Canvas::UI;
 using namespace Microsoft::Graphics::Canvas::Brushes;
 
 /*************************************************************************************************/
-DTPMonitor::DTPMonitor(MRMaster* plc, GPS* gps1, GPS* gps2, GPS* gyro)
-: Planet(__MODULE__), plc(plc), gps1(gps1), gps2(gps2), gyro(gyro) {
+DTPMonitor::DTPMonitor(MRMaster* plc) : Planet(__MODULE__), plc(plc) {
 	if (this->plc != nullptr) {
 		this->plc->push_confirmation_receiver(this);
 	}
 
-	if (this->gps1 != nullptr) {
-		this->gps1->push_confirmation_receiver(this);
-	}
-
-	if (this->gps2 != nullptr) {
-		this->gps2->push_confirmation_receiver(this);
-	}
-
-	if (this->gyro != nullptr) {
-		this->gyro->push_confirmation_receiver(this);
-	}
+	this->gps1 = moxa_tcp_as_gps(MOXA_TCP::MRIT_DGPS, this);
+	this->gps2 = moxa_tcp_as_gps(MOXA_TCP::DP_DGPS, this);
+	this->gyro = moxa_tcp_as_gps(MOXA_TCP::GYRO, this);
 }
 
 void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float height) {
@@ -53,9 +45,9 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	float profile_width = map_width + plot_width;
 	float profile_height = height - plot_height - status_height;
 
-	MetricsFrame* metrics = new MetricsFrame(side_zone_width, 0U, this->plc, this->gps1, this->gps2, this->gyro);
+	MetricsFrame* metrics = new MetricsFrame(side_zone_width, 0U, this->plc);
 	TimesFrame* times = new TimesFrame(side_zone_width, this->plc);
-	StatusFrame* status = new StatusFrame(this->plc, this->gps1, this->gps2, this->gyro);
+	StatusFrame* status = new StatusFrame(this->plc);
 	DragsFrame* drags = new DragsFrame(this->plc);
 	ColorPlotlet* plot = new ColorPlotlet("colorplot", plot_width, plot_height);
 	S63let* enchart = nullptr;// new S63let("20170817", map_width, plot_height);
@@ -226,7 +218,11 @@ void DTPMonitor::on_HDT(int id, long long timepoint_ms, HDT* hdt, Syslog* logger
 			double compensator_deg = 0.0;
 
 			if (this->gyro->device_identity() != id) {
-				compensator_deg = 180.0;
+				if (hdt->heading_deg > 180.0) {
+					compensator_deg = -180.0;
+				} else {
+					compensator_deg = 180.0;
+				}
 			}
 
 			this->vessel->set_bow_direction(hdt->heading_deg + compensator_deg);

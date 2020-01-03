@@ -63,6 +63,7 @@
       <Filter>iotables</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)drag_info.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)moxa.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)plc.hpp" />
@@ -155,6 +156,7 @@
       <Filter>iotables</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)drag_info.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)moxa.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="iotables">
