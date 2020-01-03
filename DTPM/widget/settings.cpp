@@ -7,7 +7,7 @@
 #include "device/gps_cs.hpp"
 
 #include "preference/colorplot.hpp"
-#include "preference/transverse_section.hpp"
+#include "preference/profile.hpp"
 
 #include "datum/box.hpp"
 
@@ -122,7 +122,7 @@ namespace {
 			this->push_planet(new TrailingSuctionDredgerEditor());
 			this->push_planet(new GPSCSEditor(BEJ54Convertor::instance()));
 			this->push_planet(new ColorPlotEditor());
-			this->push_planet(new TransverseSectionEditor());
+			this->push_planet(new ProfileEditor());
 		}
 
 	private: // never delete these objects manually

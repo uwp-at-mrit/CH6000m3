@@ -50,8 +50,8 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	float plot_height = height * 0.8F;
 	float plot_width = plot_height / float(ColorPlotSize);
 	float map_width = width - side_zone_width - plot_width;
-	float section_width = map_width + plot_width;
-	float section_height = height - plot_height - status_height;
+	float profile_width = map_width + plot_width;
+	float profile_height = height - plot_height - status_height;
 
 	MetricsFrame* metrics = new MetricsFrame(side_zone_width, 0U, this->plc, this->gps1, this->gps2, this->gyro);
 	TimesFrame* times = new TimesFrame(side_zone_width, this->plc);
@@ -67,7 +67,7 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	this->status = this->insert_one(new Planetlet(status, width, status_height));
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
 	this->project = this->insert_one(new Projectlet(this->vessel, plot, enchart, L"长江口工程", map_width, plot_height));
-	this->section = this->insert_one(new TransverseSectionlet(this->vessel, "section", section_width, section_height));
+	this->profile = this->insert_one(new Profilet(this->vessel, "profile", profile_width, profile_height));
 	this->gps = this->insert_one(gps);
 	this->plot = this->insert_one(plot);
 
@@ -94,7 +94,7 @@ void DTPMonitor::reflow(float width, float height) {
 	this->move_to(this->plot, 0.0F, 0.0F, GraphletAnchor::LT);
 	this->move_to(this->project, this->plot, GraphletAnchor::RT, GraphletAnchor::LT);
 	this->move_to(this->gps, this->project, GraphletAnchor::LT, GraphletAnchor::LT);
-	this->move_to(this->section, this->status, GraphletAnchor::LT, GraphletAnchor::LB);
+	this->move_to(this->profile, this->status, GraphletAnchor::LT, GraphletAnchor::LB);
 
 	{ // adjust drags
 		float drags_y, times_bottom;
@@ -147,12 +147,12 @@ void DTPMonitor::on_graphlet_ready(IGraphlet* g) {
 	}
 }
 
-void DTPMonitor::on_location_changed(double latitude, double longitude, double altitude, double x, double y) {
+void DTPMonitor::on_location_changed(double latitude, double longitude, double altitude, double geo_x, double geo_y) {
 	if (this->project != nullptr) {
 		this->begin_update_sequence();
 
-		if (this->project->move_vessel(x, y)) {
-			this->section->update_section(this->project->section(x, y), x, y);
+		if (this->project->move_vessel(geo_x, geo_y)) {
+			this->profile->update_outline(this->project->section(geo_x, geo_y), geo_x, geo_y);
 		}
 
 		this->end_update_sequence();

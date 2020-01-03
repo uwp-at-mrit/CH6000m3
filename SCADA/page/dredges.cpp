@@ -793,7 +793,7 @@ public:
 			this->master->move_to(this->compensators[DS::SBWC], this->cylinders[DS::SBHPVP], GraphletAnchor::RB, GraphletAnchor::LB, +wc_offset);
 		}
 
-		{ // reflow left dredging system
+		{ // reflow PS dredging system
 			float dflx, wclx, dhx;
 
 			this->master->fill_graphlet_location(this->dfmeters[DS::PS], &dflx, nullptr, GraphletAnchor::LC);
@@ -816,7 +816,7 @@ public:
 			}
 		}
 
-		{ // reflow right dredging system
+		{ // reflow SB dredging system
 			float dfrx, wcrx, dhrx;
 
 			this->master->fill_graphlet_location(this->dfmeters[DS::SB], &dfrx, nullptr, GraphletAnchor::RC);

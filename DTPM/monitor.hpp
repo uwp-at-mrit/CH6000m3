@@ -2,7 +2,7 @@
 
 #include "graphlet/planetlet.hpp"
 #include "graphlet/filesystem/projectlet.hpp"
-#include "graphlet/filesystem/project/sectionlet.hpp"
+#include "graphlet/filesystem/project/profilet.hpp"
 #include "graphlet/filesystem/configuration/gpslet.hpp"
 #include "graphlet/filesystem/configuration/colorplotlet.hpp"
 #include "graphlet/filesystem/configuration/vessel/trailing_suction_dredgerlet.hpp"
@@ -47,14 +47,14 @@ namespace WarGrey::DTPM {
 		void post_read_data(WarGrey::SCADA::Syslog* logger) override;
 		
 	private:
-		void on_location_changed(double latitude, double longitude, double altitude, double x, double y);
+		void on_location_changed(double latitude, double longitude, double altitude, double geo_x, double geo_y);
 
 	private: // never deletes these graphlets manually
 		WarGrey::DTPM::TrailingSuctionDredgerlet* vessel;
 		WarGrey::SCADA::Planetlet* metrics;
 		WarGrey::SCADA::Planetlet* times;
 		WarGrey::DTPM::Projectlet* project;
-		WarGrey::DTPM::TransverseSectionlet* section;
+		WarGrey::DTPM::Profilet* profile;
 		WarGrey::DTPM::GPSlet* gps;
 		WarGrey::DTPM::ColorPlotlet* plot;
 		WarGrey::SCADA::Planetlet* drags;
