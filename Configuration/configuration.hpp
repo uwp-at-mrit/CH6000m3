@@ -16,7 +16,7 @@ static Platform::String^ system_subnet_prefix = "192.168";
 static Platform::String^ moxa_gateway = "192.168.0.253";
 static Platform::String^ plc_hostname = nullptr;
 
-static const unsigned short gps1_port = 4006;
+static const unsigned short gps1_port = 4005; // 4006 for changjing7
 static const unsigned short gps2_port = 4002;
 static const unsigned short gyro_port = 4001;
 

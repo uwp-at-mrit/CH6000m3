@@ -10,10 +10,10 @@
 #include "text.hpp"
 #include "paint.hpp"
 #include "brushes.hxx"
-#include "system.hpp"
 
 #include "graphlet/shapelet.hpp"
 #include "graphlet/ui/textlet.hpp"
+#include "graphlet/ui/statuslet.hpp"
 
 using namespace WarGrey::SCADA;
 using namespace WarGrey::DTPM;
@@ -38,12 +38,12 @@ namespace {
 		_
 	};
 
-	private class SystemStatuslet : public IGraphlet, public ISystemStatusListener {
+	private class SystemStatuslet : public IGraphlet {
 	public:
 		SystemStatuslet(CanvasTextFormat^ status_font) : status_font(status_font), ipv4(nullptr), up_to_date(true) {}
 
 	public:
-		void on_available_storage_changed(unsigned long long free_bytes, unsigned long long total_bytes) override {
+		void on_available_storage_changed(unsigned long long free_bytes, unsigned long long total_bytes) {
 			Platform::String^ label = status_speak("storage");
 			Platform::String^ percentage = flstring(double(free_bytes) / double(total_bytes) * 100.0, 1);
 			Platform::String^ free = sstring(free_bytes, 1);
@@ -54,7 +54,7 @@ namespace {
 			this->info->master->leave_critical_section();
 		}
 
-		void on_ipv4_address_changed(Platform::String^ ipv4) override {
+		void on_ipv4_address_changed(Platform::String^ ipv4) {
 			Platform::String^ label = status_speak("ipv4");
 			Platform::String^ ip = ((ipv4 == nullptr) ? status_speak("noipv4") : ipv4);
 
@@ -65,12 +65,6 @@ namespace {
 		}
 
 	public:
-		void construct() override {
-			if (ipv4 == nullptr) {
-				register_system_status_listener(this);
-			}
-		}
-
 		void fill_extent(float x, float y, float* w = nullptr, float* h = nullptr) override {
 			SET_BOX(w, this->available_visible_width(x));
 			SET_BOX(h, this->available_visible_height(y));
@@ -115,20 +109,12 @@ namespace {
 		bool up_to_date;
 	};
 
-	private class Statusbar final : public GPSReceiver {
+	private class Statusbar final : public ISystemStatusListener {
 	public:
 		Statusbar(StatusFrame* master, ITCPStatedConnection* plc, GPS* gps1, GPS* gps2, GPS* gyro)
-			: master(master), plc(plc), main_gps(gps1) {
+			: master(master), plc(plc), main_gps(gps1), system_metrics(nullptr) {
 			this->status_font = make_bold_text_format("Microsoft YaHei", small_font_size);
 			
-			if (gps1 != nullptr) {
-				gps1->push_confirmation_receiver(this);
-			}
-
-			if (gps2 != nullptr) {
-				gps2->push_confirmation_receiver(this);
-			}
-
 			this->devices[S::GPS1] = gps1;
 			this->devices[S::GPS2] = gps2;
 			this->devices[S::GYRO] = gyro;
@@ -136,38 +122,34 @@ namespace {
 		}
 
 	public:
-		void pre_scan_data(int id, Syslog* logger) override {
-			this->master->enter_critical_section();
-			this->master->begin_update_sequence();
+		void on_available_storage_changed(unsigned long long free_bytes, unsigned long long total_bytes) override {
+			this->system_metrics->on_available_storage_changed(free_bytes, total_bytes);
 		}
 
-		void post_scan_data(int id, Syslog* logger) override {
-			this->master->end_update_sequence();
-			this->master->leave_critical_section();
-		}
-
-		bool available(int id) override {
-			return ((id == this->main_gps->device_identity())
-				|| (!this->main_gps->connected()));
+		void on_ipv4_address_changed(Platform::String^ ipv4) override {
+			this->system_metrics->on_ipv4_address_changed(ipv4);
 		}
 
 	public:
 		void load(float width, float height) {
 			this->background = this->master->insert_one(new Rectanglet(width, height, bar_background));
-			this->system_metrics = this->master->insert_one(new SystemStatuslet(this->status_font));
-
+			this->log_receiver = this->master->insert_one(new Statuslinelet(default_gps_logging_level));
+			
 			this->load_device_indicator(S::GPS1, this->status_font);
 			this->load_device_indicator(S::GPS2, this->status_font);
 			this->load_device_indicator(S::GYRO, this->status_font);
 			this->load_device_indicator(S::PLC, this->status_font);
+
+			if (this->system_metrics == nullptr) {
+				this->system_metrics = this->master->insert_one(new SystemStatuslet(this->status_font));
+				register_system_status_listener(this);
+			}
 		}
 
-	public:
 		void reflow(float width, float height) {
 			float cy = height * 0.5F;
 			float margin = cy - this->status_font->FontSize * 0.5F;
-
-			this->master->move_to(this->system_metrics, width * 2.0F / 3.0F, 0.0F, GraphletAnchor::LT);
+			float sysinfo_x = width - width / 3.0F;
 
 			{ // reflow indicators
 				for (S id = S::GPS1; id <= S::PLC; id++) {
@@ -182,6 +164,9 @@ namespace {
 						GraphletAnchor::RC, GraphletAnchor::LC, margin * 0.5F);
 				}
 			}
+
+			this->master->move_to(this->log_receiver, this->labels[S::PLC], GraphletAnchor::RC, GraphletAnchor::LC, margin);
+			this->master->move_to(this->system_metrics, sysinfo_x, 0.0F, GraphletAnchor::LT);
 		}
 
 	public:
@@ -217,6 +202,10 @@ namespace {
 			
 			this->labels[id] = this->master->insert_one(new Credit<Labellet, S>(_speak(id), font, bar_foreground), id);
 			this->indicators[id] = this->master->insert_one(new Credit<Rectanglet, S>(font->FontSize, initail_color), id);
+
+			if ((device != nullptr) && (this->log_receiver != nullptr)) {
+				device->get_logger()->push_log_receiver(this->log_receiver);
+			}
 		}
 
 	private:
@@ -225,13 +214,13 @@ namespace {
 	private: // never deletes these graphlets manually
 		Rectanglet* background;
 		SystemStatuslet* system_metrics;
+		Statuslinelet* log_receiver;
 		std::map<S, Credit<Labellet, S>*> labels;
 		std::map<S, Credit<Rectanglet, S>*> indicators;
 
 	private: // never deletes these objects manually
 		StatusFrame* master;
 		std::map<S, ITCPStatedConnection*> devices;
-		
 		ITCPConnection* plc;
 		GPS* main_gps;
 	};

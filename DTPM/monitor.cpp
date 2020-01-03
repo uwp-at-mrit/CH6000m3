@@ -209,8 +209,9 @@ void DTPMonitor::on_ZDA(int id, long long timepoint_ms, ZDA* zda, Syslog* logger
 
 void DTPMonitor::on_HDT(int id, long long timepoint_ms, HDT* hdt, Syslog* logger) {
 	bool valid = true;
+	bool gyro_okay = ((this->gyro != nullptr) && this->gyro->connected());
 
-	if ((this->gyro != nullptr) && this->gyro->connected()) {
+	if (gyro_okay) {
 		if (this->gyro->device_identity() != id) {
 			valid = false;
 		}
@@ -218,7 +219,13 @@ void DTPMonitor::on_HDT(int id, long long timepoint_ms, HDT* hdt, Syslog* logger
 
 	if (valid) {
 		if (this->vessel != nullptr) {
-			this->vessel->set_bow_direction(hdt->heading_deg);
+			double compensator_deg = 0.0;
+
+			if (this->gyro->device_identity() != id) {
+				compensator_deg = 180.0;
+			}
+
+			this->vessel->set_bow_direction(hdt->heading_deg + compensator_deg);
 		}
 	}
 }

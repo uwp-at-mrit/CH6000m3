@@ -3,6 +3,7 @@
 #include "planet.hpp"
 
 #include "gps.hpp"
+#include "system.hpp"
 
 namespace WarGrey::DTPM {
 	private class StatusFrame : public WarGrey::SCADA::Planet {
@@ -21,6 +22,6 @@ namespace WarGrey::DTPM {
 		bool can_select(WarGrey::SCADA::IGraphlet* g) override;
 
 	private:
-		WarGrey::DTPM::IGPSReceiver* statusbar;
+		WarGrey::SCADA::ISystemStatusListener* statusbar;
 	};
 }
