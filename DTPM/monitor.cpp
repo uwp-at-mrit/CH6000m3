@@ -155,6 +155,10 @@ void DTPMonitor::on_location_changed(double latitude, double longitude, double a
 			this->profile->update_outline(this->project->section(geo_x, geo_y), geo_x, geo_y);
 		}
 
+		if (this->gps != nullptr) {
+			this->gps->set_position(latitude, longitude);
+		}
+
 		this->end_update_sequence();
 	}
 }
