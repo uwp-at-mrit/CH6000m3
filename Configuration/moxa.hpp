@@ -5,7 +5,7 @@
 namespace WarGrey::DTPM {
 	private enum class MOXA_TCP : unsigned short {
 		GYRO = 4001U, DP_DGPS = 4002U, AIS = 4003U, WIND = 4004U,
-		MRIT_DGPS = 4005U, TIDE = 4006U, ECHO = 4007U, DP_DT_DREDGER = 4008U, DP_DT_TRACK = 4009U,
+		TIDE = 4005U, MRIT_DGPS = 4006U, ECHO = 4007U, DP_DT_DREDGER = 4008U, DP_DT_TRACK = 4009U,
 		_
 	};
 

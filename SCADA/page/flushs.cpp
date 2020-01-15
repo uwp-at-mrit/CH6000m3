@@ -25,6 +25,7 @@
 #include "iotables/ai_pumps.hpp"
 #include "iotables/ai_water_pumps.hpp"
 
+#include "iotables/di_menu.hpp"
 #include "iotables/di_doors.hpp"
 #include "iotables/di_pumps.hpp"
 #include "iotables/di_valves.hpp"
@@ -184,35 +185,33 @@ public:
 		DI_hopper_door(this->uhdoors[Door::SB6], DB205, upper_door_SB6_status);
 		DI_hopper_door(this->uhdoors[Door::SB7], DB205, upper_door_SB7_status);
 
-		/*
 		if (this->ps_menu != nullptr) {
-			DI_water_condition_menu(this->ps_menu, _I(PSWaterPumpAction::PS_PS), DB205, ps_ps_details);
-			DI_water_condition_menu(this->ps_menu, _I(PSWaterPumpAction::PS_SB), DB205, ps_sb_details);
-			DI_water_condition_menu(this->ps_menu, _I(PSWaterPumpAction::PS_2),  DB205, ps_2_details);
-			DI_water_condition_menu(this->ps_menu, _I(PSWaterPumpAction::PS_H),  DB205, ps_h_details);
-			DI_water_condition_menu(this->ps_menu, _I(PSWaterPumpAction::S2_PS), DB205, s2_ps_details);
-			DI_water_condition_menu(this->ps_menu, _I(PSWaterPumpAction::S2_SB), DB205, s2_sb_details);
-			DI_water_condition_menu(this->ps_menu, _I(PSWaterPumpAction::S2_2),  DB205, s2_2_details);
-			DI_water_condition_menu(this->ps_menu, _I(PSWaterPumpAction::S2_H),  DB205, s2_h_details);
-			DI_water_condition_menu(this->ps_menu, _I(PSWaterPumpAction::P2_2),  DB205, p2_2_details);
-			DI_water_condition_menu(this->ps_menu, _I(PSWaterPumpAction::P2_H),  DB205, p2_h_details);
-			DI_water_condition_menu(this->ps_menu, _I(PSWaterPumpAction::I2_2),  DB205, i2_2_details);
+			DI_condition_menu(this->ps_menu, _I(PSWaterPumpAction::PS_PS), DB205, ps_ps_details);
+			DI_condition_menu(this->ps_menu, _I(PSWaterPumpAction::PS_SB), DB205, ps_sb_details);
+			DI_condition_menu(this->ps_menu, _I(PSWaterPumpAction::PS_2),  DB205, ps_2_details);
+			DI_condition_menu(this->ps_menu, _I(PSWaterPumpAction::PS_H),  DB205, ps_h_details);
+			DI_condition_menu(this->ps_menu, _I(PSWaterPumpAction::S2_PS), DB205, s2_ps_details);
+			DI_condition_menu(this->ps_menu, _I(PSWaterPumpAction::S2_SB), DB205, s2_sb_details);
+			DI_condition_menu(this->ps_menu, _I(PSWaterPumpAction::S2_2),  DB205, s2_2_details);
+			DI_condition_menu(this->ps_menu, _I(PSWaterPumpAction::S2_H),  DB205, s2_h_details);
+			DI_condition_menu(this->ps_menu, _I(PSWaterPumpAction::P2_2),  DB205, p2_2_details);
+			DI_condition_menu(this->ps_menu, _I(PSWaterPumpAction::P2_H),  DB205, p2_h_details);
+			DI_condition_menu(this->ps_menu, _I(PSWaterPumpAction::I2_2),  DB205, i2_2_details);
 		}
 
 		if (this->sb_menu != nullptr) {
-			DI_water_condition_menu(this->sb_menu, _I(SBWaterPumpAction::SB_PS), DB205, sb_ps_details);
-			DI_water_condition_menu(this->sb_menu, _I(SBWaterPumpAction::SB_SB), DB205, sb_sb_details);
-			DI_water_condition_menu(this->sb_menu, _I(SBWaterPumpAction::SB_2),  DB205, sb_2_details);
-			DI_water_condition_menu(this->sb_menu, _I(SBWaterPumpAction::SB_H),  DB205, sb_h_details);
-			DI_water_condition_menu(this->sb_menu, _I(SBWaterPumpAction::S2_PS), DB205, s2_ps_details);
-			DI_water_condition_menu(this->sb_menu, _I(SBWaterPumpAction::S2_SB), DB205, s2_sb_details);
-			DI_water_condition_menu(this->sb_menu, _I(SBWaterPumpAction::S2_2),  DB205, s2_2_details);
-			DI_water_condition_menu(this->sb_menu, _I(SBWaterPumpAction::S2_H),  DB205, s2_h_details);
-			DI_water_condition_menu(this->sb_menu, _I(SBWaterPumpAction::P2_2),  DB205, p2_2_details);
-			DI_water_condition_menu(this->sb_menu, _I(SBWaterPumpAction::P2_H),  DB205, p2_h_details);
-			DI_water_condition_menu(this->sb_menu, _I(SBWaterPumpAction::I2_2),  DB205, i2_2_details);
+			DI_condition_menu(this->sb_menu, _I(SBWaterPumpAction::SB_PS), DB205, sb_ps_details);
+			DI_condition_menu(this->sb_menu, _I(SBWaterPumpAction::SB_SB), DB205, sb_sb_details);
+			DI_condition_menu(this->sb_menu, _I(SBWaterPumpAction::SB_2),  DB205, sb_2_details);
+			DI_condition_menu(this->sb_menu, _I(SBWaterPumpAction::SB_H),  DB205, sb_h_details);
+			DI_condition_menu(this->sb_menu, _I(SBWaterPumpAction::S2_PS), DB205, s2_ps_details);
+			DI_condition_menu(this->sb_menu, _I(SBWaterPumpAction::S2_SB), DB205, s2_sb_details);
+			DI_condition_menu(this->sb_menu, _I(SBWaterPumpAction::S2_2),  DB205, s2_2_details);
+			DI_condition_menu(this->sb_menu, _I(SBWaterPumpAction::S2_H),  DB205, s2_h_details);
+			DI_condition_menu(this->sb_menu, _I(SBWaterPumpAction::P2_2),  DB205, p2_2_details);
+			DI_condition_menu(this->sb_menu, _I(SBWaterPumpAction::P2_H),  DB205, p2_h_details);
+			DI_condition_menu(this->sb_menu, _I(SBWaterPumpAction::I2_2),  DB205, i2_2_details);
 		}
-		*/
 
 		DI_shift_button(this->shifts[FlushingCommand::LeftShift], DB205, left_shifting_details);
 		DI_shift_button(this->shifts[FlushingCommand::RightShift], DB205, right_shifting_details);

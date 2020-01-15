@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PSDraghead" xml:space="preserve">
-    <value>左耙头</value>
+  <data name="PSDHWinch" xml:space="preserve">
+    <value>左耙头绞车</value>
   </data>
-  <data name="PSIntermediate" xml:space="preserve">
-    <value>左耙中</value>
+  <data name="PSIWinch" xml:space="preserve">
+    <value>左耙中绞车</value>
   </data>
-  <data name="PSOffset" xml:space="preserve">
-    <value>左弯管</value>
+  <data name="PSOWinch" xml:space="preserve">
+    <value>左弯管绞车</value>
   </data>
   <data name="ButterflyValves" xml:space="preserve">
     <value>蝶阀</value>
@@ -132,14 +132,14 @@
   <data name="DoorsLocking" xml:space="preserve">
     <value>泥门紧锁</value>
   </data>
-  <data name="SBOffset" xml:space="preserve">
-    <value>右弯管</value>
+  <data name="SBOWinch" xml:space="preserve">
+    <value>右弯管绞车</value>
   </data>
-  <data name="SBIntermediate" xml:space="preserve">
-    <value>右耙中</value>
+  <data name="SBIWinch" xml:space="preserve">
+    <value>右耙中绞车</value>
   </data>
-  <data name="SBDraghead" xml:space="preserve">
-    <value>右耙头</value>
+  <data name="SBDHWinch" xml:space="preserve">
+    <value>右耙头绞车</value>
   </data>
   <data name="K" xml:space="preserve">
     <value>循环冷却</value>
@@ -278,5 +278,23 @@
   </data>
   <data name="G2F" xml:space="preserve">
     <value>G泵代替F泵</value>
+  </data>
+  <data name="PSDHGantry" xml:space="preserve">
+    <value>左耙头吊架</value>
+  </data>
+  <data name="PSIGantry" xml:space="preserve">
+    <value>左耙中吊架</value>
+  </data>
+  <data name="PSOGantry" xml:space="preserve">
+    <value>左弯管吊架</value>
+  </data>
+  <data name="SBDHGantry" xml:space="preserve">
+    <value>右耙头吊架</value>
+  </data>
+  <data name="SBIGantry" xml:space="preserve">
+    <value>右耙中吊架</value>
+  </data>
+  <data name="SBOGantry" xml:space="preserve">
+    <value>右弯管吊架</value>
   </data>
 </root>

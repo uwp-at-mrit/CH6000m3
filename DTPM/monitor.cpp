@@ -58,7 +58,7 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	this->times = this->insert_one(new Planetlet(times, GraphletAnchor::RT));
 	this->status = this->insert_one(new Planetlet(status, width, status_height));
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
-	this->project = this->insert_one(new Projectlet(this->vessel, plot, enchart, L"长江口工程", map_width, plot_height));
+	this->project = this->insert_one(new Projectlet(this->vessel, plot, enchart, L"湛江", map_width, plot_height));
 	this->profile = this->insert_one(new Profilet(this->vessel, "profile", profile_width, profile_height));
 	this->gps = this->insert_one(gps);
 	this->plot = this->insert_one(plot);
@@ -182,25 +182,25 @@ void DTPMonitor::on_GLL(int id, long long timepoint_ms, GLL* gll, Syslog* logger
 }
 
 void DTPMonitor::on_GSA(int id, long long timepoint_ms, GSA* gsa, Syslog* logger) {
-	logger->log_message(Log::Info, L"GSA: %s: (%lf, %lf, %lf), %s, [%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d]",
-		gsa->type.ToString()->Data(), gsa->pdop, gsa->hdop, gsa->vdop, gsa->auto_selection.ToString()->Data(),
-		gsa->PRNs[0], gsa->PRNs[1], gsa->PRNs[2], gsa->PRNs[3], gsa->PRNs[4], gsa->PRNs[5],
-		gsa->PRNs[6], gsa->PRNs[7], gsa->PRNs[8], gsa->PRNs[9], gsa->PRNs[10], gsa->PRNs[11]);
+	//logger->log_message(Log::Info, L"GSA: %s: (%lf, %lf, %lf), %s, [%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d]",
+		//gsa->type.ToString()->Data(), gsa->pdop, gsa->hdop, gsa->vdop, gsa->auto_selection.ToString()->Data(),
+		//gsa->PRNs[0], gsa->PRNs[1], gsa->PRNs[2], gsa->PRNs[3], gsa->PRNs[4], gsa->PRNs[5],
+		//gsa->PRNs[6], gsa->PRNs[7], gsa->PRNs[8], gsa->PRNs[9], gsa->PRNs[10], gsa->PRNs[11]);
 }
 
 void DTPMonitor::on_GSV(int id, long long timepoint_ms, GSV* gsv, Syslog* logger) {
-	logger->log_message(Log::Info, L"GSV: %d-%d of %d: (%d, %d, %d, %d), (%d, %d, %d, %d), (%d, %d, %d, %d), (%d, %d, %d, %d)",
-		gsv->sequence0, gsv->sequence0 + 4, gsv->total,
-		gsv->PRNs[0], gsv->elevations[0], gsv->azimuthes[0], gsv->SNRs[0],
-		gsv->PRNs[1], gsv->elevations[1], gsv->azimuthes[1], gsv->SNRs[1],
-		gsv->PRNs[2], gsv->elevations[2], gsv->azimuthes[2], gsv->SNRs[2],
-		gsv->PRNs[3], gsv->elevations[3], gsv->azimuthes[3], gsv->SNRs[3]);
+	//logger->log_message(Log::Info, L"GSV: %d-%d of %d: (%d, %d, %d, %d), (%d, %d, %d, %d), (%d, %d, %d, %d), (%d, %d, %d, %d)",
+		//gsv->sequence0, gsv->sequence0 + 4, gsv->total,
+		//gsv->PRNs[0], gsv->elevations[0], gsv->azimuthes[0], gsv->SNRs[0],
+		//gsv->PRNs[1], gsv->elevations[1], gsv->azimuthes[1], gsv->SNRs[1],
+		//gsv->PRNs[2], gsv->elevations[2], gsv->azimuthes[2], gsv->SNRs[2],
+		//gsv->PRNs[3], gsv->elevations[3], gsv->azimuthes[3], gsv->SNRs[3]);
 }
 
 void DTPMonitor::on_ZDA(int id, long long timepoint_ms, ZDA* zda, Syslog* logger) {
-	logger->log_message(Log::Info, L"ZDA: [%f]: %04d-%02d-%02d, +(%d, %d)", zda->utc,
-		zda->year, zda->month, zda->day,
-		zda->local_hour_offset, zda->local_minute_offset);
+	//logger->log_message(Log::Info, L"ZDA: [%f]: %04d-%02d-%02d, +(%d, %d)", zda->utc,
+		//zda->year, zda->month, zda->day,
+		//zda->local_hour_offset, zda->local_minute_offset);
 }
 
 void DTPMonitor::on_HDT(int id, long long timepoint_ms, HDT* hdt, Syslog* logger) {

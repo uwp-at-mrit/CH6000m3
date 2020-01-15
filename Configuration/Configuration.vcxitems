@@ -22,6 +22,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_doors.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_dredges.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_hopper_pumps.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_menu.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_pipelines.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_pumps.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_valves.cpp" />
@@ -56,6 +57,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_doors.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_dredges.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_hopper_pumps.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_menu.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_pipelines.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_pumps.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_valves.hpp" />

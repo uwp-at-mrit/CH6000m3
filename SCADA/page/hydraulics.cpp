@@ -71,10 +71,10 @@ private enum class HS : unsigned int {
 	Port, Starboard, Master, Visor, VisorState, Heater, Storage, VisorOil,
 
 	// Pump-driven subsystems
-	PSOffset, PSGateValves, ShoreDischarge, BowAnchor,
-	PSDraghead, PSDoors, SternAnchor, Overflow, Barge, PSCompensator,
-	SBOffset, SBGateValves, PSIntermediate, ButterflyValves, SBIntermediate,
-	DoorsLocking, SBDraghead, SBDoors, WateringValve, SBCompensator,
+	PSOWinch, PSOGantry, PSGateValves, ShoreDischarge, BowAnchor,
+	PSDHWinch, PSDHGantry, PSDoors, SternAnchor, Overflow, Barge, PSCompensator,
+	SBOWinch, SBOGantry, SBGateValves, PSIWinch, PSIGantry, ButterflyValves, SBIWinch, SBIGantry,
+	DoorsLocking, SBDHWinch, SBDHGantry, SBDoors, WateringValve, SBCompensator,
 
 	// Dimensions
 	BackOil, BowWinch, SternWinch,
@@ -95,13 +95,13 @@ private enum class HS : unsigned int {
 	lt, tl, rt, tr, cl, cr, i, j, f02, master, sb
 };
 
-static HS A[] = { HS::PSDraghead, HS::PSDoors, HS::SternAnchor, HS::Overflow, HS::Barge, HS::PSCompensator };
-static HS B[] = { HS::PSIntermediate };
-static HS G[] = { HS::SBIntermediate };
-static HS H[] = { HS::SBDraghead, HS::SBDoors, HS::WateringValve, HS::SBCompensator };
+static HS A[] = { HS::PSDHWinch, HS::PSDHGantry, HS::PSDoors, HS::SternAnchor, HS::Overflow, HS::Barge, HS::PSCompensator };
+static HS B[] = { HS::PSIWinch, HS::PSIGantry };
+static HS G[] = { HS::SBIWinch, HS::SBIGantry };
+static HS H[] = { HS::SBDHWinch, HS::SBDHGantry, HS::SBDoors, HS::WateringValve, HS::SBCompensator };
 
-static HS C[] = { HS::PSOffset, HS::PSGateValves, HS::ShoreDischarge, HS::BowAnchor };
-static HS F[] = { HS::SBOffset, HS::SBGateValves };
+static HS C[] = { HS::PSOWinch, HS::PSOGantry, HS::PSGateValves, HS::ShoreDischarge, HS::BowAnchor };
+static HS F[] = { HS::SBOWinch, HS::SBOGantry, HS::SBGateValves };
 static HS D[] = { HS::ButterflyValves };
 static HS E[] = { HS::DoorsLocking };
 
@@ -320,9 +320,9 @@ public:
 			bool sb_offset_winch_moving = DI_winch_winding(DB205, winch_sb_offset_details.status);
 			bool sb_intermediate_winch_moving = DI_winch_winding(DB205, winch_sb_intermediate_details.status);
 			bool sb_draghead_winch_moving = DI_winch_winding(DB205, winch_sb_draghead_details.status);
-			bool sb_offset_gantry_moving = DI_gantry_moving(DB205, gantry_ps_offset_details);
-			bool sb_intermediate_gantry_moving = DI_gantry_moving(DB205, gantry_ps_intermediate_details);
-			bool sb_draghead_gantry_moving = DI_gantry_moving(DB205, gantry_ps_draghead_details);
+			bool sb_offset_gantry_moving = DI_gantry_moving(DB205, gantry_sb_offset_details);
+			bool sb_intermediate_gantry_moving = DI_gantry_moving(DB205, gantry_sb_intermediate_details);
+			bool sb_draghead_gantry_moving = DI_gantry_moving(DB205, gantry_sb_draghead_details);
 			bool sb_visor_moving = DI_visor_curling(DB205, sb_visor_details);
 			bool sb_compensator_moving = DI_compensator_working(DB205, sb_compensator_details);
 
@@ -330,14 +330,20 @@ public:
 			bool shore_dischange_cylinder_moving = DI_bolt_moving(DB205, shore_discharge_bolt_details) || DI_holdhoop_moving(DB205, shore_discharge_holdhoop_details);
 			bool barging = DI_winch_winding(DB205, barge_winch_details) || DI_bolt_moving(DB205, barge_bolt_details);
 
-			this->captions[HS::PSOffset]->set_color((ps_offset_gantry_moving || ps_offset_winch_moving) ? running_color : label_color);
-			this->captions[HS::PSIntermediate]->set_color((ps_intermediate_gantry_moving || ps_intermediate_winch_moving) ? running_color : label_color);
-			this->captions[HS::PSDraghead]->set_color((ps_draghead_gantry_moving || ps_draghead_winch_moving) ? running_color : label_color);
+			this->captions[HS::PSOWinch]->set_color(ps_offset_winch_moving ? running_color : label_color);
+			this->captions[HS::PSOGantry]->set_color(ps_offset_gantry_moving ? running_color : label_color);
+			this->captions[HS::PSIWinch]->set_color(ps_intermediate_winch_moving ? running_color : label_color);
+			this->captions[HS::PSIGantry]->set_color(ps_intermediate_gantry_moving ? running_color : label_color);
+			this->captions[HS::PSDHWinch]->set_color(ps_draghead_winch_moving ? running_color : label_color);
+			this->captions[HS::PSDHGantry]->set_color(ps_draghead_gantry_moving ? running_color : label_color);
 			this->captions[HS::J]->set_color(ps_visor_moving ? running_color : label_color);
 			this->captions[HS::PSCompensator]->set_color(ps_compensator_moving ? running_color : label_color);
-			this->captions[HS::SBOffset]->set_color((sb_offset_gantry_moving || sb_offset_winch_moving) ? running_color : label_color);
-			this->captions[HS::SBIntermediate]->set_color((sb_intermediate_gantry_moving || sb_intermediate_winch_moving) ? running_color : label_color);
-			this->captions[HS::SBDraghead]->set_color((sb_draghead_gantry_moving || sb_draghead_winch_moving) ? running_color : label_color);
+			this->captions[HS::SBOWinch]->set_color(sb_offset_winch_moving ? running_color : label_color);
+			this->captions[HS::SBOGantry]->set_color(sb_offset_gantry_moving ? running_color : label_color);
+			this->captions[HS::SBIWinch]->set_color(sb_intermediate_winch_moving ? running_color : label_color);
+			this->captions[HS::SBIGantry]->set_color(sb_intermediate_gantry_moving ? running_color : label_color);
+			this->captions[HS::SBDHWinch]->set_color(sb_draghead_winch_moving ? running_color : label_color);
+			this->captions[HS::SBDHGantry]->set_color(sb_draghead_gantry_moving ? running_color : label_color);
 			this->captions[HS::I]->set_color(sb_visor_moving ? running_color : label_color);
 			this->captions[HS::SBCompensator]->set_color(sb_compensator_moving ? running_color : label_color);
 

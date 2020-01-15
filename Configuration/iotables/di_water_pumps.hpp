@@ -18,22 +18,6 @@ namespace WarGrey::SCADA {
 	static unsigned int ps_water_pump_details = 1001U;
 	static unsigned int sb_water_pump_details = 1017U;
 
-	static unsigned int ps_ps_details = 577U;
-	static unsigned int ps_sb_details = 585U;
-	static unsigned int sb_ps_details = 593U;
-	static unsigned int sb_sb_details = 601U;
-	static unsigned int ps_2_details = 609U;
-	static unsigned int sb_2_details = 617U;
-	static unsigned int s2_ps_details = 625U;
-	static unsigned int s2_sb_details = 633U;
-	static unsigned int s2_2_details = 641U;
-	static unsigned int p2_2_details = 649U;
-	static unsigned int ps_h_details = 657U;
-	static unsigned int sb_h_details = 665U;
-	static unsigned int p2_h_details = 673U;
-	static unsigned int s2_h_details = 681U;
-	static unsigned int i2_2_details = 1201U;
-
 	static unsigned int ps_water_pump_pipeline_ready = 687U;
 	static unsigned int sb_water_pump_pipeline_ready = 688U;
 

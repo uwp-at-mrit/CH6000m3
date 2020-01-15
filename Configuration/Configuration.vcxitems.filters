@@ -64,6 +64,9 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)drag_info.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)moxa.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_menu.cpp">
+      <Filter>iotables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)plc.hpp" />
@@ -157,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)drag_info.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)moxa.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_menu.hpp">
+      <Filter>iotables</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="iotables">
