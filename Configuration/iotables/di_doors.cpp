@@ -17,10 +17,12 @@ void WarGrey::SCADA::DI_hopper_door(IHopperDoorlet* target, const uint8* db205, 
 }
 
 void WarGrey::SCADA::DI_hopper_door(IHopperDoorlet* target, const uint8* db4, size_t idx4_p1, const uint8* db205, size_t idx205_p1) {
-	if (DBX(db4, idx4_p1 - 1U)) {
-		target->set_state(DoorState::Closed);
-	} else {
-		DI_hopper_door(target, db205, idx205_p1);
+	DI_hopper_door(target, db205, idx205_p1);
+
+	if (target->get_state() == DoorState::Default) {
+		if (DBX(db4, idx4_p1 - 1U)) {
+			target->set_state(DoorState::Closed);
+		}
 	}
 }
 

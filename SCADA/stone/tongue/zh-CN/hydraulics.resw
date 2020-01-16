@@ -220,7 +220,7 @@
     <value>右闸阀</value>
   </data>
   <data name="ShoreDischarge" xml:space="preserve">
-    <value>艏吹</value>
+    <value>艏吹绞车</value>
   </data>
   <data name="SternAnchor" xml:space="preserve">
     <value>艉靠泊</value>

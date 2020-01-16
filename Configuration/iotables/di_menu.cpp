@@ -34,20 +34,18 @@ void WarGrey::SCADA::DI_condition_menu(MenuFlyout^ menu, unsigned int idx, const
 	if (ui_thread_accessed()) {
 		menu_style_initialize();
 
-		if (menu->IsOpen) {
-			if (DBX(db205, idx205_p1 - 1U)) {
-				menu_set_foreground_color(menu, idx, menu_cmd_excuting_color);
-			} else if (DBX(db205, idx205_p1 + 0U)) {
-				menu_set_foreground_color(menu, idx, menu_cmd_failure_color);
-			} else if (DBX(db205, idx205_p1 + 1U)) {
-				menu_set_foreground_color(menu, idx, menu_cmd_success_color);
-			} else if (DBX(db205, idx205_p1 + 2U)) {
-				menu_set_foreground_color(menu, idx, menu_cmd_ready_color);
-			} else if (DBX(db205, idx205_p1 + 3U)) {
-				menu_set_foreground_color(menu, idx, menu_cmd_expected_color);
-			} else {
-				menu_set_foreground_color(menu, idx, menu_cmd_foreground_color);
-			}
+		if (DBX(db205, idx205_p1 - 1U)) {
+			menu_set_foreground_color(menu, idx, menu_cmd_excuting_color);
+		} else if (DBX(db205, idx205_p1 + 0U)) {
+			menu_set_foreground_color(menu, idx, menu_cmd_failure_color);
+		} else if (DBX(db205, idx205_p1 + 1U)) {
+			menu_set_foreground_color(menu, idx, menu_cmd_success_color);
+		} else if (DBX(db205, idx205_p1 + 2U)) {
+			menu_set_foreground_color(menu, idx, menu_cmd_ready_color);
+		} else if (DBX(db205, idx205_p1 + 3U)) {
+			menu_set_foreground_color(menu, idx, menu_cmd_expected_color);
+		} else {
+			menu_set_foreground_color(menu, idx, menu_cmd_foreground_color);
 		}
 	} else {
 		ui_thread_run_async([=]() { DI_condition_menu(menu, idx, db205, idx205_p1); });
