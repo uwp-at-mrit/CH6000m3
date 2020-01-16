@@ -115,6 +115,7 @@ public:
 		this->plain_style.number_font = make_bold_text_format("Cambria Math", large_metrics_font_size);
 		this->plain_style.unit_font = make_bold_text_format("Cambria", normal_font_size);
 		this->plain_style.minimize_number_width = 5U;
+		this->plain_style.precision = 1U;
 
 		this->percentage_style.precision = 1;
 
@@ -246,7 +247,7 @@ protected:
 	template<class D, typename E>
 	void load_overview_drag(std::map<E, Credit<D, E>*>& ds, E id, float length, float interval, unsigned int idx) {
 		ds[id] = this->master->insert_one(new Credit<D, E>(this->drag_configs[idx], this->drag_styles[idx], length, interval), id);
-
+		
 		if (id == DS::SBL) {
 			this->master->cellophane(ds[id], 0.0F);
 		}
@@ -365,6 +366,7 @@ protected:
 		
 		if (this->dragxys.find(id) != this->dragxys.end()) {
 			this->dragxys[id]->set_figure(offset, ujoints, draghead, visor_angle);
+			this->check_drag_figure(this->dragxys[id], draghead);
 		}
 
 		if (this->dragxzes.find(id) != this->dragxzes.end()) {
@@ -375,6 +377,7 @@ protected:
 		if (this->dragyzes.find(id) != this->dragyzes.end()) {
 			this->dragyzes[id]->set_figure(offset, ujoints, draghead, visor_angle);
 			this->dragyzes[id]->set_tide_mark(tide);
+			this->check_drag_figure(this->dragyzes[id], draghead);
 		}
 
 		this->dragheads[vid]->set_depths(suction_depth, draghead.z);
@@ -413,6 +416,12 @@ protected:
 			this->master->cellophane(this->dragyzes[DS::SB], sbs_alpha);
 			this->master->cellophane(this->dragyzes[DS::SBL], sbl_alpha);
 		}
+	}
+
+private:
+	template<class Dlet>
+	void check_drag_figure(Dlet& drag, double3 draghead) {
+		drag->set_alarm((draghead.y < 0.0) || (draghead.y > 7.0));
 	}
 
 protected: // never delete these graphlets manually.
