@@ -44,6 +44,11 @@ void WarGrey::SCADA::DI_tank_heater(Heaterlet* target, const uint8* db4, unsigne
 	}
 }
 
+void WarGrey::SCADA::DI_overflow_pipe(OverflowPipelet* target, const uint8* db205, unsigned int idx_p1) {
+	target->set_auto_mode(DBX(db205, idx_p1 + 5U));
+	target->disable(DBX(db205, idx_p1 + 6U));
+}
+
 /*************************************************************************************************/
 bool WarGrey::SCADA::DI_tank_level_low(const uint8* db4, unsigned int idx_p1) {
 	return DBX(db4, idx_p1 - 1U);

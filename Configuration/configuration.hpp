@@ -58,6 +58,13 @@ static const double displacement_range = 22000.0;
 static const double compensator_range = 3.0;
 static const double timeseries_range = displacement_range + 2000.0;
 
+static const double dredging_speed_range = 4.0;
+static const double vacuum_pressure_range = 1.0; // non-negative value
+static const double flow_volume_range = 15000.0;
+static const double flow_speed_range = 10.0;
+static const double drag_pull_force1_range = 1000.0;
+static const double drag_pull_force2_range = 1000.0;
+
 static const double ps_drag_offset_gapsize = 1.845;
 static const double ps_drag_offset_length = 4.135;
 static const double ps_drag_pipe1_length = 22.978;

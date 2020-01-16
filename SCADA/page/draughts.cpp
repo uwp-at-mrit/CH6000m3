@@ -14,7 +14,10 @@
 #include "graphlet/ui/textlet.hpp"
 
 #include "iotables/ai_metrics.hpp"
+#include "iotables/ai_dredges.hpp"
+
 #include "iotables/di_doors.hpp"
+#include "iotables/di_devices.hpp"
 
 #include "iotables/ao_devices.hpp"
 #include "iotables/do_devices.hpp"
@@ -48,7 +51,7 @@ private enum class DL : unsigned int {
 };
 
 private enum class SM : unsigned int {
-	kn, vacuum, fvolume, fspeed, dpforce, _
+	kn, vacuum, fvolume, fspeed, dpforce1, dpforce2, _
 };
 
 /*************************************************************************************************/
@@ -70,6 +73,9 @@ public:
 		this->flonum_style = make_plain_dimension_style(small_metrics_font_size, normal_font_size, 2U);
 		this->fixnum_style = make_plain_dimension_style(small_metrics_font_size, normal_font_size, 0U);
 		this->setting_style = make_highlight_dimension_style(small_metrics_font_size, 5U, 2, this->plain_style.label_color, Colours::Background);
+
+		this->ps_address = make_ps_dredging_system_schema();
+		this->sb_address = make_sb_dredging_system_schema();
 	}
 
 public:
@@ -79,6 +85,8 @@ public:
 	}
 
 	void on_digital_input(long long timepoint_ms, const uint8* DB4, size_t count4, const uint8* DB205, size_t count205, Syslog* logger) override {
+		DI_overflow_pipe(this->overflowpipe, DB205, overflow_pipe_status);
+
 		DI_hopper_doors_checks_button(this->hdchecks[BottomDoorCommand::OpenDoorCheck], BottomDoorCommand::OpenDoorCheck, DB205);
 		DI_hopper_doors_checks_button(this->hdchecks[BottomDoorCommand::CloseDoorCheck], BottomDoorCommand::CloseDoorCheck, DB205);
 	}
@@ -123,6 +131,26 @@ public:
 				this->timeseries->scroll_to_timepoint(timepoint_ms);
 			}
 		}
+		
+		{ // set radars
+			double ps_metrics[_N(SM)];
+			double sb_metrics[_N(SM)];
+
+			ps_metrics[_I(SM::kn)] = 0.0 / dredging_speed_range;
+			sb_metrics[_I(SM::kn)] = 0.0 / dredging_speed_range;
+
+			this->set_flow_volume(ps_metrics, DB2, ps_flow, flow_volume_range);
+			this->set_flow_volume(sb_metrics, DB2, sb_flow, flow_volume_range);
+			this->set_flow_speed(ps_metrics, DB203, this->ps_address->density_speed, flow_speed_range);
+			this->set_flow_speed(sb_metrics, DB203, this->sb_address->density_speed, flow_speed_range);
+			this->set_vacuum_pressure(ps_metrics, DB203, this->ps_address->vacuum_pressure, vacuum_pressure_range);
+			this->set_vacuum_pressure(sb_metrics, DB203, this->sb_address->vacuum_pressure, vacuum_pressure_range);
+			this->set_drag_pull_force(ps_metrics, DB203, this->ps_address->pulling_force, drag_pull_force1_range, drag_pull_force2_range);
+			this->set_drag_pull_force(sb_metrics, DB203, this->sb_address->pulling_force, drag_pull_force1_range, drag_pull_force2_range);
+
+			this->ps_radar->set_scales(ps_metrics);
+			this->sb_radar->set_scales(sb_metrics);
+		}
 	}
 
 	void on_forat(long long timepoint_ms, const uint8* DB20, size_t count, Syslog* logger) override {
@@ -155,7 +183,8 @@ public:
 		
 		overflow_height = ship_height * 0.382F;
 		this->overflowpipe = this->master->insert_one(new OverflowPipelet(hopper_height_range, overflow_height));
-		this->radar = this->master->insert_one(new Radarlet<SM>(__MODULE__, overflow_height * 0.618F));
+		this->ps_radar = this->master->insert_one(new Radarlet<SM>(__MODULE__, overflow_height * 0.5F, Colours::make(default_ps_color)));
+		this->sb_radar = this->master->insert_one(new Radarlet<SM>(__MODULE__, overflow_height * 0.5F, Colours::make(default_sb_color)));
 
 		cylinder_height = ship_height * 0.42F;
 		this->load_cylinder(this->cylinders, EWTS::EarthWork, cylinder_height, earthwork_range, 0U, "meter3");
@@ -211,8 +240,9 @@ public:
 		this->master->move_to(this->timeseries, tsx, tsy, GraphletAnchor::CC, 0.0F, -vinset);
 		this->master->move_to(this->overflowpipe, ofpx, ofpy, GraphletAnchor::CC, 0.0F, -gapsize);
 		this->master->move_to(this->dimensions[DL::Overflow], this->overflowpipe, GraphletAnchor::CB, GraphletAnchor::CT, 0.0F, gapsize);
-		this->master->move_to(this->radar, this->overflowpipe, GraphletAnchor::RC, GraphletAnchor::LC, gapsize);
-		
+		this->master->move_to(this->ps_radar, this->overflowpipe, GraphletAnchor::RC, GraphletAnchor::LB, gapsize * 3.0F, -gapsize * 0.0F);
+		this->master->move_to(this->sb_radar, this->overflowpipe, GraphletAnchor::RC, GraphletAnchor::LT, gapsize * 3.0F, +gapsize * 1.5F);
+
 		{ // reflow dimensions
 			float cpt_height, xoff, yoff;
 
@@ -364,6 +394,23 @@ private:
 		values[_I(id)] = value;
 	}
 
+	void set_flow_speed(double* metrics, const uint8* db203, unsigned int idx, double range) {
+		metrics[_I(SM::fspeed)] = RealData(db203, idx + 1U) / range;
+	}
+	
+	void set_flow_volume(double* metrics, const uint8* db2, unsigned int idx, double range) {
+		metrics[_I(SM::fvolume)] = DBD(db2, idx) / range;
+	}
+
+	void set_vacuum_pressure(double* metrics, const uint8* db203, unsigned int idx, double range) {
+		metrics[_I(SM::vacuum)] = flabs(RealData(db203, idx) / range);
+	}
+
+	void set_drag_pull_force(double* metrics, const uint8* db203, unsigned int idx, double range1, double range2) {
+		metrics[_I(SM::dpforce1)] = RealData(db203, idx + 0U) / range1;
+		metrics[_I(SM::dpforce2)] = RealData(db203, idx + 1U) / range2;
+	}
+
 private: // never delete these graphlets manually.
 	std::map<DL, Credit<Labellet, DL>*> labels;
 	std::map<DL, Credit<Dimensionlet, DL>*> dimensions;
@@ -373,7 +420,8 @@ private: // never delete these graphlets manually.
 	std::map<BottomDoorCommand, Credit<Buttonlet, BottomDoorCommand>*> hdchecks;
 	TimeSerieslet<EWTS>* timeseries;
 	OverflowPipelet* overflowpipe;
-	Radarlet<SM>* radar;
+	Radarlet<SM>* ps_radar;
+	Radarlet<SM>* sb_radar;
 
 private:
 	CanvasTextFormat^ label_font;
@@ -391,6 +439,10 @@ private:
 	long long departure;
 	long long destination;
 	bool timemachine;
+
+private:
+	DredgeAddress* ps_address;
+	DredgeAddress* sb_address;
 };
 
 /*************************************************************************************************/

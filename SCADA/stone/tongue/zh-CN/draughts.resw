@@ -186,8 +186,8 @@
   <data name="AverageDraft" xml:space="preserve">
     <value>平均吃水</value>
   </data>
-  <data name="dpforce" xml:space="preserve">
-    <value>耙管拉力</value>
+  <data name="dpforce1" xml:space="preserve">
+    <value>拉力1</value>
   </data>
   <data name="fspeed" xml:space="preserve">
     <value>流速</value>
@@ -200,5 +200,8 @@
   </data>
   <data name="vacuum" xml:space="preserve">
     <value>真空</value>
+  </data>
+  <data name="dpforce2" xml:space="preserve">
+    <value>拉力2</value>
   </data>
 </root>
