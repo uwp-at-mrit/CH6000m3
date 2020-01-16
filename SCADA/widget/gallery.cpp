@@ -65,6 +65,8 @@ namespace {
 			this->background = this->insert_one(new Rectanglet(width, height, Colours::Background));
 
 			this->remote_label = make_label(_speak("Remote"), this->font);
+			this->auto_label = make_label(_speak("Auto"), this->font);
+
 			for (GS id = _E(GS, 0); id < GS::_; id++) {
 				this->captions[_I(id)] = make_label(_speak(id), this->font);
 			}
@@ -84,6 +86,9 @@ namespace {
 			this->load_remote_primitive(&this->remote_hopper_pump, HopperPumpState::Stopped, unitsize * 0.5F);
 			this->load_remote_primitive(&this->remote_water_pump, WaterPumpState::Stopped, unitsize);
 			this->load_remote_primitive(&this->remote_heater, HeaterState::Stopped, unitsize);
+
+			this->load_auto_primitive(&this->auto_pump, HydraulicPumpState::Ready, unitsize);
+			this->load_auto_primitive(&this->auto_heater, HeaterState::Ready, unitsize);
 		}
 
 		void reflow(float width, float height) override {
@@ -143,6 +148,15 @@ namespace {
 				this->move_to(this->remote_water_pump, x, y + cellsize * 4.0F, GraphletAnchor::CC);
 				this->move_to(this->remote_heater, x, y + cellsize * 5.0F, GraphletAnchor::CC);
 			}
+
+			{ // reflow automatic graphlets
+				x = x - cellsize;
+				y = vinset + cellsize * 0.5F;
+
+				this->move_to(this->auto_label, x, y + cellsize * 0.0F, GraphletAnchor::CC);
+				this->move_to(this->auto_pump, x, y + cellsize * 1.0F, GraphletAnchor::CC);
+				this->move_to(this->auto_heater, x, y + cellsize * 2.0F, GraphletAnchor::CC);
+			}
 		}
 
 	public:
@@ -168,6 +182,12 @@ namespace {
 		void load_remote_primitive(T** g, S s, float unitsize) {
 			(*g) = this->insert_one(new T(s, unitsize));
 			(*g)->set_remote_control(true);
+		}
+
+		template<typename T, typename S>
+		void load_auto_primitive(T** g, S s, float unitsize) {
+			(*g) = this->insert_one(new T(s, unitsize));
+			(*g)->set_auto_mode(true);
 		}
 
 		template<typename T, typename S>
@@ -226,6 +246,10 @@ namespace {
 		HopperPumplet* remote_hopper_pump;
 		WaterPumplet* remote_water_pump;
 		Heaterlet* remote_heater;
+
+		Labellet* auto_label;
+		HydraulicPumplet* auto_pump;
+		Heaterlet* auto_heater;
 
 		Rectanglet* background;
 

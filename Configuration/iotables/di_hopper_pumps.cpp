@@ -105,6 +105,10 @@ void WarGrey::SCADA::DI_gland_pump(HydraulicPumplet* target, bool hopper
 	, const uint8* db4, size_t idx_p1, const uint8* db205, size_t idx205_p1) {
 	target->set_remote_control(DI_gland_pump_remote_control(db4, idx_p1, hopper));
 
+	if (hopper) {
+		target->set_auto_mode(DBX(db205, idx205_p1 + 6));
+	}
+	
 	if (DI_gland_pump_running(db4, idx_p1, hopper)) {
 		target->set_state(HydraulicPumpState::Running);
 	} else if (DI_gland_pump_broken(db4, idx_p1, hopper)) {
@@ -117,11 +121,6 @@ void WarGrey::SCADA::DI_gland_pump(HydraulicPumplet* target, bool hopper
 		//target->set_state(DBX(db205, idx205_p1 + 1), HydraulicPumpState::Reset);
 		target->set_state(DBX(db205, idx205_p1 + 2U), HydraulicPumpState::Unstartable);
 		target->set_state(DBX(db205, idx205_p1 + 3U), HydraulicPumpState::Unstoppable);
-
-		// the rest 3 are implied or not used
-		//target->set_state(DBX(db205, idx205_p1 + 4), HydraulicPumpState::StartReady);
-		//target->set_state(DBX(db205, idx205_p1 + 5), HydraulicPumpState::StopReady);
-		//target->set_state(DBX(db205, idx205_p1 + 6), HydraulicPumpState::Stopped);
 	}
 }
 
