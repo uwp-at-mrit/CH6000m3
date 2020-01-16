@@ -39,6 +39,7 @@
 using namespace WarGrey::SCADA;
 
 using namespace Windows::UI::Xaml::Controls;
+using namespace Windows::UI::Xaml::Media;
 using namespace Windows::Foundation::Numerics;
 
 using namespace Microsoft::Graphics::Canvas;
@@ -53,6 +54,7 @@ private enum class HSMTState { Empty, UltraLow, Low, Normal, High, Full, _ };
 static CanvasSolidColorBrush^ oil_color = Colours::Yellow;
 static CanvasSolidColorBrush^ label_color = Colours::Salmon;
 static CanvasSolidColorBrush^ running_color = Colours::Green;
+static CanvasSolidColorBrush^ auto_color = Colours::Green;
 
 // WARNING: order matters
 private enum class HS : unsigned int {
@@ -181,7 +183,7 @@ static const HS* select_captions(HS pid, unsigned int* count) {
 /*************************************************************************************************/
 private class Hydraulics final : public PLCConfirmation {
 public:
-	Hydraulics(HydraulicsPage* master) : master(master) {}
+	Hydraulics(HydraulicsPage* master, MenuFlyout^ heater_menu = nullptr) : master(master), heater_menu(heater_menu) {}
 
 public:
 	void pre_read_data(Syslog* logger) override {
@@ -616,6 +618,10 @@ public:
 				float hgapsize = ((cpt_dx > 0.0F) ? text_hspace : -text_hspace) * 2.0F;
 				float cpt_height;
 
+				if (count > 6) {
+					column++;
+				}
+
 				target->fill_extent(0.0F, 0.0F, nullptr, &cpt_height);
 				for (unsigned int idx = 0; idx < count; idx += column) {
 					this->station->map_graphlet_at_anchor(this->captions[cpts[idx]], it->first, cpt_a,
@@ -898,13 +904,12 @@ private:
 
 private:
 	HydraulicsPage* master;
+	MenuFlyout^ heater_menu;
 };
 
 HydraulicsPage::HydraulicsPage(PLCMaster* plc) : Planet(__MODULE__), device(plc) {
-	Hydraulics* dashboard = new Hydraulics(this);
+	Hydraulics* dashboard = nullptr;
 
-	this->dashboard = dashboard;
-	
 	if (this->device != nullptr) {
 		this->gbs_op = make_hydraulics_group_menu(HydraulicsGroup::BothPumps, plc);
 		this->gps_op = make_hydraulics_group_menu(HydraulicsGroup::PSPumps, plc);
@@ -913,7 +918,10 @@ HydraulicsPage::HydraulicsPage(PLCMaster* plc) : Planet(__MODULE__), device(plc)
 		this->pump_op = make_hydraulic_pump_menu(DO_hydraulics_action, hydraulics_diagnostics, plc);
 		this->heater_op = make_tank_heater_menu(plc);
 
+		dashboard = new Hydraulics(this, this->heater_op);
 		this->device->push_confirmation_receiver(dashboard);
+	} else {
+		dashboard = new Hydraulics(this);
 	}
 
 	{ // load decorators
@@ -924,6 +932,8 @@ HydraulicsPage::HydraulicsPage(PLCMaster* plc) : Planet(__MODULE__), device(plc)
 #else
 		this->grid->set_active_planet(this);
 #endif
+
+		this->dashboard = dashboard;
 	}
 }
 

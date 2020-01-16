@@ -78,6 +78,7 @@ namespace WarGrey::SCADA {
 
 	static unsigned int bow_anchor_winch_details = 2785U;
 	static unsigned int stern_anchor_winch_details = 2793U;
+	static unsigned int anchor_winch_details_offset = 6U;
 	
 	/************************************************************************************************/
 	void DI_winch(WarGrey::SCADA::Winchlet* target,

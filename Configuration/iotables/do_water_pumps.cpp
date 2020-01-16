@@ -1,6 +1,6 @@
+#include "plc.hpp"
 #include "menu.hpp"
 
-#include "plc.hpp"
 #include "iotables/do_water_pumps.hpp"
 
 #include "graphlet/symbol/pump/water_pumplet.hpp"

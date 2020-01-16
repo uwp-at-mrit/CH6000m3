@@ -32,6 +32,7 @@ namespace WarGrey::SCADA {
 
 	bool DI_tank_level_low(const uint8* db4, unsigned int idx_p1);
 	bool DI_tank_level_too_low(const uint8* db4, unsigned int idx_p1);
+	bool DI_tank_heater_auto(const uint8* db205, unsigned int idx205_p1);
 
 	bool DI_overflow_moving(const uint8* db205, unsigned int idx_p1);
 

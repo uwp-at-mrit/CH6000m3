@@ -28,7 +28,8 @@ namespace WarGrey::SCADA {
 	private:
 		WarGrey::SCADA::PLCMaster* device;
 		WarGrey::SCADA::PLCConfirmation* dashboard;
-		Windows::UI::Xaml::Controls::MenuFlyout^ anchor_winch_op;
+		Windows::UI::Xaml::Controls::MenuFlyout^ bow_winch_op;
+		Windows::UI::Xaml::Controls::MenuFlyout^ stern_winch_op;
 		Windows::UI::Xaml::Controls::MenuFlyout^ barge_winch_op;
 		Windows::UI::Xaml::Controls::MenuFlyout^ barge_cylinder_op;
 		Windows::UI::Xaml::Controls::MenuFlyout^ shore_winch_op;

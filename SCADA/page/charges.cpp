@@ -11,6 +11,7 @@
 #include "text.hpp"
 #include "paint.hpp"
 #include "brushes.hxx"
+#include "system.hpp"
 #include "turtle.hpp"
 
 #include "datum/flonum.hpp"
@@ -30,6 +31,7 @@
 #include "iotables/di_pumps.hpp"
 #include "iotables/di_hopper_pumps.hpp"
 #include "iotables/di_valves.hpp"
+#include "iotables/di_menu.hpp"
 
 #include "iotables/do_valves.hpp"
 #include "iotables/do_hopper_pumps.hpp"
@@ -40,6 +42,8 @@ using namespace WarGrey::SCADA;
 
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Numerics;
+
+using namespace Windows::UI::Xaml::Controls;
 
 using namespace Microsoft::Graphics::Canvas;
 using namespace Microsoft::Graphics::Canvas::UI;
@@ -99,7 +103,11 @@ static uint16 DO_gate_valve_action(GateValveAction cmd, GateValvelet* valve) {
 /*************************************************************************************************/
 private class Vessel final : public PLCConfirmation {
 public:
-	Vessel(ChargesPage* master) : master(master) {}
+	Vessel(ChargesPage* master,
+		MenuFlyout^ ps_hmenu = nullptr, MenuFlyout^ sb_hmenu = nullptr,
+		MenuFlyout^ ps_uwmenu = nullptr, MenuFlyout^ sb_uwmenu = nullptr)
+		: master(master), ps_hopper_menu(ps_hmenu), sb_hopper_menu(sb_hmenu),
+		ps_underwater_menu(ps_uwmenu), sb_underwater_menu(sb_uwmenu) {}
 
 public:
 	void pre_read_data(Syslog* logger) override {
@@ -176,6 +184,30 @@ public:
 
 		DI_gate_valve(this->gvalves[CS::D004], DB205, gate_valve_D04_feedback, DB205, gate_valve_D04_status);
 		DI_motor_valve(this->mvalves[CS::D004], DB4, motor_valve_D04_feedback, DB205, motor_valve_D04_status);
+
+		ui_thread_run_async([=]() {
+			if (this->ps_hopper_menu != nullptr) {
+				DI_condition_menu(this->ps_hopper_menu, PSHopperPumpChargeAction::PSHopper, DB205, ps_hopper_dredge_details);
+				DI_condition_menu(this->ps_hopper_menu, PSHopperPumpChargeAction::BothHopper, DB205, ps_sb_hopper_dredge_details);
+			}
+
+			if (this->sb_hopper_menu != nullptr) {
+				DI_condition_menu(this->sb_hopper_menu, SBHopperPumpChargeAction::SBHopper, DB205, sb_hopper_dredge_details);
+				DI_condition_menu(this->sb_hopper_menu, SBHopperPumpChargeAction::BothHopper, DB205, ps_sb_hopper_dredge_details);
+				DI_condition_menu(this->sb_hopper_menu, SBHopperPumpChargeAction::HPBarge, DB205, sb_hopper_dredge_barge_details);
+			}
+
+			if (this->ps_underwater_menu != nullptr) {
+				DI_condition_menu(this->ps_underwater_menu, PSUnderWaterPumpChargeAction::PSUnderWater, DB205, ps_underwater_dredge_details);
+				DI_condition_menu(this->ps_underwater_menu, PSUnderWaterPumpChargeAction::BothUnderWater, DB205, ps_sb_underwater_dredge_details);
+			}
+
+			if (this->sb_underwater_menu != nullptr) {
+				DI_condition_menu(this->sb_underwater_menu, SBUnderWaterPumpChargeAction::SBUnderWater, DB205, sb_underwater_dredge_details);
+				DI_condition_menu(this->sb_underwater_menu, SBUnderWaterPumpChargeAction::BothUnderWater, DB205, ps_sb_underwater_dredge_details);
+				DI_condition_menu(this->sb_underwater_menu, SBUnderWaterPumpChargeAction::UWPBarge, DB205, sb_underwater_dredge_barge_details);
+			}
+		});
 	}
 
 	void post_read_data(Syslog* logger) override {
@@ -269,7 +301,7 @@ public:
 	void load(float width, float height, float gwidth, float gheight) {
 		float radius = resolve_gridsize(gwidth, gheight);
 		Turtle<CS>* pTurtle = new Turtle<CS>(gwidth, gheight, false);
-
+		
 		pTurtle->move_left(CS::deck_rx)->move_left(2, CS::D021)->move_left(2, CS::d2122);
 		pTurtle->move_down(5)->move_right(2, CS::D022)->move_right(3)->jump_back();
 		pTurtle->move_left(2, CS::d1920)->move_left(2, CS::D020)->move_left(7, CS::d1720);
@@ -725,6 +757,10 @@ private:
 
 private:
 	ChargesPage* master;
+	MenuFlyout^ ps_hopper_menu;
+	MenuFlyout^ sb_hopper_menu;
+	MenuFlyout^ ps_underwater_menu;
+	MenuFlyout^ sb_underwater_menu;
 };
 
 private class VesselDecorator : public TVesselDecorator<Vessel, CS> {
@@ -745,10 +781,8 @@ public:
 
 /*************************************************************************************************/
 ChargesPage::ChargesPage(PLCMaster* plc) : Planet(__MODULE__), device(plc) {
-	Vessel* dashboard = new Vessel(this);
+	Vessel* dashboard = nullptr;
 
-	this->dashboard = dashboard;
-	
 	if (this->device != nullptr) {
 		this->diagnostics = new HopperPumpDiagnostics(plc);
 		this->motor_info = new UnderwaterPumpMotorMetrics(plc);
@@ -767,7 +801,12 @@ ChargesPage::ChargesPage(PLCMaster* plc) : Planet(__MODULE__), device(plc) {
 		this->ps_underwater_op = make_ps_underwater_pump_charge_menu(plc);
 		this->sb_underwater_op = make_sb_underwater_pump_charge_menu(plc);
 
-		this->device->push_confirmation_receiver(dashboard);
+		{ // only highlight menu items of these four menus
+			dashboard = new Vessel(this, this->ps_hopper_op, this->sb_hopper_op, this->ps_underwater_op, this->sb_underwater_op);
+			this->device->push_confirmation_receiver(dashboard);
+		}
+	} else {
+		dashboard = new Vessel(this);
 	}
 
 	{ // load decorators
@@ -780,6 +819,7 @@ ChargesPage::ChargesPage(PLCMaster* plc) : Planet(__MODULE__), device(plc) {
 #endif
 
 		this->push_decorator(new VesselDecorator(dashboard));
+		this->dashboard = dashboard;
 	}
 }
 

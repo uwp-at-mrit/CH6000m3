@@ -1,8 +1,7 @@
-#include "menu.hpp"
-
 #include "datum/credit.hpp"
 
 #include "plc.hpp"
+#include "menu.hpp"
 #include "iotables/do_hopper_pumps.hpp"
 
 #include "graphlet/symbol/pump/hopper_pumplet.hpp"
@@ -11,6 +10,7 @@ using namespace WarGrey::SCADA;
 
 using namespace Windows::UI::Xaml::Controls;
 
+/*************************************************************************************************/
 static unsigned int hopper_pump_reset_offset = 3U;
 
 static unsigned int ps_underwater_dredging = 305U;
@@ -52,6 +52,7 @@ static uint16 DO_hopper_pump_common_command(OP cmd, bool ps, bool hopper) {
 	return index + offset;
 }
 
+/*************************************************************************************************/
 private class GlandPumpExecutor final : public IMenuCommand<GlandPumpAction, HydraulicPumplet, PLCMaster*> {
 public:
 	GlandPumpExecutor(gland_pump_action_f gpc, gland_pump_diagnostics_f gpd)

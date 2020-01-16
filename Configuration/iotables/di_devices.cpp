@@ -23,7 +23,7 @@ void WarGrey::SCADA::DI_visor_tank(Tanklet* target, const uint8* db4, unsigned i
 
 void WarGrey::SCADA::DI_tank_heater(Heaterlet* target, const uint8* db4, unsigned int idx4_p1, const uint8* db205, unsigned int idx205_p1) {
 	target->set_remote_control(DBX(db4, idx4_p1 - 1U));
-	target->set_auto_mode(DBX(db205, idx205_p1 + 6U));
+	target->set_auto_mode(DI_tank_heater_auto(db205, idx205_p1));
 
 	if (DBX(db4, idx4_p1 + 1U)) {
 		target->set_state(HeaterState::Broken);
@@ -51,6 +51,10 @@ bool WarGrey::SCADA::DI_tank_level_low(const uint8* db4, unsigned int idx_p1) {
 
 bool WarGrey::SCADA::DI_tank_level_too_low(const uint8* db4, unsigned int idx_p1) {
 	return DBX(db4, idx_p1 + 0U);
+}
+
+bool WarGrey::SCADA::DI_tank_heater_auto(const uint8* db205, unsigned int idx_p1) {
+	return DBX(db205, idx_p1 + 6U);
 }
 
 bool WarGrey::SCADA::DI_overflow_moving(const uint8* db205, unsigned int idx_p1) {

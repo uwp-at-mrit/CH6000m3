@@ -12,7 +12,6 @@
 
 #include "graphlet/shapelet.hpp"
 #include "graphlet/ui/statuslet.hpp"
-#include "graphlet/dashboard/alarmlet.hpp"
 #include "graphlet/device/winchlet.hpp"
 
 #include "graphlet/symbol/door/hatchlet.hpp"
@@ -29,6 +28,7 @@
 #include "iotables/di_hopper_pumps.hpp"
 #include "iotables/di_valves.hpp"
 #include "iotables/di_doors.hpp"
+#include "iotables/di_menu.hpp"
 
 #include "iotables/ai_winches.hpp"
 #include "iotables/ai_valves.hpp"
@@ -49,6 +49,8 @@ using namespace Windows::Foundation;
 using namespace Windows::Foundation::Numerics;
 using namespace Windows::System;
 
+using namespace Windows::UI::Xaml::Controls;
+
 using namespace Microsoft::Graphics::Canvas;
 using namespace Microsoft::Graphics::Canvas::UI;
 using namespace Microsoft::Graphics::Canvas::Text;
@@ -64,9 +66,6 @@ private enum class RS : unsigned int {
 
 	// Pump dimensions
 	A, C, F, H,
-
-	// Anchor Winch States
-	BowCTension, SternCTension,
 
 	// Key Labels
 	Port, Starboard, Hatch, PSHPump, SBHPump, Barge,
@@ -108,7 +107,10 @@ static uint16 DO_gate_valve_action(GateValveAction cmd, GateValvelet* valve) {
 /*************************************************************************************************/
 private class Rainbows final : public PLCConfirmation {
 public:
-	Rainbows(DischargesPage* master) : master(master) {}
+	Rainbows(DischargesPage* master
+		, MenuFlyout^ ps_menu = nullptr, MenuFlyout^ sb_menu = nullptr
+		, MenuFlyout^ bow_winch_menu = nullptr, MenuFlyout^ stern_winch_menu = nullptr)
+		: master(master), ps_menu(ps_menu), sb_menu(sb_menu), bow_menu(bow_winch_menu), stern_menu(stern_winch_menu) {}
 
 public:
 	void pre_read_data(Syslog* logger) override {
@@ -180,9 +182,6 @@ public:
 		DI_bolt(this->bolts[RS::shd_joint], DB4, shore_discharge_bolt_feedback);
 		DI_holdhoop(this->holdhoops[RS::shd_joint], DB4, shore_discharge_holdhoop_feedback);
 
-		this->alarms[RS::BowCTension]->set_state(DI_winch_constant_tension(DB205, bow_anchor_winch_details), AlarmState::Notice, AlarmState::None);
-		this->alarms[RS::SternCTension]->set_state(DI_winch_constant_tension(DB205, stern_anchor_winch_details), AlarmState::Notice, AlarmState::None);
-		
 		this->bolts[RS::Barge]->set_running(DI_winch_locker_open(DB205, barge_winch_feedback));
 		this->bolts[RS::Barge]->set_state(DI_winch_locked(DB205, barge_winch_details), BoltState::SlidedIn, BoltState::SlidedOut);
 
@@ -227,6 +226,31 @@ public:
 		DI_hopper_door(this->uhdoors[Door::SB7], DB205, upper_door_SB7_status);
 
 		this->door_paired_color = (DBX(DB205, upper_door_paired - 1U) ? door_pairing_color : this->relationship_color);
+
+		ui_thread_run_async([=]() {
+			if (this->ps_menu != nullptr) {
+				DI_condition_menu(this->ps_menu, PSHopperPumpDischargeAction::PSShoring, DB205, ps_shore_discharge_details);
+				DI_condition_menu(this->ps_menu, PSHopperPumpDischargeAction::PSRainbowing, DB205, ps_rainbowing_details);
+				DI_condition_menu(this->ps_menu, PSHopperPumpDischargeAction::BothShoring, DB205, ps_sb_shore_discharge_details);
+				DI_condition_menu(this->ps_menu, PSHopperPumpDischargeAction::BothRainbowing, DB205, ps_sb_rainbowing_details);
+			}
+
+			if (this->sb_menu != nullptr) {
+				DI_condition_menu(this->sb_menu, SBHopperPumpDischargeAction::SBShoring, DB205, sb_shore_discharge_details);
+				DI_condition_menu(this->sb_menu, SBHopperPumpDischargeAction::SBRainbowing, DB205, sb_rainbowing_details);
+				DI_condition_menu(this->sb_menu, SBHopperPumpDischargeAction::BothShoring, DB205, ps_sb_shore_discharge_details);
+				DI_condition_menu(this->sb_menu, SBHopperPumpDischargeAction::BothRainbowing, DB205, ps_sb_rainbowing_details);
+			}
+
+			if (this->bow_menu != nullptr) {
+				DI_binary_menu(this->bow_menu, AnchorWinchAction::CTension, DB205, bow_anchor_winch_details, anchor_winch_details_offset);
+			}
+
+			if (this->stern_menu != nullptr) {
+				DI_binary_menu(this->stern_menu, AnchorWinchAction::CTension, DB205, stern_anchor_winch_details, anchor_winch_details_offset);
+			}
+		});
+		
 	}
 
 	void post_read_data(Syslog* logger) override {
@@ -354,8 +378,7 @@ public:
 		
 		{ // load winches and cylinders
 			this->load_winches(this->winches, this->winch_labels, radius * 3.2F);
-			this->load_alarms(this->alarms, this->alabels, RS::BowCTension, RS::SternCTension, radius);
-
+			
 			this->holdhoops[RS::shd_joint] = this->master->insert_one(new Credit<HoldHooplet, RS>(radius), RS::shd_joint);
 			this->bolts[RS::shd_joint] = this->master->insert_one(new Credit<Boltlet, RS>(radius, 90.0), RS::shd_joint);
 			this->bolts[RS::Barge] = this->master->insert_one(new Credit<Boltlet, RS>(radius), RS::Barge);
@@ -531,9 +554,6 @@ public:
 			this->station->map_graphlet_base_on_anchors(this->winches[ShipSlot::SternWinch], RS::Hatch, RS::ps, GraphletAnchor::CT, gwidth);
 			this->station->map_graphlet_base_on_anchors(this->winches[ShipSlot::BargeWinch], RS::d024, RS::D006, GraphletAnchor::LC, gwidth, gapsize);
 
-			this->master->move_to(this->alarms[RS::BowCTension], this->winches[ShipSlot::BowWinch], GraphletAnchor::RC, GraphletAnchor::LC, gapsize);
-			this->master->move_to(this->alarms[RS::SternCTension], this->winches[ShipSlot::SternWinch], GraphletAnchor::RC, GraphletAnchor::LC, gapsize);
-
 			{ // reflow cylinders
 				this->holdhoops[RS::shd_joint]->fill_cylinder_origin(&ox, &oy);
 				this->station->map_credit_graphlet(this->holdhoops[RS::shd_joint], GraphletAnchor::CC, -ox, -oy);
@@ -545,10 +565,6 @@ public:
 			for (auto it = this->winches.begin(); it != this->winches.end(); it++) {
 				this->master->move_to(this->winch_labels[it->first], it->second, GraphletAnchor::CT, GraphletAnchor::CB);
 				this->master->move_to(this->winch_pressures[it->first], it->second, GraphletAnchor::CB, GraphletAnchor::CT);
-			}
-
-			for (auto it = this->alabels.begin(); it != this->alabels.end(); it++) {
-				this->master->move_to(it->second, this->alarms[it->first], GraphletAnchor::RC, GraphletAnchor::LC, gapsize);
 			}
 		}
 
@@ -655,14 +671,6 @@ private:
 		this->load_dimension(this->rpms, id, "rpm", 0);
 		this->load_dimension(this->dpressures, id, "bar", 1);
 		this->load_dimension(this->vpressures, id, "bar", 1);
-	}
-
-	template<class A, typename E>
-	void load_alarms(std::map<E, Credit<A, E>*>& as, std::map<E, Credit<Labellet, E>*>& ls, E id0, E idn, float size) {
-		for (E id = id0; id <= idn; id++) {
-			this->load_label(ls, id, Colours::Silver, this->label_font);
-			as[id] = this->master->insert_one(new Credit<A, E>(size), id);
-		}
 	}
 
 	template<class W, typename E>
@@ -790,8 +798,6 @@ private:
 	std::map<RS, Credit<GateValvelet, RS>*> gvalves;
 	std::map<RS, Credit<MotorValvelet, RS>*> mvalves;
 	std::map<RS, Credit<Labellet, RS>*> vlabels;
-	std::map<RS, Credit<Alarmlet, RS>*> alarms;
-	std::map<RS, Credit<Labellet, RS>*> alabels;
 	std::map<RS, Credit<HoldHooplet, RS>*> holdhoops;
 	std::map<RS, Credit<Boltlet, RS>*> bolts;
 	std::map<ShipSlot, Credit<Winchlet, ShipSlot>*> winches;
@@ -827,6 +833,10 @@ private:
 
 private:
 	DischargesPage* master;
+	MenuFlyout^ ps_menu;
+	MenuFlyout^ sb_menu;
+	MenuFlyout^ bow_menu;
+	MenuFlyout^ stern_menu;
 };
 
 private class RainbowsDecorator : public TVesselDecorator<Rainbows, RS> {
@@ -857,12 +867,13 @@ public:
 
 /*************************************************************************************************/
 DischargesPage::DischargesPage(PLCMaster* plc) : Planet(__MODULE__), device(plc) {
-	Rainbows* dashboard = new Rainbows(this);
+	Rainbows* dashboard = nullptr;
 
 	this->dashboard = dashboard;
 	
 	if (this->device != nullptr) {
-		this->anchor_winch_op = make_anchor_winch_menu(plc);
+		this->bow_winch_op = make_anchor_winch_menu(plc);
+		this->stern_winch_op = make_anchor_winch_menu(plc);
 		this->barge_winch_op = make_barge_winch_menu(plc);
 		this->barge_cylinder_op = make_barge_cylinder_menu(plc);
 		this->shore_winch_op = make_shore_winch_menu(plc);
@@ -874,7 +885,10 @@ DischargesPage::DischargesPage(PLCMaster* plc) : Planet(__MODULE__), device(plc)
 		this->sb_hopper_op = make_sb_hopper_pump_discharge_menu(plc);
 		this->gdischarge_op = make_discharge_condition_menu(plc);
 
+		dashboard = new Rainbows(this, this->ps_hopper_op, this->sb_hopper_op, this->bow_winch_op, this->stern_winch_op);
 		this->device->push_confirmation_receiver(dashboard);
+	} else {
+		dashboard = new Rainbows(this);
 	}
 
 	{ // load decorators
@@ -887,6 +901,7 @@ DischargesPage::DischargesPage(PLCMaster* plc) : Planet(__MODULE__), device(plc)
 #endif
 
 		this->push_decorator(new RainbowsDecorator(dashboard));
+		this->dashboard = dashboard;
 	}
 }
 
@@ -973,7 +988,8 @@ void DischargesPage::on_tap_selected(IGraphlet* g, float local_x, float local_y)
 		switch (winch->id) {
 		case ShipSlot::ShoreWinch: menu_popup(this->shore_winch_op, g, local_x, local_y); break;
 		case ShipSlot::BargeWinch: menu_popup(this->barge_winch_op, g, local_x, local_y); break;
-		case ShipSlot::BowWinch: case ShipSlot::SternWinch: menu_popup(this->anchor_winch_op, g, local_x, local_y); break;
+		case ShipSlot::BowWinch: menu_popup(this->bow_winch_op, g, local_x, local_y); break;
+		case ShipSlot::SternWinch: menu_popup(this->stern_winch_op, g, local_x, local_y); break;
 		}
 	} else if (hpump != nullptr) {
 		switch (hpump->id) {
