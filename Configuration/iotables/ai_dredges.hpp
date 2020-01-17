@@ -3,7 +3,7 @@
 namespace WarGrey::SCADA {
 	private struct DredgeAddress {
 		unsigned int drag_position;
-
+		
 		unsigned int compensator;
 		unsigned int density_speed;
 		unsigned int pulling_force;

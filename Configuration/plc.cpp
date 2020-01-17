@@ -207,7 +207,7 @@ void WarGrey::SCADA::read_drag_figures(const uint8* DB2, const uint8* DB203
 	SET_BOX(suction_depth, DBD(DB2, drag_idx)); // stored in offset->x;
 
 	if (visor_angle != nullptr) { // WARNING: DB2 gives the wrong visor angle, using DB203 and manually computing it instead.
-		(*visor_angle) = (visor_max - visor_min) * (1.0 - RealData(DB203, visor_idx) * 0.01F) + visor_min;
+		(*visor_angle) = visor_max - (visor_max - visor_min) * double(RealData(DB203, visor_idx)) * 0.01;
 	}
 }
 

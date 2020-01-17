@@ -361,11 +361,10 @@ protected:
 		double visor_angle;
 		float tide = DBD(db2, tide_mark);
 		
+		// NOTE: to comput the visor angle this algorithm is too rough, the triangle model should be used
 		read_drag_figures(db2, db203, &offset, ujoints, &draghead, &suction_depth, &visor_angle,
 			address->drag_position, address->visor_progress, info.visor_degrees_min, info.visor_degrees_max);
-		
-		visor_angle += 3.3; // mystery after updating.
-		
+
 		if (this->dragxys.find(id) != this->dragxys.end()) {
 			this->dragxys[id]->set_figure(offset, ujoints, draghead, visor_angle);
 			this->check_drag_figure(this->dragxys[id], draghead);
