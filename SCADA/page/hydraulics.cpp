@@ -616,6 +616,7 @@ public:
 				IGraphlet* target = this->captions[cpts[0]];
 				GraphletAnchor tgt_a = ((cpt_a == GraphletAnchor::LT) ? GraphletAnchor::RT : GraphletAnchor::LT);
 				float hgapsize = ((cpt_dx > 0.0F) ? text_hspace : -text_hspace) * 2.0F;
+				float vgapsize = text_hspace * 2.0F;
 				float cpt_height;
 
 				if (count > 6) {
@@ -625,7 +626,7 @@ public:
 				target->fill_extent(0.0F, 0.0F, nullptr, &cpt_height);
 				for (unsigned int idx = 0; idx < count; idx += column) {
 					this->station->map_graphlet_at_anchor(this->captions[cpts[idx]], it->first, cpt_a,
-						cpt_dx, cpt_dy + cpt_height * (idx / column));
+						cpt_dx, cpt_dy + cpt_height * (idx / column) + vgapsize);
 				}
 
 				for (unsigned int idx = 1; idx < count; idx++) {
