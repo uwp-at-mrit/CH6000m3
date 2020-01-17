@@ -11,7 +11,6 @@ DredgeAddress* WarGrey::SCADA::make_ps_dredging_system_schema() {
 		DredgeAddress* schema = new DredgeAddress();
 
 		schema->drag_position = 20U;
-		schema->visor_angle = 272U;
 
 		schema->compensator = 82U;
 		schema->density_speed = 172U;
@@ -42,7 +41,6 @@ DredgeAddress* WarGrey::SCADA::make_sb_dredging_system_schema() {
 		DredgeAddress* schema = new DredgeAddress();
 
 		schema->drag_position = 96U;
-		schema->visor_angle = 276U;
 
 		schema->compensator = 98U;
 		schema->density_speed = 174U;
