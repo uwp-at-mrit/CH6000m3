@@ -58,7 +58,7 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	this->times = this->insert_one(new Planetlet(times, GraphletAnchor::RT));
 	this->status = this->insert_one(new Planetlet(status, width, status_height));
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
-	this->project = this->insert_one(new Projectlet(this->vessel, plot, enchart, L"湛江", map_width, plot_height));
+	this->project = this->insert_one(new Projectlet(this->vessel, plot, L"湛江", map_width, plot_height));
 	this->profile = this->insert_one(new Profilet(this->vessel, "profile", profile_width, profile_height));
 	this->gps = this->insert_one(gps);
 	this->plot = this->insert_one(plot);

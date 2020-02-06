@@ -16,3 +16,9 @@
 [submodule "NanoBoard"]
 	path = NanoBoard
 	url = https://github.com/uwp-at-mrit/NanoBoard.git
+[submodule "Jargon"]
+	path = Jargon
+	url = https://github.com/uwp-at-mrit/Jargon.git
+[submodule "ENChart"]
+	path = ENChart
+	url = https://github.com/uwp-at-mrit/ENChart.git
