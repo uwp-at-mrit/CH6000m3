@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="Globals">
     <ProjectGuid>{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}</ProjectGuid>
@@ -80,6 +80,7 @@
     <Import Project="..\Graphics\Graphics.vcxitems" Label="Shared" />
     <Import Project="..\Configuration\Configuration.vcxitems" Label="Shared" />
     <Import Project="..\WormHole\WormHole.vcxitems" Label="Shared" />
+    <Import Project="..\Jargon\Jargon.vcxitems" Label="Shared" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />

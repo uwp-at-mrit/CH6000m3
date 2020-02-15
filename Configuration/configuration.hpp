@@ -13,15 +13,15 @@ static WarGrey::SCADA::Log default_gps_logging_level = default_logging_level;
 
 static Platform::String^ remote_test_server = "255.255.255.255";
 static Platform::String^ system_subnet_prefix = "192.168";
-static Platform::String^ moxa_gateway = "192.168.0.253";
-static Platform::String^ plc_hostname = nullptr;
+//static Platform::String^ moxa_gateway = "192.168.0.253";
+//static Platform::String^ plc_hostname = nullptr;
 
 static const unsigned short scada_plc_master_port = 2008;
 static const unsigned short dtpm_plc_master_port = 2008;
 
 // UWP can connect to, but cannot be connected by, local non-UWPpation.
-//static Platform::String^ moxa_gateway = "172.16.8.1";
-//static Platform::String^ plc_hostname = "172.16.8.1";
+static Platform::String^ moxa_gateway = "127.0.0.1";
+static Platform::String^ plc_hostname = "127.0.0.1";
 
 /*************************************************************************************************/
 static const unsigned int frame_per_second = 5U;

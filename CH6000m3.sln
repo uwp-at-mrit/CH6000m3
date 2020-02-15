@@ -21,25 +21,25 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NanoBoard", "NanoBoard\Nano
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DTPM", "DTPM\DTPM.vcxproj", "{6A1CE595-6F91-457D-9392-BB67C87EDFC7}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ENChart", "..\Tamer\ENChart\ENChart.vcxitems", "{33094256-CB0C-4CF7-8767-0E87866DAA99}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ENChart", "ENChart\ENChart.vcxitems", "{33094256-CB0C-4CF7-8767-0E87866DAA99}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Jargon", "..\Tamer\Jargon\Jargon.vcxitems", "{948DE949-B0CE-4469-8978-EAB344E9DA71}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Jargon", "Jargon\Jargon.vcxitems", "{948DE949-B0CE-4469-8978-EAB344E9DA71}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Configuration\Configuration.vcxitems*{23bbbe0c-c1af-496f-a860-706527a8eacc}*SharedItemsImports = 9
-		..\Tamer\ENChart\ENChart.vcxitems*{33094256-cb0c-4cf7-8767-0e87866daa99}*SharedItemsImports = 9
+		ENChart\ENChart.vcxitems*{33094256-cb0c-4cf7-8767-0e87866daa99}*SharedItemsImports = 9
 		Auxiliary\Auxiliary.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		BigBang\BigBang.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		Configuration\Configuration.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
+		ENChart\ENChart.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		Graphics\Graphics.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
+		Jargon\Jargon.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		NanoBoard\NanoBoard.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		WormHole\WormHole.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
-		..\Tamer\ENChart\ENChart.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
-		..\Tamer\Jargon\Jargon.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		BigBang\BigBang.vcxitems*{6a826f3b-23f9-432c-86bd-f9d318096966}*SharedItemsImports = 9
 		Graphics\Graphics.vcxitems*{73bfe193-7352-40ab-99c0-717f6ebee2d8}*SharedItemsImports = 9
-		..\Tamer\Jargon\Jargon.vcxitems*{948de949-b0ce-4469-8978-eab344e9da71}*SharedItemsImports = 9
+		Jargon\Jargon.vcxitems*{948de949-b0ce-4469-8978-eab344e9da71}*SharedItemsImports = 9
 		Auxiliary\Auxiliary.vcxitems*{9d38ad51-fee8-4303-8b0d-833bbcc93b58}*SharedItemsImports = 9
 		WormHole\WormHole.vcxitems*{a218bf46-1f55-4b99-b000-62f2de40576c}*SharedItemsImports = 9
 		Auxiliary\Auxiliary.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
@@ -47,6 +47,7 @@ Global
 		Configuration\Configuration.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		DataAccess\DataAccess.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		Graphics\Graphics.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
+		Jargon\Jargon.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		WormHole\WormHole.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		DataAccess\DataAccess.vcxitems*{e3ec1920-8383-4717-8d15-46fc7ac41916}*SharedItemsImports = 9
 		NanoBoard\NanoBoard.vcxitems*{fe47a134-f1bc-44e8-bc82-c014a5c3b0fb}*SharedItemsImports = 9

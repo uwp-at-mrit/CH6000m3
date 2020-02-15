@@ -50,7 +50,7 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	StatusFrame* status = new StatusFrame(this->plc);
 	DragsFrame* drags = new DragsFrame(this->plc);
 	ColorPlotlet* plot = new ColorPlotlet("colorplot", plot_width, plot_height);
-	S63let* enchart = nullptr;// new S63let("20170817", map_width, plot_height);
+	S63let* enchart = nullptr;//new S63let("20170817", map_width, plot_height);
 	GPSlet* gps = new GPSlet("gps", 64.0F);
 
 	this->vessel = new TrailingSuctionDredgerlet("vessel", 1.0F);
@@ -58,7 +58,7 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	this->times = this->insert_one(new Planetlet(times, GraphletAnchor::RT));
 	this->status = this->insert_one(new Planetlet(status, width, status_height));
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
-	this->project = this->insert_one(new Projectlet(this->vessel, plot, L"湛江", map_width, plot_height));
+	this->project = this->insert_one(new Projectlet(this->vessel, plot, L"长江口工程", map_width, plot_height));
 	this->profile = this->insert_one(new Profilet(this->vessel, "profile", profile_width, profile_height));
 	this->gps = this->insert_one(gps);
 	this->plot = this->insert_one(plot);
@@ -217,13 +217,13 @@ void DTPMonitor::on_HDT(int id, long long timepoint_ms, HDT* hdt, Syslog* logger
 		if (this->vessel != nullptr) {
 			double compensator_deg = 0.0;
 
-			if (this->gyro->device_identity() != id) {
-				if (hdt->heading_deg > 180.0) {
-					compensator_deg = -180.0;
-				} else {
-					compensator_deg = 180.0;
-				}
-			}
+			//if (this->gyro->device_identity() != id) {
+			//	if (hdt->heading_deg > 180.0) {
+			//		compensator_deg = -180.0;
+			//	} else {
+			//		compensator_deg = 180.0;
+			//	}
+			//}
 
 			this->vessel->set_bow_direction(hdt->heading_deg + compensator_deg);
 		}

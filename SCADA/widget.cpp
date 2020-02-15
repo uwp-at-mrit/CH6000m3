@@ -18,10 +18,13 @@
 #include "datum/path.hpp"
 #include "datum/flonum.hpp"
 
+#include "peer/slang.hpp"
+
 #include "preference.hxx"
 #include "system.hpp"
 #include "module.hpp"
 
+using namespace WarGrey::GYDM;
 using namespace WarGrey::SCADA;
 
 using namespace Concurrency;
@@ -51,7 +54,7 @@ static ICanvasBrush^ about_fgcolor = Colours::Black;
 
 /*************************************************************************************************/
 namespace {
-	private class Widget : public Planet {
+	private class Widget : public Planet, public SlangLocalPeer<uint8> {
 	public:
 		Widget(SplitView^ frame, UniverseDisplay^ master, PLCMaster* plc)
 			: Planet(__MODULE__), frame(frame), master(master), device(plc) {
@@ -61,6 +64,8 @@ namespace {
 			this->btn_xgapsize = 2.0F;
 			this->root = false;
 			this->set_plc_master_mode(TCPMode::User);
+
+			this->brightnessd = new SlangDaemon<uint8>(this->get_logger(), 5797, this);
 
 			create_task(KeyCredentialManager::IsSupportedAsync()).then([this](task<bool> available) {
 				try {
@@ -181,7 +186,11 @@ namespace {
 				}
 
 				if (alpha >= 0.0) {
+					octets payload = asn_real_to_octets(alpha);
+
 					this->master->global_mask_alpha = alpha;
+
+					slang_cast(5797, 1, payload.c_str(), payload.size());
 				}
 			} else if (p_btn != nullptr) {
 				if (this->device->get_mode() != p_btn->id) {
@@ -252,6 +261,11 @@ namespace {
 			}
 		}
 
+	public:
+		void on_message(long long timepoint_ms, Platform::String^ remote_peer, uint16 port, uint8 type, const uint8* message, Syslog* logger) override {
+			logger->log_message(Log::Info, L"alpha: %f", asn_octets_to_real(message));
+		}
+
 	private:
 		template<typename CMD>
 		void load_buttons(std::map<CMD, Credit<Buttonlet, CMD>*>& bs, ButtonStyle& style, float button_height, float reserved = 0.0F) {
@@ -296,6 +310,7 @@ namespace {
 		ISatellite* settings;
 		ISatellite* about;
 		PLCMaster* device;
+		SlangDaemon<uint8>* brightnessd;
 		bool root;
 
 	private: // never delete these graphlets manually.
