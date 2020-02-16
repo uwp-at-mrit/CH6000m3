@@ -444,4 +444,10 @@
   <data name="MotorInfo" xml:space="preserve">
     <value>水下泵电机</value>
   </data>
+  <data name="Off" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="On" xml:space="preserve">
+    <value>开启</value>
+  </data>
 </root>

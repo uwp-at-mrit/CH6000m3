@@ -288,12 +288,14 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="stone\tongue\en-US\drags.resw" />
+    <PRIResource Include="stone\tongue\en-US\menu.resw" />
     <PRIResource Include="stone\tongue\en-US\metrics.resw" />
     <PRIResource Include="stone\tongue\en-US\statusbar.resw" />
     <PRIResource Include="stone\tongue\en-US\times.resw" />
     <PRIResource Include="stone\tongue\en-US\tongue.resw" />
     <PRIResource Include="stone\tongue\en-US\widget.resw" />
     <PRIResource Include="stone\tongue\zh-CN\drags.resw" />
+    <PRIResource Include="stone\tongue\zh-CN\menu.resw" />
     <PRIResource Include="stone\tongue\zh-CN\metrics.resw" />
     <PRIResource Include="stone\tongue\zh-CN\statusbar.resw" />
     <PRIResource Include="stone\tongue\zh-CN\times.resw" />

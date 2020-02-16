@@ -89,8 +89,6 @@ internal:
 
 		system_set_subnet_prefix(system_subnet_prefix);
 		ui_thread_initialize();
-
-		syslog(Log::Info, ui_thread_accessed().ToString());
 	}
 
 public:

@@ -144,6 +144,9 @@
   <data name="Brightness80" xml:space="preserve">
     <value>80%</value>
   </data>
+  <data name="Brightnessd" xml:space="preserve">
+    <value>🔌 一键调光</value>
+  </data>
   <data name="Debug" xml:space="preserve">
     <value>调试</value>
   </data>

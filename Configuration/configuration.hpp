@@ -3,19 +3,22 @@
 #include "syslog.hpp"
 
 #ifdef _DEBUG
-static WarGrey::SCADA::Log default_logging_level = WarGrey::SCADA::Log::Debug;
+static constexpr WarGrey::SCADA::Log default_logging_level = WarGrey::SCADA::Log::Debug;
 #else
-static WarGrey::SCADA::Log default_logging_level = WarGrey::SCADA::Log::Info;
+static constexpr WarGrey::SCADA::Log default_logging_level = WarGrey::SCADA::Log::Info;
 #endif
 
-static WarGrey::SCADA::Log default_plc_master_logging_level = WarGrey::SCADA::Log::Info;
-static WarGrey::SCADA::Log default_gps_logging_level = default_logging_level;
+static constexpr WarGrey::SCADA::Log default_plc_master_logging_level = WarGrey::SCADA::Log::Info;
+static constexpr WarGrey::SCADA::Log default_gps_logging_level = default_logging_level;
+static constexpr WarGrey::SCADA::Log default_slang_logging_level = default_logging_level;
 
+static Platform::String^ slang_multicast_group = "233.169.254.7";
 static Platform::String^ remote_test_server = "255.255.255.255";
 static Platform::String^ system_subnet_prefix = "192.168";
 //static Platform::String^ moxa_gateway = "192.168.0.253";
 //static Platform::String^ plc_hostname = nullptr;
 
+static const unsigned short slang_brightness_port = 5797;
 static const unsigned short scada_plc_master_port = 2008;
 static const unsigned short dtpm_plc_master_port = 2008;
 

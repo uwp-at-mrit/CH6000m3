@@ -50,7 +50,7 @@ internal:
 		moxa_tcp_setup();
 
 		system_set_subnet_prefix(system_subnet_prefix);
-		
+		ui_thread_initialize();
 	}
 
 protected:

@@ -10,17 +10,20 @@
 
 #include "graphlet/ui/textlet.hpp"
 #include "graphlet/ui/buttonlet.hpp"
+#include "graphlet/ui/togglet.hpp"
 
-#include "network/tcp.hpp"
+#include "peer/slang.hpp"
 
 #include "datum/time.hpp"
 #include "datum/path.hpp"
 
+#include "preference.hxx"
 #include "module.hpp"
 #include "system.hpp"
 
 using namespace WarGrey::SCADA;
 using namespace WarGrey::DTPM;
+using namespace WarGrey::GYDM;
 
 using namespace Windows::Foundation;
 using namespace Windows::System;
@@ -37,14 +40,16 @@ using namespace Microsoft::Graphics::Canvas::Brushes;
 private enum class Brightness { Brightness100, Brightness80, Brightness60, Brightness40, Brightness30, Brightness20, _ };
 
 // WARNING: order matters
-private enum class SS : unsigned int { Brightness, _ };
+private enum class SS : unsigned int { Brightnessd, Brightness, _ };
 private enum class Icon : unsigned int { Settings, TimeMachine, PrintScreen, FullScreen, About, _ };
 
 static ICanvasBrush^ about_bgcolor = Colours::WhiteSmoke;
 static ICanvasBrush^ about_fgcolor = Colours::Black;
 
+static Platform::String^ brightness_switch_key = "Brightness_Switch_Key";
+
 /*************************************************************************************************/
-private class Widget : public Planet {
+private class Widget : public Planet, public SlangLocalPeer<uint8> {
 public:
 	Widget(SplitView^ frame, UniverseDisplay^ master)
 		: Planet(__MODULE__), frame(frame), master(master) {
@@ -52,6 +57,9 @@ public:
 		
 		this->inset = tiny_font_size * 0.5F;
 		this->btn_xgapsize = 2.0F;
+
+		this->brightnessd = new SlangDaemon<uint8>(make_system_logger(default_slang_logging_level, "Slang"), slang_brightness_port, this);
+		this->brightnessd->join_multicast_group(slang_multicast_group);
 	}
 
 public:
@@ -76,14 +84,23 @@ public:
 		}
 
 		this->load_buttons(this->brightnesses, button_style, button_height);
+		
+		{ // load toggle
+			float toggle_width = this->min_width() - this->inset * 3.0F - this->label_max;
+			bool toggle_state = get_preference(brightness_switch_key, true);
+
+			this->global_brightness = this->insert_one(new Togglet(toggle_state, "On", "Off", toggle_width));
+		}
 	}
 
 	void reflow(float width, float height) override {
 		float fx = 1.0F / float(_N(Icon) + 1);
 		float button_y;
 
-		this->move_to(this->labels[SS::Brightness], this->inset, height - tiny_font_size, GraphletAnchor::LB);
+		this->move_to(this->labels[SS::Brightnessd], this->inset, height - tiny_font_size, GraphletAnchor::LB);
+		this->move_to(this->labels[SS::Brightness], this->labels[SS::Brightnessd], GraphletAnchor::LT, GraphletAnchor::LB, 0.0F, -tiny_font_size);
 
+		this->move_to(this->global_brightness, this->labels[SS::Brightnessd], GraphletAnchor::RC, GraphletAnchor::LC, this->inset);
 		this->reflow_buttons(this->brightnesses, this->labels[SS::Brightness]);
 
 		this->fill_graphlet_location(this->brightnesses[Brightness::Brightness100], nullptr, &button_y);
@@ -119,6 +136,7 @@ public:
 public:
 	bool can_select(IGraphlet* g) override {
 		return ((dynamic_cast<Credit<Labellet, Icon>*>(g) != nullptr)
+			|| (dynamic_cast<Togglet*>(g) != nullptr)
 			|| button_enabled(g));
 	}
 
@@ -126,6 +144,7 @@ public:
 		auto b_btn = dynamic_cast<Credit<Buttonlet, Brightness>*>(g);
 		auto p_btn = dynamic_cast<Credit<Buttonlet, TCPMode>*>(g);
 		auto icon = dynamic_cast<Credit<Labellet, Icon>*>(g);
+		auto t_btn = dynamic_cast<Togglet*>(g);
 
 		if (b_btn != nullptr) {
 			double alpha = -1.0;
@@ -140,8 +159,16 @@ public:
 			}
 
 			if (alpha >= 0.0) {
-				this->master->global_mask_alpha = alpha;
+				if (this->global_brightness->checked()) {
+					this->brightnessd->multicast(slang_brightness_port, asn_real_to_octets(alpha));
+					this->get_logger()->log_message(Log::Notice, "GROUP EVENT: change screen brightness");
+				} else {
+					this->set_brightness(alpha);
+				}
 			}
+		} else if (t_btn != nullptr) {
+			t_btn->toggle();
+			put_preference(brightness_switch_key, t_btn->checked());
 		} else if (icon != nullptr) {
 			switch (icon->id) {
 			case Icon::Settings: launch_the_settings(); break;
@@ -170,6 +197,20 @@ public:
 			}
 
 			this->frame->IsPaneOpen = false;
+		}
+	}
+
+public:
+	void on_message(long long timepoint_ms, Platform::String^ remote_peer, uint16 port, uint8 type, const uint8* message, Syslog* logger) override {
+		// NOTE: the brightnessd is a standalone daemon, all messages therefore concern the brightness setting
+
+		if (this->global_brightness->checked()) {
+			double alpha = asn_octets_to_real(message);
+
+			if ((alpha >= 0.0) && (alpha <= 1.0)) {
+				this->set_brightness(alpha);
+				this->get_logger()->log_message(Log::Info, L"brightness has been changed by %s", remote_peer->Data());
+			}
 		}
 	}
 
@@ -202,6 +243,11 @@ private:
 	}
 
 private:
+	void set_brightness(double alpha) {
+		this->master->global_mask_alpha = alpha;
+	}
+
+private:
 	float inset;
 	float btn_xgapsize;
 	float label_max;
@@ -209,6 +255,7 @@ private:
 private:
 	SplitView^ frame;
 	UniverseDisplay^ master;
+	SlangDaemon<uint8>* brightnessd;
 	ISatellite* about;
 
 private: // never delete these graphlets manually.
@@ -216,6 +263,7 @@ private: // never delete these graphlets manually.
 	std::map<TCPMode, Credit<Buttonlet, TCPMode>*> permissions;
 	std::map<Icon, Credit<Labellet, Icon>*> icons;
 	std::map<SS, Labellet*> labels;
+	Togglet* global_brightness;
 };
 
 /*************************************************************************************************/

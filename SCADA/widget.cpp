@@ -13,6 +13,7 @@
 
 #include "graphlet/ui/textlet.hpp"
 #include "graphlet/ui/buttonlet.hpp"
+#include "graphlet/ui/togglet.hpp"
 
 #include "datum/time.hpp"
 #include "datum/path.hpp"
@@ -46,11 +47,13 @@ using namespace Microsoft::Graphics::Canvas::Brushes;
 private enum class Brightness { Brightness100, Brightness80, Brightness60, Brightness40, Brightness30, Brightness20, _ };
 
 // WARNING: order matters
-private enum class SS : unsigned int { Brightness, Permission, _ };
+private enum class SS : unsigned int { Brightnessd, Brightness, Permission, _ };
 private enum class Icon : unsigned int { Gallery , Settings, TimeMachine, Alarm, PrintScreen, FullScreen, About, _ };
 
 static ICanvasBrush^ about_bgcolor = Colours::WhiteSmoke;
 static ICanvasBrush^ about_fgcolor = Colours::Black;
+
+static Platform::String^ brightness_switch_key = "Brightness_Switch_Key";
 
 /*************************************************************************************************/
 namespace {
@@ -65,8 +68,9 @@ namespace {
 			this->root = false;
 			this->set_plc_master_mode(TCPMode::User);
 
-			this->brightnessd = new SlangDaemon<uint8>(this->get_logger(), 5797, this);
-
+			this->brightnessd = new SlangDaemon<uint8>(make_system_logger(default_slang_logging_level, "Slang"), slang_brightness_port, this);
+			this->brightnessd->join_multicast_group(slang_multicast_group);
+			
 			create_task(KeyCredentialManager::IsSupportedAsync()).then([this](task<bool> available) {
 				try {
 					this->root = available.get();
@@ -79,7 +83,7 @@ namespace {
 	public:
 		void load(CanvasCreateResourcesReason reason, float width, float height) override {
 			auto label_font = make_text_format("Microsoft YaHei", large_font_size);
-			auto icon_font = make_text_format("Consolas", 32.0F);
+			auto icon_font = make_text_format("Consolas", 30.0F);
 			float button_height, label_width;
 			ButtonStyle button_style;
 
@@ -99,15 +103,24 @@ namespace {
 
 			this->load_buttons(this->brightnesses, button_style, button_height);
 			this->load_buttons(this->permissions, button_style, button_height);
+
+			{ // load toggle
+				float toggle_width = this->min_width() - this->inset * 3.0F - this->label_max;
+				bool toggle_state = get_preference(brightness_switch_key, true);
+
+				this->global_brightness = this->insert_one(new Togglet(toggle_state, "On", "Off", toggle_width));
+			}
 		}
 
 		void reflow(float width, float height) override {
 			float fx = 1.0F / float(_N(Icon) + 1);
 			float button_y;
 
-			this->move_to(this->labels[SS::Brightness], this->inset, height - tiny_font_size, GraphletAnchor::LB);
+			this->move_to(this->labels[SS::Brightnessd], this->inset, height - tiny_font_size, GraphletAnchor::LB);
+			this->move_to(this->labels[SS::Brightness], this->labels[SS::Brightnessd], GraphletAnchor::LT, GraphletAnchor::LB, 0.0F, -tiny_font_size);
 			this->move_to(this->labels[SS::Permission], this->labels[SS::Brightness], GraphletAnchor::LT, GraphletAnchor::LB, 0.0F, -tiny_font_size);
 
+			this->move_to(this->global_brightness, this->labels[SS::Brightnessd], GraphletAnchor::RC, GraphletAnchor::LC, this->inset);
 			this->reflow_buttons(this->brightnesses, this->labels[SS::Brightness]);
 			this->reflow_buttons(this->permissions, this->labels[SS::Permission]);
 
@@ -165,6 +178,7 @@ namespace {
 	public:
 		bool can_select(IGraphlet* g) override {
 			return ((dynamic_cast<Credit<Labellet, Icon>*>(g) != nullptr)
+				|| (dynamic_cast<Togglet*>(g) != nullptr)
 				|| button_enabled(g));
 		}
 
@@ -172,6 +186,7 @@ namespace {
 			auto b_btn = dynamic_cast<Credit<Buttonlet, Brightness>*>(g);
 			auto p_btn = dynamic_cast<Credit<Buttonlet, TCPMode>*>(g);
 			auto icon = dynamic_cast<Credit<Labellet, Icon>*>(g);
+			auto t_btn = dynamic_cast<Togglet*>(g);
 
 			if (b_btn != nullptr) {
 				double alpha = -1.0;
@@ -186,16 +201,20 @@ namespace {
 				}
 
 				if (alpha >= 0.0) {
-					octets payload = asn_real_to_octets(alpha);
-
-					this->master->global_mask_alpha = alpha;
-
-					slang_cast(5797, 1, payload.c_str(), payload.size());
+					if (this->global_brightness->checked()) {
+						this->brightnessd->multicast(slang_brightness_port, asn_real_to_octets(alpha));
+						this->get_logger()->log_message(Log::Notice, "GROUP EVENT: change screen brightness");
+					} else {
+						this->set_brightness(alpha);
+					}
 				}
 			} else if (p_btn != nullptr) {
 				if (this->device->get_mode() != p_btn->id) {
 					this->set_plc_master_mode(p_btn->id);
 				}
+			} else if (t_btn != nullptr) {
+				t_btn->toggle();
+				put_preference(brightness_switch_key, t_btn->checked());
 			} else if (icon != nullptr) {
 				switch (icon->id) {
 				case Icon::Gallery: display_the_gallery(); break;
@@ -263,7 +282,16 @@ namespace {
 
 	public:
 		void on_message(long long timepoint_ms, Platform::String^ remote_peer, uint16 port, uint8 type, const uint8* message, Syslog* logger) override {
-			logger->log_message(Log::Info, L"alpha: %f", asn_octets_to_real(message));
+			// NOTE: the brightnessd is a standalone daemon, all messages therefore concern the brightness setting
+			
+			if (this->global_brightness->checked()) {
+				double alpha = asn_octets_to_real(message);
+
+				if ((alpha >= 0.0) && (alpha <= 1.0)) {
+					this->set_brightness(alpha);
+					this->get_logger()->log_message(Log::Info, L"brightness has been changed by %s", remote_peer->Data());
+				}
+			}
 		}
 
 	private:
@@ -299,6 +327,10 @@ namespace {
 			this->device->set_mode(mode);
 		}
 
+		void set_brightness(double alpha) {
+			this->master->global_mask_alpha = alpha;
+		}
+
 	private:
 		float inset;
 		float btn_xgapsize;
@@ -311,6 +343,7 @@ namespace {
 		ISatellite* about;
 		PLCMaster* device;
 		SlangDaemon<uint8>* brightnessd;
+		Togglet* global_brightness;
 		bool root;
 
 	private: // never delete these graphlets manually.
