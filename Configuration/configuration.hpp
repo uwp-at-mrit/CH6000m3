@@ -18,7 +18,9 @@ static Platform::String^ system_subnet_prefix = "192.168";
 //static Platform::String^ moxa_gateway = "192.168.0.253";
 //static Platform::String^ plc_hostname = nullptr;
 
-static const unsigned short slang_brightness_port = 5797;
+static const unsigned short slang_scada_brightness_port = 9132;
+static const unsigned short slang_dtpm_brightness_port = 1112;
+
 static const unsigned short scada_plc_master_port = 2008;
 static const unsigned short dtpm_plc_master_port = 2008;
 

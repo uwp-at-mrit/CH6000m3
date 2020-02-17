@@ -4,6 +4,8 @@
 #include "plc.hpp"
 
 namespace WarGrey::SCADA {
+	float widget_evaluate_height();
+
 	private ref class UniverseWidget : public WarGrey::SCADA::UniverseDisplay {
 	internal:
 		UniverseWidget(Windows::UI::Xaml::Controls::SplitView^ frame,

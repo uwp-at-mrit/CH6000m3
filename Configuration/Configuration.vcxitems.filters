@@ -67,6 +67,7 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_menu.cpp">
       <Filter>iotables</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)brightness.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)plc.hpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_menu.hpp">
       <Filter>iotables</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)brightness.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="iotables">

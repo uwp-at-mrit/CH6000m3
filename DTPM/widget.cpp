@@ -46,7 +46,7 @@ private enum class Icon : unsigned int { Settings, TimeMachine, PrintScreen, Ful
 static ICanvasBrush^ about_bgcolor = Colours::WhiteSmoke;
 static ICanvasBrush^ about_fgcolor = Colours::Black;
 
-static Platform::String^ brightness_switch_key = "Brightness_Switch_Key";
+static Platform::String^ widget_scada_brightness_key = "Brightness_Switch_Key";
 
 /*************************************************************************************************/
 private class Widget : public Planet, public SlangLocalPeer<uint8> {
@@ -87,7 +87,7 @@ public:
 		
 		{ // load toggle
 			float toggle_width = this->min_width() - this->inset * 3.0F - this->label_max;
-			bool toggle_state = get_preference(brightness_switch_key, true);
+			bool toggle_state = get_preference(widget_scada_brightness_key, true);
 
 			this->global_brightness = this->insert_one(new Togglet(toggle_state, "On", "Off", toggle_width));
 		}
@@ -168,7 +168,7 @@ public:
 			}
 		} else if (t_btn != nullptr) {
 			t_btn->toggle();
-			put_preference(brightness_switch_key, t_btn->checked());
+			put_preference(widget_scada_brightness_key, t_btn->checked());
 		} else if (icon != nullptr) {
 			switch (icon->id) {
 			case Icon::Settings: launch_the_settings(); break;

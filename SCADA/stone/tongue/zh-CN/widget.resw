@@ -150,6 +150,12 @@
   <data name="Debug" xml:space="preserve">
     <value>调试</value>
   </data>
+  <data name="DTPM_Off" xml:space="preserve">
+    <value>DTPM</value>
+  </data>
+  <data name="DTPM_On" xml:space="preserve">
+    <value>DTPM</value>
+  </data>
   <data name="FullScreen" xml:space="preserve">
     <value>💻</value>
   </data>
@@ -167,6 +173,12 @@
   </data>
   <data name="Root" xml:space="preserve">
     <value>控制</value>
+  </data>
+  <data name="SCADA_Off" xml:space="preserve">
+    <value>SCADA</value>
+  </data>
+  <data name="SCADA_On" xml:space="preserve">
+    <value>SCADA</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>⚙️</value>
