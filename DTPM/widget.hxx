@@ -4,6 +4,8 @@
 #include "mrit.hpp"
 
 namespace WarGrey::DTPM {
+	float widget_evaluate_height();
+
 	private ref class UniverseWidget : public WarGrey::SCADA::UniverseDisplay {
 	internal:
 		UniverseWidget(Windows::UI::Xaml::Controls::SplitView^ frame, WarGrey::SCADA::UniverseDisplay^ master,

@@ -336,7 +336,7 @@
     </PRIResource>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch6000m3.cxx" />
+    <ClCompile Include="SCADA.cxx" />
     <ClCompile Include="decorator\headsup.cpp" />
     <ClCompile Include="decorator\ship.cpp" />
     <ClCompile Include="page\diagnostics\dredges_dx.cpp" />

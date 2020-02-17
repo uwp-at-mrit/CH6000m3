@@ -63,16 +63,18 @@ internal:
 };
 
 /*************************************************************************************************/
-private ref class Ch6000m3 sealed : public SplitView {
+private ref class CH6000m3 sealed : public SplitView {
 public:
-	Ch6000m3() : SplitView() {
+	CH6000m3() : SplitView() {
 		this->Margin = ThicknessHelper::FromUniformLength(0.0);
 		this->PanePlacement = SplitViewPanePlacement::Left;
 		this->DisplayMode = SplitViewDisplayMode::Overlay;
 		this->IsPaneOpen = false;
 
-		this->PointerMoved += ref new PointerEventHandler(this, &Ch6000m3::on_pointer_moved);
-		this->PointerReleased += ref new PointerEventHandler(this, &Ch6000m3::on_pointer_released);
+		this->PointerMoved += ref new PointerEventHandler(this, &CH6000m3::on_pointer_moved);
+		this->PointerReleased += ref new PointerEventHandler(this, &CH6000m3::on_pointer_released);
+
+		this->SizeChanged += ref new SizeChangedEventHandler(this, &CH6000m3::on_size_changed);
 	}
 
 public:
@@ -93,12 +95,9 @@ public:
 		{ // construct the functional panel
 			StackPanel^ panel = ref new StackPanel();
 			
-			this->universe->navigator->min_height(region.Height * 0.85F);
-			
 			this->widget = ref new UniverseWidget(this, this->universe, this->universe->plc);
 			this->widget->min_width = this->universe->navigator->min_width();
-			this->widget->min_height = region.Height - this->universe->navigator->min_height();
-
+			
 			panel->Orientation = ::Orientation::Vertical;
 			panel->HorizontalAlignment = ::HorizontalAlignment::Stretch;
 			panel->VerticalAlignment = ::VerticalAlignment::Stretch;
@@ -119,6 +118,14 @@ public:
 	void on_suspending(SuspendingEventArgs^ args) {}
 	void on_resuming() {}
 	
+private:
+	void on_size_changed(Platform::Object^ sender, SizeChangedEventArgs^ args) {
+		float widget_height = widget_evaluate_height();
+
+		this->universe->navigator->min_height(args->NewSize.Height - widget_height);
+		this->widget->min_height = widget_height;
+	}
+
 private:
 	void on_pointer_moved(Platform::Object^ sender, PointerRoutedEventArgs^ args) {
 		auto pt = args->GetCurrentPoint(this);
@@ -154,5 +161,5 @@ private:
 };
 
 int main(Platform::Array<Platform::String^>^ args) {
-	return launch_universal_windows_application<Ch6000m3>(default_logging_level, remote_test_server);
+	return launch_universal_windows_application<CH6000m3>(default_logging_level, remote_test_server);
 }

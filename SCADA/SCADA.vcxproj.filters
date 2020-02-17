@@ -52,7 +52,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ch6000m3.cxx" />
     <ClCompile Include="page\hydraulics.cpp">
       <Filter>page</Filter>
     </ClCompile>
@@ -129,6 +128,7 @@
     <ClCompile Include="page\lubrications.cpp">
       <Filter>page</Filter>
     </ClCompile>
+    <ClCompile Include="SCADA.cxx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="page\hydraulics.hpp">
