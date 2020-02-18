@@ -202,10 +202,10 @@
     <value>左吸入手动</value>
   </data>
   <data name="SBV3" xml:space="preserve">
-    <value>右吸口手动</value>
+    <value>右冲水手动</value>
   </data>
   <data name="SBV4" xml:space="preserve">
-    <value>左吸口手动</value>
+    <value>左冲水手动</value>
   </data>
   <data name="SBV5" xml:space="preserve">
     <value>泥舱冲水手动蝶阀</value>

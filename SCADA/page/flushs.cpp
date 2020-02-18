@@ -65,8 +65,8 @@ private enum class FS : unsigned int {
 	D, E,
 
 	// Valves
-	HBV01, HBV02, HBV03, HBV08, HBV09, HBV11, HBV12, HBV13, HBV14, HBV15, HBV16, HBV17, HBV18,
-	HBV04, HBV05, HBV06, HBV07, HBV10,
+	HBV01, HBV02, HBV03, HBV06, HBV07, HBV08, HBV09, HBV11, HBV12, HBV13, HBV14, HBV15, HBV16, HBV17, HBV18,
+	HBV04, HBV05, HBV10,
 	SBV1, SBV2, SBV3, SBV4,
 
 	// Upper Hopper Doors
@@ -299,12 +299,12 @@ public:
 		pTurtle->move_right(2, FS::h10);
 		
 		pTurtle->turn_right_up()->move_up(2.5F, FS::HBV08)->move_up(2.5F)->turn_up_right(FS::h5);
-		pTurtle->turn_left_up()->move_up(3, FS::SBV4)->move_up(3)->turn_up_left();
-		pTurtle->move_left(10, FS::HBV07)->move_left(10, FS::Port)->jump_back(FS::h10);
+		pTurtle->turn_left_up()->move_up(3, FS::HBV07)->move_up(3)->turn_up_left();
+		pTurtle->move_left(2, FS::SBV4)->move_left(18, FS::Port)->jump_back(FS::h10);
 
 		pTurtle->turn_right_down()->move_down(5, FS::HBV09)->move_down(5)->turn_down_right(FS::h4);
-		pTurtle->turn_left_down()->move_down(3, FS::SBV3)->move_down(3)->turn_down_left();
-		pTurtle->move_left(10, FS::HBV06)->move_left(10, FS::Starboard)->jump_back(FS::h5);
+		pTurtle->turn_left_down()->move_down(3, FS::HBV06)->move_down(3)->turn_down_left();
+		pTurtle->move_left(2, FS::SBV3)->move_left(18, FS::Starboard)->jump_back(FS::h5);
 
 		pTurtle->move_right(4, FS::HBV05)->move_right(8)->jump_right()->move_right(6)->turn_right_down(FS::h5ps)->move_down(6);
 		pTurtle->turn_down_left(FS::h3ps)->move_left(6)->turn_left_up(FS::PSPump);
@@ -374,7 +374,8 @@ public:
 		}
 
 		{ // load valves
-			this->load_valves(this->mvalves, this->labels, this->captions, FS::SBV1, FS::SBV4, radius * 0.618F, 90.0);
+			this->load_valves(this->mvalves, this->labels, this->captions, FS::SBV1, FS::SBV2, radius * 0.618F, 90.0);
+			this->load_valves(this->mvalves, this->labels, this->captions, FS::SBV3, FS::SBV4, radius * 0.618F, 00.0);
 			this->load_valves(this->bfvalves, this->labels, this->captions, FS::HBV01, FS::HBV18, radius, 90.0);
 			this->load_valves(this->bfvalves, this->labels, this->captions, FS::HBV04, FS::HBV10, radius, 00.0);
 		}
@@ -628,7 +629,7 @@ private:
 		float label_height, margin, dx, dy, vy, hy;
 
 		switch (id) {
-		case FS::HBV01: case FS::HBV02: case FS::HBV08: case FS::HBV09: case FS::SBV3: case FS::SBV4: {
+		case FS::HBV01: case FS::HBV02: case FS::HBV08: case FS::HBV09: case FS::HBV06: case FS::HBV07: {
 			valve->fill_margin(x0, y0, nullptr, &margin, nullptr, nullptr);
 			dx = x0 + gridsize - margin; dy = y0; anchor = GraphletAnchor::LB;
 		}; break;
@@ -636,11 +637,11 @@ private:
 			valve->fill_margin(x0, y0, nullptr, nullptr, nullptr, &margin);
 			dx = x0 - gridsize + margin; dy = y0; anchor = GraphletAnchor::RB;
 		}; break;
-		case FS::HBV04: case FS::HBV07: case FS::HBV18: {
+		case FS::HBV04: case FS::SBV4: case FS::HBV18: {
 			valve->fill_margin(x0, y0, nullptr, nullptr, &margin, nullptr);
 			dx = x0; dy = y0 + gridsize - margin; anchor = GraphletAnchor::CT;
 		}; break;
-		case FS::HBV05: case FS::HBV06: case FS::HBV10: {
+		case FS::HBV05: case FS::SBV3: case FS::HBV10: {
 			this->labels[id]->fill_extent(x0, y0, nullptr, &label_height);
 			valve->fill_margin(x0, y0, &margin, nullptr, nullptr, nullptr);
 			dx = x0; dy = y0 - gridsize - label_height + margin; anchor = GraphletAnchor::CB;

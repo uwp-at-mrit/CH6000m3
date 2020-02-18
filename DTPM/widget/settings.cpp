@@ -152,7 +152,7 @@ namespace {
 
 		void fill_extent(float* width, float* height) override {
 			Size size = system_screen_size();
-			float ratio = 0.75F;
+			float ratio = 0.85F;
 
 			SET_BOX(width, size.Width * ratio);
 			SET_BOX(height, size.Height * ratio);
