@@ -23,6 +23,12 @@
     <Filter Include="widget">
       <UniqueIdentifier>{36c94f1c-5349-4975-a49f-f45078b9b4c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="schema">
+      <UniqueIdentifier>{8b2a0714-d4f9-4ff1-a2b6-b28017685170}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="schema\datalet">
+      <UniqueIdentifier>{490b5e64-231c-42c2-8a93-d569c14948cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
@@ -185,6 +191,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="DTPM_TemporaryKey.pfx" />
+    <None Include="schema\track.dao.rkt">
+      <Filter>schema</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="widget.cpp" />
@@ -208,6 +217,12 @@
     </ClCompile>
     <ClCompile Include="DTPM.cxx" />
     <ClCompile Include="monitor.cpp" />
+    <ClCompile Include="schema\track.cpp">
+      <Filter>schema</Filter>
+    </ClCompile>
+    <ClCompile Include="schema\datalet\track_ts.cpp">
+      <Filter>schema\datalet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="widget.hxx" />
@@ -230,6 +245,12 @@
       <Filter>widget</Filter>
     </ClInclude>
     <ClInclude Include="monitor.hpp" />
+    <ClInclude Include="schema\track.hpp">
+      <Filter>schema</Filter>
+    </ClInclude>
+    <ClInclude Include="schema\datalet\track_ts.hpp">
+      <Filter>schema\datalet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="stone\tongue\en-US\widget.resw">

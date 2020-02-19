@@ -32,6 +32,7 @@ Global
 		Auxiliary\Auxiliary.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		BigBang\BigBang.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		Configuration\Configuration.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
+		DataAccess\DataAccess.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		ENChart\ENChart.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		Graphics\Graphics.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		Jargon\Jargon.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4

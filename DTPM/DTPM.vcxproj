@@ -108,6 +108,7 @@
     <Import Project="..\NanoBoard\NanoBoard.vcxitems" Label="Shared" />
     <Import Project="..\ENChart\ENChart.vcxitems" Label="Shared" />
     <Import Project="..\Jargon\Jargon.vcxitems" Label="Shared" />
+    <Import Project="..\DataAccess\DataAccess.vcxitems" Label="Shared" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -211,6 +212,7 @@
     </AppxManifest>
     <None Include="DTPM_TemporaryKey.pfx" />
     <None Include="packages.config" />
+    <None Include="schema\track.dao.rkt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\DredgerConstruction_icon.png" />
@@ -272,6 +274,8 @@
     <ClCompile Include="frame\metrics.cpp" />
     <ClCompile Include="frame\statusbar.cpp" />
     <ClCompile Include="frame\times.cpp" />
+    <ClCompile Include="schema\datalet\track_ts.cpp" />
+    <ClCompile Include="schema\track.cpp" />
     <ClCompile Include="widget.cpp" />
     <ClCompile Include="widget\settings.cpp" />
     <ClCompile Include="widget\timestream.cpp" />
@@ -282,6 +286,8 @@
     <ClInclude Include="frame\metrics.hpp" />
     <ClInclude Include="frame\statusbar.hpp" />
     <ClInclude Include="frame\times.hpp" />
+    <ClInclude Include="schema\datalet\track_ts.hpp" />
+    <ClInclude Include="schema\track.hpp" />
     <ClInclude Include="widget.hxx" />
     <ClInclude Include="widget\settings.hpp" />
     <ClInclude Include="widget\timestream.hpp" />
