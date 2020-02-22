@@ -274,7 +274,7 @@
     <ClCompile Include="frame\metrics.cpp" />
     <ClCompile Include="frame\statusbar.cpp" />
     <ClCompile Include="frame\times.cpp" />
-    <ClCompile Include="schema\datalet\track_ts.cpp" />
+    <ClCompile Include="schema\datalet\track_ds.cpp" />
     <ClCompile Include="schema\track.cpp" />
     <ClCompile Include="widget.cpp" />
     <ClCompile Include="widget\settings.cpp" />
@@ -286,7 +286,7 @@
     <ClInclude Include="frame\metrics.hpp" />
     <ClInclude Include="frame\statusbar.hpp" />
     <ClInclude Include="frame\times.hpp" />
-    <ClInclude Include="schema\datalet\track_ts.hpp" />
+    <ClInclude Include="schema\datalet\track_ds.hpp" />
     <ClInclude Include="schema\track.hpp" />
     <ClInclude Include="widget.hxx" />
     <ClInclude Include="widget\settings.hpp" />
@@ -305,6 +305,14 @@
     <PRIResource Include="stone\tongue\zh-CN\times.resw" />
     <PRIResource Include="stone\tongue\zh-CN\tongue.resw" />
     <PRIResource Include="stone\tongue\zh-CN\widget.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Update="F:\CH6000m3\NanoBoard\stone\tongue\en-US\profile.resw">
+      <FileType>Document</FileType>
+    </PRIResource>
+    <PRIResource Update="F:\CH6000m3\NanoBoard\stone\tongue\zh-CN\profile.resw">
+      <FileType>Document</FileType>
+    </PRIResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

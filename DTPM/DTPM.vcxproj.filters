@@ -220,7 +220,7 @@
     <ClCompile Include="schema\track.cpp">
       <Filter>schema</Filter>
     </ClCompile>
-    <ClCompile Include="schema\datalet\track_ts.cpp">
+    <ClCompile Include="schema\datalet\track_ds.cpp">
       <Filter>schema\datalet</Filter>
     </ClCompile>
   </ItemGroup>
@@ -248,7 +248,7 @@
     <ClInclude Include="schema\track.hpp">
       <Filter>schema</Filter>
     </ClInclude>
-    <ClInclude Include="schema\datalet\track_ts.hpp">
+    <ClInclude Include="schema\datalet\track_ds.hpp">
       <Filter>schema\datalet</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,6 +8,7 @@
 
 #include "preference/colorplot.hpp"
 #include "preference/profile.hpp"
+#include "preference/dragtrack.hpp"
 
 #include "datum/box.hpp"
 
@@ -123,6 +124,7 @@ namespace {
 			this->push_planet(new GPSCSEditor(BEJ54Convertor::instance()));
 			this->push_planet(new ColorPlotEditor());
 			this->push_planet(new ProfileEditor());
+			this->push_planet(new DragTrackEditor());
 		}
 
 	private: // never delete these objects manually

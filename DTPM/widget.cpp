@@ -48,19 +48,10 @@ private enum class Icon : unsigned int { Settings, TimeMachine, PrintScreen, Ful
 static ICanvasBrush^ about_bgcolor = Colours::WhiteSmoke;
 static ICanvasBrush^ about_fgcolor = Colours::Black;
 
-static const float widget_label_font_size = large_font_size;
-static const float widget_icon_size = 32.0F;
 static const float widget_line_gap = tiny_font_size;
 
-static CanvasTextFormat^ widget_label_font = nullptr;
-static CanvasTextFormat^ widget_icon_font = nullptr;
-
-static void widget_initialize() {
-	if (widget_label_font == nullptr) {
-		widget_label_font = make_text_format("Microsoft YaHei", widget_label_font_size);
-		widget_icon_font = make_text_format("Consolas", widget_icon_size);
-	}
-}
+static CanvasTextFormat^ widget_label_font = make_text_format("Microsoft YaHei", large_font_size);
+static CanvasTextFormat^ widget_icon_font = make_text_format("Consolas", 32.0F);
 
 /*************************************************************************************************/
 float WarGrey::DTPM::widget_evaluate_height() {
@@ -307,7 +298,6 @@ UniverseWidget::UniverseWidget(SplitView^ frame, UniverseDisplay^ master, MRMast
 	: UniverseDisplay(master->get_logger()), frame(frame), master(master), plc(plc) {
 	this->use_global_mask_setting(false);
 	this->disable_predefined_shortcuts(true);
-	widget_initialize();
 }
 
 void UniverseWidget::construct(CanvasCreateResourcesReason reason) {
