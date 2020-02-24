@@ -307,7 +307,13 @@
     <PRIResource Include="stone\tongue\zh-CN\widget.resw" />
   </ItemGroup>
   <ItemGroup>
+    <PRIResource Update="F:\CH6000m3\NanoBoard\stone\tongue\en-US\dredgetrack.resw">
+      <FileType>Document</FileType>
+    </PRIResource>
     <PRIResource Update="F:\CH6000m3\NanoBoard\stone\tongue\en-US\profile.resw">
+      <FileType>Document</FileType>
+    </PRIResource>
+    <PRIResource Update="F:\CH6000m3\NanoBoard\stone\tongue\zh-CN\dredgetrack.resw">
       <FileType>Document</FileType>
     </PRIResource>
     <PRIResource Update="F:\CH6000m3\NanoBoard\stone\tongue\zh-CN\profile.resw">

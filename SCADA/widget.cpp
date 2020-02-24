@@ -330,7 +330,7 @@ namespace {
 				Platform::String^ off_label = name + "_Off";
 				bool toggle_state = get_preference(brightness_preference_key(bp), true);
 
-				ts[bp] = this->insert_one(new Credit<Togglet, BP>(toggle_state, on_label, off_label, toggle_width, nullptr, nullptr, __MODULE__), bp);
+				ts[bp] = this->insert_one(new Credit<Togglet, BP>(toggle_state, on_label, off_label, toggle_width, __MODULE__), bp);
 			}
 		}
 
