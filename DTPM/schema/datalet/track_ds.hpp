@@ -22,7 +22,7 @@ namespace WarGrey::SCADA {
 
 	public:
 		void load(WarGrey::DTPM::ITrackDataReceiver* receiver, long long open_s, long long close_s) override;
-		void save(long long timepoint, long long group, WarGrey::SCADA::double3& dot) override;
+		void save(long long timepoint, long long type, WarGrey::SCADA::double3& dot) override;
 
 	protected:
 		void on_database_rotated(WarGrey::SCADA::SQLite3* prev_dbc, WarGrey::SCADA::SQLite3* current_dbc, long long timepoint) override;

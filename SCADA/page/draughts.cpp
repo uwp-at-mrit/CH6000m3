@@ -63,7 +63,7 @@ public:
 
 	Draughts(DraughtsPage* master, ShipDecorator* ship, bool timemachine) : master(master), decorator(ship)
 		, timemachine(timemachine), departure(0LL), destination(0LL) {
-		Syslog* logger = make_system_logger(default_logging_level, "EarthWorkHistory");
+		Syslog* logger = make_system_logger(default_schema_logging_level, "EarthWorkHistory");
 
 		this->datasource = new EarthWorkDataSource(logger, RotationPeriod::Daily);
 		this->datasource->reference();

@@ -11,7 +11,7 @@ static const char* track_rowids[] = { "uuid" };
 
 static TableColumnInfo track_columns[] = {
     { "uuid", SDT::Integer, nullptr, DB_PRIMARY_KEY | 0 | 0 },
-    { "group", SDT::Integer, nullptr, 0 | DB_NOT_NULL | 0 },
+    { "type", SDT::Integer, nullptr, 0 | DB_NOT_NULL | 0 },
     { "x", SDT::Float, nullptr, 0 | DB_NOT_NULL | 0 },
     { "y", SDT::Float, nullptr, 0 | DB_NOT_NULL | 0 },
     { "z", SDT::Float, nullptr, 0 | DB_NOT_NULL | 0 },
@@ -23,17 +23,17 @@ Track_pk WarGrey::SCADA::track_identity(Track& self) {
     return self.uuid;
 }
 
-Track WarGrey::SCADA::make_track(std::optional<Integer> group, std::optional<Float> x, std::optional<Float> y, std::optional<Float> z, std::optional<Integer> timestamp) {
+Track WarGrey::SCADA::make_track(std::optional<Integer> type, std::optional<Float> x, std::optional<Float> y, std::optional<Float> z, std::optional<Integer> timestamp) {
     Track self;
 
-    default_track(self, group, x, y, z, timestamp);
+    default_track(self, type, x, y, z, timestamp);
 
     return self;
 }
 
-void WarGrey::SCADA::default_track(Track& self, std::optional<Integer> group, std::optional<Float> x, std::optional<Float> y, std::optional<Float> z, std::optional<Integer> timestamp) {
+void WarGrey::SCADA::default_track(Track& self, std::optional<Integer> type, std::optional<Float> x, std::optional<Float> y, std::optional<Float> z, std::optional<Integer> timestamp) {
     self.uuid = pk64_timestamp();
-    if (group.has_value()) { self.group = group.value(); }
+    if (type.has_value()) { self.type = type.value(); }
     if (x.has_value()) { self.x = x.value(); }
     if (y.has_value()) { self.y = y.value(); }
     if (z.has_value()) { self.z = z.value(); }
@@ -45,7 +45,7 @@ void WarGrey::SCADA::refresh_track(Track& self) {
 
 void WarGrey::SCADA::store_track(Track& self, IPreparedStatement* stmt) {
     stmt->bind_parameter(0U, self.uuid);
-    stmt->bind_parameter(1U, self.group);
+    stmt->bind_parameter(1U, self.type);
     stmt->bind_parameter(2U, self.x);
     stmt->bind_parameter(3U, self.y);
     stmt->bind_parameter(4U, self.z);
@@ -54,7 +54,7 @@ void WarGrey::SCADA::store_track(Track& self, IPreparedStatement* stmt) {
 
 void WarGrey::SCADA::restore_track(Track& self, IPreparedStatement* stmt) {
     self.uuid = stmt->column_int64(0U);
-    self.group = stmt->column_int64(1U);
+    self.type = stmt->column_int64(1U);
     self.x = stmt->column_double(2U);
     self.y = stmt->column_double(3U);
     self.z = stmt->column_double(4U);
@@ -169,7 +169,7 @@ void WarGrey::SCADA::update_track(IDBSystem* dbc, Track* selves, size_t count, b
 
             stmt->bind_parameter(5U, selves[i].uuid);
 
-            stmt->bind_parameter(0U, selves[i].group);
+            stmt->bind_parameter(0U, selves[i].type);
             stmt->bind_parameter(1U, selves[i].x);
             stmt->bind_parameter(2U, selves[i].y);
             stmt->bind_parameter(3U, selves[i].z);

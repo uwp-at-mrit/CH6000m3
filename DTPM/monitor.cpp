@@ -2,6 +2,7 @@
 #include "drag_info.hpp"
 #include "moxa.hpp"
 #include "module.hpp"
+#include "configuration.hpp"
 
 #include "frame/metrics.hpp"
 #include "frame/times.hpp"
@@ -12,6 +13,8 @@
 #include "graphlet/filesystem/s63let.hpp"
 #include "graphlet/filesystem/configuration/gpslet.hpp"
 #include "graphlet/filesystem/configuration/vessel/trailing_suction_dredgerlet.hpp"
+
+#include "schema/datalet/track_ds.hpp"
 
 #include "iotables/ai_dredges.hpp"
 
@@ -26,7 +29,12 @@ using namespace Microsoft::Graphics::Canvas::UI;
 using namespace Microsoft::Graphics::Canvas::Brushes;
 
 /*************************************************************************************************/
-DTPMonitor::DTPMonitor(MRMaster* plc) : Planet(__MODULE__), plc(plc) {
+DTPMonitor::DTPMonitor(MRMaster* plc) : Planet(__MODULE__), plc(plc), track_source(nullptr) {
+	Syslog* logger = make_system_logger(default_schema_logging_level, "DredgeTrackHistory");
+
+	this->track_source = new TrackDataSource(logger, RotationPeriod::Daily);
+	this->track_source->reference();
+
 	if (this->plc != nullptr) {
 		this->plc->push_confirmation_receiver(this);
 	}
@@ -34,6 +42,12 @@ DTPMonitor::DTPMonitor(MRMaster* plc) : Planet(__MODULE__), plc(plc) {
 	this->gps1 = moxa_tcp_as_gps(MOXA_TCP::MRIT_DGPS, this);
 	this->gps2 = moxa_tcp_as_gps(MOXA_TCP::DP_DGPS, this);
 	this->gyro = moxa_tcp_as_gps(MOXA_TCP::GYRO, this);
+}
+
+DTPMonitor::~DTPMonitor() {
+	if (this->track_source != nullptr) {
+		this->track_source->destroy();
+	}
 }
 
 void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float height) {
@@ -54,11 +68,13 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	GPSlet* gps = new GPSlet("gps", 64.0F);
 
 	this->vessel = new TrailingSuctionDredgerlet("vessel", 1.0F);
+	this->track = new DredgeTracklet(this->track_source, "track", map_width, plot_height);
+	
 	this->metrics = this->insert_one(new Planetlet(metrics, GraphletAnchor::RT));
 	this->times = this->insert_one(new Planetlet(times, GraphletAnchor::RT));
 	this->status = this->insert_one(new Planetlet(status, width, status_height));
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
-	this->project = this->insert_one(new Projectlet(this->vessel, plot, L"长江口工程", map_width, plot_height));
+	this->project = this->insert_one(new Projectlet(this->vessel, this->track, plot, L"长江口工程", map_width, plot_height));
 	this->profile = this->insert_one(new Profilet(this->vessel, "profile", profile_width, profile_height));
 	this->gps = this->insert_one(gps);
 	this->plot = this->insert_one(plot);
@@ -149,6 +165,10 @@ void DTPMonitor::on_location_changed(double latitude, double longitude, double a
 
 		if (this->gps != nullptr) {
 			this->gps->set_position(latitude, longitude);
+		}
+
+		if (this->track != nullptr) {
+			this->track->push_track_dot(DredgeTrackType::GPS, double3(geo_x, geo_y, 0.0));
 		}
 
 		this->end_update_sequence();
@@ -251,12 +271,23 @@ void DTPMonitor::on_analog_input(long long timepoint_ms, const uint8* DB2, size_
 	DredgeAddress* ps_addr = make_ps_dredging_system_schema();
 	DredgeAddress* sb_addr = make_sb_dredging_system_schema();
 	size_t count = sizeof(ujoints) / sizeof(double3);
+	double2 vessel_pos = this->project->vessel_position();
 
 	read_drag_figures(DB2, &offset, ujoints, &draghead, ps_addr->drag_position);
-	this->vessel->set_ps_drag_figures(offset, ujoints, draghead);
+
+	if (this->track != nullptr) {
+		this->vessel->set_ps_drag_figures(offset, ujoints, draghead);
+		this->vessel->fill_ps_track_position(&draghead, vessel_pos);
+		this->track->push_track_dot(DredgeTrackType::PSDrag, draghead);
+	}
 
 	read_drag_figures(DB2, &offset, ujoints, &draghead, sb_addr->drag_position);
-	this->vessel->set_sb_drag_figures(offset, ujoints, draghead);
+	
+	if (this->track) {
+		this->vessel->set_sb_drag_figures(offset, ujoints, draghead);
+		this->vessel->fill_sb_track_position(&draghead, vessel_pos);
+		this->track->push_track_dot(DredgeTrackType::SBDrag, draghead);
+	}
 }
 
 void DTPMonitor::post_read_data(Syslog* logger) {

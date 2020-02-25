@@ -10,7 +10,7 @@ namespace WarGrey::SCADA {
 
     private struct Track {
         Integer uuid;
-        Integer group;
+        Integer type;
         Float x;
         Float y;
         Float z;
@@ -22,12 +22,12 @@ namespace WarGrey::SCADA {
         virtual bool step(WarGrey::SCADA::Track& occurrence, bool asc, int code) = 0;
     };
 
-    private enum class track { uuid, group, x, y, z, timestamp, _ };
+    private enum class track { uuid, type, x, y, z, timestamp, _ };
 
     WarGrey::SCADA::Track_pk track_identity(WarGrey::SCADA::Track& self);
 
-    WarGrey::SCADA::Track make_track(std::optional<Integer> group = std::nullopt, std::optional<Float> x = std::nullopt, std::optional<Float> y = std::nullopt, std::optional<Float> z = std::nullopt, std::optional<Integer> timestamp = std::nullopt);
-    void default_track(WarGrey::SCADA::Track& self, std::optional<Integer> group = std::nullopt, std::optional<Float> x = std::nullopt, std::optional<Float> y = std::nullopt, std::optional<Float> z = std::nullopt, std::optional<Integer> timestamp = std::nullopt);
+    WarGrey::SCADA::Track make_track(std::optional<Integer> type = std::nullopt, std::optional<Float> x = std::nullopt, std::optional<Float> y = std::nullopt, std::optional<Float> z = std::nullopt, std::optional<Integer> timestamp = std::nullopt);
+    void default_track(WarGrey::SCADA::Track& self, std::optional<Integer> type = std::nullopt, std::optional<Float> x = std::nullopt, std::optional<Float> y = std::nullopt, std::optional<Float> z = std::nullopt, std::optional<Integer> timestamp = std::nullopt);
     void refresh_track(WarGrey::SCADA::Track& self);
     void store_track(WarGrey::SCADA::Track& self, WarGrey::SCADA::IPreparedStatement* stmt);
     void restore_track(WarGrey::SCADA::Track& self, WarGrey::SCADA::IPreparedStatement* stmt);

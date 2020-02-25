@@ -3,6 +3,7 @@
 #include "graphlet/planetlet.hpp"
 #include "graphlet/filesystem/projectlet.hpp"
 #include "graphlet/filesystem/project/profilet.hpp"
+#include "graphlet/filesystem/project/dredgetracklet.hpp"
 #include "graphlet/filesystem/configuration/gpslet.hpp"
 #include "graphlet/filesystem/configuration/colorplotlet.hpp"
 #include "graphlet/filesystem/configuration/vessel/trailing_suction_dredgerlet.hpp"
@@ -14,6 +15,7 @@
 namespace WarGrey::DTPM {
 	private class DTPMonitor : public WarGrey::SCADA::Planet, public WarGrey::DTPM::GPSReceiver, public WarGrey::SCADA::PLCConfirmation {
 	public:
+		virtual ~DTPMonitor() noexcept;
 		DTPMonitor(WarGrey::SCADA::MRMaster* plc);
 
 	public:
@@ -51,6 +53,8 @@ namespace WarGrey::DTPM {
 
 	private: // never deletes these graphlets manually
 		WarGrey::DTPM::TrailingSuctionDredgerlet* vessel;
+		WarGrey::DTPM::ITrackDataSource* track_source;
+		WarGrey::DTPM::DredgeTracklet* track;
 		WarGrey::SCADA::Planetlet* metrics;
 		WarGrey::SCADA::Planetlet* times;
 		WarGrey::DTPM::Projectlet* project;

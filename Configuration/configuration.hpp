@@ -11,6 +11,7 @@ static constexpr WarGrey::SCADA::Log default_logging_level = WarGrey::SCADA::Log
 static constexpr WarGrey::SCADA::Log default_plc_master_logging_level = WarGrey::SCADA::Log::Info;
 static constexpr WarGrey::SCADA::Log default_gps_logging_level = default_logging_level;
 static constexpr WarGrey::SCADA::Log default_slang_logging_level = default_logging_level;
+static constexpr WarGrey::SCADA::Log default_schema_logging_level = default_logging_level;
 
 static Platform::String^ slang_multicast_group = "233.169.254.7";
 static Platform::String^ remote_test_server = "255.255.255.255";

@@ -32,7 +32,7 @@ namespace {
 				this->dot.y = track.y;
 				this->dot.z = track.z;
 
-				this->receiver->on_datum_values(this->open_s, ts, track.group, this->dot);
+				this->receiver->on_datum_values(this->open_s, ts, track.type, this->dot);
 
 				this->count++;
 			}
@@ -106,11 +106,11 @@ void TrackDataSource::load(ITrackDataReceiver* receiver, long long open_s, long 
 	}
 }
 
-void TrackDataSource::save(long long timepoint, long long group, double3& dot) {
+void TrackDataSource::save(long long timepoint, long long type, double3& dot) {
 	Track track;
 
 	track.uuid = pk64_timestamp();
-	track.group = group;
+	track.type = type;
 	track.x = dot.x;
 	track.y = dot.y;
 	track.z = dot.z;
