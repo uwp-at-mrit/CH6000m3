@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Auxiliary", "Auxiliary\Auxiliary.vcxitems", "{9D38AD51-FEE8-4303-8B0D-833BBCC93B58}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BigBang", "BigBang\BigBang.vcxitems", "{6A826F3B-23F9-432C-86BD-F9D318096966}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DataAccess", "DataAccess\DataAccess.vcxitems", "{E3EC1920-8383-4717-8D15-46FC7AC41916}"
@@ -25,11 +23,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ENChart", "ENChart\ENChart.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Jargon", "Jargon\Jargon.vcxitems", "{948DE949-B0CE-4469-8978-EAB344E9DA71}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "D-Arc", "D-Arc\D-Arc.vcxproj", "{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Base", "Base\Base.vcxitems", "{9D38AD51-FEE8-4303-8B0D-833BBCC93B58}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Configuration\Configuration.vcxitems*{23bbbe0c-c1af-496f-a860-706527a8eacc}*SharedItemsImports = 9
 		ENChart\ENChart.vcxitems*{33094256-cb0c-4cf7-8767-0e87866daa99}*SharedItemsImports = 9
-		Auxiliary\Auxiliary.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
+		Base\Base.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		BigBang\BigBang.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		Configuration\Configuration.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		DataAccess\DataAccess.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
@@ -40,10 +42,16 @@ Global
 		WormHole\WormHole.vcxitems*{6a1ce595-6f91-457d-9392-bb67c87edfc7}*SharedItemsImports = 4
 		BigBang\BigBang.vcxitems*{6a826f3b-23f9-432c-86bd-f9d318096966}*SharedItemsImports = 9
 		Graphics\Graphics.vcxitems*{73bfe193-7352-40ab-99c0-717f6ebee2d8}*SharedItemsImports = 9
+		Base\Base.vcxitems*{93a8a92f-6b0d-4b67-bb72-fcafd39266f0}*SharedItemsImports = 4
+		BigBang\BigBang.vcxitems*{93a8a92f-6b0d-4b67-bb72-fcafd39266f0}*SharedItemsImports = 4
+		ENChart\ENChart.vcxitems*{93a8a92f-6b0d-4b67-bb72-fcafd39266f0}*SharedItemsImports = 4
+		Graphics\Graphics.vcxitems*{93a8a92f-6b0d-4b67-bb72-fcafd39266f0}*SharedItemsImports = 4
+		Jargon\Jargon.vcxitems*{93a8a92f-6b0d-4b67-bb72-fcafd39266f0}*SharedItemsImports = 4
+		WormHole\WormHole.vcxitems*{93a8a92f-6b0d-4b67-bb72-fcafd39266f0}*SharedItemsImports = 4
 		Jargon\Jargon.vcxitems*{948de949-b0ce-4469-8978-eab344e9da71}*SharedItemsImports = 9
-		Auxiliary\Auxiliary.vcxitems*{9d38ad51-fee8-4303-8b0d-833bbcc93b58}*SharedItemsImports = 9
+		Base\Base.vcxitems*{9d38ad51-fee8-4303-8b0d-833bbcc93b58}*SharedItemsImports = 9
 		WormHole\WormHole.vcxitems*{a218bf46-1f55-4b99-b000-62f2de40576c}*SharedItemsImports = 9
-		Auxiliary\Auxiliary.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
+		Base\Base.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		BigBang\BigBang.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		Configuration\Configuration.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
 		DataAccess\DataAccess.vcxitems*{a48fbec3-58b7-44ff-b428-4b63cd1c0f23}*SharedItemsImports = 4
@@ -114,6 +122,32 @@ Global
 		{6A1CE595-6F91-457D-9392-BB67C87EDFC7}.Release|x86.ActiveCfg = Release|Win32
 		{6A1CE595-6F91-457D-9392-BB67C87EDFC7}.Release|x86.Build.0 = Release|Win32
 		{6A1CE595-6F91-457D-9392-BB67C87EDFC7}.Release|x86.Deploy.0 = Release|Win32
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Debug|ARM.ActiveCfg = Debug|ARM
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Debug|ARM.Build.0 = Debug|ARM
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Debug|ARM.Deploy.0 = Debug|ARM
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Debug|ARM64.Build.0 = Debug|ARM64
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Debug|x64.ActiveCfg = Debug|x64
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Debug|x64.Build.0 = Debug|x64
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Debug|x64.Deploy.0 = Debug|x64
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Debug|x86.ActiveCfg = Debug|Win32
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Debug|x86.Build.0 = Debug|Win32
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Debug|x86.Deploy.0 = Debug|Win32
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Release|Any CPU.ActiveCfg = Release|Win32
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Release|ARM.ActiveCfg = Release|ARM
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Release|ARM.Build.0 = Release|ARM
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Release|ARM.Deploy.0 = Release|ARM
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Release|ARM64.ActiveCfg = Release|ARM64
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Release|ARM64.Build.0 = Release|ARM64
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Release|ARM64.Deploy.0 = Release|ARM64
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Release|x64.ActiveCfg = Release|x64
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Release|x64.Build.0 = Release|x64
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Release|x64.Deploy.0 = Release|x64
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Release|x86.ActiveCfg = Release|Win32
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Release|x86.Build.0 = Release|Win32
+		{93A8A92F-6B0D-4B67-BB72-FCAFD39266F0}.Release|x86.Deploy.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

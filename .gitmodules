@@ -22,3 +22,9 @@
 [submodule "ENChart"]
 	path = ENChart
 	url = https://github.com/uwp-at-mrit/ENChart.git
+[submodule "D-Arc"]
+	path = D-Arc
+	url = https://github.com/uwp-at-mrit/D-Arc.git
+[submodule "Base"]
+	path = Base
+	url = https://github.com/uwp-at-mrit/Base.git
