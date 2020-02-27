@@ -59,8 +59,6 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	float profile_width = map_width + plot_width;
 	float profile_height = height - plot_height - status_height;
 
-	MetricsFrame* metrics = new MetricsFrame(side_zone_width, 0U, this->plc);
-	TimesFrame* times = new TimesFrame(side_zone_width, this->plc);
 	StatusFrame* status = new StatusFrame(this->plc);
 	DragsFrame* drags = new DragsFrame(this->plc);
 	ColorPlotlet* plot = new ColorPlotlet("colorplot", plot_width, plot_height);
@@ -70,8 +68,8 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	this->vessel = new TrailingSuctionDredgerlet("vessel", 1.0F);
 	this->track = new DredgeTracklet(this->track_source, "track", map_width, plot_height);
 	
-	this->metrics = this->insert_one(new Planetlet(metrics, GraphletAnchor::RT));
-	this->times = this->insert_one(new Planetlet(times, GraphletAnchor::RT));
+	this->metrics = this->insert_one(new DredgeMetricslet("main", side_zone_width, GraphletAnchor::RT));
+	this->times = this->insert_one(new DredgeMetricslet("worktime", side_zone_width, GraphletAnchor::RT));
 	this->status = this->insert_one(new Planetlet(status, width, status_height));
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
 	this->project = this->insert_one(new Projectlet(this->vessel, this->track, plot, L"长江口工程", map_width, plot_height));

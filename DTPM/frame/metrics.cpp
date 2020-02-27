@@ -276,3 +276,7 @@ void MetricsFrame::reflow(float width, float height) {
 bool MetricsFrame::can_select(IGraphlet* g) {
 	return false;
 }
+
+/*************************************************************************************************/
+DredgeMetricslet::DredgeMetricslet(Platform::String^ name, float width, GraphletAnchor anchor, unsigned int slot_count)
+	: Metricslet(name, width, anchor, slot_count) {}

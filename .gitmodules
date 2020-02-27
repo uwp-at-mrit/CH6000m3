@@ -4,9 +4,6 @@
 [submodule "Auxiliary"]
 	path = Auxiliary
 	url = https://github.com/uwp-at-mrit/Auxiliary.git
-[submodule "DataAccess"]
-	path = DataAccess
-	url = https://github.com/uwp-at-mrit/DataAccess.git
 [submodule "Graphics"]
 	path = Graphics
 	url = https://github.com/uwp-at-mrit/Graphics.git
@@ -22,9 +19,9 @@
 [submodule "ENChart"]
 	path = ENChart
 	url = https://github.com/uwp-at-mrit/ENChart.git
-[submodule "D-Arc"]
-	path = D-Arc
-	url = https://github.com/uwp-at-mrit/D-Arc.git
 [submodule "Base"]
 	path = Base
 	url = https://github.com/uwp-at-mrit/Base.git
+[submodule "Schema"]
+	path = Schema
+	url = https://github.com/uwp-at-mrit/Schema.git

@@ -2,6 +2,8 @@
 
 #include "planet.hpp"
 
+#include "graphlet/ui/metricslet.hpp"
+
 #include "gps.hpp"
 #include "mrit.hpp"
 
@@ -21,5 +23,10 @@ namespace WarGrey::DTPM {
 	private:
 		WarGrey::SCADA::MRMaster* plc;
 		WarGrey::DTPM::GPSReceiver* dashboard;
+	};
+
+	private class DredgeMetricslet : public WarGrey::DTPM::Metricslet {
+	public:
+		DredgeMetricslet(Platform::String^ name, float width, WarGrey::SCADA::GraphletAnchor anchor, unsigned int slot_count = 0U);
 	};
 }
