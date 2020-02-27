@@ -278,5 +278,28 @@ bool MetricsFrame::can_select(IGraphlet* g) {
 }
 
 /*************************************************************************************************/
-DredgeMetricslet::DredgeMetricslet(Platform::String^ name, float width, GraphletAnchor anchor, unsigned int slot_count)
+DredgeMetricslet::DredgeMetricslet(Platform::String^ name, float width, GraphletAnchor anchor, size_t slot_count)
 	: Metricslet(name, width, anchor, slot_count) {}
+
+unsigned int DredgeMetricslet::capacity() {
+	return _N(M);
+}
+
+Platform::String^ DredgeMetricslet::label_ref(unsigned int idx) {
+	return _speak(_E(M, idx));
+}
+
+CanvasSolidColorBrush^ DredgeMetricslet::label_color_ref(unsigned int idx) {
+	CanvasSolidColorBrush^ color = Colours::Foreground;
+
+	switch (_E(M, idx)) {
+	case M::BowDirection: case M::TrackDirection: case M::FlowPressureAngle: case M::LineDirection: color = Colours::Yellow; break;
+	case M::Speed: case M::TurnRate: color = Colours::Green; break;
+	case M::BowDraught: case M::SternDraught: case M::AverageDraught: color = Colours::Orange; break;
+	case M::PSFlow: case M::SBFlow: case M::PSConcentration: case M::SBConcentration: case M::AverageDensity: color = Colours::DodgerBlue; break;
+	case M::EarthWork: case M::Capacity: case M::Displacement: case M::MudDensity: case M::Payload: color = Colours::Salmon; break;
+	case M::PSProduct: case M::SBProduct: color = Colours::Cyan; break;
+	}
+
+	return color;
+}

@@ -69,7 +69,7 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	this->track = new DredgeTracklet(this->track_source, "track", map_width, plot_height);
 	
 	this->metrics = this->insert_one(new DredgeMetricslet("main", side_zone_width, GraphletAnchor::RT));
-	this->times = this->insert_one(new DredgeMetricslet("worktime", side_zone_width, GraphletAnchor::RT));
+	this->times = this->insert_one(new DredgeMetricslet("worktime", side_zone_width, GraphletAnchor::RT, 3U));
 	this->status = this->insert_one(new Planetlet(status, width, status_height));
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
 	this->project = this->insert_one(new Projectlet(this->vessel, this->track, plot, L"长江口工程", map_width, plot_height));

@@ -27,6 +27,11 @@ namespace WarGrey::DTPM {
 
 	private class DredgeMetricslet : public WarGrey::DTPM::Metricslet {
 	public:
-		DredgeMetricslet(Platform::String^ name, float width, WarGrey::SCADA::GraphletAnchor anchor, unsigned int slot_count = 0U);
+		DredgeMetricslet(Platform::String^ name, float width, WarGrey::SCADA::GraphletAnchor anchor, size_t slot_count = 0U);
+
+	public:
+		unsigned int capacity() override;
+		Platform::String^ label_ref(unsigned int idx) override;
+		Microsoft::Graphics::Canvas::Brushes::CanvasSolidColorBrush^ label_color_ref(unsigned int idx) override;
 	};
 }
