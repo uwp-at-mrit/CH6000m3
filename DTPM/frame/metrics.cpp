@@ -278,7 +278,7 @@ bool MetricsFrame::can_select(IGraphlet* g) {
 }
 
 /*************************************************************************************************/
-DredgeMetricslet::DredgeMetricslet(Platform::String^ name, float width, GraphletAnchor anchor, size_t slot_count)
+DredgeMetricslet::DredgeMetricslet(Platform::String^ name, float width, GraphletAnchor anchor, unsigned int slot_count)
 	: Metricslet(name, width, anchor, slot_count) {}
 
 unsigned int DredgeMetricslet::capacity() {

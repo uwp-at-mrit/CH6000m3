@@ -291,10 +291,8 @@
       <SubType>Designer</SubType>
       <DeploymentContent>false</DeploymentContent>
     </PRIResource>
-    <PRIResource Include="stone\tongue\en-US\menu.resw">
-      <DeploymentContent>false</DeploymentContent>
-    </PRIResource>
     <PRIResource Include="stone\tongue\en-US\glands.resw" />
+    <PRIResource Include="stone\tongue\en-US\menu.resw" />
     <PRIResource Include="stone\tongue\en-US\settings.resw" />
     <PRIResource Include="stone\tongue\en-US\subpage\underwater_pump_motor.resw" />
     <PRIResource Include="stone\tongue\en-US\widget.resw" />
@@ -324,10 +322,8 @@
       <SubType>Designer</SubType>
       <DeploymentContent>false</DeploymentContent>
     </PRIResource>
-    <PRIResource Include="stone\tongue\zh-CN\menu.resw">
-      <DeploymentContent>false</DeploymentContent>
-    </PRIResource>
     <PRIResource Include="stone\tongue\zh-CN\glands.resw" />
+    <PRIResource Include="stone\tongue\zh-CN\menu.resw" />
     <PRIResource Include="stone\tongue\zh-CN\settings.resw" />
     <PRIResource Include="stone\tongue\zh-CN\subpage\underwater_pump_motor.resw" />
     <PRIResource Include="stone\tongue\zh-CN\widget.resw" />
