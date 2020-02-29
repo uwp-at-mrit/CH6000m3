@@ -268,10 +268,10 @@
     <Image Include="stone\about.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="metrics\dredger.cpp" />
     <ClCompile Include="monitor.cpp" />
     <ClCompile Include="DTPM.cxx" />
     <ClCompile Include="frame\drags.cpp" />
-    <ClCompile Include="frame\metrics.cpp" />
     <ClCompile Include="frame\statusbar.cpp" />
     <ClCompile Include="frame\times.cpp" />
     <ClCompile Include="schema\datalet\track_ds.cpp" />
@@ -281,9 +281,9 @@
     <ClCompile Include="widget\timestream.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="metrics\dredger.hpp" />
     <ClInclude Include="monitor.hpp" />
     <ClInclude Include="frame\drags.hpp" />
-    <ClInclude Include="frame\metrics.hpp" />
     <ClInclude Include="frame\statusbar.hpp" />
     <ClInclude Include="frame\times.hpp" />
     <ClInclude Include="schema\datalet\track_ds.hpp" />
@@ -294,13 +294,13 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="stone\tongue\en-US\drags.resw" />
-    <PRIResource Include="stone\tongue\en-US\metrics.resw" />
+    <PRIResource Include="stone\tongue\en-US\dredger.resw" />
     <PRIResource Include="stone\tongue\en-US\statusbar.resw" />
     <PRIResource Include="stone\tongue\en-US\times.resw" />
     <PRIResource Include="stone\tongue\en-US\tongue.resw" />
     <PRIResource Include="stone\tongue\en-US\widget.resw" />
     <PRIResource Include="stone\tongue\zh-CN\drags.resw" />
-    <PRIResource Include="stone\tongue\zh-CN\metrics.resw" />
+    <PRIResource Include="stone\tongue\zh-CN\dredger.resw" />
     <PRIResource Include="stone\tongue\zh-CN\statusbar.resw" />
     <PRIResource Include="stone\tongue\zh-CN\times.resw" />
     <PRIResource Include="stone\tongue\zh-CN\tongue.resw" />

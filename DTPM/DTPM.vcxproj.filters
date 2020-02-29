@@ -29,6 +29,9 @@
     <Filter Include="schema\datalet">
       <UniqueIdentifier>{490b5e64-231c-42c2-8a93-d569c14948cb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="metrics">
+      <UniqueIdentifier>{74dd4853-b81e-410e-99db-8ade474aef95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
@@ -197,9 +200,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="widget.cpp" />
-    <ClCompile Include="frame\metrics.cpp">
-      <Filter>frame</Filter>
-    </ClCompile>
     <ClCompile Include="frame\statusbar.cpp">
       <Filter>frame</Filter>
     </ClCompile>
@@ -223,12 +223,12 @@
     <ClCompile Include="schema\datalet\track_ds.cpp">
       <Filter>schema\datalet</Filter>
     </ClCompile>
+    <ClCompile Include="metrics\dredger.cpp">
+      <Filter>metrics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="widget.hxx" />
-    <ClInclude Include="frame\metrics.hpp">
-      <Filter>frame</Filter>
-    </ClInclude>
     <ClInclude Include="frame\statusbar.hpp">
       <Filter>frame</Filter>
     </ClInclude>
@@ -251,6 +251,9 @@
     <ClInclude Include="schema\datalet\track_ds.hpp">
       <Filter>schema\datalet</Filter>
     </ClInclude>
+    <ClInclude Include="metrics\dredger.hpp">
+      <Filter>metrics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="stone\tongue\en-US\widget.resw">
@@ -264,12 +267,6 @@
     </PRIResource>
     <PRIResource Include="stone\tongue\en-US\tongue.resw">
       <Filter>stone\tongue\en-US</Filter>
-    </PRIResource>
-    <PRIResource Include="stone\tongue\en-US\metrics.resw">
-      <Filter>stone\tongue\en-US</Filter>
-    </PRIResource>
-    <PRIResource Include="stone\tongue\zh-CN\metrics.resw">
-      <Filter>stone\tongue\zh-CN</Filter>
     </PRIResource>
     <PRIResource Include="stone\tongue\en-US\statusbar.resw">
       <Filter>stone\tongue\en-US</Filter>
@@ -287,6 +284,12 @@
       <Filter>stone\tongue\en-US</Filter>
     </PRIResource>
     <PRIResource Include="stone\tongue\zh-CN\times.resw">
+      <Filter>stone\tongue\zh-CN</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\en-US\dredger.resw">
+      <Filter>stone\tongue\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="stone\tongue\zh-CN\dredger.resw">
       <Filter>stone\tongue\zh-CN</Filter>
     </PRIResource>
   </ItemGroup>
