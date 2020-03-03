@@ -206,9 +206,6 @@
     <ClCompile Include="frame\drags.cpp">
       <Filter>frame</Filter>
     </ClCompile>
-    <ClCompile Include="frame\times.cpp">
-      <Filter>frame</Filter>
-    </ClCompile>
     <ClCompile Include="widget\timestream.cpp">
       <Filter>widget</Filter>
     </ClCompile>
@@ -223,7 +220,10 @@
     <ClCompile Include="schema\datalet\track_ds.cpp">
       <Filter>schema\datalet</Filter>
     </ClCompile>
-    <ClCompile Include="metrics\dredger.cpp">
+    <ClCompile Include="metrics\dredge.cpp">
+      <Filter>metrics</Filter>
+    </ClCompile>
+    <ClCompile Include="metrics\times.cpp">
       <Filter>metrics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -233,9 +233,6 @@
       <Filter>frame</Filter>
     </ClInclude>
     <ClInclude Include="frame\drags.hpp">
-      <Filter>frame</Filter>
-    </ClInclude>
-    <ClInclude Include="frame\times.hpp">
       <Filter>frame</Filter>
     </ClInclude>
     <ClInclude Include="widget\timestream.hpp">
@@ -251,7 +248,10 @@
     <ClInclude Include="schema\datalet\track_ds.hpp">
       <Filter>schema\datalet</Filter>
     </ClInclude>
-    <ClInclude Include="metrics\dredger.hpp">
+    <ClInclude Include="metrics\dredge.hpp">
+      <Filter>metrics</Filter>
+    </ClInclude>
+    <ClInclude Include="metrics\times.hpp">
       <Filter>metrics</Filter>
     </ClInclude>
   </ItemGroup>
@@ -286,10 +286,10 @@
     <PRIResource Include="stone\tongue\zh-CN\times.resw">
       <Filter>stone\tongue\zh-CN</Filter>
     </PRIResource>
-    <PRIResource Include="stone\tongue\en-US\dredger.resw">
+    <PRIResource Include="stone\tongue\en-US\dredge.resw">
       <Filter>stone\tongue\en-US</Filter>
     </PRIResource>
-    <PRIResource Include="stone\tongue\zh-CN\dredger.resw">
+    <PRIResource Include="stone\tongue\zh-CN\dredge.resw">
       <Filter>stone\tongue\zh-CN</Filter>
     </PRIResource>
   </ItemGroup>
