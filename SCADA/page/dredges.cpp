@@ -596,32 +596,32 @@ public:
 		this->set_design_depth(DS::SBL, DB20, dredging_target_depth, dredging_tolerant_depth);
 	}
 
-	void post_read_data(Syslog* logger) override {
-		{ // flow water
-			this->station->push_subtrack(DS::D003, DS::SB, water_color);
-			this->station->push_subtrack(DS::D004, DS::PS, water_color);
+	void on_signals_updated(long long timepoint_ms, Syslog* logger) override {
+		this->station->push_subtrack(DS::D003, DS::SB, water_color);
+		this->station->push_subtrack(DS::D004, DS::PS, water_color);
 
-			if (this->valves[DS::D003]->get_state() == GateValveState::Open) {
-				DS d11[] = { DS::LMOD, DS::sb, DS::SBHP, DS::D003 };
-				DS d13[] = { DS::d013, DS::d13, DS::SBHP, DS::D003 };
-				DS d15[] = { DS::d15, DS::d1315, DS::SBHP, DS::D003 };
+		if (this->valves[DS::D003]->get_state() == GateValveState::Open) {
+			DS d11[] = { DS::LMOD, DS::sb, DS::SBHP, DS::D003 };
+			DS d13[] = { DS::d013, DS::d13, DS::SBHP, DS::D003 };
+			DS d15[] = { DS::d15, DS::d1315, DS::SBHP, DS::D003 };
 
-				this->try_flow_water(DS::D011, d11, water_color);
-				this->try_flow_water(DS::D013, d13, water_color);
-				this->try_flow_water(DS::D015, d15, water_color);
-			}
-
-			if (this->valves[DS::D004]->get_state() == GateValveState::Open) {
-				DS d12[] = { DS::LMOD, DS::ps, DS::PSHP, DS::D004 };
-				DS d14[] = { DS::d014, DS::d14, DS::PSHP, DS::D004 };
-				DS d16[] = { DS::d16, DS::d1416, DS::PSHP, DS::D004 };
-
-				this->try_flow_water(DS::D012, d12, water_color);
-				this->try_flow_water(DS::D014, d14, water_color);
-				this->try_flow_water(DS::D016, d16, water_color);
-			}
+			this->try_flow_water(DS::D011, d11, water_color);
+			this->try_flow_water(DS::D013, d13, water_color);
+			this->try_flow_water(DS::D015, d15, water_color);
 		}
 
+		if (this->valves[DS::D004]->get_state() == GateValveState::Open) {
+			DS d12[] = { DS::LMOD, DS::ps, DS::PSHP, DS::D004 };
+			DS d14[] = { DS::d014, DS::d14, DS::PSHP, DS::D004 };
+			DS d16[] = { DS::d16, DS::d1416, DS::PSHP, DS::D004 };
+
+			this->try_flow_water(DS::D012, d12, water_color);
+			this->try_flow_water(DS::D014, d14, water_color);
+			this->try_flow_water(DS::D016, d16, water_color);
+		}
+	}
+
+	void post_read_data(Syslog* logger) override {
 		IDredgingSystem::post_read_data(logger);
 	}
 

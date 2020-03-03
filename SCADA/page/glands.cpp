@@ -179,31 +179,31 @@ public:
 		DI_gland_pump(this->pumps[GP::SBUWP2], false, DB4, sb_underwater_spare_gland_pump_feedback, DB205, sb_underwater_spare_gland_pump_status);
 	}
 
+	void on_signals_updated(long long timepoint_ms, Syslog* logger) override {
+		GP ps_hopper_long_path[] = { GP::DGV13, GP::pshp, GP::d44, GP::DGV8, GP::PSHP };
+		GP ps_hopper_short_path[] = { GP::DGV14, GP::d44, GP::DGV8, GP::PSHP };
+		GP sb_hopper_short_path[] = { GP::DGV15, GP::d45, GP::DGV7, GP::SBHP };
+		GP sb_hopper_long_path[] = { GP::DGV16, GP::sbhp, GP::d45, GP::DGV7, GP::SBHP };
+		GP ps_underwater_path[] = { GP::PSUWP1, GP::psuwp, GP::d46, GP::PSUWP };
+		GP sb_underwater_path[] = { GP::SBUWP2, GP::sbuwp, GP::d47, GP::SBUWP };
+
+		this->station->push_subtrack(GP::Hatch, GP::DGV16, water_color);
+		this->station->push_subtrack(GP::Sea, GP::SBUWP2, water_color);
+
+		this->try_flow_water(GP::PSFP, GP::DGV12, GP::flushs, water_color);
+		this->try_flow_water(GP::SBFP, GP::DGV11, GP::flushs, water_color);
+		this->try_flow_water(GP::PSHPa, ps_hopper_long_path, water_color);
+		this->try_flow_water(GP::PSHPb, ps_hopper_short_path, water_color);
+		this->try_flow_water(GP::SBHPa, sb_hopper_short_path, water_color);
+		this->try_flow_water(GP::SBHPb, sb_hopper_long_path, water_color);
+
+		this->try_flow_water(GP::PSUWP1, ps_underwater_path, water_color);
+		this->try_flow_water(GP::PSUWP2, GP::PSUWP2, GP::PSUWP, water_color);
+		this->try_flow_water(GP::SBUWP1, GP::SBUWP1, GP::SBUWP, water_color);
+		this->try_flow_water(GP::SBUWP2, sb_underwater_path, water_color);
+	}
+
 	void post_read_data(Syslog* logger) override {
-		{ // flow water
-			GP ps_hopper_long_path[] = { GP::DGV13, GP::pshp, GP::d44, GP::DGV8, GP::PSHP };
-			GP ps_hopper_short_path[] = { GP::DGV14, GP::d44, GP::DGV8, GP::PSHP };
-			GP sb_hopper_short_path[] = { GP::DGV15, GP::d45, GP::DGV7, GP::SBHP };
-			GP sb_hopper_long_path[] = { GP::DGV16, GP::sbhp, GP::d45, GP::DGV7, GP::SBHP };
-			GP ps_underwater_path[] = { GP::PSUWP1, GP::psuwp, GP::d46, GP::PSUWP };
-			GP sb_underwater_path[] = { GP::SBUWP2, GP::sbuwp, GP::d47, GP::SBUWP };
-
-			this->station->push_subtrack(GP::Hatch, GP::DGV16, water_color);
-			this->station->push_subtrack(GP::Sea, GP::SBUWP2, water_color);
-
-			this->try_flow_water(GP::PSFP, GP::DGV12, GP::flushs, water_color);
-			this->try_flow_water(GP::SBFP, GP::DGV11, GP::flushs, water_color);
-			this->try_flow_water(GP::PSHPa, ps_hopper_long_path, water_color);
-			this->try_flow_water(GP::PSHPb, ps_hopper_short_path, water_color);
-			this->try_flow_water(GP::SBHPa, sb_hopper_short_path, water_color);
-			this->try_flow_water(GP::SBHPb, sb_hopper_long_path, water_color);
-
-			this->try_flow_water(GP::PSUWP1, ps_underwater_path, water_color);
-			this->try_flow_water(GP::PSUWP2, GP::PSUWP2, GP::PSUWP, water_color);
-			this->try_flow_water(GP::SBUWP1, GP::SBUWP1, GP::SBUWP, water_color);
-			this->try_flow_water(GP::SBUWP2, sb_underwater_path, water_color);
-		}
-
 		this->master->end_update_sequence();
 		this->master->leave_critical_section();
 	}

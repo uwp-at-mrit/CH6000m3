@@ -253,7 +253,7 @@ public:
 		
 	}
 
-	void post_read_data(Syslog* logger) override {
+	void on_signals_updated(long long timepoint_ms, WarGrey::SCADA::Syslog* logger) override {
 		RS rsb19[] = { RS::d0225, RS::SBHPump, RS::D018, RS::D019 };
 		RS r19[] = { RS::d019, RS::D021 };
 		RS r20[] = { RS::d2122, RS::D022 };
@@ -273,7 +273,7 @@ public:
 		} else {
 			this->manual_pipe->set_color(default_pipe_color);
 		}
-		
+
 		if (this->valve_open(RS::D023)) {
 			RS d0810[] = { RS::D018, RS::I0723, RS::D009 };
 			RS rps20[] = { RS::d0205, RS::PSHPump, RS::D020 };
@@ -320,7 +320,9 @@ public:
 				this->nintercs[RS::n24]->set_color(default_pipe_color);
 			}
 		}
+	}
 
+	void post_read_data(Syslog* logger) override {
 		this->master->end_update_sequence();
 		this->master->leave_critical_section();
 	}

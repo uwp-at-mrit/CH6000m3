@@ -220,55 +220,55 @@ public:
 		DI_shift_button(this->shifts[FlushingCommand::RightShift], DB205, right_shifting_details);
 	}
 
-	void post_read_data(Syslog* logger) override {
-		{ // flow water
-			FS h14[] = { FS::HBV01, FS::h1sb, FS::SBPump, FS::h4sb, FS::HBV04 };
-			FS h24[] = { FS::h3ps, FS::HBV03, FS::h3sb, FS::SBPump, FS::h4sb, FS::HBV04 };
-			FS h25[] = { FS::HBV02, FS::h3ps, FS::h5ps, FS::HBV05 };
+	void on_signals_updated(long long timepoint_ms, Syslog* logger) override {
+		FS h14[] = { FS::HBV01, FS::h1sb, FS::SBPump, FS::h4sb, FS::HBV04 };
+		FS h24[] = { FS::h3ps, FS::HBV03, FS::h3sb, FS::SBPump, FS::h4sb, FS::HBV04 };
+		FS h25[] = { FS::HBV02, FS::h3ps, FS::h5ps, FS::HBV05 };
 
-			this->station->push_subtrack(FS::HBV01, FS::SBSea, water_color);
-			this->station->push_subtrack(FS::HBV02, FS::PSSea, water_color);
+		this->station->push_subtrack(FS::HBV01, FS::SBSea, water_color);
+		this->station->push_subtrack(FS::HBV02, FS::PSSea, water_color);
 
-			if (this->bfvalves[FS::HBV01]->get_state() == GateValveState::Open) {
-				this->station->push_subtrack(h14, water_color);
-			}
-			
-			if (this->bfvalves[FS::HBV02]->get_state() == GateValveState::Closed) {
-				this->nintercs[FS::nic]->set_color(default_pipe_color);
-			} else {
-				this->nintercs[FS::nic]->set_color(water_color);
-				this->station->push_subtrack(h25, water_color);
+		if (this->bfvalves[FS::HBV01]->get_state() == GateValveState::Open) {
+			this->station->push_subtrack(h14, water_color);
+		}
 
-				if (this->bfvalves[FS::HBV03]->get_state() == GateValveState::Open) {
-					this->station->push_subtrack(h24, water_color);
-				}
-			}
+		if (this->bfvalves[FS::HBV02]->get_state() == GateValveState::Closed) {
+			this->nintercs[FS::nic]->set_color(default_pipe_color);
+		} else {
+			this->nintercs[FS::nic]->set_color(water_color);
+			this->station->push_subtrack(h25, water_color);
 
-			this->try_flow_water(FS::HBV05, FS::HBV07, FS::HBV08, water_color);
-			this->try_flow_water(FS::HBV07, FS::Port, water_color);
-			this->try_flow_water(FS::HBV08, FS::HBV10, water_color);
-
-			this->try_flow_water(FS::HBV04, FS::HBV06, FS::HBV09, water_color);
-			this->try_flow_water(FS::HBV06, FS::Starboard, water_color);
-			this->try_flow_water(FS::HBV09, FS::HBV10, water_color);
-			this->try_flow_water(FS::HBV10, FS::water, water_color);
-
-			if (this->bfvalves[FS::HBV18]->get_state() == GateValveState::Open) {
-				this->pipeline18->set_color(water_color);
-				this->station->push_subtrack(FS::HBV10, FS::water, water_color);
-			} else {
-				this->pipeline18->set_color(default_pipe_color);
-			}
-
-			for (FS HBV = FS::HBV11; HBV <= FS::HBV17; HBV++) {
-				unsigned int distance = _I(HBV) - _I(FS::HBV11);
-				FS lb = _E(FS, _I(FS::lb11) + distance);
-				FS rb = _E(FS, _I(FS::rb11) + distance);
-
-				this->try_flow_water(HBV, rb, lb, water_color);
+			if (this->bfvalves[FS::HBV03]->get_state() == GateValveState::Open) {
+				this->station->push_subtrack(h24, water_color);
 			}
 		}
 
+		this->try_flow_water(FS::HBV05, FS::HBV07, FS::HBV08, water_color);
+		this->try_flow_water(FS::HBV07, FS::Port, water_color);
+		this->try_flow_water(FS::HBV08, FS::HBV10, water_color);
+
+		this->try_flow_water(FS::HBV04, FS::HBV06, FS::HBV09, water_color);
+		this->try_flow_water(FS::HBV06, FS::Starboard, water_color);
+		this->try_flow_water(FS::HBV09, FS::HBV10, water_color);
+		this->try_flow_water(FS::HBV10, FS::water, water_color);
+
+		if (this->bfvalves[FS::HBV18]->get_state() == GateValveState::Open) {
+			this->pipeline18->set_color(water_color);
+			this->station->push_subtrack(FS::HBV10, FS::water, water_color);
+		} else {
+			this->pipeline18->set_color(default_pipe_color);
+		}
+
+		for (FS HBV = FS::HBV11; HBV <= FS::HBV17; HBV++) {
+			unsigned int distance = _I(HBV) - _I(FS::HBV11);
+			FS lb = _E(FS, _I(FS::lb11) + distance);
+			FS rb = _E(FS, _I(FS::rb11) + distance);
+
+			this->try_flow_water(HBV, rb, lb, water_color);
+		}
+	}
+
+	void post_read_data(Syslog* logger) override {
 		this->master->end_update_sequence();
 		this->master->leave_critical_section();
 	}

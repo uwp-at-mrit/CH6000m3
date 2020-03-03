@@ -379,43 +379,43 @@ public:
 		}
 	}
 
+	void on_signals_updated(long long timepoint_ms, WarGrey::SCADA::Syslog* logger) override {
+		HS ps_path[] = { HS::lt, HS::tl, HS::cl, HS::Master };
+		HS sb_path[] = { HS::rt, HS::tr, HS::cr, HS::Master };
+		HS mt_path[] = { HS::f02, HS::master };
+
+		this->station->push_subtrack(HS::Master, HS::SQ1, oil_color);
+		this->station->push_subtrack(HS::Master, HS::SQ2, oil_color);
+		this->station->push_subtrack(HS::Visor, HS::SQi, oil_color);
+		this->station->push_subtrack(HS::Visor, HS::SQj, oil_color);
+		this->station->push_subtrack(HS::Storage, HS::SQk1, oil_color);
+
+		this->try_flow_oil(HS::SQi, HS::I, HS::i, nullptr, 0, oil_color);
+		this->try_flow_oil(HS::SQj, HS::J, HS::j, nullptr, 0, oil_color);
+
+		this->try_flow_oil(HS::SQc, HS::C, HS::c, ps_path, oil_color);
+		this->try_flow_oil(HS::SQd, HS::D, HS::d, ps_path, oil_color);
+		this->try_flow_oil(HS::SQe, HS::E, HS::e, ps_path, oil_color);
+		this->try_flow_oil(HS::SQf, HS::F, HS::f, ps_path, oil_color);
+
+		this->try_flow_oil(HS::SQa, HS::A, HS::a, sb_path, oil_color);
+		this->try_flow_oil(HS::SQb, HS::B, HS::b, sb_path, oil_color);
+		this->try_flow_oil(HS::SQg, HS::G, HS::g, sb_path, oil_color);
+		this->try_flow_oil(HS::SQh, HS::H, HS::h, sb_path, oil_color);
+
+		this->try_flow_oil(HS::SQy, HS::Y, HS::y, mt_path, oil_color);
+		this->try_flow_oil(HS::SQl, HS::L, HS::l, mt_path, oil_color);
+		this->try_flow_oil(HS::SQm, HS::M, HS::m, mt_path, oil_color);
+		this->try_flow_oil(HS::SQk1, HS::K, HS::k, mt_path, oil_color);
+		this->try_flow_oil(HS::SQk2, HS::K /* , HS::k, mt_path */, oil_color);
+
+		this->try_flow_oil(HS::SQ2, HS::Port, HS::SQe, oil_color);
+		this->try_flow_oil(HS::SQ1, HS::sb, HS::SQh, oil_color);
+		this->try_flow_oil(HS::SQ1, HS::SQk2, oil_color);
+		this->try_flow_oil(HS::SQ1, HS::SQm, oil_color);
+	}
+
 	void post_read_data(Syslog* logger) override {
-		{ // flow oil
-			HS ps_path[] = { HS::lt, HS::tl, HS::cl, HS::Master };
-			HS sb_path[] = { HS::rt, HS::tr, HS::cr, HS::Master };
-			HS mt_path[] = { HS::f02, HS::master };
-			
-			this->station->push_subtrack(HS::Master, HS::SQ1, oil_color);
-			this->station->push_subtrack(HS::Master, HS::SQ2, oil_color);
-			this->station->push_subtrack(HS::Visor, HS::SQi, oil_color);
-			this->station->push_subtrack(HS::Visor, HS::SQj, oil_color);
-			this->station->push_subtrack(HS::Storage, HS::SQk1, oil_color);
-
-			this->try_flow_oil(HS::SQi, HS::I, HS::i, nullptr, 0, oil_color);
-			this->try_flow_oil(HS::SQj, HS::J, HS::j, nullptr, 0, oil_color);
-
-			this->try_flow_oil(HS::SQc, HS::C, HS::c, ps_path, oil_color);
-			this->try_flow_oil(HS::SQd, HS::D, HS::d, ps_path, oil_color);
-			this->try_flow_oil(HS::SQe, HS::E, HS::e, ps_path, oil_color);
-			this->try_flow_oil(HS::SQf, HS::F, HS::f, ps_path, oil_color);
-
-			this->try_flow_oil(HS::SQa, HS::A, HS::a, sb_path, oil_color);
-			this->try_flow_oil(HS::SQb, HS::B, HS::b, sb_path, oil_color);
-			this->try_flow_oil(HS::SQg, HS::G, HS::g, sb_path, oil_color);
-			this->try_flow_oil(HS::SQh, HS::H, HS::h, sb_path, oil_color);
-
-			this->try_flow_oil(HS::SQy, HS::Y, HS::y, mt_path, oil_color);
-			this->try_flow_oil(HS::SQl, HS::L, HS::l, mt_path, oil_color);
-			this->try_flow_oil(HS::SQm, HS::M, HS::m, mt_path, oil_color);
-			this->try_flow_oil(HS::SQk1, HS::K, HS::k, mt_path, oil_color);
-			this->try_flow_oil(HS::SQk2, HS::K /* , HS::k, mt_path */, oil_color);
-
-			this->try_flow_oil(HS::SQ2, HS::Port, HS::SQe, oil_color);
-			this->try_flow_oil(HS::SQ1, HS::sb, HS::SQh, oil_color);
-			this->try_flow_oil(HS::SQ1, HS::SQk2, oil_color);
-			this->try_flow_oil(HS::SQ1, HS::SQm, oil_color);
-		}
-		
 		this->master->end_update_sequence();
 		this->master->leave_critical_section();
 	}

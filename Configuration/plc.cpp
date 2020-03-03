@@ -183,6 +183,8 @@ void PLCConfirmation::on_all_signals(long long timepoint_ms, size_t addr0, size_
 			this->on_analog_io(timepoint_ms, data204, count * analog_size, logger);
 		}
 	}
+
+	this->on_signals_updated(timepoint_ms, logger);
 }
 
 void WarGrey::SCADA::read_drag_figures(const uint8* DB2, double3* offset, double3 ujoints[], double3* draghead, unsigned int drag_idx) {

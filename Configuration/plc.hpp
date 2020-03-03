@@ -43,6 +43,9 @@ namespace WarGrey::SCADA {
 		virtual void on_analog_input(long long timepoint_ms, const uint8* db2, size_t count2, const uint8* db203, size_t count203, WarGrey::SCADA::Syslog* logger) {}
 		virtual void on_forat(long long timepoint_ms, const uint8* db20, size_t count, WarGrey::SCADA::Syslog* logger) {}
 		virtual void on_analog_io(long long timepoint_ms, const uint8* db204, size_t count204, WarGrey::SCADA::Syslog* logger) {}
+
+	public:
+		virtual void on_signals_updated(long long timepoint_ms, WarGrey::SCADA::Syslog* logger) {}
 	};
 
 	private class PLCMaster : public WarGrey::SCADA::MRMaster {

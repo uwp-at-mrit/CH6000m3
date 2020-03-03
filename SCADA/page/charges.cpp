@@ -210,7 +210,7 @@ public:
 		});
 	}
 
-	void post_read_data(Syslog* logger) override {
+	void on_signals_updated(long long timepoint_ms, WarGrey::SCADA::Syslog* logger) override {
 		{ // flow PS water
 			CS c0910[] = { CS::I0923, CS::D010 };
 
@@ -236,7 +236,7 @@ public:
 
 		{ // flow SB water
 			CS c0708[] = { CS::I0723, CS::D008 };
-			
+
 			this->try_flow_water(CS::D003, CS::Starboard, water_color);
 			this->try_flow_water(CS::D026, CS::D003, CS::D007, water_color);
 			this->try_flow_water(CS::D007, c0708, water_color);
@@ -274,7 +274,9 @@ public:
 		} else {
 			this->gantry_pipe->set_color(default_pipe_color);
 		}
+	}
 
+	void post_read_data(Syslog* logger) override {
 		this->master->end_update_sequence();
 		this->master->leave_critical_section();
 	}
