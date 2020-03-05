@@ -14,7 +14,6 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="$(MSBuildThisFileDirectory)brightness.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)drag_info.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\ai_doors.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\ai_dredges.cpp" />
@@ -39,9 +38,10 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\do_winches.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)moxa.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)plc.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)slang\brightness.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)slang\dgps.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)brightness.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)configuration.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)drag_info.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\ai_doors.hpp" />
@@ -76,5 +76,8 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\macro_keys.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)moxa.hpp" />
     <ClInclude Include="$(MSBuildThisFileDirectory)plc.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)slang\brightness.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)slang\dgps.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)slang\port.hpp" />
   </ItemGroup>
 </Project>

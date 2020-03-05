@@ -1,7 +1,6 @@
 ﻿#include <map>
 
 #include "configuration.hpp"
-#include "brightness.hpp"
 
 #include "widget.hxx"
 #include "planet.hpp"
@@ -14,10 +13,11 @@
 #include "graphlet/ui/buttonlet.hpp"
 #include "graphlet/ui/togglet.hpp"
 
-#include "peer/slang.hpp"
-
 #include "datum/time.hpp"
 #include "datum/path.hpp"
+
+#include "peer/slang.hpp"
+#include "slang/brightness.hpp"
 
 #include "preference.hxx"
 #include "module.hpp"
@@ -71,7 +71,7 @@ public:
 		this->inset = widget_line_gap * 0.5F;
 		this->btn_xgapsize = 2.0F;
 
-		this->brightnessd = new SlangDaemon<uint8>(make_system_logger(default_slang_logging_level, "Slang"), brightness_slang_port(BrightnessPort::DTPM), this);
+		this->brightnessd = new SlangDaemon<uint8>(make_system_logger(default_slang_logging_level, "Slang"), brightness_slang_port(SlangPort::DTPM), this);
 		this->brightnessd->join_multicast_group(slang_multicast_group);
 	}
 
@@ -149,7 +149,7 @@ public:
 		auto b_btn = dynamic_cast<Credit<Buttonlet, Brightness>*>(g);
 		auto p_btn = dynamic_cast<Credit<Buttonlet, TCPMode>*>(g);
 		auto icon = dynamic_cast<Credit<Labellet, Icon>*>(g);
-		auto t_btn = dynamic_cast<Credit<Togglet, BrightnessPort>*>(g);
+		auto t_btn = dynamic_cast<Credit<Togglet, SlangPort>*>(g);
 
 		if (b_btn != nullptr) {
 			double alpha = -1.0;
@@ -164,11 +164,11 @@ public:
 			}
 
 			if (alpha >= 0.0) {
-				for (BrightnessPort bp = _E0(BrightnessPort); bp < BrightnessPort::_; bp++) {
+				for (SlangPort bp = _E0(SlangPort); bp < SlangPort::_; bp++) {
 					if (this->toggles[bp]->checked()) {
 						this->brightnessd->multicast(brightness_slang_port(bp), asn_real_to_octets(alpha));
 						this->get_logger()->log_message(Log::Notice, L"%s GROUP EVENT: change screen brightness", bp.ToString()->Data());
-					} else if (bp == BrightnessPort::DTPM) {
+					} else if (bp == SlangPort::DTPM) {
 						this->set_brightness(alpha);
 					}
 				}
@@ -211,7 +211,7 @@ public:
 	void on_message(long long timepoint_ms, Platform::String^ remote_peer, uint16 remote_port, uint8 type, const uint8* message, Syslog* logger) override {
 		// NOTE: the brightnessd is a standalone daemon, all messages therefore concern the brightness setting
 
-		for (BrightnessPort bp = _E0(BrightnessPort); bp < BrightnessPort::_; bp++) {
+		for (SlangPort bp = _E0(SlangPort); bp < SlangPort::_; bp++) {
 			if (this->toggles[bp]->checked() && (brightness_slang_port(bp) == remote_port)) {
 				double alpha = asn_octets_to_real(message);
 
@@ -288,7 +288,7 @@ private:
 
 private: // never delete these graphlets manually.
 	std::map<Brightness, Credit<Buttonlet, Brightness>*> brightnesses;
-	std::map<BrightnessPort, Credit<Togglet, BrightnessPort>*> toggles;
+	std::map<SlangPort, Credit<Togglet, SlangPort>*> toggles;
 	std::map<Icon, Credit<Labellet, Icon>*> icons;
 	std::map<SS, Labellet*> labels;
 };

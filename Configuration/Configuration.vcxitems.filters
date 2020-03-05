@@ -67,7 +67,12 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)iotables\di_menu.cpp">
       <Filter>iotables</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)brightness.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)slang\brightness.cpp">
+      <Filter>slang</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)slang\dgps.cpp">
+      <Filter>slang</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)plc.hpp" />
@@ -164,11 +169,22 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)iotables\di_menu.hpp">
       <Filter>iotables</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)brightness.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)slang\brightness.hpp">
+      <Filter>slang</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)slang\dgps.hpp">
+      <Filter>slang</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)slang\port.hpp">
+      <Filter>slang</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="iotables">
       <UniqueIdentifier>{6a1cde7e-e9dc-45c0-be04-ffc85198824b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="slang">
+      <UniqueIdentifier>{6a13bba6-8249-40bd-9477-a02dc3631d46}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
