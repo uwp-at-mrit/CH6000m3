@@ -19,7 +19,7 @@ namespace WarGrey::SCADA {
 		void reflow(float width, float height) override;
 
 	public:
-		void on_timestream(long long time_ms, size_t addr0, size_t addrn, uint8* data, size_t size, WarGrey::SCADA::Syslog* logger) override;
+		void on_timestream(long long time_ms, size_t addr0, size_t addrn, uint8* data, size_t size, uint64 p_type, size_t p_size, WarGrey::SCADA::Syslog* logger) override;
 
 	public:
 		bool can_select(IGraphlet* g) override;

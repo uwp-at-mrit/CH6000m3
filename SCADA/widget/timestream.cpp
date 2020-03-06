@@ -13,10 +13,15 @@
 
 #include "datum/box.hpp"
 
+#include "peer/slang.hpp"
+#include "slang/dgps.hpp"
+
 #include "system.hpp"
 #include "module.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::GYDM;
+using namespace WarGrey::DTPM;
 
 using namespace Windows::Foundation;
 using namespace Windows::Storage;
@@ -25,7 +30,7 @@ using namespace Microsoft::Graphics::Canvas::UI;
 
 /*************************************************************************************************/
 namespace {
-	private class TimeStream : public TimeMachine, public PLCConfirmation {
+	private class TimeStream : public TimeMachine, public PLCConfirmation, public SlangLocalPeer<uint8> {
 	public:
 		TimeStream(long long time_speed, int frame_rate)
 			: TimeMachine(L"timemachine", time_speed * 1000LL, frame_rate, make_system_logger(default_logging_level, __MODULE__))
@@ -40,9 +45,15 @@ namespace {
 		}
 
 	public:
+		void on_message(long long timepoint_ms, Platform::String^ remote_peer, uint16 remote_port, uint8 type, const uint8* message, Syslog* logger) override {
+			this->dgps.from_octets(message);
+		}
+
 		void on_all_signals(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, Syslog* logger) override {
 			if ((timepoint_ms - last_timepoint) >= this->get_time_speed()) {
-				this->save_snapshot(timepoint_ms, addr0, addrn, data, size);
+				octets parcel = asn_real_to_octets(this->dgps.speed);
+
+				this->save_snapshot(timepoint_ms, addr0, addrn, data, size, 0U, parcel.c_str(), parcel.size());
 				this->last_timepoint = timepoint_ms;
 			}
 		}
@@ -65,6 +76,7 @@ namespace {
 
 	private:
 		long long last_timepoint;
+		DGPS dgps;
 	};
 }
 
@@ -76,6 +88,7 @@ void WarGrey::SCADA::initialize_the_timemachine(PLCMaster* plc, long long speed,
 		the_timemachine = new TimeStream(speed, frame_rate);
 
 		plc->push_confirmation_receiver(the_timemachine);
+		dgps_slang_ref(SlangPort::SCADA)->push_slang_local_peer(the_timemachine);
 	}
 }
 

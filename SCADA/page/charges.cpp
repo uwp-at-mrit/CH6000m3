@@ -863,7 +863,7 @@ void ChargesPage::reflow(float width, float height) {
 	}
 }
 
-void ChargesPage::on_timestream(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, Syslog* logger) {
+void ChargesPage::on_timestream(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, uint64 p_type, size_t p_size, Syslog* logger) {
 	auto dashboard = dynamic_cast<Vessel*>(this->dashboard);
 
 	if (dashboard != nullptr) {

@@ -280,7 +280,7 @@ void LubricatingsPage::reflow(float width, float height) {
 	}
 }
 
-void LubricatingsPage::on_timestream(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, Syslog* logger) {
+void LubricatingsPage::on_timestream(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, uint64 p_type, size_t p_size, Syslog* logger) {
 	auto ps_dashboard = dynamic_cast<Lubricatings*>(this->ps_dashboard);
 	auto sb_dashboard = dynamic_cast<Lubricatings*>(this->sb_dashboard);
 

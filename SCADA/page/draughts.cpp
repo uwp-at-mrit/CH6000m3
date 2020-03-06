@@ -490,7 +490,7 @@ void DraughtsPage::on_startover(long long departure_ms, long long destination_ms
 	}
 }
 
-void DraughtsPage::on_timestream(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, Syslog* logger) {
+void DraughtsPage::on_timestream(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, uint64 p_type, size_t p_size, Syslog* logger) {
 	auto dashboard = dynamic_cast<Draughts*>(this->dashboard);
 
 	if (dashboard != nullptr) {

@@ -7,6 +7,9 @@
 #include "drag_info.hpp"
 #include "menu.hpp"
 
+#include "peer/slang.hpp"
+#include "slang/dgps.hpp"
+
 #include "datum/flonum.hpp"
 
 #include "graphlet/ui/buttonlet.hpp"
@@ -42,6 +45,8 @@
 #include "module.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::GYDM;
+using namespace WarGrey::DTPM;
 
 using namespace Windows::System;
 using namespace Windows::Foundation;
@@ -104,7 +109,7 @@ static void dredges_diagnostics(DredgesPosition position, PLCMaster* plc) {
 }
 
 /*************************************************************************************************/
-private class IDredgingSystem : public PLCConfirmation {
+private class IDredgingSystem : virtual public PLCConfirmation, virtual public SlangLocalPeer<uint8> {
 public:
 	IDredgingSystem(DredgesPage* master) : master(master) {
 		this->label_font = make_bold_text_format("Microsoft YaHei", normal_font_size);
@@ -129,6 +134,8 @@ public:
 
 		this->drag_configs[2] = this->drag_configs[1];
 		this->drag_configs[2].pipe_lengths[1] += sb_drag_pipe2_enlength;
+
+		dgps_slang_ref(SlangPort::SCADA)->push_slang_local_peer(this);
 	}
 
 public:
@@ -149,6 +156,14 @@ public:
 	void pre_read_data(Syslog* logger) override {
 		this->master->enter_critical_section();
 		this->master->begin_update_sequence();
+	}
+
+	void on_message(long long timepoint_ms, Platform::String^ remote_peer, uint16 remote_port, uint8 type, const uint8* message, Syslog* logger) override {
+		 double kn = asn_octets_to_real(message);
+
+		 if (this->speeds.find(DS::Speed) != this->speeds.end()) {
+			 this->speeds[DS::Speed]->set_value(kn);
+		 }
 	}
 
 	void post_read_data(Syslog* logger) override {
@@ -1065,7 +1080,7 @@ public:
 public:
 	void on_analog_input(long long timepoint_ms, const uint8* DB2, size_t count2, const uint8* DB203, size_t count203, Syslog* logger) override {
 		this->lengths[DS::TideMark]->set_value(DBD(DB2, tide_mark));
-		this->speeds[DS::Speed]->set_value(DBD(DB2, gps_speed));
+		//this->speeds[DS::Speed]->set_value(DBD(DB2, gps_speed));
 
 		{ // set winches metrics
 			unsigned int psws_idx = this->address->winch_speed;
@@ -1855,7 +1870,7 @@ void DredgesPage::reflow(float width, float height) {
 	}
 }
 
-void DredgesPage::on_timestream(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, Syslog* logger) {
+void DredgesPage::on_timestream(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, uint64 p_type, size_t p_size, Syslog* logger) {
 	auto db = dynamic_cast<IDredgingSystem*>(this->dashboard);
 
 	if (db != nullptr) {

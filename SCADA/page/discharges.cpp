@@ -945,7 +945,7 @@ void DischargesPage::reflow(float width, float height) {
 	}
 }
 
-void DischargesPage::on_timestream(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, Syslog* logger) {
+void DischargesPage::on_timestream(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, uint64 p_type, size_t p_size, Syslog* logger) {
 	auto dashboard = dynamic_cast<Rainbows*>(this->dashboard);
 
 	if (dashboard != nullptr) {

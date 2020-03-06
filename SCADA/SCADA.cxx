@@ -3,6 +3,8 @@
 
 #include "configuration.hpp"
 #include "iotables/macro_keys.hpp"
+
+#include "slang/dgps.hpp"
 #include "plc.hpp"
 
 #include "decorator/headsup.hpp"
@@ -21,6 +23,7 @@
 #include "page/dredges.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::DTPM;
 
 using namespace Windows::ApplicationModel;
 using namespace Windows::ApplicationModel::Activation;
@@ -78,6 +81,8 @@ public:
 		if (this->device != nullptr) {
 			delete this->device;
 		}
+
+		dgps_slang_teardown();
 	}
 
 internal:
@@ -130,7 +135,7 @@ protected:
 		return handled;
 	}
 
-protected private:
+internal:
 	PLCMaster* device;
 	MacroEventListener* macro_event;
 };
@@ -236,7 +241,6 @@ private:
 private:
 	CompositeTimerListener^ timeline;
 	Timer^ timer;
-	PLCMaster* device;
 
 private:
 	DredgerUniverse^ universe;
