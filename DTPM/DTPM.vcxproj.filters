@@ -226,6 +226,7 @@
     <ClCompile Include="metrics\times.cpp">
       <Filter>metrics</Filter>
     </ClCompile>
+    <ClCompile Include="metrics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="widget.hxx" />
@@ -254,6 +255,7 @@
     <ClInclude Include="metrics\times.hpp">
       <Filter>metrics</Filter>
     </ClInclude>
+    <ClInclude Include="metrics.hpp" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="stone\tongue\en-US\widget.resw">

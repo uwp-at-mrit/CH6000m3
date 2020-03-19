@@ -13,6 +13,13 @@ namespace WarGrey::DTPM {
 
 	public:
 		double speed;
+		double heading_deg;
+
+		double latitude;
+		double longitude;
+		double altitude;
+		double geo_x;
+		double geo_y;
 
 	protected:
 		size_t field_payload_span(size_t idx) override;

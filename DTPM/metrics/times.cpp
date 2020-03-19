@@ -19,6 +19,7 @@
 
 using namespace WarGrey::SCADA;
 using namespace WarGrey::DTPM;
+using namespace WarGrey::GYDM;
 
 using namespace Microsoft::Graphics::Canvas;
 using namespace Microsoft::Graphics::Canvas::UI;
@@ -136,4 +137,38 @@ CanvasSolidColorBrush^ TimeMetrics::label_color_ref(unsigned int idx) {
 	CanvasSolidColorBrush^ color = Colours::Foreground;
 
 	return color;
+}
+
+/*************************************************************************************************/
+Timepoint::Timepoint() : IASNSequence(2) {}
+
+Timepoint::Timepoint(const uint8* basn, size_t* offset) : Timepoint() {
+	this->from_octets(basn, offset);
+}
+
+size_t Timepoint::field_payload_span(size_t idx) {
+	size_t span = 0;
+
+	switch (idx) {
+	case 0: span = asn_real_span(this->dredging_start); break;
+	case 1: span = asn_real_span(this->dredging_end); break;
+	}
+
+	return span;
+}
+
+size_t Timepoint::fill_field(size_t idx, uint8* octets, size_t offset) {
+	switch (idx) {
+	case 0: offset = asn_real_into_octets(this->dredging_start, octets, offset); break;
+	case 1: offset = asn_real_into_octets(this->dredging_end, octets, offset); break;
+	}
+
+	return offset;
+}
+
+void Timepoint::extract_field(size_t idx, const uint8* basn, size_t* offset) {
+	switch (idx) {
+	case 0: this->dredging_start = asn_octets_to_real(basn, offset); break;
+	case 1: this->dredging_end = asn_octets_to_real(basn, offset); break;
+	}
 }

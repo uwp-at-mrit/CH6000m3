@@ -36,8 +36,8 @@ void WarGrey::SCADA::DI_condition_menu(MenuFlyout^ menu, unsigned int idx, const
 
 		if (DBX(db205, idx205_p1 - 1U)) {
 			menu_set_foreground_color(menu, idx, menu_cmd_excuting_color);
-		} else if (DBX(db205, idx205_p1 + 0U)) {
-			menu_set_foreground_color(menu, idx, menu_cmd_failure_color);
+		//} else if (DBX(db205, idx205_p1 + 0U)) {
+		//	menu_set_foreground_color(menu, idx, menu_cmd_failure_color);
 		} else if (DBX(db205, idx205_p1 + 1U)) {
 			menu_set_foreground_color(menu, idx, menu_cmd_success_color);
 		} else if (DBX(db205, idx205_p1 + 2U)) {

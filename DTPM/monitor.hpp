@@ -8,12 +8,17 @@
 #include "graphlet/filesystem/configuration/colorplotlet.hpp"
 #include "graphlet/filesystem/configuration/vessel/trailing_suction_dredgerlet.hpp"
 
+#include "metrics.hpp"
 #include "syslog.hpp"
 #include "plc.hpp"
 #include "gps.hpp"
 
 namespace WarGrey::DTPM {
-	private class DTPMonitor : public WarGrey::SCADA::Planet, public WarGrey::DTPM::GPSReceiver, public WarGrey::SCADA::PLCConfirmation {
+	private class DTPMonitor
+		: public virtual WarGrey::SCADA::Planet
+		, public virtual WarGrey::DTPM::GPSReceiver
+		, public virtual WarGrey::SCADA::PLCConfirmation
+		, public virtual WarGrey::GYDM::SlangLocalPeer<WarGrey::DTPM::MetricsBlock> {
 	public:
 		virtual ~DTPMonitor() noexcept;
 		DTPMonitor(WarGrey::SCADA::MRMaster* plc);
@@ -21,6 +26,9 @@ namespace WarGrey::DTPM {
 	public:
 		void load(Microsoft::Graphics::Canvas::UI::CanvasCreateResourcesReason reason, float width, float height) override;
 		void reflow(float width, float height) override;
+		void update(long long count, long long interval, long long uptime) override;
+
+	public:
 		void on_graphlet_ready(WarGrey::SCADA::IGraphlet* g) override;
 		void on_tap_selected(WarGrey::SCADA::IGraphlet* g, float local_x, float local_y) override;
 		void on_translation_gesture(float deltaX, float deltaY, Windows::Foundation::Numerics::float2& lt, Windows::Foundation::Numerics::float2& rb) override;
@@ -47,8 +55,14 @@ namespace WarGrey::DTPM {
 		void pre_read_data(WarGrey::SCADA::Syslog* logger) override;
 		void on_analog_input(long long timepoint_ms, const uint8* DB2, size_t count2, const uint8* DB203, size_t count203, WarGrey::SCADA::Syslog* logger) override;
 		void post_read_data(WarGrey::SCADA::Syslog* logger) override;
+
+	public:
+		void on_message(long long timepoint_ms, Platform::String^ remote_peer, uint16 port,
+			WarGrey::DTPM::MetricsBlock type, const uint8* message,
+			WarGrey::SCADA::Syslog* logger) override;
 		
 	private:
+		void on_gps_message(long long timepoint_ms, WarGrey::DTPM::DGPS& dgps);
 		void on_location_changed(double latitude, double longitude, double altitude, double geo_x, double geo_y);
 
 	private: // never deletes these graphlets manually
@@ -70,5 +84,8 @@ namespace WarGrey::DTPM {
 		WarGrey::DTPM::IGPS* gps1;
 		WarGrey::DTPM::IGPS* gps2;
 		WarGrey::DTPM::IGPS* gyro;
+
+	private:
+		WarGrey::DTPM::DGPS dgps_msg;
 	};
 }

@@ -115,6 +115,16 @@ void DTPMonitor::reflow(float width, float height) {
 	}
 }
 
+void DTPMonitor::update(long long count, long long interval, long long uptime) {
+}
+
+void DTPMonitor::on_message(long long timepoint_ms, Platform::String^ remote_peer, uint16 port, MetricsBlock type, const uint8* message, Syslog* logger) {
+}
+
+void DTPMonitor::on_gps_message(long long timepoint_ms, DGPS& dgps) {
+
+}
+
 IGraphlet* DTPMonitor::thumbnail_graphlet() {
 	return this->project;
 }
@@ -167,7 +177,8 @@ void DTPMonitor::on_location_changed(double latitude, double longitude, double a
 		}
 
 		if (this->track != nullptr) {
-			this->track->push_track_dot(DredgeTrackType::GPS, double3(geo_x, geo_y, 0.0));
+			// Note: The visibility of GPS track does not controlled by depth0, so just choose an impossible deep depth here.
+			this->track->push_track_dot(DredgeTrackType::GPS, double3(geo_x, geo_y, 1000.0));
 		}
 
 		this->end_update_sequence();
@@ -189,15 +200,16 @@ void DTPMonitor::on_GGA(int id, long long timepoint_ms, GGA* gga, Syslog* logger
 
 void DTPMonitor::on_VTG(int id, long long timepoint_ms, VTG* vtg, Syslog* logger) {
 	if (this->gps != nullptr) {
-		this->gps->set_speed(vtg->s_kn);
+		this->dgps_msg.speed = vtg->s_kn;
+		this->gps->set_speed(this->dgps_msg.speed);
 	}
 }
 
 void DTPMonitor::on_GLL(int id, long long timepoint_ms, GLL* gll, Syslog* logger) {
-	logger->log_message(Log::Info, L"GLL: [%f]: (%lf, %lf), %s, %s", gll->utc,
-		gll->latitude, gll->longitude,
-		gll->validity.ToString()->Data(),
-		gll->mode.ToString()->Data());
+	//logger->log_message(Log::Info, L"GLL: [%f]: (%lf, %lf), %s, %s", gll->utc,
+		//gll->latitude, gll->longitude,
+		//gll->validity.ToString()->Data(),
+		//gll->mode.ToString()->Data());
 }
 
 void DTPMonitor::on_GSA(int id, long long timepoint_ms, GSA* gsa, Syslog* logger) {
@@ -234,17 +246,18 @@ void DTPMonitor::on_HDT(int id, long long timepoint_ms, HDT* hdt, Syslog* logger
 
 	if (valid) {
 		if (this->vessel != nullptr) {
-			double compensator_deg = 0.0;
+			double compensate_deg = 0.0;
 
 			//if (this->gyro->device_identity() != id) {
 			//	if (hdt->heading_deg > 180.0) {
 			//		compensator_deg = -180.0;
 			//	} else {
-			//		compensator_deg = 180.0;
+			//		compensate_deg = 180.0;
 			//	}
 			//}
 
-			this->vessel->set_bow_direction(hdt->heading_deg + compensator_deg);
+			this->dgps_msg.heading_deg = hdt->heading_deg + compensate_deg;
+			this->vessel->set_bow_direction(this->dgps_msg.heading_deg);
 		}
 	}
 }

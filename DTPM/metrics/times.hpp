@@ -2,9 +2,26 @@
 
 #include "graphlet/ui/metricslet.hpp"
 
+#include "asn/der.hpp"
+
 #include "mrit.hpp"
 
 namespace WarGrey::DTPM {
+	private class Timepoint : public WarGrey::GYDM::IASNSequence {
+	public:
+		Timepoint();
+		Timepoint(const uint8* basn, size_t* offse = nullptr);
+
+	public:
+		long long dredging_start;
+		long long dredging_end;
+
+	protected:
+		size_t field_payload_span(size_t idx) override;
+		size_t fill_field(size_t idx, uint8* octets, size_t offset);
+		void extract_field(size_t idx, const uint8* basn, size_t* offset);
+	};
+
 	private class TimeMetrics : public WarGrey::DTPM::IMetricsProvider {
 	public:
 		TimeMetrics(WarGrey::SCADA::MRMaster* plc);
