@@ -30,19 +30,21 @@ using namespace Microsoft::Graphics::Canvas::UI;
 using namespace Microsoft::Graphics::Canvas::Brushes;
 
 /*************************************************************************************************/
-DTPMonitor::DTPMonitor(MRMaster* plc) : Planet(__MODULE__), plc(plc), track_source(nullptr) {
+DTPMonitor::DTPMonitor(Compass* compass, MRMaster* plc) : Planet(__MODULE__), compass(compass), plc(plc), track_source(nullptr) {
 	Syslog* logger = make_system_logger(default_schema_logging_level, "DredgeTrackHistory");
 
 	this->track_source = new TrackDataSource(logger, RotationPeriod::Daily);
 	this->track_source->reference();
 
+	if (this->compass != nullptr) {
+		this->compass->push_receiver(this);
+	}
+
 	if (this->plc != nullptr) {
 		this->plc->push_confirmation_receiver(this);
 	}
 
-	this->gps1 = moxa_tcp_as_gps(MOXA_TCP::MRIT_DGPS, this);
-	this->gps2 = moxa_tcp_as_gps(MOXA_TCP::DP_DGPS, this);
-	this->gyro = moxa_tcp_as_gps(MOXA_TCP::GYRO, this);
+	this->memory = global_resident_metrics();
 }
 
 DTPMonitor::~DTPMonitor() {
@@ -69,7 +71,7 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	this->vessel = new TrailingSuctionDredgerlet("vessel", 1.0F);
 	this->track = new DredgeTracklet(this->track_source, "track", map_width, plot_height);
 	
-	this->metrics = this->insert_one(new Metricslet(new DredgeMetrics(this->plc), "main", side_zone_width, GraphletAnchor::RT, 20U));
+	this->metrics = this->insert_one(new Metricslet(new DredgeMetrics(this->compass, this->plc), "main", side_zone_width, GraphletAnchor::RT, 20U));
 	this->times = this->insert_one(new Metricslet(new TimeMetrics(this->plc), "worktime", side_zone_width, GraphletAnchor::RT, 3U));
 	this->status = this->insert_one(new Planetlet(status, width, status_height));
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
@@ -160,14 +162,17 @@ void DTPMonitor::on_zoom_gesture(float zx, float zy, float deltaScale, float2& l
 
 void DTPMonitor::on_graphlet_ready(IGraphlet* g) {
 	if (this->gps == g) {
-		this->gcs = this->gps->clone_gpscs(this->gcs);
+		this->compass->set_gps_convertion_matrix(this->gps->clone_gpscs());
 	}
 }
 
-void DTPMonitor::on_location_changed(double latitude, double longitude, double altitude, double geo_x, double geo_y) {
-	if (this->project != nullptr) {
-		this->begin_update_sequence();
+/*************************************************************************************************/
+void DTPMonitor::pre_move(Syslog* logger) {
+	this->begin_update_sequence();
+}
 
+void DTPMonitor::on_location(long long timepoint_ms, double latitude, double longitude, double altitude, double geo_x, double geo_y, Syslog* logger) {
+	if (this->project != nullptr) {
 		if (this->project->move_vessel(geo_x, geo_y)) {
 			this->profile->update_outline(this->project->section(geo_x, geo_y), geo_x, geo_y);
 		}
@@ -180,96 +185,25 @@ void DTPMonitor::on_location_changed(double latitude, double longitude, double a
 			// Note: The visibility of GPS track does not controlled by depth0, so just choose an impossible deep depth here.
 			this->track->push_track_dot(DredgeTrackType::GPS, double3(geo_x, geo_y, 1000.0));
 		}
-
-		this->end_update_sequence();
 	}
 }
 
-/*************************************************************************************************/
-void DTPMonitor::pre_scan_data(int id, Syslog* logger) {
-	this->begin_update_sequence();
-}
-
-void DTPMonitor::on_GGA(int id, long long timepoint_ms, GGA* gga, Syslog* logger) {
-	if (this->gcs != nullptr) {
-		double2 location = GPS_to_XY(gga->latitude, gga->longitude, gga->altitude, this->gcs->parameter);
-
-		this->on_location_changed(gga->latitude, gga->longitude, gga->altitude, location.x, location.y);
-	}
-}
-
-void DTPMonitor::on_VTG(int id, long long timepoint_ms, VTG* vtg, Syslog* logger) {
+void DTPMonitor::on_sail(long long timepoint_ms, double s_kn, double track_deg, Syslog* logger) {
 	if (this->gps != nullptr) {
-		this->dgps_msg.speed = vtg->s_kn;
-		this->gps->set_speed(this->dgps_msg.speed);
+		this->memory->gps.set(GP::Speed, s_kn);
+		this->gps->set_speed(s_kn);
 	}
 }
 
-void DTPMonitor::on_GLL(int id, long long timepoint_ms, GLL* gll, Syslog* logger) {
-	//logger->log_message(Log::Info, L"GLL: [%f]: (%lf, %lf), %s, %s", gll->utc,
-		//gll->latitude, gll->longitude,
-		//gll->validity.ToString()->Data(),
-		//gll->mode.ToString()->Data());
-}
-
-void DTPMonitor::on_GSA(int id, long long timepoint_ms, GSA* gsa, Syslog* logger) {
-	//logger->log_message(Log::Info, L"GSA: %s: (%lf, %lf, %lf), %s, [%d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d]",
-		//gsa->type.ToString()->Data(), gsa->pdop, gsa->hdop, gsa->vdop, gsa->auto_selection.ToString()->Data(),
-		//gsa->PRNs[0], gsa->PRNs[1], gsa->PRNs[2], gsa->PRNs[3], gsa->PRNs[4], gsa->PRNs[5],
-		//gsa->PRNs[6], gsa->PRNs[7], gsa->PRNs[8], gsa->PRNs[9], gsa->PRNs[10], gsa->PRNs[11]);
-}
-
-void DTPMonitor::on_GSV(int id, long long timepoint_ms, GSV* gsv, Syslog* logger) {
-	//logger->log_message(Log::Info, L"GSV: %d-%d of %d: (%d, %d, %d, %d), (%d, %d, %d, %d), (%d, %d, %d, %d), (%d, %d, %d, %d)",
-		//gsv->sequence0, gsv->sequence0 + 4, gsv->total,
-		//gsv->PRNs[0], gsv->elevations[0], gsv->azimuthes[0], gsv->SNRs[0],
-		//gsv->PRNs[1], gsv->elevations[1], gsv->azimuthes[1], gsv->SNRs[1],
-		//gsv->PRNs[2], gsv->elevations[2], gsv->azimuthes[2], gsv->SNRs[2],
-		//gsv->PRNs[3], gsv->elevations[3], gsv->azimuthes[3], gsv->SNRs[3]);
-}
-
-void DTPMonitor::on_ZDA(int id, long long timepoint_ms, ZDA* zda, Syslog* logger) {
-	//logger->log_message(Log::Info, L"ZDA: [%f]: %04d-%02d-%02d, +(%d, %d)", zda->utc,
-		//zda->year, zda->month, zda->day,
-		//zda->local_hour_offset, zda->local_minute_offset);
-}
-
-void DTPMonitor::on_HDT(int id, long long timepoint_ms, HDT* hdt, Syslog* logger) {
-	bool valid = true;
-	bool gyro_okay = ((this->gyro != nullptr) && this->gyro->connected());
-
-	if (gyro_okay) {
-		if (this->gyro->device_identity() != id) {
-			valid = false;
-		}
-	}
-
-	if (valid) {
-		if (this->vessel != nullptr) {
-			double compensate_deg = 0.0;
-
-			//if (this->gyro->device_identity() != id) {
-			//	if (hdt->heading_deg > 180.0) {
-			//		compensator_deg = -180.0;
-			//	} else {
-			//		compensate_deg = 180.0;
-			//	}
-			//}
-
-			this->dgps_msg.heading_deg = hdt->heading_deg + compensate_deg;
-			this->vessel->set_bow_direction(this->dgps_msg.heading_deg);
-		}
+void DTPMonitor::on_heading(long long timepoint_ms, double deg, Syslog* logger) {
+	if (this->vessel != nullptr) {
+		this->memory->gps.set(GP::Heading, deg);
+		this->vessel->set_bow_direction(deg);
 	}
 }
 
-void DTPMonitor::post_scan_data(int id, Syslog* logger) {
+void DTPMonitor::post_move(Syslog* logger) {
 	this->end_update_sequence();
-}
-
-bool DTPMonitor::available(int id) {
-	return ((id == this->gyro->device_identity())
-		|| (id == this->gps1->device_identity())
-		|| (!this->gps1->connected()));
 }
 
 /*************************************************************************************************/

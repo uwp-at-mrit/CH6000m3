@@ -8,6 +8,7 @@
 #include "planet.hpp"
 #include "timer.hxx"
 
+#include "compass.hpp"
 #include "moxa.hpp"
 #include "plc.hpp"
 
@@ -34,8 +35,12 @@ using namespace Microsoft::Graphics::Canvas::UI;
 private ref class DredgerUniverse : public UniverseDisplay {
 public:
 	virtual ~DredgerUniverse() {
-		if (plc != nullptr) {
-			delete plc;
+		if (this->plc != nullptr) {
+			delete this->plc;
+		}
+
+		if (this->compass != nullptr) {
+			delete this->compass;
 		}
 
 		moxa_tcp_teardown();
@@ -46,19 +51,22 @@ internal:
 		: UniverseDisplay(make_system_logger(default_logging_level, name), name, navigator, heads_up) {
 		Syslog* plc_logger = make_system_logger(default_plc_master_logging_level, "PLC");
 		
-		this->plc = new PLCMaster(plc_logger, plc_hostname, dtpm_plc_master_port, plc_master_suicide_timeout);
 		moxa_tcp_setup();
 
+		this->plc = new PLCMaster(plc_logger, plc_hostname, dtpm_plc_master_port, plc_master_suicide_timeout);
+		this->compass = new Compass();
+		
 		system_set_subnet_prefix(system_subnet_prefix);
 		ui_thread_initialize();
 	}
 
 protected:
 	void construct(CanvasCreateResourcesReason reason) override {
-		this->push_planet(new DTPMonitor(this->plc));
+		this->push_planet(new DTPMonitor(this->compass, this->plc));
 	}
 
 internal:
+	Compass* compass;
 	PLCMaster* plc;
 };
 

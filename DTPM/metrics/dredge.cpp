@@ -4,10 +4,11 @@
 
 #include "iotables/ai_metrics.hpp"
 
+#include "metrics.hpp"
 #include "module.hpp"
 #include "brushes.hxx"
-#include "moxa.hpp"
 
+/*************************************************************************************************/
 using namespace WarGrey::SCADA;
 using namespace WarGrey::DTPM;
 
@@ -15,7 +16,6 @@ using namespace Microsoft::Graphics::Canvas::Brushes;
 
 /*************************************************************************************************/
 #define SET_METRICS(ms, id, v)          ms[_I(id)] = v
-#define SET_VALID_METRICS(ms, id, b, v) ms[_I(id)] = (b ? v : flnan)
 
 /*************************************************************************************************/
 namespace {
@@ -29,12 +29,10 @@ namespace {
 		_
 	};
 
-	private class DMProvider final : public PLCConfirmation, public GPSReceiver {
+	private class DMProvider final : virtual public PLCConfirmation, virtual public CompassReceiver {
 	public:
 		DMProvider() {
-			this->gps1 = moxa_tcp_as_gps(MOXA_TCP::MRIT_DGPS, this);
-			this->gps2 = moxa_tcp_as_gps(MOXA_TCP::DP_DGPS, this);
-			this->gyro = moxa_tcp_as_gps(MOXA_TCP::GYRO, this);
+			this->memory = global_resident_metrics();
 		}
 
 	public:
@@ -59,68 +57,47 @@ namespace {
 		}
 
 	public:
-		void on_VTG(int id, long long timepoint_ms, VTG* vtg, Syslog* logger) override {
-			double angle = this->metrics[_I(DM::BowDirection)] - vtg->track_deg;
+		void on_sail(long long timepoint_ms, double s_kn, double track_deg, Syslog* logger) override {
+			double angle = this->metrics[_I(DM::BowDirection)] - track_deg;
 
-			SET_METRICS(this->metrics, DM::Speed, vtg->s_kn);
-			SET_METRICS(this->metrics, DM::TrackDirection, vtg->track_deg);
+			this->memory->gps.set(GP::Speed, s_kn);
+			this->memory->gps.set(GP::Track, track_deg);
+
+			SET_METRICS(this->metrics, DM::Speed, s_kn);
+			SET_METRICS(this->metrics, DM::TrackDirection, track_deg);
 			SET_METRICS(this->metrics, DM::FlowPressureAngle, angle);
 		}
 
-		void on_HDT(int id, long long timepoint_ms, HDT* hdt, Syslog* logger) override {
-			bool valid = false;
+		void on_heading(long long timepoint_ms, double deg, Syslog* logger) override {
+			this->memory->gps.set(GP::BowDirection, deg);
 
-			if ((this->gyro != nullptr) && this->gyro->connected()) {
-				if (id == this->gyro->device_identity()) {
-					valid = true;
-				}
-			} else {
-				valid = true;
-			}
-
-			if (valid) {
-				SET_METRICS(this->metrics, DM::BowDirection, hdt->heading_deg);
-			}
+			SET_METRICS(this->metrics, DM::BowDirection, deg);
 		}
 
-		void on_ROT(int id, long long timepoint_ms, ROT* rot, Syslog* logger) override {
-			bool valid = false;
+		void on_turn(long long timepoint_ms, double degpmin, Syslog* logger) override {
+			this->memory->gps.set(GP::TurnRate, degpmin);
 
-			if (this->gyro->connected()) {
-				if (id == this->gyro->device_identity()) {
-					valid = true;
-				}
-			} else {
-				valid = true;
-			}
-
-			if (valid) {
-				SET_VALID_METRICS(this->metrics, DM::TurnRate, rot->validity, rot->degpmin);
-			}
-		}
-
-		bool available(int id) override {
-			return ((id == this->gyro->device_identity())
-				|| (id == this->gps1->device_identity())
-				|| (!this->gps1->connected()));
+			SET_METRICS(this->metrics, DM::TurnRate, degpmin);
 		}
 
 	public:
 		double metrics[_N(DM)];
 
-	private: // never deletes these objects manually
-		IGPS* gps1;
-		IGPS* gps2;
-		IGPS* gyro;
+	private: // never deletes these global objects
+		ResidentMetrics* memory;
 	};
 }
 
 /*************************************************************************************************/
 static DMProvider* provider = nullptr;
 
-DredgeMetrics::DredgeMetrics(MRMaster* plc) {
+DredgeMetrics::DredgeMetrics(Compass* compass, MRMaster* plc) {
 	if (provider == nullptr) {
 		provider = new DMProvider();
+
+		if (compass != nullptr) {
+			compass->push_receiver(provider);
+		}
 
 		if (plc != nullptr) {
 			plc->push_confirmation_receiver(provider);

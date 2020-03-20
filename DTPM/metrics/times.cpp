@@ -2,15 +2,16 @@
 
 #include "metrics/times.hpp"
 
+#include "graphlet/shapelet.hpp"
+#include "graphlet/ui/textlet.hpp"
+
 #include "datum/credit.hpp"
 #include "datum/string.hpp"
 
+#include "metrics.hpp"
 #include "module.hpp"
 #include "preference.hxx"
 #include "brushes.hxx"
-
-#include "graphlet/shapelet.hpp"
-#include "graphlet/ui/textlet.hpp"
 
 #include "configuration.hpp"
 #include "plc.hpp"
@@ -41,6 +42,10 @@ namespace {
 		TProvider() {
 			this->dredging_start = get_preference(dredging_open_timepoint_key, 0LL);
 			this->dredging_end = get_preference(dredging_close_timepoint_key, 0LL);
+
+			this->memory = global_resident_metrics();
+			this->memory->tp.set(TP::DredgingStart, this->dredging_start);
+			this->memory->tp.set(TP::DredgingEnd, this->dredging_end);
 		}
 
 	public:
@@ -50,16 +55,19 @@ namespace {
 			if (hopper_on) {
 				if ((this->dredging_start == 0LL) || ((this->dredging_end > 0LL) && (this->dredging_end < timepoint_ms))) {
 					this->dredging_start = timepoint_ms;
+					this->memory->tp.set(TP::DredgingStart, this->dredging_start);
 					put_preference(dredging_open_timepoint_key, this->dredging_start);
 				}
 
 				if (this->dredging_end > 0LL) {
 					this->dredging_end = 0LL;
+					this->memory->tp.set(TP::DredgingEnd, 0LL);
 					put_preference(dredging_close_timepoint_key, this->dredging_end);
 				}
 			} else {
 				if (this->dredging_end == 0LL) {
 					this->dredging_end = timepoint_ms;
+					this->memory->tp.set(TP::DredgingEnd, this->dredging_end);
 					put_preference(dredging_close_timepoint_key, this->dredging_end);
 				}
 			}
@@ -72,8 +80,8 @@ namespace {
 		long long dredging_end;
 		long long current_timepoint;
 
-	private: // never deletes these objects manually
-		TimeMetrics* master;
+	private: // never deletes these global objects manually
+		ResidentMetrics* memory;
 	};
 }
 
@@ -140,35 +148,30 @@ CanvasSolidColorBrush^ TimeMetrics::label_color_ref(unsigned int idx) {
 }
 
 /*************************************************************************************************/
-Timepoint::Timepoint() : IASNSequence(2) {}
+Timepoint::Timepoint() : IASNSequence(_N(TP)) {}
+
+void Timepoint::set(TP field, long long v) {
+	if (field < TP::_) {
+		this->seconds[_I(field)] = v;
+	}
+}
+
+long long Timepoint::ref(TP field) {
+	return ((field < TP::_) ? this->seconds[_I(field)] : 0LL);
+}
 
 Timepoint::Timepoint(const uint8* basn, size_t* offset) : Timepoint() {
 	this->from_octets(basn, offset);
 }
 
 size_t Timepoint::field_payload_span(size_t idx) {
-	size_t span = 0;
-
-	switch (idx) {
-	case 0: span = asn_real_span(this->dredging_start); break;
-	case 1: span = asn_real_span(this->dredging_end); break;
-	}
-
-	return span;
+	return asn_fixnum_span(this->seconds[idx]);
 }
 
 size_t Timepoint::fill_field(size_t idx, uint8* octets, size_t offset) {
-	switch (idx) {
-	case 0: offset = asn_real_into_octets(this->dredging_start, octets, offset); break;
-	case 1: offset = asn_real_into_octets(this->dredging_end, octets, offset); break;
-	}
-
-	return offset;
+	return asn_fixnum_into_octets(this->seconds[idx], octets, offset);
 }
 
 void Timepoint::extract_field(size_t idx, const uint8* basn, size_t* offset) {
-	switch (idx) {
-	case 0: this->dredging_start = asn_octets_to_real(basn, offset); break;
-	case 1: this->dredging_end = asn_octets_to_real(basn, offset); break;
-	}
+	this->seconds[idx] = asn_octets_to_fixnum(basn, offset);
 }

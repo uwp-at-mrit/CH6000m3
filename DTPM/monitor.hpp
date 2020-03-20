@@ -8,20 +8,20 @@
 #include "graphlet/filesystem/configuration/colorplotlet.hpp"
 #include "graphlet/filesystem/configuration/vessel/trailing_suction_dredgerlet.hpp"
 
-#include "metrics.hpp"
 #include "syslog.hpp"
+#include "metrics.hpp"
+#include "compass.hpp"
 #include "plc.hpp"
-#include "gps.hpp"
 
 namespace WarGrey::DTPM {
 	private class DTPMonitor
 		: public virtual WarGrey::SCADA::Planet
-		, public virtual WarGrey::DTPM::GPSReceiver
+		, public virtual WarGrey::DTPM::CompassReceiver
 		, public virtual WarGrey::SCADA::PLCConfirmation
 		, public virtual WarGrey::GYDM::SlangLocalPeer<WarGrey::DTPM::MetricsBlock> {
 	public:
 		virtual ~DTPMonitor() noexcept;
-		DTPMonitor(WarGrey::SCADA::MRMaster* plc);
+		DTPMonitor(WarGrey::DTPM::Compass* compass, WarGrey::SCADA::MRMaster* plc);
 
 	public:
 		void load(Microsoft::Graphics::Canvas::UI::CanvasCreateResourcesReason reason, float width, float height) override;
@@ -40,16 +40,11 @@ namespace WarGrey::DTPM {
 		bool in_affine_gesture_zone(Windows::Foundation::Numerics::float2& lt, Windows::Foundation::Numerics::float2& rb) override;
 
 	public:
-		bool available(int id) override;
-		void pre_scan_data(int id, WarGrey::SCADA::Syslog* logger) override;
-		void on_GGA(int id, long long timepoint_ms, WarGrey::DTPM::GGA* gga, WarGrey::SCADA::Syslog* logger) override;
-		void on_VTG(int id, long long timepoint_ms, WarGrey::DTPM::VTG* vtg, WarGrey::SCADA::Syslog* logger) override;
-		void on_GLL(int id, long long timepoint_ms, WarGrey::DTPM::GLL* gll, WarGrey::SCADA::Syslog* logger) override;
-		void on_GSA(int id, long long timepoint_ms, WarGrey::DTPM::GSA* gsa, WarGrey::SCADA::Syslog* logger) override;
-		void on_GSV(int id, long long timepoint_ms, WarGrey::DTPM::GSV* gsv, WarGrey::SCADA::Syslog* logger) override;
-		void on_ZDA(int id, long long timepoint_ms, WarGrey::DTPM::ZDA* zda, WarGrey::SCADA::Syslog* logger) override;
-		void on_HDT(int id, long long timepoint_ms, WarGrey::DTPM::HDT* hdt, WarGrey::SCADA::Syslog* logger) override;
-		void post_scan_data(int id, WarGrey::SCADA::Syslog* logger) override;
+		void pre_move(WarGrey::SCADA::Syslog* logger) override;
+		void on_location(long long timepoint_ms, double latitude, double longitude, double altitude, double geo_x, double geo_y, WarGrey::SCADA::Syslog* logger) override;
+		void on_sail(long long timepoint_ms, double kn, double track_deg, WarGrey::SCADA::Syslog* logger) override;
+		void on_heading(long long timepoint_ms, double deg, WarGrey::SCADA::Syslog* logger) override;
+		void post_move(WarGrey::SCADA::Syslog* logger) override;
 
 	public:
 		void pre_read_data(WarGrey::SCADA::Syslog* logger) override;
@@ -63,7 +58,6 @@ namespace WarGrey::DTPM {
 		
 	private:
 		void on_gps_message(long long timepoint_ms, WarGrey::DTPM::DGPS& dgps);
-		void on_location_changed(double latitude, double longitude, double altitude, double geo_x, double geo_y);
 
 	private: // never deletes these graphlets manually
 		WarGrey::DTPM::TrailingSuctionDredgerlet* vessel;
@@ -78,14 +72,11 @@ namespace WarGrey::DTPM {
 		WarGrey::SCADA::Planetlet* drags;
 		WarGrey::SCADA::Planetlet* status;
 
-	private:
+	private: // never deletes these shared objects
+		WarGrey::DTPM::Compass* compass;
 		WarGrey::SCADA::MRMaster* plc;
-		WarGrey::DTPM::GPSCS^ gcs;
-		WarGrey::DTPM::IGPS* gps1;
-		WarGrey::DTPM::IGPS* gps2;
-		WarGrey::DTPM::IGPS* gyro;
 
-	private:
-		WarGrey::DTPM::DGPS dgps_msg;
+	private: // never deletes these global objects
+		WarGrey::DTPM::ResidentMetrics* memory;
 	};
 }

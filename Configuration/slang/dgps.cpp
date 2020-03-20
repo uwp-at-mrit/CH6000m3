@@ -3,6 +3,8 @@
 #include "slang/dgps.hpp"
 #include "configuration.hpp"
 
+#include "datum/flonum.hpp"
+
 #include "syslog.hpp"
 
 using namespace WarGrey::SCADA;
@@ -24,34 +26,32 @@ static ISlangDaemon* setup_slangd(SlangPort sp) {
 }
 
 /*************************************************************************************************/
-DGPS::DGPS() : IASNSequence(1) {}
+DGPS::DGPS() : IASNSequence(_N(GP)) {}
+
+void DGPS::set(GP field, double v) {
+	if (field < GP::_) {
+		this->metrics[_I(field)] = v;
+	}
+}
+
+double DGPS::ref(GP field) {
+	return ((field < GP::_) ? this->metrics[_I(field)] : flnan);
+}
 
 DGPS::DGPS(const uint8* basn, size_t* offset) : DGPS() {
 	this->from_octets(basn, offset);
 }
 
 size_t DGPS::field_payload_span(size_t idx) {
-	size_t span = 0;
-
-	switch (idx) {
-	case 0: span = asn_real_span(this->speed); break;
-	}
-
-	return span;
+	return asn_real_span(this->metrics[idx]);
 }
 
 size_t DGPS::fill_field(size_t idx, uint8* octets, size_t offset) {
-	switch (idx) {
-	case 0: offset = asn_real_into_octets(this->speed, octets, offset); break;
-	}
-
-	return offset;
+	return asn_real_into_octets(this->metrics[idx], octets, offset);
 }
 
 void DGPS::extract_field(size_t idx, const uint8* basn, size_t* offset) {
-	switch (idx) {
-	case 0: this->speed = asn_octets_to_real(basn, offset); break;
-	}
+	this->metrics[idx] = asn_octets_to_real(basn, offset);
 }
 
 /*************************************************************************************************/

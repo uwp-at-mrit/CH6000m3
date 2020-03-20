@@ -2,12 +2,13 @@
 
 #include "graphlet/ui/metricslet.hpp"
 
+#include "compass.hpp"
 #include "plc.hpp"
 
 namespace WarGrey::DTPM {
 	private class DredgeMetrics : public virtual WarGrey::DTPM::IMetricsProvider {
 	public:
-		DredgeMetrics(WarGrey::SCADA::MRMaster* plc);
+		DredgeMetrics(WarGrey::DTPM::Compass* compass, WarGrey::SCADA::MRMaster* plc);
 
 	public:
 		unsigned int capacity() override;

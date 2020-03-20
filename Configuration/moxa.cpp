@@ -55,7 +55,7 @@ IGPS* WarGrey::DTPM::moxa_tcp_as_gps(MOXA_TCP name, IGPSReceiver* receiver) {
 
 	if ((client != nullptr) && (client->get_type() == TCPType::GPS)) {
 		gps = static_cast<IGPS*>(client);
-		gps->push_confirmation_receiver(receiver);
+		gps->push_receiver(receiver);
 	}
 
 	return gps;
