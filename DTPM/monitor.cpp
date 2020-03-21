@@ -183,7 +183,7 @@ void DTPMonitor::on_location(long long timepoint_ms, double latitude, double lon
 
 		if (this->track != nullptr) {
 			// Note: The visibility of GPS track does not controlled by depth0, so just choose an impossible deep depth here.
-			this->track->push_track_dot(DredgeTrackType::GPS, double3(geo_x, geo_y, 1000.0));
+			this->track->filter_dredging_dot(DredgeTrackType::GPS, double3(geo_x, geo_y, 1000.0));
 		}
 	}
 }
@@ -224,7 +224,7 @@ void DTPMonitor::on_analog_input(long long timepoint_ms, const uint8* DB2, size_
 	if (this->track != nullptr) {
 		this->vessel->set_ps_drag_figures(offset, ujoints, draghead);
 		this->vessel->fill_ps_track_position(&draghead, vessel_pos);
-		this->track->push_track_dot(DredgeTrackType::PSDrag, draghead);
+		this->track->filter_dredging_dot(DredgeTrackType::PSDrag, draghead);
 	}
 
 	read_drag_figures(DB2, &offset, ujoints, &draghead, sb_addr->drag_position);
@@ -232,7 +232,7 @@ void DTPMonitor::on_analog_input(long long timepoint_ms, const uint8* DB2, size_
 	if (this->track) {
 		this->vessel->set_sb_drag_figures(offset, ujoints, draghead);
 		this->vessel->fill_sb_track_position(&draghead, vessel_pos);
-		this->track->push_track_dot(DredgeTrackType::SBDrag, draghead);
+		this->track->filter_dredging_dot(DredgeTrackType::SBDrag, draghead);
 	}
 }
 
