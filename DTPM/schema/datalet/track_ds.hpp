@@ -21,7 +21,7 @@ namespace WarGrey::SCADA {
 		void cancel() override;
 
 	public:
-		void load(WarGrey::DTPM::ITrackDataReceiver* receiver, long long open_s, long long close_s) override;
+		void load(WarGrey::DTPM::ITrackDataReceiver* receiver, uint8 id, long long open_s, long long close_s) override;
 		void save(long long timepoint, long long type, WarGrey::SCADA::double3& dot) override;
 
 	protected:
@@ -31,7 +31,7 @@ namespace WarGrey::SCADA {
 		~TrackDataSource() noexcept;
 
 	private:
-		void do_loading_async(WarGrey::DTPM::ITrackDataReceiver* receiver,
+		void do_loading_async(WarGrey::DTPM::ITrackDataReceiver* receiver, uint8 id,
 			long long start, long long end, long long interval,
 			unsigned int file_count, unsigned int total, double span_ms);
 

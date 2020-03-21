@@ -13,7 +13,7 @@ using namespace Windows::Storage;
 namespace {
 	private class TrackCursor : public ITrackCursor {
 	public:
-		TrackCursor(ITrackDataReceiver* receiver, long long open_s, long long close_s) : receiver(receiver), open_s(open_s) {
+		TrackCursor(ITrackDataReceiver* receiver, uint8 id, long long open_s, long long close_s) : receiver(receiver), id(id), open_s(open_s) {
 			if (open_s < close_s) {
 				this->open_timepoint = open_s * 1000LL;
 				this->close_timepoint = close_s * 1000LL;
@@ -32,7 +32,7 @@ namespace {
 				this->dot.y = track.y;
 				this->dot.z = track.z;
 
-				this->receiver->on_datum_values(this->open_s, ts, track.type, this->dot);
+				this->receiver->on_datum_values(this->id, this->open_s, ts, track.type, this->dot);
 
 				this->count++;
 			}
@@ -46,6 +46,7 @@ namespace {
 	private:
 		double3 dot;
 		ITrackDataReceiver* receiver;
+		uint8 id;
 		long long open_timepoint;
 		long long close_timepoint;
 		long long open_s;
@@ -90,7 +91,7 @@ void TrackDataSource::on_database_rotated(WarGrey::SCADA::SQLite3* prev_dbc, War
 	this->get_logger()->log_message(Log::Debug, L"current file: %S", dbc->filename().c_str());
 }
 
-void TrackDataSource::load(ITrackDataReceiver* receiver, long long open_s, long long close_s) {
+void TrackDataSource::load(ITrackDataReceiver* receiver, uint8 id, long long open_s, long long close_s) {
 	if (!this->loading()) {
 		long long start = this->resolve_timepoint(open_s);
 		long long end = this->resolve_timepoint(close_s);
@@ -102,7 +103,7 @@ void TrackDataSource::load(ITrackDataReceiver* receiver, long long open_s, long 
 		this->open_timepoint = open_s;
 		this->close_timepoint = close_s;
 		this->time0 = current_inexact_milliseconds();
-		this->do_loading_async(receiver, start, end, interval, 0LL, 0LL, 0.0);
+		this->do_loading_async(receiver, id, start, end, interval, 0LL, 0LL, 0.0);
 	}
 }
 
@@ -119,7 +120,7 @@ void TrackDataSource::save(long long timepoint, long long type, double3& dot) {
 	insert_track(this, track);
 }
 
-void TrackDataSource::do_loading_async(ITrackDataReceiver* receiver
+void TrackDataSource::do_loading_async(ITrackDataReceiver* receiver, uint8 id
 	, long long start, long long end, long long interval
 	, unsigned int file_count, unsigned int total, double span_ms) {
 	bool asc = (interval > 0);
@@ -130,7 +131,7 @@ void TrackDataSource::do_loading_async(ITrackDataReceiver* receiver
 		this->get_logger()->log_message(Log::Debug, L"loaded %d records from %d file(s) within %lfms(wasted: %lfms)",
 			total, file_count, span_total, span_total - span_ms);
 
-		receiver->on_maniplation_complete(this->open_timepoint, this->close_timepoint);
+		receiver->on_maniplation_complete(id, this->open_timepoint, this->close_timepoint);
 		this->open_timepoint = 0LL;
 	} else {
 		Platform::String^ dbsource = this->resolve_filename(start);
@@ -141,15 +142,15 @@ void TrackDataSource::do_loading_async(ITrackDataReceiver* receiver
 			long long next_timepoint = start + interval;
 
 			if ((db != nullptr) && (db->IsOfType(StorageItemTypes::File))) {
-				TrackCursor tcursor(receiver, this->open_timepoint, this->close_timepoint);
+				TrackCursor tcursor(receiver, id, this->open_timepoint, this->close_timepoint);
 				double ms = current_inexact_milliseconds();
 				
 				this->dbc = new SQLite3(db->Path->Data(), this->get_logger());
 				this->dbc->set_busy_handler(track_busy_handler);
 
-				receiver->begin_maniplation_sequence();
+				receiver->begin_maniplation_sequence(id);
 				foreach_track(this->dbc, &tcursor, 0, 0, track::timestamp, asc);
-				receiver->end_maniplation_sequence();
+				receiver->end_maniplation_sequence(id);
 
 				delete this->dbc;
 				this->dbc = nullptr;
@@ -158,11 +159,11 @@ void TrackDataSource::do_loading_async(ITrackDataReceiver* receiver
 				this->get_logger()->log_message(Log::Debug, L"loaded %d record(s) from[%s] within %lfms",
 					tcursor.count, dbsource->Data(), ms);
 
-				this->do_loading_async(receiver, next_timepoint, end, interval,
+				this->do_loading_async(receiver, id, next_timepoint, end, interval,
 					file_count + 1LL, total + tcursor.count, span_ms + ms);
 			} else {
 				this->get_logger()->log_message(Log::Debug, L"skip non-existent source[%s]", dbsource->Data());
-				this->do_loading_async(receiver, next_timepoint, end, interval, file_count, total, span_ms);
+				this->do_loading_async(receiver, id, next_timepoint, end, interval, file_count, total, span_ms);
 			}
 		}).then([=](task<void> check_exn) {
 			try {
