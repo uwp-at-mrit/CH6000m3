@@ -183,7 +183,7 @@ void DTPMonitor::on_location(long long timepoint_ms, double latitude, double lon
 
 		if (this->track != nullptr) {
 			// Note: The visibility of GPS track does not controlled by depth0, so just choose an impossible deep depth here.
-			this->track->filter_dredging_dot(DredgeTrackType::GPS, double3(geo_x, geo_y, 1000.0));
+			this->track->filter_dredging_dot(DredgeTrackType::GPS, double3(geo_x, geo_y, 0.0));
 		}
 	}
 }

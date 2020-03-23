@@ -8,5 +8,5 @@
    [x             : Float         #:not-null]
    [y             : Float         #:not-null]
    [z             : Float         #:not-null]
-   [timestamp     : Integer       #:not-null #:unique])
+   [timestamp     : Integer       #:not-null])
   #:include [["dbmisc.hpp"]])

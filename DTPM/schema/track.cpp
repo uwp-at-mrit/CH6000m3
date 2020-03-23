@@ -15,7 +15,7 @@ static TableColumnInfo track_columns[] = {
     { "x", SDT::Float, nullptr, 0 | DB_NOT_NULL | 0 },
     { "y", SDT::Float, nullptr, 0 | DB_NOT_NULL | 0 },
     { "z", SDT::Float, nullptr, 0 | DB_NOT_NULL | 0 },
-    { "timestamp", SDT::Integer, nullptr, 0 | DB_NOT_NULL | DB_UNIQUE },
+    { "timestamp", SDT::Integer, nullptr, 0 | DB_NOT_NULL | 0 },
 };
 
 /**************************************************************************************************/
