@@ -36,65 +36,61 @@ static Platform::String^ dredging_close_timepoint_key = "Dredging_Close_UTC_Mill
 
 namespace {
 	private enum class T : unsigned int { BeginTime, EndTime, DredgingTime, _ };
-
-	private class TProvider final : public PLCConfirmation {
-	public:
-		TProvider() {
-			this->dredging_start = get_preference(dredging_open_timepoint_key, 0LL);
-			this->dredging_end = get_preference(dredging_close_timepoint_key, 0LL);
-
-			this->memory = global_resident_metrics();
-			this->memory->tp.set(TP::DredgingStart, this->dredging_start);
-			this->memory->tp.set(TP::DredgingEnd, this->dredging_end);
-		}
-
-	public:
-		void on_digital_input(long long timepoint_ms, const uint8* DB4, size_t count4, const uint8* DB205, size_t count205, Syslog* logger) override {
-			bool hopper_on = (DI_hopper_pump_running(DB4, ps_hopper_pump_feedback) || DI_hopper_pump_running(DB4, sb_hopper_pump_feedback));
-			
-			if (hopper_on) {
-				if ((this->dredging_start == 0LL) || ((this->dredging_end > 0LL) && (this->dredging_end < timepoint_ms))) {
-					this->dredging_start = timepoint_ms;
-					this->memory->tp.set(TP::DredgingStart, this->dredging_start);
-					put_preference(dredging_open_timepoint_key, this->dredging_start);
-				}
-
-				if (this->dredging_end > 0LL) {
-					this->dredging_end = 0LL;
-					this->memory->tp.set(TP::DredgingEnd, 0LL);
-					put_preference(dredging_close_timepoint_key, this->dredging_end);
-				}
-			} else {
-				if (this->dredging_end == 0LL) {
-					this->dredging_end = timepoint_ms;
-					this->memory->tp.set(TP::DredgingEnd, this->dredging_end);
-					put_preference(dredging_close_timepoint_key, this->dredging_end);
-				}
-			}
-
-			this->current_timepoint = timepoint_ms;
-		}
-
-	public:
-		long long dredging_start;
-		long long dredging_end;
-		long long current_timepoint;
-
-	private: // never deletes these global objects manually
-		ResidentMetrics* memory;
-	};
 }
 
-/*************************************************************************************************/
-static TProvider* provider = nullptr;
+class WarGrey::DTPM::TimeMetrics::Provider final : public PLCConfirmation {
+public:
+	Provider() {
+		this->dredging_start = get_preference(dredging_open_timepoint_key, 0LL);
+		this->dredging_end = get_preference(dredging_close_timepoint_key, 0LL);
 
-TimeMetrics::TimeMetrics(MRMaster* plc) {
-	if (provider == nullptr) {
-		provider = new TProvider();
+		this->memory = global_resident_metrics();
+		this->memory->tp.set(TP::DredgingStart, this->dredging_start);
+		this->memory->tp.set(TP::DredgingEnd, this->dredging_end);
+	}
 
-		if (plc != nullptr) {
-			plc->push_confirmation_receiver(provider);
+public:
+	void on_digital_input(long long timepoint_ms, const uint8* DB4, size_t count4, const uint8* DB205, size_t count205, Syslog* logger) override {
+		bool hopper_on = (DI_hopper_pump_running(DB4, ps_hopper_pump_feedback) || DI_hopper_pump_running(DB4, sb_hopper_pump_feedback));
+
+		if (hopper_on) {
+			if ((this->dredging_start == 0LL) || ((this->dredging_end > 0LL) && (this->dredging_end < timepoint_ms))) {
+				this->dredging_start = timepoint_ms;
+				this->memory->tp.set(TP::DredgingStart, this->dredging_start);
+				put_preference(dredging_open_timepoint_key, this->dredging_start);
+			}
+
+			if (this->dredging_end > 0LL) {
+				this->dredging_end = 0LL;
+				this->memory->tp.set(TP::DredgingEnd, 0LL);
+				put_preference(dredging_close_timepoint_key, this->dredging_end);
+			}
+		} else {
+			if (this->dredging_end == 0LL) {
+				this->dredging_end = timepoint_ms;
+				this->memory->tp.set(TP::DredgingEnd, this->dredging_end);
+				put_preference(dredging_close_timepoint_key, this->dredging_end);
+			}
 		}
+
+		this->current_timepoint = timepoint_ms;
+	}
+
+public:
+	long long dredging_start;
+	long long dredging_end;
+	long long current_timepoint;
+
+private: // never deletes these global objects manually
+	ResidentMetrics* memory;
+};
+
+/*************************************************************************************************/
+TimeMetrics::TimeMetrics(MRMaster* plc) {
+	this->provider = new TimeMetrics::Provider();
+
+	if (plc != nullptr) {
+		plc->push_confirmation_receiver(this->provider);
 	}
 }
 
@@ -116,22 +112,22 @@ MetricValue TimeMetrics::value_ref(unsigned int idx) {
 	case T::DredgingTime: {
 		mv.type = MetricValueType::Period;
 
-		if (provider->dredging_start > 0LL) {
-			long long end = ((provider->dredging_end > 0) ? provider->dredging_end : provider->current_timepoint);
+		if (this->provider->dredging_start > 0LL) {
+			long long end = ((this->provider->dredging_end > 0) ? this->provider->dredging_end : this->provider->current_timepoint);
 			
-			mv.as.fixnum = end - provider->dredging_start;
+			mv.as.fixnum = end - this->provider->dredging_start;
 		}
 	}; break;
 	case T::BeginTime: {
-		if (provider->dredging_start > 0) {
+		if (this->provider->dredging_start > 0) {
 			mv.type = MetricValueType::Time;
-			mv.as.fixnum = provider->dredging_start;
+			mv.as.fixnum = this->provider->dredging_start;
 		}
 	}; break;
 	case T::EndTime: {
 		if (provider->dredging_end > 0) {
 			mv.type = MetricValueType::Time;
-			mv.as.fixnum = provider->dredging_end;
+			mv.as.fixnum = this->provider->dredging_end;
 		}
 	}; break;
 	}

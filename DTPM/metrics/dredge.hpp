@@ -22,5 +22,9 @@ namespace WarGrey::DTPM {
 
 	private:
 		~DredgeMetrics() noexcept {};
+
+	private:
+		class Provider;
+		WarGrey::DTPM::DredgeMetrics::Provider* provider;
 	};
 }

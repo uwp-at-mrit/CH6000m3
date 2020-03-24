@@ -47,5 +47,9 @@ namespace WarGrey::DTPM {
 
 	private:
 		~TimeMetrics() noexcept {};
+
+	private:
+		class Provider;
+		WarGrey::DTPM::TimeMetrics::Provider* provider;
 	};
 }
