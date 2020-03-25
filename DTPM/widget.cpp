@@ -73,6 +73,7 @@ public:
 
 		this->brightnessd = new SlangDaemon<uint8>(make_system_logger(default_slang_logging_level, "Slang"), brightness_slang_port(SlangPort::DTPM), this);
 		this->brightnessd->join_multicast_group(slang_multicast_group);
+		this->brightnessd->enable_checksum(false);
 	}
 
 public:
