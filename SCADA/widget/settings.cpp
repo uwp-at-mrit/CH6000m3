@@ -15,6 +15,7 @@
 #include "brushes.hxx"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::GYDM;
 
 using namespace Windows::Foundation;
 using namespace Windows::System;
@@ -24,6 +25,7 @@ using namespace Microsoft::Graphics::Canvas::UI;
 using namespace Microsoft::Graphics::Canvas::Text;
 using namespace Microsoft::Graphics::Canvas::Brushes;
 
+/*************************************************************************************************/
 static CanvasSolidColorBrush^ region_background = Colours::make(diagnostics_region_background);
 static CanvasSolidColorBrush^ settings_background = Colours::make(diagnostics_alarm_background);
 static CanvasSolidColorBrush^ settings_foreground = Colours::Silver;

@@ -30,6 +30,7 @@
 #include "module.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::GYDM;
 
 using namespace Windows::System;
 using namespace Windows::Foundation;

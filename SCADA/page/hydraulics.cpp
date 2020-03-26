@@ -37,6 +37,7 @@
 #include "iotables/do_devices.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::GYDM;
 
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::Xaml::Media;
@@ -379,7 +380,7 @@ public:
 		}
 	}
 
-	void on_signals_updated(long long timepoint_ms, WarGrey::SCADA::Syslog* logger) override {
+	void on_signals_updated(long long timepoint_ms, Syslog* logger) override {
 		HS ps_path[] = { HS::lt, HS::tl, HS::cl, HS::Master };
 		HS sb_path[] = { HS::rt, HS::tr, HS::cr, HS::Master };
 		HS mt_path[] = { HS::f02, HS::master };

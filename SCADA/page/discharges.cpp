@@ -44,6 +44,7 @@
 #include "decorator/vessel.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::GYDM;
 
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Numerics;
@@ -253,7 +254,7 @@ public:
 		
 	}
 
-	void on_signals_updated(long long timepoint_ms, WarGrey::SCADA::Syslog* logger) override {
+	void on_signals_updated(long long timepoint_ms, Syslog* logger) override {
 		RS rsb19[] = { RS::d0225, RS::SBHPump, RS::D018, RS::D019 };
 		RS r19[] = { RS::d019, RS::D021 };
 		RS r20[] = { RS::d2122, RS::D022 };

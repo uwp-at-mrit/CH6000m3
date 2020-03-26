@@ -40,21 +40,21 @@ namespace WarGrey::DTPM {
 		bool in_affine_gesture_zone(Windows::Foundation::Numerics::float2& lt, Windows::Foundation::Numerics::float2& rb) override;
 
 	public:
-		void pre_move(WarGrey::SCADA::Syslog* logger) override;
-		void on_location(long long timepoint_ms, double latitude, double longitude, double altitude, double geo_x, double geo_y, WarGrey::SCADA::Syslog* logger) override;
-		void on_sail(long long timepoint_ms, double kn, double track_deg, WarGrey::SCADA::Syslog* logger) override;
-		void on_heading(long long timepoint_ms, double deg, WarGrey::SCADA::Syslog* logger) override;
-		void post_move(WarGrey::SCADA::Syslog* logger) override;
+		void pre_move(WarGrey::GYDM::Syslog* logger) override;
+		void on_location(long long timepoint_ms, double latitude, double longitude, double altitude, double geo_x, double geo_y, WarGrey::GYDM::Syslog* logger) override;
+		void on_sail(long long timepoint_ms, double kn, double track_deg, WarGrey::GYDM::Syslog* logger) override;
+		void on_heading(long long timepoint_ms, double deg, WarGrey::GYDM::Syslog* logger) override;
+		void post_move(WarGrey::GYDM::Syslog* logger) override;
 
 	public:
-		void pre_read_data(WarGrey::SCADA::Syslog* logger) override;
-		void on_analog_input(long long timepoint_ms, const uint8* DB2, size_t count2, const uint8* DB203, size_t count203, WarGrey::SCADA::Syslog* logger) override;
-		void post_read_data(WarGrey::SCADA::Syslog* logger) override;
+		void pre_read_data(WarGrey::GYDM::Syslog* logger) override;
+		void on_analog_input(long long timepoint_ms, const uint8* DB2, size_t count2, const uint8* DB203, size_t count203, WarGrey::GYDM::Syslog* logger) override;
+		void post_read_data(WarGrey::GYDM::Syslog* logger) override;
 
 	public:
 		void on_message(long long timepoint_ms, Platform::String^ remote_peer, uint16 port,
 			WarGrey::DTPM::MetricsBlock type, const uint8* message,
-			WarGrey::SCADA::Syslog* logger) override;
+			WarGrey::GYDM::Syslog* logger) override;
 		
 	private:
 		void on_gps_message(long long timepoint_ms, WarGrey::DTPM::DGPS& dgps);

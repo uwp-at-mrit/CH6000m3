@@ -24,6 +24,7 @@
 #include "transformation.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::GYDM;
 
 using namespace Windows::System;
 using namespace Windows::Foundation;
@@ -35,6 +36,7 @@ using namespace Microsoft::Graphics::Canvas::Text;
 using namespace Microsoft::Graphics::Canvas::Brushes;
 using namespace Microsoft::Graphics::Canvas::Geometry;
 
+/*************************************************************************************************/
 // WARNING: order matters
 private enum class HD : unsigned int {
 	//labels

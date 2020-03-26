@@ -36,21 +36,21 @@ namespace WarGrey::SCADA {
 
 	private class PLCConfirmation : public WarGrey::SCADA::MRConfirmation {
 	public:
-		void on_all_signals(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, WarGrey::SCADA::Syslog* logger) override;
+		void on_all_signals(long long timepoint_ms, size_t addr0, size_t addrn, uint8* data, size_t size, WarGrey::GYDM::Syslog* logger) override;
 
 	public:
-		virtual void on_digital_input(long long timepoint_ms, const uint8* db4, size_t count4, const uint8* db205, size_t count205, WarGrey::SCADA::Syslog* logger) {}
-		virtual void on_analog_input(long long timepoint_ms, const uint8* db2, size_t count2, const uint8* db203, size_t count203, WarGrey::SCADA::Syslog* logger) {}
-		virtual void on_forat(long long timepoint_ms, const uint8* db20, size_t count, WarGrey::SCADA::Syslog* logger) {}
-		virtual void on_analog_io(long long timepoint_ms, const uint8* db204, size_t count204, WarGrey::SCADA::Syslog* logger) {}
+		virtual void on_digital_input(long long timepoint_ms, const uint8* db4, size_t count4, const uint8* db205, size_t count205, WarGrey::GYDM::Syslog* logger) {}
+		virtual void on_analog_input(long long timepoint_ms, const uint8* db2, size_t count2, const uint8* db203, size_t count203, WarGrey::GYDM::Syslog* logger) {}
+		virtual void on_forat(long long timepoint_ms, const uint8* db20, size_t count, WarGrey::GYDM::Syslog* logger) {}
+		virtual void on_analog_io(long long timepoint_ms, const uint8* db204, size_t count204, WarGrey::GYDM::Syslog* logger) {}
 
 	public:
-		virtual void on_signals_updated(long long timepoint_ms, WarGrey::SCADA::Syslog* logger) {}
+		virtual void on_signals_updated(long long timepoint_ms, WarGrey::GYDM::Syslog* logger) {}
 	};
 
 	private class PLCMaster : public WarGrey::SCADA::MRMaster {
 	public:
-		PLCMaster(Syslog* logger, Platform::String^ server, unsigned short port, long long timeout = 0LL);
+		PLCMaster(WarGrey::GYDM::Syslog* logger, Platform::String^ server, unsigned short port, long long timeout = 0LL);
 
 	public:
 		void send_scheduled_request(long long count, long long interval, long long uptime);

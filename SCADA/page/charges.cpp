@@ -39,6 +39,7 @@
 #include "decorator/vessel.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::GYDM;
 
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Numerics;
@@ -210,7 +211,7 @@ public:
 		});
 	}
 
-	void on_signals_updated(long long timepoint_ms, WarGrey::SCADA::Syslog* logger) override {
+	void on_signals_updated(long long timepoint_ms, Syslog* logger) override {
 		{ // flow PS water
 			CS c0910[] = { CS::I0923, CS::D010 };
 

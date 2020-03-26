@@ -18,6 +18,7 @@
 
 using namespace WarGrey::SCADA;
 using namespace WarGrey::DTPM;
+using namespace WarGrey::GYDM;
 
 using namespace Windows::Foundation;
 using namespace Windows::System;

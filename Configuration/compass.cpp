@@ -1,8 +1,9 @@
 #include "compass.hpp"
 #include "moxa.hpp"
 
-using namespace WarGrey::DTPM;
 using namespace WarGrey::SCADA;
+using namespace WarGrey::DTPM;
+using namespace WarGrey::GYDM;
 
 #define ON_MOVE(receivers, on_move, logger, ...) do { \
 for (auto r : receivers) { \

@@ -25,6 +25,7 @@
 #include "iotables/ao_gland_pumps.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::GYDM;
 
 using namespace Windows::System;
 using namespace Windows::Foundation;
@@ -35,6 +36,7 @@ using namespace Microsoft::Graphics::Canvas::Text;
 using namespace Microsoft::Graphics::Canvas::Brushes;
 using namespace Microsoft::Graphics::Canvas::Geometry;
 
+/*************************************************************************************************/
 static CanvasSolidColorBrush^ water_color = Colours::Green;
 static GlandPumpDiagnostics* satellite = nullptr; // this satellite will be destroyed by `atexit()`;
 

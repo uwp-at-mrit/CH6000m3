@@ -15,7 +15,7 @@ namespace WarGrey::SCADA {
 		: public WarGrey::SCADA::ITimeSeriesDataSource
 		, public WarGrey::SCADA::RotativeSQLite3 {
 	public:
-		EarthWorkDataSource(WarGrey::SCADA::Syslog* logger = nullptr,
+		EarthWorkDataSource(WarGrey::GYDM::Syslog* logger = nullptr,
 			WarGrey::SCADA::RotationPeriod period = RotationPeriod::Daily,
 			unsigned int period_count = 1U);
 

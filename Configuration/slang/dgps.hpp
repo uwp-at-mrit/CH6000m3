@@ -17,7 +17,7 @@ namespace WarGrey::DTPM {
 	private class DGPS : public WarGrey::GYDM::IASNSequence {
 	public:
 		DGPS();
-		DGPS(const uint8* basn, size_t* offse = nullptr);
+		DGPS(const uint8* basn, size_t* offset = nullptr);
 
 	public:
 		void set(WarGrey::DTPM::GP field, double value);

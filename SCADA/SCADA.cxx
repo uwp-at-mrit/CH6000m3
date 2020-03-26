@@ -24,6 +24,7 @@
 
 using namespace WarGrey::SCADA;
 using namespace WarGrey::DTPM;
+using namespace WarGrey::GYDM;
 
 using namespace Windows::ApplicationModel;
 using namespace Windows::ApplicationModel::Activation;
@@ -248,5 +249,5 @@ private:
 };
 
 int main(Platform::Array<Platform::String^>^ args) {
-	return launch_universal_windows_application<CH6000m3>(default_logging_level, remote_test_server);
+	return launch_universal_windows_application<CH6000m3>(default_logging_level, remote_syslog_group);
 }

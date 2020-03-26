@@ -23,6 +23,7 @@
 #include "iotables/do_hopper_pumps.hpp"
 
 using namespace WarGrey::SCADA;
+using namespace WarGrey::GYDM;
 
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::Foundation::Numerics;
