@@ -13,8 +13,10 @@ static constexpr WarGrey::GYDM::Log default_gps_logging_level = default_logging_
 static constexpr WarGrey::GYDM::Log default_slang_logging_level = default_logging_level;
 static constexpr WarGrey::GYDM::Log default_schema_logging_level = default_logging_level;
 
+static Platform::String^ rsyslog_host = "239.255.203.113";
+static unsigned short rsyslog_prot = 1618;
+
 static Platform::String^ slang_multicast_group = "239.192.127.7";
-static Platform::String^ remote_syslog_group = "239.255.203.113";
 static Platform::String^ system_subnet_prefix = "192.168";
 //static Platform::String^ moxa_gateway = "192.168.0.253";
 //static Platform::String^ plc_hostname = nullptr;
