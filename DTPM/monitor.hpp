@@ -2,6 +2,7 @@
 
 #include "graphlet/planetlet.hpp"
 #include "graphlet/filesystem/projectlet.hpp"
+#include "graphlet/filesystem/project/aislet.hpp"
 #include "graphlet/filesystem/project/profilet.hpp"
 #include "graphlet/filesystem/project/dredgetracklet.hpp"
 #include "graphlet/filesystem/configuration/gpslet.hpp"
@@ -12,16 +13,18 @@
 #include "metrics.hpp"
 #include "compass.hpp"
 #include "plc.hpp"
+#include "ais.hpp"
 
 namespace WarGrey::DTPM {
 	private class DTPMonitor
 		: public virtual WarGrey::SCADA::Planet
 		, public virtual WarGrey::DTPM::CompassReceiver
+		, public virtual WarGrey::DTPM::Transponder
 		, public virtual WarGrey::SCADA::PLCConfirmation
 		, public virtual WarGrey::GYDM::SlangLocalPeer<WarGrey::DTPM::MetricsBlock> {
 	public:
 		virtual ~DTPMonitor() noexcept;
-		DTPMonitor(WarGrey::DTPM::Compass* compass, WarGrey::SCADA::MRMaster* plc);
+		DTPMonitor(WarGrey::DTPM::Compass* compass, WarGrey::DTPM::AIS* ais, WarGrey::SCADA::MRMaster* plc);
 
 	public:
 		void load(Microsoft::Graphics::Canvas::UI::CanvasCreateResourcesReason reason, float width, float height) override;
@@ -68,12 +71,14 @@ namespace WarGrey::DTPM {
 		WarGrey::DTPM::Projectlet* project;
 		WarGrey::DTPM::Profilet* profile;
 		WarGrey::DTPM::GPSlet* gps;
+		WarGrey::DTPM::AISlet* neighbour;
 		WarGrey::DTPM::ColorPlotlet* plot;
 		WarGrey::SCADA::Planetlet* drags;
 		WarGrey::SCADA::Planetlet* status;
 
 	private: // never deletes these shared objects
 		WarGrey::DTPM::Compass* compass;
+		WarGrey::DTPM::AIS* ais;
 		WarGrey::SCADA::MRMaster* plc;
 
 	private: // never deletes these global objects

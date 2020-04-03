@@ -31,7 +31,7 @@ using namespace Microsoft::Graphics::Canvas::UI;
 using namespace Microsoft::Graphics::Canvas::Brushes;
 
 /*************************************************************************************************/
-DTPMonitor::DTPMonitor(Compass* compass, MRMaster* plc) : Planet(__MODULE__), compass(compass), plc(plc), track_source(nullptr) {
+DTPMonitor::DTPMonitor(Compass* compass, AIS* ais, MRMaster* plc) : Planet(__MODULE__), compass(compass), ais(ais), plc(plc), track_source(nullptr) {
 	Syslog* logger = make_system_logger(default_schema_logging_level, "DredgeTrackHistory");
 
 	this->track_source = new TrackDataSource(logger, RotationPeriod::Daily);
@@ -39,6 +39,10 @@ DTPMonitor::DTPMonitor(Compass* compass, MRMaster* plc) : Planet(__MODULE__), co
 
 	if (this->compass != nullptr) {
 		this->compass->push_receiver(this);
+	}
+
+	if (this->ais != nullptr) {
+		this->ais->push_receiver(this);
 	}
 
 	if (this->plc != nullptr) {

@@ -31,11 +31,12 @@ static CanvasSolidColorBrush^ bar_foreground = Colours::GhostWhite;
 static CanvasSolidColorBrush^ bar_running_color = Colours::Green;
 static CanvasSolidColorBrush^ bar_stopped_color = Colours::Red;
 
+/*************************************************************************************************/
 // WARNING: order matters
 namespace {
 	private enum class S : unsigned int {
 		// Devices state Indicators
-		GPS1, GPS2, GYRO, PLC,
+		GPS1, GPS2, GYRO, PLC, AIS,
 		_
 	};
 
@@ -114,6 +115,7 @@ namespace {
 	public:
 		Statusbar(StatusFrame* master, ITCPConnection* plc) : master(master), plc(plc), system_metrics(nullptr) {
 			this->status_font = make_bold_text_format("Microsoft YaHei", small_font_size);
+			this->devices[S::AIS] = moxa_tcp_ref(MOXA_TCP::AIS);
 			this->devices[S::PLC] = plc;
 		}
 
@@ -135,6 +137,7 @@ namespace {
 			this->load_device_indicator(S::GPS2, MOXA_TCP::DP_DGPS, this->status_font);
 			this->load_device_indicator(S::GYRO, MOXA_TCP::GYRO, this->status_font);
 			this->load_device_indicator(S::PLC, this->status_font);
+			this->load_device_indicator(S::AIS, this->status_font);
 
 			if (this->system_metrics == nullptr) {
 				this->system_metrics = this->master->insert_one(new SystemStatuslet(this->status_font));
@@ -148,7 +151,7 @@ namespace {
 			float sysinfo_x = width - width / 3.0F;
 
 			{ // reflow indicators
-				for (S id = S::GPS1; id <= S::PLC; id++) {
+				for (S id = S::GPS1; id < S::_; id++) {
 					if (id == S::GPS1) {
 						this->master->move_to(this->indicators[id], margin, cy, GraphletAnchor::LC);
 					} else {
@@ -161,7 +164,7 @@ namespace {
 				}
 			}
 
-			this->master->move_to(this->log_receiver, this->labels[S::PLC], GraphletAnchor::RC, GraphletAnchor::LC, margin);
+			this->master->move_to(this->log_receiver, this->labels[_E(S, _N(S) - 1)], GraphletAnchor::RC, GraphletAnchor::LC, margin);
 			this->master->move_to(this->system_metrics, sysinfo_x, 0.0F, GraphletAnchor::LT);
 		}
 

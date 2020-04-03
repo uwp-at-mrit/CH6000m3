@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gps.hpp"
+#include "ais.hpp"
 
 namespace WarGrey::DTPM {
 	private enum class MOXA_TCP : unsigned short {
@@ -13,5 +14,6 @@ namespace WarGrey::DTPM {
 	void moxa_tcp_teardown();
 
 	WarGrey::SCADA::ITCPConnection* moxa_tcp_ref(WarGrey::DTPM::MOXA_TCP name);
-	WarGrey::DTPM::IGPS* moxa_tcp_as_gps(WarGrey::DTPM::MOXA_TCP name, WarGrey::DTPM::IGPSReceiver* receiver = nullptr);
+	WarGrey::DTPM::GPS* moxa_tcp_as_gps(WarGrey::DTPM::MOXA_TCP name, WarGrey::DTPM::INMEA0183Receiver* receiver = nullptr);
+	WarGrey::DTPM::AIS* moxa_tcp_as_ais(WarGrey::DTPM::MOXA_TCP name, WarGrey::DTPM::INMEA0183Receiver* receiver = nullptr);
 }

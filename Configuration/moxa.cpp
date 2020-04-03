@@ -24,11 +24,22 @@ static GPS* setup_gps(MOXA_TCP name) {
 	return gps;
 }
 
+static AIS* setup_ais(MOXA_TCP name) {
+	Syslog* ais_logger = make_system_logger(default_gps_logging_level, name.ToString());
+	AIS* ais = new AIS(ais_logger, moxa_gateway, _S(name));
+
+	ais->set_suicide_timeout(gps_suicide_timeout);
+	moxa_tcp_clients.insert(std::pair<MOXA_TCP, ITCPConnection*>(name, ais));
+
+	return ais;
+}
+
 /*************************************************************************************************/
 void WarGrey::DTPM::moxa_tcp_setup() {
 	setup_gps(MOXA_TCP::MRIT_DGPS);
 	setup_gps(MOXA_TCP::DP_DGPS);
 	setup_gps(MOXA_TCP::GYRO);
+	setup_ais(MOXA_TCP::AIS);
 }
 
 void WarGrey::DTPM::moxa_tcp_teardown() {
@@ -50,14 +61,26 @@ ITCPConnection* WarGrey::DTPM::moxa_tcp_ref(MOXA_TCP name) {
 	return client;
 }
 
-IGPS* WarGrey::DTPM::moxa_tcp_as_gps(MOXA_TCP name, IGPSReceiver* receiver) {
+GPS* WarGrey::DTPM::moxa_tcp_as_gps(MOXA_TCP name, INMEA0183Receiver* receiver) {
 	ITCPConnection* client = moxa_tcp_ref(name);
-	IGPS* gps = nullptr;
+	GPS* gps = nullptr;
 
 	if ((client != nullptr) && (client->get_type() == TCPType::GPS)) {
-		gps = static_cast<IGPS*>(client);
+		gps = static_cast<GPS*>(client);
 		gps->push_receiver(receiver);
 	}
 
 	return gps;
+}
+
+AIS* WarGrey::DTPM::moxa_tcp_as_ais(MOXA_TCP name, INMEA0183Receiver* receiver) {
+	ITCPConnection* client = moxa_tcp_ref(name);
+	AIS* ais = nullptr;
+
+	if ((client != nullptr) && (client->get_type() == TCPType::AIS)) {
+		ais = static_cast<AIS*>(client);
+		ais->push_receiver(receiver);
+	}
+
+	return ais;
 }
