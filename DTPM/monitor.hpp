@@ -55,6 +55,11 @@ namespace WarGrey::DTPM {
 		void post_read_data(WarGrey::GYDM::Syslog* logger) override;
 
 	public:
+		void pre_interpret_payload(int id, WarGrey::GYDM::Syslog* logger) override;
+		void on_PRCA(int id, long long timepoint_ms, bool self, WarGrey::DTPM::PRCA* prca, WarGrey::GYDM::Syslog* logger) override;
+		void post_interpret_payload(int id, WarGrey::GYDM::Syslog* logger) override;
+
+	public:
 		void on_message(long long timepoint_ms, Platform::String^ remote_peer, uint16 port,
 			WarGrey::DTPM::MetricsBlock type, const uint8* message,
 			WarGrey::GYDM::Syslog* logger) override;

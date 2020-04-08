@@ -212,6 +212,19 @@ void DTPMonitor::post_move(Syslog* logger) {
 }
 
 /*************************************************************************************************/
+void DTPMonitor::pre_interpret_payload(int id, Syslog* logger) {
+	this->begin_update_sequence();
+}
+
+void DTPMonitor::on_PRCA(int id, long long timepoint_ms, bool self, PRCA* prca, Syslog* logger) {
+	logger->log_message(Log::Info, L"PRCA: (%f, %f)", prca->longitude.unbox(), prca->latitude.unbox());
+}
+
+void DTPMonitor::post_interpret_payload(int id, Syslog* logger) {
+	this->end_update_sequence();
+}
+
+/*************************************************************************************************/
 void DTPMonitor::pre_read_data(Syslog* logger) {
 	this->enter_critical_section();
 	this->begin_update_sequence();
