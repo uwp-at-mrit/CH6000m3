@@ -56,7 +56,7 @@ namespace WarGrey::DTPM {
 
 	public:
 		void pre_interpret_payload(int id, WarGrey::GYDM::Syslog* logger) override;
-		void on_PRCA(int id, long long timepoint_ms, bool self, WarGrey::DTPM::PRCA* prca, WarGrey::GYDM::Syslog* logger) override;
+		void on_PRCA(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::PRCA* prca, WarGrey::GYDM::Syslog* logger) override;
 		void post_interpret_payload(int id, WarGrey::GYDM::Syslog* logger) override;
 
 	public:
