@@ -217,7 +217,14 @@ void DTPMonitor::pre_interpret_payload(int id, Syslog* logger) {
 }
 
 void DTPMonitor::on_PRCA(int id, long long timepoint_ms, bool self, uint16 mmsi, PRCA* prca, Syslog* logger) {
-	logger->log_message(Log::Info, L"PRCA: (%f, %f)", prca->longitude.unbox(), prca->latitude.unbox());
+	//logger->log_message(Log::Info, L"PRCA: (%f, %f)", prca->longitude.unbox(), prca->latitude.unbox());
+}
+
+void DTPMonitor::on_SDR(int id, long long timepoint_ms, bool self, uint16 mmsi, SDR* sdr, Syslog* logger) {
+	switch (sdr->partno) {
+	case SDR::Format::PartA: logger->log_message(Log::Info,  "SDR: A"); break;
+	case SDR::Format::PartB: logger->log_message(Log::Info, L"SDR: B[%s]", (sdr->part.b.auxiliary ? L"Auxiliary Craft" : L"Craft")); break;
+	}
 }
 
 void DTPMonitor::post_interpret_payload(int id, Syslog* logger) {
