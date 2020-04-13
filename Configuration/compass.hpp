@@ -42,7 +42,7 @@ namespace WarGrey::DTPM {
 		WarGrey::DTPM::GPSCS^ gcs;
 		std::deque<WarGrey::DTPM::ICompassReceiver*> receivers;
 
-	private: // never deletes these shared objects
+	private: // never delete these shared objects
 		WarGrey::DTPM::INMEA0183* gps1;
 		WarGrey::DTPM::INMEA0183* gps2;
 		WarGrey::DTPM::INMEA0183* gyro;

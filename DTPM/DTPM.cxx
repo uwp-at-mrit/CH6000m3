@@ -9,8 +9,8 @@
 #include "timer.hxx"
 
 #include "compass.hpp"
+#include "transponder.hpp"
 #include "moxa.hpp"
-#include "plc.hpp"
 
 using namespace WarGrey::SCADA;
 using namespace WarGrey::DTPM;
@@ -44,6 +44,10 @@ public:
 			delete this->compass;
 		}
 
+		if (this->transponder != nullptr) {
+			delete this->transponder;
+		}
+
 		moxa_tcp_teardown(); // also destroy `this->ais`;
 	}
 
@@ -55,8 +59,8 @@ internal:
 		moxa_tcp_setup();
 
 		this->plc = new PLCMaster(plc_logger, plc_hostname, dtpm_plc_master_port, plc_master_suicide_timeout);
-		this->ais = moxa_tcp_as_ais(MOXA_TCP::AIS);
 		this->compass = new Compass();
+		this->transponder = new Transponder();
 
 		system_set_subnet_prefix(system_subnet_prefix);
 		ui_thread_initialize();
@@ -64,12 +68,12 @@ internal:
 
 protected:
 	void construct(CanvasCreateResourcesReason reason) override {
-		this->push_planet(new DTPMonitor(this->compass, this->ais, this->plc));
+		this->push_planet(new DTPMonitor(this->compass, this->transponder, this->plc));
 	}
 
 internal:
 	Compass* compass;
-	AIS* ais;
+	Transponder* transponder;
 	PLCMaster* plc;
 };
 

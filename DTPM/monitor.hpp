@@ -12,19 +12,19 @@
 #include "syslog.hpp"
 #include "metrics.hpp"
 #include "compass.hpp"
+#include "transponder.hpp"
 #include "plc.hpp"
-#include "ais.hpp"
 
 namespace WarGrey::DTPM {
 	private class DTPMonitor
 		: public virtual WarGrey::SCADA::Planet
 		, public virtual WarGrey::DTPM::CompassReceiver
-		, public virtual WarGrey::DTPM::Transponder
+		, public virtual WarGrey::DTPM::AISResponder
 		, public virtual WarGrey::SCADA::PLCConfirmation
 		, public virtual WarGrey::GYDM::SlangLocalPeer<WarGrey::DTPM::MetricsBlock> {
 	public:
 		virtual ~DTPMonitor() noexcept;
-		DTPMonitor(WarGrey::DTPM::Compass* compass, WarGrey::DTPM::AIS* ais, WarGrey::SCADA::MRMaster* plc);
+		DTPMonitor(WarGrey::DTPM::Compass* compass, WarGrey::DTPM::Transponder* ais, WarGrey::SCADA::MRMaster* plc);
 
 	public:
 		void load(Microsoft::Graphics::Canvas::UI::CanvasCreateResourcesReason reason, float width, float height) override;
@@ -50,15 +50,13 @@ namespace WarGrey::DTPM {
 		void post_move(WarGrey::GYDM::Syslog* logger) override;
 
 	public:
+		void pre_respond(WarGrey::GYDM::Syslog* logger) override;
+		void post_respond(WarGrey::GYDM::Syslog* logger) override;
+
+	public:
 		void pre_read_data(WarGrey::GYDM::Syslog* logger) override;
 		void on_analog_input(long long timepoint_ms, const uint8* DB2, size_t count2, const uint8* DB203, size_t count203, WarGrey::GYDM::Syslog* logger) override;
 		void post_read_data(WarGrey::GYDM::Syslog* logger) override;
-
-	public:
-		void pre_interpret_payload(int id, WarGrey::GYDM::Syslog* logger) override;
-		void on_ASO(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::ASO* aso, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
-		void on_SDR(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::SDR* sdr, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
-		void post_interpret_payload(int id, WarGrey::GYDM::Syslog* logger) override;
 
 	public:
 		void on_message(long long timepoint_ms, Platform::String^ remote_peer, uint16 port,
@@ -84,7 +82,7 @@ namespace WarGrey::DTPM {
 
 	private: // never deletes these shared objects
 		WarGrey::DTPM::Compass* compass;
-		WarGrey::DTPM::AIS* ais;
+		WarGrey::DTPM::Transponder* transponder;
 		WarGrey::SCADA::MRMaster* plc;
 
 	private: // never deletes these global objects

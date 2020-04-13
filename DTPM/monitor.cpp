@@ -31,7 +31,8 @@ using namespace Microsoft::Graphics::Canvas::UI;
 using namespace Microsoft::Graphics::Canvas::Brushes;
 
 /*************************************************************************************************/
-DTPMonitor::DTPMonitor(Compass* compass, AIS* ais, MRMaster* plc) : Planet(__MODULE__), compass(compass), ais(ais), plc(plc), track_source(nullptr) {
+DTPMonitor::DTPMonitor(Compass* compass, Transponder* transponder, MRMaster* plc)
+	: Planet(__MODULE__), compass(compass), transponder(transponder), plc(plc), track_source(nullptr) {
 	Syslog* logger = make_system_logger(default_schema_logging_level, "DredgeTrackHistory");
 
 	this->track_source = new TrackDataSource(logger, RotationPeriod::Daily);
@@ -41,8 +42,8 @@ DTPMonitor::DTPMonitor(Compass* compass, AIS* ais, MRMaster* plc) : Planet(__MOD
 		this->compass->push_receiver(this);
 	}
 
-	if (this->ais != nullptr) {
-		this->ais->push_receiver(this);
+	if (this->transponder != nullptr) {
+		this->transponder->push_receiver(this);
 	}
 
 	if (this->plc != nullptr) {
@@ -212,22 +213,11 @@ void DTPMonitor::post_move(Syslog* logger) {
 }
 
 /*************************************************************************************************/
-void DTPMonitor::pre_interpret_payload(int id, Syslog* logger) {
+void DTPMonitor::pre_respond(Syslog* logger) {
 	this->begin_update_sequence();
 }
 
-void DTPMonitor::on_ASO(int id, long long timepoint_ms, bool self, uint16 mmsi, ASO* prca, uint8 priority, Syslog* logger) {
-	//logger->log_message(Log::Info, L"PRCA: (%f, %f)", prca->longitude.unbox(), prca->latitude.unbox());
-}
-
-void DTPMonitor::on_SDR(int id, long long timepoint_ms, bool self, uint16 mmsi, SDR* sdr, uint8 priority, Syslog* logger) {
-	//switch (sdr->partno) {
-	//case SDR::Format::PartA: logger->log_message(Log::Info,  "SDR: A"); break;
-	//case SDR::Format::PartB: logger->log_message(Log::Info, L"SDR: B[%s]", (sdr->part.b.auxiliary ? L"Auxiliary Craft" : L"Craft")); break;
-	//}
-}
-
-void DTPMonitor::post_interpret_payload(int id, Syslog* logger) {
+void DTPMonitor::post_respond(Syslog* logger) {
 	this->end_update_sequence();
 }
 

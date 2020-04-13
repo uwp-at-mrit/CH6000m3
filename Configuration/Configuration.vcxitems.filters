@@ -74,6 +74,7 @@
       <Filter>slang</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)compass.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)transponder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)plc.hpp" />
@@ -180,6 +181,7 @@
       <Filter>slang</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)compass.hpp" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)transponder.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="iotables">
