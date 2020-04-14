@@ -1,15 +1,19 @@
 #pragma once
 
+#include "graphlet/filesystem/project/aislet.hpp"
+
 #include "ais.hpp"
 #include "syslog.hpp"
 
 namespace WarGrey::DTPM {
+	/************************************************************************************************/
 	private class IAISResponder abstract {
 	public:
 		virtual bool respondable() { return true; }
 
 	public:
 		virtual void pre_respond(WarGrey::GYDM::Syslog* logger) = 0;
+		virtual void on_position_report(int id, long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) = 0;
 		virtual void post_respond(WarGrey::GYDM::Syslog* logger) = 0;
 	};
 
@@ -36,5 +40,8 @@ namespace WarGrey::DTPM {
 	public:
 		void pre_respond(WarGrey::GYDM::Syslog* logger) override {}
 		void post_respond(WarGrey::GYDM::Syslog* logger) override {}
+
+	public:
+		void on_position_report(int id, long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) override {};
 	};
 }

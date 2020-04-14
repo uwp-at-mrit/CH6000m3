@@ -5,7 +5,7 @@ using namespace WarGrey::SCADA;
 using namespace WarGrey::DTPM;
 using namespace WarGrey::GYDM;
 
-#define ON_MOVE(responders, on_respond, logger, ...) do { \
+#define ON_MOBILE(responders, on_respond, logger, ...) do { \
 for (auto r : responders) { \
 if (r->respondable()) { \
 r->pre_respond(logger); \
@@ -28,7 +28,20 @@ void Transponder::push_receiver(IAISResponder* r) {
 
 /*************************************************************************************************/
 void Transponder::on_ASO(int id, long long timepoint_ms, bool self, uint16 mmsi, ASO* prca, uint8 priority, Syslog* logger) {
-	//logger->log_message(Log::Info, L"PRCA: (%f, %f)", prca->longitude.unbox(), prca->latitude.unbox());
+	if (!self) {
+		AISPositionReport pr;
+
+		pr.longitude = ais_longitude_filter(prca->longitude);
+		pr.latitude = ais_latitude_filter(prca->latitude);
+		pr.turn = ais_turn_filter(prca->turn);
+		pr.speed = ais_speed_filter(prca->speed);
+		pr.course = ais_course_filter(prca->course);
+		pr.heading = ais_heading360_filter(prca->heading);
+
+		ON_MOBILE(this->responders, on_position_report, logger, id, timepoint_ms, mmsi, &pr);
+
+		logger->log_message(Log::Info, L"timestamp: (%lf, %lf)", pr.longitude, pr.latitude);
+	}
 }
 
 void Transponder::on_SDR(int id, long long timepoint_ms, bool self, uint16 mmsi, SDR* sdr, uint8 priority, Syslog* logger) {
