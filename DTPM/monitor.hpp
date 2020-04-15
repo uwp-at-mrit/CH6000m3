@@ -1,8 +1,8 @@
 ﻿#include "planet.hpp"
 
+#include "graphlet/aislet.hpp"
 #include "graphlet/planetlet.hpp"
 #include "graphlet/filesystem/projectlet.hpp"
-#include "graphlet/filesystem/project/aislet.hpp"
 #include "graphlet/filesystem/project/profilet.hpp"
 #include "graphlet/filesystem/project/dredgetracklet.hpp"
 #include "graphlet/filesystem/configuration/gpslet.hpp"
@@ -51,6 +51,7 @@ namespace WarGrey::DTPM {
 
 	public:
 		void pre_respond(WarGrey::GYDM::Syslog* logger) override;
+		void on_position_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) override;
 		void post_respond(WarGrey::GYDM::Syslog* logger) override;
 
 	public:
@@ -75,7 +76,7 @@ namespace WarGrey::DTPM {
 		WarGrey::DTPM::Projectlet* project;
 		WarGrey::DTPM::Profilet* profile;
 		WarGrey::DTPM::GPSlet* gps;
-		WarGrey::DTPM::AISlet* neighbour;
+		WarGrey::DTPM::AISlet* traffic;
 		WarGrey::DTPM::ColorPlotlet* plot;
 		WarGrey::SCADA::Planetlet* drags;
 		WarGrey::SCADA::Planetlet* status;

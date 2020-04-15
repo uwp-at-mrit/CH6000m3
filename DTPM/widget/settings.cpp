@@ -45,7 +45,7 @@ namespace {
 
 	public:
 		double3 gps_to_xyz(double latitude, double longitude, double altitude, GCSParameter& gcs) override {
-			return GPS_to_XYZ(latitude, longitude, altitude, gcs);
+			return DDmm_mm_to_XYZ(latitude, longitude, altitude, gcs);
 		}
 
 		double3 xyz_to_gps(double x, double y, double z, GCSParameter& gcs) override {

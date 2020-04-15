@@ -1,6 +1,7 @@
 #pragma once
 
-#include "graphlet/filesystem/project/aislet.hpp"
+#include "graphlet/aislet.hpp"
+#include "graphlet/filesystem/configuration/gpslet.hpp"
 
 #include "ais.hpp"
 #include "syslog.hpp"
@@ -13,7 +14,7 @@ namespace WarGrey::DTPM {
 
 	public:
 		virtual void pre_respond(WarGrey::GYDM::Syslog* logger) = 0;
-		virtual void on_position_report(int id, long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) = 0;
+		virtual void on_position_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) = 0;
 		virtual void post_respond(WarGrey::GYDM::Syslog* logger) = 0;
 	};
 
@@ -26,9 +27,11 @@ namespace WarGrey::DTPM {
 		void on_SDR(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::SDR* sdr, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
 		
 	public:
+		void set_gps_convertion_matrix(WarGrey::DTPM::GPSCS^ gcs);
 		void push_receiver(WarGrey::DTPM::IAISResponder* receiver);
 
 	private:
+		WarGrey::DTPM::GPSCS^ gcs;
 		std::deque<WarGrey::DTPM::IAISResponder*> responders;
 
 	private: // never delete this shared object
@@ -42,6 +45,6 @@ namespace WarGrey::DTPM {
 		void post_respond(WarGrey::GYDM::Syslog* logger) override {}
 
 	public:
-		void on_position_report(int id, long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) override {};
+		void on_position_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) override {};
 	};
 }

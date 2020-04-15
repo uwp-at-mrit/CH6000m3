@@ -83,6 +83,7 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
 	this->project = this->insert_one(new Projectlet(this->vessel, this->track, plot, L"长江口工程", map_width, plot_height));
 	this->profile = this->insert_one(new Profilet(this->vessel, "profile", profile_width, profile_height));
+	this->traffic = this->insert_one(new AISlet(map_width, plot_height));
 	this->gps = this->insert_one(gps);
 	this->plot = this->insert_one(plot);
 
@@ -99,6 +100,10 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 		this->vessel->set_ps_drag_info(ps, 2U);
 		this->vessel->set_sb_drag_info(sb, 2U);
 	}
+
+	{ // share the map to managed map objects
+		this->project->push_managed_map_objects(this->traffic);
+	}
 }
 
 void DTPMonitor::reflow(float width, float height) {
@@ -110,6 +115,8 @@ void DTPMonitor::reflow(float width, float height) {
 	this->move_to(this->project, this->plot, GraphletAnchor::RT, GraphletAnchor::LT);
 	this->move_to(this->gps, this->project, GraphletAnchor::LT, GraphletAnchor::LT);
 	this->move_to(this->profile, this->status, GraphletAnchor::LT, GraphletAnchor::LB);
+
+	this->move_to(this->traffic, this->project, GraphletAnchor::CC, GraphletAnchor::CC);
 
 	{ // adjust drags
 		float drags_y, times_bottom;
@@ -169,6 +176,7 @@ void DTPMonitor::on_zoom_gesture(float zx, float zy, float deltaScale, float2& l
 void DTPMonitor::on_graphlet_ready(IGraphlet* g) {
 	if (this->gps == g) {
 		this->compass->set_gps_convertion_matrix(this->gps->clone_gpscs());
+		this->transponder->set_gps_convertion_matrix(this->gps->clone_gpscs());
 	}
 }
 
@@ -215,6 +223,10 @@ void DTPMonitor::post_move(Syslog* logger) {
 /*************************************************************************************************/
 void DTPMonitor::pre_respond(Syslog* logger) {
 	this->begin_update_sequence();
+}
+
+void DTPMonitor::on_position_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, Syslog* logger) {
+	this->traffic->update_position(mmsi, position);
 }
 
 void DTPMonitor::post_respond(Syslog* logger) {

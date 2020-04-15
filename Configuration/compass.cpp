@@ -34,7 +34,7 @@ void Compass::push_receiver(ICompassReceiver* r) {
 
 void Compass::on_GGA(int id, long long timepoint_ms, GGA* gga, Syslog* logger) {
 	if (this->gcs != nullptr) {
-		double2 location = GPS_to_XY(gga->latitude, gga->longitude, gga->altitude, this->gcs->parameter);
+		double2 location = DDmm_mm_to_XY(gga->latitude, gga->longitude, gga->altitude, this->gcs->parameter);
 
 		ON_MOVE(this->receivers, on_location, logger, timepoint_ms, gga->latitude, gga->longitude, gga->altitude, location.x, location.y);
 	}
