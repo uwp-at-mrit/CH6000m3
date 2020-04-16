@@ -33,21 +33,21 @@ void Transponder::push_receiver(IAISResponder* r) {
 /*************************************************************************************************/
 void Transponder::on_ASO(int id, long long timepoint_ms, bool self, uint16 mmsi, ASO* prca, uint8 priority, Syslog* logger) {
 	if (this->gcs != nullptr) {
-		if (!self) {
-			AISPositionReport pr;
+		AISPositionReport pr;
 
-			pr.latitude = ais_latitude_filter(prca->latitude);
-			pr.longitude = ais_longitude_filter(prca->longitude);
-			pr.turn = ais_turn_filter(prca->turn);
-			pr.speed = ais_speed_filter(prca->speed);
-			pr.course = ais_course_filter(prca->course);
-			pr.heading = ais_heading360_filter(prca->heading);
+		pr.latitude = ais_latitude_filter(prca->latitude);
+		pr.longitude = ais_longitude_filter(prca->longitude);
+		pr.turn = ais_turn_filter(prca->turn);
+		pr.speed = ais_speed_filter(prca->speed);
+		pr.course = ais_course_filter(prca->course);
+		pr.heading = ais_heading360_filter(prca->heading);
 
-			pr.geo_position = Degrees_to_XY(pr.latitude, pr.longitude, 0.0, this->gcs->parameter);
+		pr.geo_position = Degrees_to_XY(pr.latitude, pr.longitude, 0.0, this->gcs->parameter);
 
+		if (self) {
+			ON_MOBILE(this->responders, on_self_position_report, logger, timepoint_ms, &pr);
+		} else {
 			ON_MOBILE(this->responders, on_position_report, logger, timepoint_ms, mmsi, &pr);
-
-			logger->log_message(WarGrey::GYDM::Log::Info, L"%u: (%f, %f)", mmsi, pr.latitude, pr.longitude);
 		}
 	}
 }

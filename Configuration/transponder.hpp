@@ -14,6 +14,7 @@ namespace WarGrey::DTPM {
 
 	public:
 		virtual void pre_respond(WarGrey::GYDM::Syslog* logger) = 0;
+		virtual void on_self_position_report(long long timepoint_ms, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) = 0;
 		virtual void on_position_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) = 0;
 		virtual void post_respond(WarGrey::GYDM::Syslog* logger) = 0;
 	};
@@ -45,6 +46,7 @@ namespace WarGrey::DTPM {
 		void post_respond(WarGrey::GYDM::Syslog* logger) override {}
 
 	public:
+		void on_self_position_report(long long timepoint_ms, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) override {};
 		void on_position_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) override {};
 	};
 }

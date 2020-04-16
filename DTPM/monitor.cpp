@@ -81,7 +81,7 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	this->times = this->insert_one(new Metricslet(new TimeMetrics(this->plc), "worktime", side_zone_width, GraphletAnchor::RT, 3U));
 	this->status = this->insert_one(new Planetlet(status, width, status_height));
 	this->drags = this->insert_one(new Planetlet(drags, side_zone_width, 0.0F));
-	this->project = this->insert_one(new Projectlet(this->vessel, this->track, plot, L"长江口工程", map_width, plot_height));
+	this->project = this->insert_one(new Projectlet(this->vessel, this->track, plot, L"湛江", map_width, plot_height));
 	this->profile = this->insert_one(new Profilet(this->vessel, "profile", profile_width, profile_height));
 	this->traffic = this->insert_one(new AISlet(map_width, plot_height));
 	this->gps = this->insert_one(gps);
@@ -226,7 +226,7 @@ void DTPMonitor::pre_respond(Syslog* logger) {
 }
 
 void DTPMonitor::on_position_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, Syslog* logger) {
-	this->traffic->update_position(mmsi, position);
+	//this->traffic->update_position(mmsi, position);
 }
 
 void DTPMonitor::post_respond(Syslog* logger) {

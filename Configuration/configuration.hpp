@@ -18,15 +18,15 @@ static unsigned short rsyslog_prot = 1618;
 
 static Platform::String^ slang_multicast_group = "239.192.127.7";
 static Platform::String^ system_subnet_prefix = "192.168";
-//static Platform::String^ moxa_gateway = "192.168.0.253";
-//static Platform::String^ plc_hostname = nullptr;
+static Platform::String^ moxa_gateway = "192.168.0.253";
+static Platform::String^ plc_hostname = nullptr;
 
 static const unsigned short scada_plc_master_port = 2008;
 static const unsigned short dtpm_plc_master_port = 2008;
 
 // UWP can connect to, but cannot be connected by, local non-UWP application.
-static Platform::String^ moxa_gateway = "192.168.10.129";
-static Platform::String^ plc_hostname = "192.168.10.129";
+//static Platform::String^ moxa_gateway = "192.168.10.129";
+//static Platform::String^ plc_hostname = "192.168.10.129";
 
 /*************************************************************************************************/
 static const unsigned int frame_per_second = 5U;

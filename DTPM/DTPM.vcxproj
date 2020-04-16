@@ -130,8 +130,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <PackageCertificateKeyFile>F:\CH6000m3\DTPM\DTPM_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>9D9A882039213370798E3ACE5CE4E5F51F8DF613</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>DTPM_TemporaryKey.pfx</PackageCertificateKeyFile>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundle>Never</AppxBundle>
