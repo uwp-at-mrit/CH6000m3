@@ -122,3 +122,8 @@ bool Compass::available(int id) {
 		|| (!this->gps1->connected()));
 }
 
+bool Compass::any_available() {
+	return this->gps1->connected()
+		|| this->gps2->connected()
+		|| this->gyro->connected();
+}

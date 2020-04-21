@@ -71,7 +71,7 @@ void DTPMonitor::load(CanvasCreateResourcesReason reason, float width, float hei
 	StatusFrame* status = new StatusFrame(this->plc);
 	DragsFrame* drags = new DragsFrame(this->plc);
 	ColorPlotlet* plot = new ColorPlotlet("colorplot", plot_width, plot_height);
-	S63let* enchart = nullptr;//new S63let("20170817", map_width, plot_height);
+	S63let* enchart = nullptr; //new S63let("20170817", map_width, plot_height);
 	GPSlet* gps = new GPSlet("gps", 64.0F);
 
 	this->vessel = new TrailingSuctionDredgerlet("vessel", 1.0F);
@@ -225,8 +225,19 @@ void DTPMonitor::pre_respond(Syslog* logger) {
 	this->begin_update_sequence();
 }
 
-void DTPMonitor::on_position_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, Syslog* logger) {
-	//this->traffic->update_position(mmsi, position);
+void DTPMonitor::on_self_position_report(long long timepoint_ms, AISPositionReport* pr, Syslog* logger) {
+	if (!this->compass->any_available()) {
+		double lat = ais_degrees_to_DDmm_mm(pr->latitude);
+		double lon = ais_degrees_to_DDmm_mm(pr->longitude);
+
+		this->on_location(timepoint_ms, lat, lon, 0.0, pr->geo.x, pr->geo.y, logger);
+		this->on_sail(timepoint_ms, pr->speed, pr->course, logger);
+		this->on_heading(timepoint_ms, pr->heading, logger);
+	}
+}
+
+void DTPMonitor::on_position_report(long long timepoint_ms, uint16 mmsi, AISPositionReport* pr, Syslog* logger) {
+	this->traffic->update_position(mmsi, pr);
 }
 
 void DTPMonitor::post_respond(Syslog* logger) {

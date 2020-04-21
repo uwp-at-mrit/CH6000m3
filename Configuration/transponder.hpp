@@ -25,6 +25,8 @@ namespace WarGrey::DTPM {
 		
 	public:
 		void on_ASO(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::ASO* aso, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
+		void on_BCS(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::BCS* bcs, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
+		void on_BCSE(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::BCSE* bcs, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
 		void on_SDR(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::SDR* sdr, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
 		
 	public:

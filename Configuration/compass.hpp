@@ -37,6 +37,7 @@ namespace WarGrey::DTPM {
 	public:
 		void set_gps_convertion_matrix(WarGrey::DTPM::GPSCS^ gcs);
 		void push_receiver(WarGrey::DTPM::ICompassReceiver* receiver);
+		bool any_available();
 
 	private:
 		WarGrey::DTPM::GPSCS^ gcs;
