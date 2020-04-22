@@ -33,10 +33,8 @@ void Transponder::push_receiver(IAISResponder* r) {
 /*************************************************************************************************/
 void Transponder::on_ASO(int id, long long timepoint_ms, bool self, uint16 mmsi, ASO* prca, uint8 priority, Syslog* logger) {
 	if (this->gcs != nullptr) {
-		AISPositionReport pr;
+		AISPositionReport pr(ais_latitude_filter(prca->latitude), ais_longitude_filter(prca->longitude));
 
-		pr.latitude = ais_latitude_filter(prca->latitude);
-		pr.longitude = ais_longitude_filter(prca->longitude);
 		pr.turn = ais_turn_filter(prca->turn);
 		pr.speed = ais_speed_filter(prca->speed);
 		pr.course = ais_course_filter(prca->course);
@@ -52,12 +50,24 @@ void Transponder::on_ASO(int id, long long timepoint_ms, bool self, uint16 mmsi,
 	}
 }
 
+void Transponder::on_BSR(int id, long long timepoint_ms, bool self, uint16 mmsi, BSR* bsr, uint8 priority, Syslog* logger) {
+	if (this->gcs != nullptr) {
+		AISPositionReport pr(ais_latitude_filter(bsr->latitude), ais_longitude_filter(bsr->longitude));
+
+		pr.geo = Degrees_to_XY(pr.latitude, pr.longitude, 0.0, this->gcs->parameter);
+
+		if (self) {
+			ON_MOBILE(this->responders, on_self_position_report, logger, timepoint_ms, &pr);
+		} else {
+			ON_MOBILE(this->responders, on_position_report, logger, timepoint_ms, mmsi, &pr);
+		}
+	}
+}
+
 void Transponder::on_BCS(int id, long long timepoint_ms, bool self, uint16 mmsi, BCS* prcb, uint8 priority, Syslog* logger) {
 	if (this->gcs != nullptr) {
-		AISPositionReport pr;
+		AISPositionReport pr(ais_latitude_filter(prcb->latitude), ais_longitude_filter(prcb->longitude));
 
-		pr.latitude = ais_latitude_filter(prcb->latitude);
-		pr.longitude = ais_longitude_filter(prcb->longitude);
 		pr.speed = ais_speed_filter(prcb->speed);
 		pr.course = ais_course_filter(prcb->course);
 		pr.heading = ais_heading360_filter(prcb->heading);
@@ -75,10 +85,8 @@ void Transponder::on_BCS(int id, long long timepoint_ms, bool self, uint16 mmsi,
 
 void Transponder::on_BCSE(int id, long long timepoint_ms, bool self, uint16 mmsi, BCSE* prcb, uint8 priority, Syslog* logger) {
 	if (this->gcs != nullptr) {
-		AISPositionReport pr;
-
-		pr.latitude = ais_latitude_filter(prcb->latitude);
-		pr.longitude = ais_longitude_filter(prcb->longitude);
+		AISPositionReport pr(ais_latitude_filter(prcb->latitude), ais_longitude_filter(prcb->longitude));
+		
 		pr.speed = ais_speed_filter(prcb->speed);
 		pr.course = ais_course_filter(prcb->course);
 		pr.heading = ais_heading360_filter(prcb->heading);
@@ -94,5 +102,39 @@ void Transponder::on_BCSE(int id, long long timepoint_ms, bool self, uint16 mmsi
 	}
 }
 
+/*************************************************************************************************/
+void Transponder::on_SVD(int id, long long timepoint_ms, bool self, uint16 mmsi, SVD* svd, uint8 priority, Syslog* logger) {
+	if (!self) {
+		AISVoyageReport vr;
+
+		vr.callsign = svd->callsign;
+		vr.shipname = svd->shipname;
+		ais_shipbox_filter(svd->shipbox, &vr.length, &vr.width, &vr.gps_fl, &vr.gps_fw);
+
+		ON_MOBILE(this->responders, on_voyage_report, logger, timepoint_ms, mmsi, &vr);
+	}
+}
+
 void Transponder::on_SDR(int id, long long timepoint_ms, bool self, uint16 mmsi, SDR* sdr, uint8 priority, Syslog* logger) {
+	if (!self) {
+		AISVoyageReport vr;
+
+		switch (sdr->partno) {
+		case SDR::Format::PartA: {
+			vr.shipname = sdr->part.a.shipname;
+
+			ON_MOBILE(this->responders, on_voyage_report, logger, timepoint_ms, mmsi, &vr);
+		}; break;
+		case SDR::Format::PartB: {
+			vr.callsign = sdr->part.b.callsign;
+
+			if (sdr->part.b.auxiliary) {
+				vr.mothership_mmsi = sdr->part.b.craft.mothership_mmsi;
+			} else {
+				ais_shipbox_filter(sdr->part.b.craft.box, &vr.length, &vr.width, &vr.gps_fl, &vr.gps_fw);
+			}
+
+			ON_MOBILE(this->responders, on_voyage_report, logger, timepoint_ms, mmsi, &vr);
+		}; break;
+	}
 }

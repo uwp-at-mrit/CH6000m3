@@ -226,18 +226,32 @@ void DTPMonitor::pre_respond(Syslog* logger) {
 }
 
 void DTPMonitor::on_self_position_report(long long timepoint_ms, AISPositionReport* pr, Syslog* logger) {
+	this->traffic->update_self_position(pr);
+
 	if (!this->compass->any_available()) {
 		double lat = ais_degrees_to_DDmm_mm(pr->latitude);
 		double lon = ais_degrees_to_DDmm_mm(pr->longitude);
 
-		this->on_location(timepoint_ms, lat, lon, 0.0, pr->geo.x, pr->geo.y, logger);
-		this->on_sail(timepoint_ms, pr->speed, pr->course, logger);
-		this->on_heading(timepoint_ms, pr->heading, logger);
+		if ((!flisnan(lat)) && (!flisnan(lon))) {
+			this->on_location(timepoint_ms, lat, lon, 0.0, pr->geo.x, pr->geo.y, logger);
+		}
+
+		if ((!flisnan(pr->speed)) && (!flisnan(pr->course))) {
+			this->on_sail(timepoint_ms, pr->speed, pr->course, logger);
+		}
+
+		if (!flisnan(pr->heading)) {
+			this->on_heading(timepoint_ms, pr->heading, logger);
+		}
 	}
 }
 
 void DTPMonitor::on_position_report(long long timepoint_ms, uint16 mmsi, AISPositionReport* pr, Syslog* logger) {
 	this->traffic->update_position(mmsi, pr);
+}
+
+void DTPMonitor::on_voyage_report(long long timepoint_ms, uint16 mmsi, AISVoyageReport* vr, Syslog* logger) {
+	this->traffic->update_voyage(mmsi, vr);
 }
 
 void DTPMonitor::post_respond(Syslog* logger) {

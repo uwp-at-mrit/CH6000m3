@@ -53,6 +53,7 @@ namespace WarGrey::DTPM {
 		void pre_respond(WarGrey::GYDM::Syslog* logger) override;
 		void on_self_position_report(long long timepoint_ms, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) override;
 		void on_position_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) override;
+		void on_voyage_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISVoyageReport* position, WarGrey::GYDM::Syslog* logger) override;
 		void post_respond(WarGrey::GYDM::Syslog* logger) override;
 
 	public:

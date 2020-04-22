@@ -7,7 +7,7 @@
 #include "syslog.hpp"
 
 namespace WarGrey::DTPM {
-	/************************************************************************************************/
+	/*********************************************************************************************/
 	private class IAISResponder abstract {
 	public:
 		virtual bool respondable() { return true; }
@@ -16,6 +16,7 @@ namespace WarGrey::DTPM {
 		virtual void pre_respond(WarGrey::GYDM::Syslog* logger) = 0;
 		virtual void on_self_position_report(long long timepoint_ms, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) = 0;
 		virtual void on_position_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) = 0;
+		virtual void on_voyage_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISVoyageReport* voyage, WarGrey::GYDM::Syslog* logger) = 0;
 		virtual void post_respond(WarGrey::GYDM::Syslog* logger) = 0;
 	};
 
@@ -25,10 +26,14 @@ namespace WarGrey::DTPM {
 		
 	public:
 		void on_ASO(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::ASO* aso, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
+		void on_BSR(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::BSR* bsr, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
 		void on_BCS(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::BCS* bcs, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
 		void on_BCSE(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::BCSE* bcs, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
-		void on_SDR(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::SDR* sdr, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
 		
+	public:
+		void on_SVD(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::SVD* svd, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
+		void on_SDR(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::SDR* sdr, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
+
 	public:
 		void set_gps_convertion_matrix(WarGrey::DTPM::GPSCS^ gcs);
 		void push_receiver(WarGrey::DTPM::IAISResponder* receiver);
@@ -41,14 +46,15 @@ namespace WarGrey::DTPM {
 		WarGrey::DTPM::INMEA0183* tranceiver;
 	};
 
-	/************************************************************************************************/
+	/*********************************************************************************************/
 	private class AISResponder : public WarGrey::DTPM::IAISResponder {
 	public:
 		void pre_respond(WarGrey::GYDM::Syslog* logger) override {}
 		void post_respond(WarGrey::GYDM::Syslog* logger) override {}
 
 	public:
-		void on_self_position_report(long long timepoint_ms, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) override {};
-		void on_position_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) override {};
+		void on_self_position_report(long long timepoint_ms, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) override {}
+		void on_position_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISPositionReport* position, WarGrey::GYDM::Syslog* logger) override {}
+		void on_voyage_report(long long timepoint_ms, uint16 mmsi, WarGrey::DTPM::AISVoyageReport* voyage, WarGrey::GYDM::Syslog* logger) override {}
 	};
 }
