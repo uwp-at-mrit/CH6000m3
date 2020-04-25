@@ -200,12 +200,20 @@ void DTPMonitor::on_location(long long timepoint_ms, double latitude, double lon
 			this->track->filter_dredging_dot(DredgeTrackType::GPS, double3(geo_x, geo_y, 0.0));
 		}
 	}
+
+	if (this->traffic != nullptr) {
+		this->traffic->update_self_position(geo_x, geo_y);
+	}
 }
 
 void DTPMonitor::on_sail(long long timepoint_ms, double s_kn, double track_deg, Syslog* logger) {
 	if (this->gps != nullptr) {
 		this->memory->gps.set(GP::Speed, s_kn);
 		this->gps->set_speed(s_kn);
+	}
+
+	if (this->traffic != nullptr) {
+		this->traffic->update_self_course(track_deg);
 	}
 }
 
@@ -226,8 +234,6 @@ void DTPMonitor::pre_respond(Syslog* logger) {
 }
 
 void DTPMonitor::on_self_position_report(long long timepoint_ms, AISPositionReport* pr, Syslog* logger) {
-	this->traffic->update_self_position(pr);
-
 	if (!this->compass->any_available()) {
 		double lat = ais_degrees_to_DDmm_mm(pr->latitude);
 		double lon = ais_degrees_to_DDmm_mm(pr->longitude);
@@ -247,15 +253,21 @@ void DTPMonitor::on_self_position_report(long long timepoint_ms, AISPositionRepo
 }
 
 void DTPMonitor::on_position_report(long long timepoint_ms, uint16 mmsi, AISPositionReport* pr, Syslog* logger) {
-	this->traffic->update_position(mmsi, pr);
+	if (this->traffic != nullptr) {
+		this->traffic->update_position(mmsi, pr);
+	}
 }
 
 void DTPMonitor::on_voyage_report(long long timepoint_ms, uint16 mmsi, AISVoyageReport* vr, Syslog* logger) {
-	this->traffic->update_voyage(mmsi, vr);
+	if (this->traffic != nullptr) {
+		this->traffic->update_voyage(mmsi, vr);
+	}
 }
 
 void DTPMonitor::post_respond(Syslog* logger) {
-	this->end_update_sequence();
+	if (this->traffic != nullptr) {
+		this->end_update_sequence();
+	}
 }
 
 /*************************************************************************************************/

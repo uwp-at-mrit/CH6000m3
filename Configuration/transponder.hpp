@@ -1,6 +1,6 @@
 #pragma once
 
-#include "graphlet/aislet.hpp"
+#include "graphlet/filesystem/configuration/aislet.hpp"
 #include "graphlet/filesystem/configuration/gpslet.hpp"
 
 #include "ais.hpp"
@@ -26,7 +26,6 @@ namespace WarGrey::DTPM {
 		
 	public:
 		void on_ASO(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::ASO* aso, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
-		void on_BSR(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::BSR* bsr, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
 		void on_BCS(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::BCS* bcs, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
 		void on_BCSE(int id, long long timepoint_ms, bool self, uint16 mmsi, WarGrey::DTPM::BCSE* bcs, uint8 priority, WarGrey::GYDM::Syslog* logger) override;
 		

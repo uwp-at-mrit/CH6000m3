@@ -14,7 +14,7 @@ namespace WarGrey::DTPM {
 		virtual void pre_move(WarGrey::GYDM::Syslog* logger) = 0;
 		virtual void on_location(long long timepoint_ms, double latitude, double longitude, double altitude, double geo_x, double geo_y, WarGrey::GYDM::Syslog* logger) = 0;
 		virtual void on_sail(long long timepoint_ms, double kn, double track_deg, WarGrey::GYDM::Syslog* logger) = 0;
-		virtual void on_heading(long long timepoint_ms, double deg, WarGrey::GYDM::Syslog* logger) = 0;
+		virtual void on_heading(long long timepoint_ms, double heading_deg, WarGrey::GYDM::Syslog* logger) = 0;
 		virtual void on_turn(long long timepoint_ms, double degpmin, WarGrey::GYDM::Syslog* logger) = 0;
 		virtual void post_move(WarGrey::GYDM::Syslog* logger) = 0;
 	};
@@ -55,7 +55,7 @@ namespace WarGrey::DTPM {
 		void pre_move(WarGrey::GYDM::Syslog* logger) override {}
 		void on_location(long long timepoint_ms, double latitude, double longitude, double altitude, double geo_x, double geo_y, WarGrey::GYDM::Syslog* logger) override {}
 		void on_sail(long long timepoint_ms, double kn, double track_deg, WarGrey::GYDM::Syslog* logger) override {}
-		void on_heading(long long timepoint_ms, double deg, WarGrey::GYDM::Syslog* logger) override {}
+		void on_heading(long long timepoint_ms, double heading_deg, WarGrey::GYDM::Syslog* logger) override {}
 		void on_turn(long long timepoint_ms, double degpmin, WarGrey::GYDM::Syslog* logger) override {}
 		void post_move(WarGrey::GYDM::Syslog* logger) override {}
 	};
