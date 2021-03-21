@@ -2,6 +2,11 @@
 
 #include "syslog.hpp"
 
+/** WARNING
+ * Please rebuild the solution/project after modifying settings in this file,
+ * It's the compiler's fault.
+ */
+
 #ifdef _DEBUG
 static constexpr WarGrey::GYDM::Log default_logging_level = WarGrey::GYDM::Log::Debug;
 #else
@@ -25,8 +30,8 @@ static const unsigned short scada_plc_master_port = 2008;
 static const unsigned short dtpm_plc_master_port = 2008;
 
 // UWP can connect to, but cannot be connected by, local non-UWP application.
-static Platform::String^ moxa_gateway = "192.168.10.129";
-static Platform::String^ plc_hostname = "192.168.10.129";
+static Platform::String^ moxa_gateway = "192.168.3.242";
+static Platform::String^ plc_hostname = "192.168.3.242";
 
 /*************************************************************************************************/
 static const unsigned int frame_per_second = 5U;
